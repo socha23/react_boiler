@@ -1,0 +1,39 @@
+
+spring:
+    datasource:
+        #driver-class-name: com.mysql.jdbc.Driver
+        #url: jdbc:mysql://localhost:3306/gexdroid?useUnicode=yes&characterEncoding=utf-8
+        #url: jdbc:mysql://mysql146797-gexdroid.jelastic.dogado.eu:3306/gexdroid?useUnicode=yes&characterEncoding=utf-8
+        #username: gexdroid
+        #password: gexdroid
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        jmxEnabled: true
+        initialSize: 5
+        maxActive: 50
+        minIdle: 5
+        maxIdle: 25
+        maxWait: 10000
+        maxAge: 600000
+        timeBetweenEvictionRunsMillis: 5000
+        minEvictableIdleTimeMillis: 60000
+        validationQuery: SELECT 1
+        validationQueryTimeout: 3
+        validationInterval: 5000
+        testOnBorrow: true
+        testWhileIdle: true
+        testOnReturn: false
+        jdbcInterceptors: ConnectionState;StatementCache(max=200)
+        defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+        dbProperties:
+            autoReconnect: true
+            zeroDateTimeBehavior: convertToNull
+            cachePrepStmts: false
+            cacheCallableStmts: false
+            holdResultsOpenOverStatementClose: true
+            useServerPrepStmts: false
+            cacheServerConfiguration: true
+        
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

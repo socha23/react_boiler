@@ -1,0 +1,78 @@
+plugins {
+    id 'org.springframework.boot' version '1.4.3.RELEASE'
+    id 'java'
+	id "com.moowork.node" version "1.0.1"
+    id 'groovy'
+}
+
+def profile = (hasProperty("profile") ? profile  : "dev")
+
+
+apply plugin: "war"
+
+
+
+war {
+    baseName = "react_boiler"
+    version = "0.0.1"
+}
+
+jar {
+    baseName = 'react_boiler'
+    version = "0.0.1"
+}
+
+repositories {
+    jcenter()
+	maven {url "http://central.maven.org/maven2/"}
+}
+
+dependencies {
+    // wywalić na produkcję
+    //compile("org.springframework.boot:spring-boot-devtools")
+
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-data-rest")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("com.h2database:h2")
+    compile("commons-io:commons-io:2.4")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.1")
+
+    compile("org.springframework.boot:spring-boot-starter-websocket")
+
+
+    runtime('mysql:mysql-connector-java:5.1.29')
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.spockframework:spock-spring:1.0-groovy-2.4")
+
+    compileOnly "org.projectlombok:lombok:1.16.12"
+
+    compile "org.flywaydb:flyway-core:4.1.0"
+
+}
+
+node {
+    version = '6.11.3'
+    npmVersion = '5.4.2'
+    distBaseUrl = 'https://nodejs.org/dist'
+    download = true
+}
+
+def bundleTask = (profile.split(",").contains('prod') ? 'npm_run_bundle-prod' : 'npm_run_bundle')
+processResources.dependsOn(['npmInstall', bundleTask])
+
+task addProfileToProperties {
+    doLast {
+        File propsFile = new File("build/resources/main/application.properties")
+        propsFile << "\n\nspring.profiles.active=${profile}\n"
+    }
+}
+addProfileToProperties.shouldRunAfter processResources
+
+war.dependsOn addProfileToProperties
+bootRun.dependsOn addProfileToProperties
+
