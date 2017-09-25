@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react'
 import {Router, Route, IndexRoute, IndexRedirect} from 'react-router'
+import Template from './templates/MainTemplate'
 
 import {connect} from 'react-redux'
 
@@ -10,7 +11,10 @@ const HelloWorld = () => <h1>Hello, world!</h1>;
 
 const MyRouter = ({store, history}) => (
     <Router history={history}>
-        <Route path="/" component={HelloWorld}>
+        <Route path="/" component={Template}>
+
+
+
         </Route>
     </Router>
 );
