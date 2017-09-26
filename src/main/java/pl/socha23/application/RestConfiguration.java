@@ -8,6 +8,7 @@ import org.springframework.data.rest.core.event.ValidatingRepositoryEventListene
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import pl.socha23.cyberfire.model.Artifact;
 
 @Configuration
 public class RestConfiguration extends RepositoryRestConfigurerAdapter {
@@ -15,7 +16,7 @@ public class RestConfiguration extends RepositoryRestConfigurerAdapter {
     // żeby mieć IDki w obiektach
     @Override
      public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-         //config.exposeIdsFor(Project.class, ProjectConfig.class, Responder.class, MobileConnection.class, Activity.class);
+         config.exposeIdsFor(Artifact.class);
      }
 
 
