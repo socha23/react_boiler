@@ -1,7 +1,7 @@
 import React from 'react'
 import LiNavLink from './common/components/LiNavLink'
 import {Switch, Route} from 'react-router'
-import Artifacts from './artifacts/components/ArtifactsContainer'
+import ArtifactsList from './artifacts/ArtifactsList'
 
 exports.navBar = <ul className="nav navbar-nav">
     <LiNavLink exact to="/">Artifacts</LiNavLink>
@@ -12,7 +12,7 @@ exports.navBar = <ul className="nav navbar-nav">
 exports.content = <Switch>
     <Route exact path="/">
         <div>
-            <Artifacts/>
+            <ArtifactsList/>
         </div>
     </Route>
     <Route path="/foo">
