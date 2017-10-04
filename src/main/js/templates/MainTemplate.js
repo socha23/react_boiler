@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import { NavLink } from 'react-router-dom'
-import LiNavLink from '../common/components/LiNavLink'
 
-const Template = ({children}) => <div>
+const Template = ({navBar, content}) => <div>
     <nav className="navbar navbar-inverse navbar-fixed-top">
         <div className="container">
             <div className="navbar-header">
@@ -16,16 +15,13 @@ const Template = ({children}) => <div>
                 <NavLink className="navbar-brand" to="/">{window.application.applicationName}</NavLink>
             </div>
             <div id="navbar" className="collapse navbar-collapse">
-
-                <ul className="nav navbar-nav">
-                    <LiNavLink to="/">Home</LiNavLink>
-                </ul>
+                {navBar}
             </div>
         </div>
     </nav>
 
     <div className="container">
-        {children}
+        {content}
     </div>
 </div>;
 
