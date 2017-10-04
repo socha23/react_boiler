@@ -40,7 +40,7 @@ function fetchArtifacts() {
 
 export function fetchArtifactsIfNeeded() {
     return (dispatch, getState) => {
-        if (shouldFetchArtifacts(getState().projects)) {
+        if (shouldFetchArtifacts(getState().artifacts)) {
             return dispatch(fetchArtifacts())
         } else {
             return Promise.resolve()

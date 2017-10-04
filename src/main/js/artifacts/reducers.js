@@ -1,6 +1,6 @@
 import * as Actions from './actions'
 
-export default function artifacts(state = {isFetching: false, projects: []}, action = null) {
+export default function artifacts(state = {isFetching: false, items: []}, action = null) {
     switch (action.type) {
         case Actions.REQUEST_ARTIFACTS:
             return {

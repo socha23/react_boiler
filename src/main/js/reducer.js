@@ -4,7 +4,8 @@ import artifactsReducer from './artifacts/reducers'
 
 exports.INITIAL_STATE = {
     routing: {},
-    isFetching: false
+    isFetching: false,
+    artifacts: {}
 };
 
 exports.reducer = (oldState = INITIAL_STATE, action = null) => {

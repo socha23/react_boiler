@@ -3,32 +3,48 @@ import {connect} from 'react-redux'
 import * as Actions from '../actions'
 import {push} from 'react-router-redux'
 
+var MyList = ({items}) => <div>
+    <div>
+            <h1>Artifacts container</h1>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Weight</th>
+                        <th>Bought on</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {items.map(a => <tr key={a.id}>
+                    <td>{a.name}</td>
+                    <td>{a.weight}</td>
+                    <td>{a.boughtOn}</td>
+                    </tr>)
+                }
+                </tbody>
+
+            </table>
+        </div>
+</div>;
 
 class Container extends React.Component {
 
+    componentDidMount() {
+        this.props.onMount();
+    }
+
     render() {
-        return <h1>Artifacts container</h1>
+        return React.cloneElement(<MyList/>, this.props)
     }
 }
 
-export default Container
-
-/*
-const mapStateToProps = (state, ownProps) => {
-    let project = state.projects.find(p => p.id == ownProps.params.projectId);
-    return {
-        project: project,
-        responders: (project && project.responders) ? project.responders.map((respId => state.responders[respId])) : []
-    }
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    onClick: (resp) => dispatch(push('/responders/' + ownProps.params.projectId + "/" + resp.id))
+const mapStateToProps = (state) =>({
+    items: state.artifacts.items || []
 });
 
 
-const RespondersPageContainer = connect(mapStateToProps, mapDispatchToProps)(RespondersPage);
+const mapDispatchToProps = (dispatch) => ({
+    onMount: () => dispatch(Actions.fetchArtifactsIfNeeded())
+});
 
-export default RespondersPageContainer
-
-*/
+export default connect(mapStateToProps, mapDispatchToProps)(Container);
