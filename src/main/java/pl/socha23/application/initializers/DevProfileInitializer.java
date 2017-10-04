@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.Artifact;
 import pl.socha23.cyberfire.repositories.ArtifactRepository;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
+
 @Profile("dev")
 @Component
 public class DevProfileInitializer implements CommandLineRunner {
@@ -32,15 +35,24 @@ public class DevProfileInitializer implements CommandLineRunner {
     }
 
     private void createSampleArtifacts() {
-        createAndSaveArtifact("Włócznia Longinusa", 5);
-        createAndSaveArtifact("Arka przymierza", 20);
-        createAndSaveArtifact("Swięty Graal", 1);
+        createAndSaveArtifact("Włócznia Longinusa", 5,
+                LocalDateTime.now().minusDays(4),
+                "ancient", "weapon");
+        createAndSaveArtifact("Arka przymierza", 20,
+                LocalDateTime.now().minusDays(15),
+                "religious", "communication");
+        createAndSaveArtifact("Swięty Graal", 1,
+                LocalDateTime.now().minusDays(20),
+                "religious", "pottery");
+
     }
 
-    private void createAndSaveArtifact(String name, int weight) {
+    private void createAndSaveArtifact(String name, int weight, LocalDateTime bought, String ... tags) {
         Artifact a = new Artifact();
         a.setName(name);
         a.setWeight(weight);
+        a.setBoughtOn(bought);
+        a.setTags(Arrays.asList(tags));
         artifactRepository.save(a);
     }
 }

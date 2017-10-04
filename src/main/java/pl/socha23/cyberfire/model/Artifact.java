@@ -1,16 +1,19 @@
 package pl.socha23.cyberfire.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class Artifact {
 
-    @Id
     private String id;
     private String name;
-
     private double weight;
+    private LocalDateTime boughtOn;
+    private List<String> tags = new ArrayList<>();
 
 
 
