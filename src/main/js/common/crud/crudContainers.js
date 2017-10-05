@@ -2,42 +2,32 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import crudActions from './crudActions'
 
-function crudList(resource, component) {
 
-    const actions = crudActions(resource);
+function runOnMount(Component) {
+    return class extends React.Component {
+        componentDidMount() {
+            this.props.onMount()
+        }
 
-    function wrap(clazz) {
-        if (clazz.render) {
-            return class Wrapper extends clazz {
-                componentDidMount() {
-                    this.props.onMount();
-                    super.componentDidMount();
-                }
-            }
-        } else {
-            return class Wrapper extends React.Component {
-                componentDidMount() {
-                    this.props.onMount();
-                }
-
-                render() {
-                    return clazz(this.props)
-                }
-            }
+        render() {
+            return <Component {...this.props}/>
         }
     }
+}
+
+function crudList(resource, Component) {
+    const actions = crudActions(resource);
 
     const mapStateToProps = (state) =>({
         items: state[resource].items || []
     });
-
 
     const mapDispatchToProps = (dispatch) => ({
         onMount: () => dispatch(actions.fetchItemsIfNeeded()),
         reloadItems: () => dispatch(actions.fetchItemsIfNeeded())
     });
 
-    return connect(mapStateToProps, mapDispatchToProps)(wrap(component));
+    return connect(mapStateToProps, mapDispatchToProps)(runOnMount(Component));
 }
 
 module.exports = {
