@@ -1,18 +1,33 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {crudCreate, CrudForm} from '../common/crud/crudContainers'
+import FormHelper from '../common/components/FormHelper'
+import {crudCreate} from '../common/crud/crudContainers'
 
-class ArtifactForm extends CrudForm {
 
-    itemToFields = item => ({
-        ...item,
-        weight: '' + item.weight
+class ArtifactForm extends FormHelper {
 
-    });
+    onChangeName = (ev) => {
+        this.setState({name: ev.target.value});
+    };
 
-    fieldsToItem = fields => ({
-        ...fields,
-        weight: parseFloat(fields.weight)
+    onChangeWeight = (ev) => {
+        this.setState({
+            weightStr: ev.target.value,
+            weight: parseFloat(ev.target.value)
+        });
+    };
+
+    resetForm = () => {
+        this.setState({
+            weight: this.props.item.weight,
+            weightStr: '',
+            name: this.props.item.name
+        });
+    };
+
+    getItemToSubmit = () => ({
+        weight: this.state.weight,
+        name: this.state.name
     });
 
     render() {
@@ -21,8 +36,8 @@ class ArtifactForm extends CrudForm {
                 <label htmlFor="artifactName">Name</label>
                 <input
                     type="text"
-                    value={this.state.fields.name}
-                    onChange={this.changeField("name")}
+                    value={this.state.name}
+                    onChange={this.onChangeName}
                     className="form-control"
                     id="artifactName"
                     placeholder="Please enter artifact name"/>
@@ -32,8 +47,8 @@ class ArtifactForm extends CrudForm {
                 <label htmlFor="artifactWeight">Weight</label>
                 <input
                     type="number"
-                    value={this.state.fields.weight}
-                    onChange={this.changeField("weight")}
+                    value={this.state.weightStr}
+                    onChange={this.onChangeWeight}
                     className="form-control"
                     id="artifactWeight"
                     placeholder="Please enter weight (kg)"

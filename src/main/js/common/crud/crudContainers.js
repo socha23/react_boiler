@@ -30,73 +30,6 @@ function crudList(resource, Component) {
     return connect(mapStateToProps, mapDispatchToProps)(runOnMount(Component));
 }
 
-
-
-class CrudForm extends React.Component {
-    state = {
-        isSubmitting: false
-    };
-
-    componentWillMount = () => {
-        this.resetForm();
-    };
-
-    resetForm = () => {
-        this.setState({fields: this.itemToFields(this.props.item)});
-    };
-
-    changeField = fld => {
-        return e => {
-            var newFields = {...this.state.fields};
-            newFields[fld] = e.target.value;
-            this.setState({fields: newFields})
-        }
-    };
-
-    componentWillUpdate = (nextProps, nextState) => {
-        if (!this.props.submitSuccess && nextProps.submitSuccess && this.props.resetAfterSubmitSuccess) {
-            this.resetForm();
-        }
-    };
-
-    onSubmit = e => {
-        e.preventDefault();
-        var item = this.fieldsToItem(this.state.fields);
-
-        if (this.props.onSubmit) {
-            this.props.onSubmit(item);
-        }
-        return false;
-    };
-
-    canSubmit() {
-        return !this.props.isSubmitting
-    }
-
-    itemToFields = item => ({
-        ...item
-    });
-
-    fieldsToItem = fields => ({
-        ...fields
-    });
-}
-
-CrudForm.propTypes = {
-    isSubmitting: PropTypes.bool,
-    item: PropTypes.object,
-    submitText: PropTypes.string,
-    onSubmit: PropTypes.func
-};
-
-CrudForm.defaultProps = {
-    isSubmitting: false,
-    submitText: "Submit",
-    item: {},
-    onSubmit: () => {
-    }
-};
-
 function crudCreate(
     resource,
     Component,
@@ -108,6 +41,7 @@ function crudCreate(
         isSubmitting: state[resource].isCreating,
         submitSuccess: state[resource].createSuccess,
         resetAfterSubmitSuccess: true,
+        submitText: "Create",
         item: item
     });
 
@@ -121,7 +55,6 @@ function crudCreate(
 
 module.exports = {
     crudList: crudList,
-    CrudForm: CrudForm,
     crudCreate: crudCreate
 
 };
