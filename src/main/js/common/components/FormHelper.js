@@ -34,13 +34,17 @@ export default class FormHelper extends React.Component {
 FormHelper.propTypes = {
     isSubmitting: PropTypes.bool,
     submitSuccess: PropTypes.bool,
+    submitError: PropTypes.bool,
     resetAfterSubmitSuccess: PropTypes.bool,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    errors: PropTypes.object
 };
 
 FormHelper.defaultProps = {
     isSubmitting: false,
     submitSuccess: false,
+    submitError: false,
     resetAfterSubmitSuccess: false,
+    errors: {},
     onSubmit: () => {}
 };

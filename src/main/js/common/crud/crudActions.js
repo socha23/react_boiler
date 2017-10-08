@@ -8,6 +8,18 @@ export default function restActions(resource) {
 
     const ActionNames = restActionNames(resource);
 
+    function parseJSON(response) {
+        return response.json()
+    }
+
+    function checkStatus(response) {
+        if (response.status < 300) {
+            return response
+        } else {
+            throw response
+        }
+    }
+
     // Fetch items
 
     function request() {
@@ -63,6 +75,13 @@ export default function restActions(resource) {
         }
     }
 
+    function createItemError(errors) {
+        return {
+            type: ActionNames.CREATE_ERROR,
+            errors: errors
+        }
+    }
+
     function createItem(item) {
         return (dispatch) => {
             dispatch(createItemRequest());
@@ -71,20 +90,23 @@ export default function restActions(resource) {
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(item)
             })
-                .then(
-                    response => response.json()
+                .then(checkStatus)
+                .then(parseJSON)
+                .then(json => {
+                    dispatch(createItemSuccess(json));
+                }).catch(error => {
+                    error.json()
                         .then(json => {
-                            dispatch(createItemSuccess(json));
-                        }),
-                    error => {
-                        console.log("ERROR");
-                        console.log(error);
-                    })
+                            var errors = {};
+                            json.errors.forEach(e => {
+                                errors[e.property] = e.message;
+                            });
+                            return errors;
+                        })
+                        .then(e => dispatch(createItemError(e)));
+                    });
         }
     }
-
-
-
 
     return {
         fetchItems,

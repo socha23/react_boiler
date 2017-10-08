@@ -34,6 +34,7 @@ class ArtifactForm extends FormHelper {
         return <form onSubmit={this.onSubmit}>
             <div className="form-group">
                 <label htmlFor="artifactName">Name</label>
+                <span>{this.props.errors.name}</span>
                 <input
                     type="text"
                     value={this.state.name}

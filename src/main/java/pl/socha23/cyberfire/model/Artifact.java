@@ -1,21 +1,26 @@
 package pl.socha23.cyberfire.model;
 
-import lombok.Data;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.*;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Artifact {
 
+    public enum Priority {P3_HIGH, P2_MEDIUM, P1_LOW};
+    public enum Type {PAINTING, SCULPTURE, POTTERY, DOCUMENT, OTHER}
+
     private String id;
-    private String name;
-    private double weight;
-    private LocalDateTime boughtOn;
-    private List<String> tags = new ArrayList<>();
 
+    @NotEmpty(message = "Please enter name")
+    private String name = "";
 
-
-
+    private Priority priority;
+    private Type type;
+    private Dimensions dimensions;
+    private Double weight;
+    private String identificationNotes = "";
+    private String evacuationNotes = "";
 }
