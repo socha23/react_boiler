@@ -30,6 +30,22 @@ function crudList(resource, Component) {
     return connect(mapStateToProps, mapDispatchToProps)(runOnMount(Component));
 }
 
+function crudCreate(resource, Component) {
+    const actions = crudActions(resource);
+
+    const mapStateToProps = (state) =>({
+        isSubmitting: state[resource].isCreating
+    });
+
+    const mapDispatchToProps = (dispatch) => ({
+        onSubmit: (item) => dispatch(actions.createItem(item))
+    });
+
+    return connect(mapStateToProps, mapDispatchToProps)(Component);
+}
+
+
 module.exports = {
-    crudList: crudList
+    crudList: crudList,
+    crudCreate: crudCreate
 };

@@ -5,7 +5,11 @@ import restActionNames from './crudActionNames'
 const API_PATH = "/api/";
 
 export default function restActions(resource) {
+
     const ActionNames = restActionNames(resource);
+
+    // Fetch items
+
     function request() {
         return {
             type: ActionNames.REQUEST_ITEMS
@@ -44,10 +48,51 @@ export default function restActions(resource) {
         }
     }
 
+    // create item
+
+    function createItemRequest() {
+        return {
+            type: ActionNames.REQUEST_CREATE
+        }
+    }
+
+    function createItemSuccess(item) {
+        return {
+            type: ActionNames.CREATE_SUCCESS,
+            item: item
+        }
+    }
+
+    function createItem(item) {
+        return (dispatch) => {
+            dispatch(createItemRequest());
+            return fetch(API_PATH + resource, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(item)
+            })
+                .then(
+                    response => response.json()
+                        .then(json => {
+                            dispatch(createItemSuccess(json));
+                        }),
+                    error => {
+                        console.log("ERROR");
+                        console.log(error);
+                    })
+        }
+    }
+
+
+
+
     return {
         fetchItems,
-        fetchItemsIfNeeded
+        fetchItemsIfNeeded,
+        createItem
     }
+
+
 }
 
 

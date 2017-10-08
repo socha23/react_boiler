@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {crudCreate} from '../common/crud/crudContainers'
 
 class ArtifactForm extends React.Component {
 
@@ -80,5 +81,9 @@ ArtifactForm.defaultProps = {
     }
 };
 
+module.exports = {
+    ArtifactForm : ArtifactForm,
+    CreateArtifactForm: crudCreate("artifacts", ArtifactForm)
 
-export default ArtifactForm
+};
+

@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {crudList} from '../common/crud/crudContainers'
 
-import ArtifactForm from './ArtifactForm'
+import {CreateArtifactForm} from './ArtifactForm'
 
 var MyList = ({items, reloadItems}) => <div>
     <h1>Artifacts list</h1>
 
-    <ArtifactForm/>
+    <CreateArtifactForm/>
 
     <table className="table">
         <thead>
