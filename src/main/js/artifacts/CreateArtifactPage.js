@@ -7,20 +7,24 @@ import ArtifactForm from './ArtifactForm'
 const CreateArtifactPage = (props) => (
     <div>
         <h1>Create new artifact</h1>
-        <ArtifactForm  {...props}/>
+        <ArtifactForm
+            submitText = "Create"
+            item = {{
+                name: '',
+                type: Type[0].id,
+                priority: Priority[0].id,
+                weight: null,
+                dimensions: {},
+                identificationNotes: '',
+                evacuationNotes: ''
+            }}
+            afterSubmit = {{
+                growl: "Artifact created",
+                redirectTo: "/artifacts"
+            }}
+            {...props}/>
     </div>
 );
 
-export default crudCreate("artifacts", CreateArtifactPage, {
-    name: '',
-    type: Type[0].id,
-    priority: Priority[0].id,
-    weight: null,
-    dimensions: {},
-    identificationNotes: '',
-    evacuationNotes: ''
-}, {
-    growl: "Artifact created",
-    redirectTo: "/artifacts"
-})
+export default crudCreate("artifacts", CreateArtifactPage)
 

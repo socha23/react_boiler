@@ -31,19 +31,14 @@ function crudList(resource, Component) {
 
 function crudCreate(
     resource,
-    Component,
-    item = {},
-    afterSubmit = {resetForm: true, growl: "Item created"}
+    Component
 ) {
     const actions = crudActions(resource);
 
     const mapStateToProps = (state) =>({
         isSubmitting: state[resource].isCreating,
         submitSuccess: state[resource].createSuccess,
-        afterSubmit: afterSubmit,
-        submitText: "Create",
-        fldErrors: state[resource].createFldErrors,
-        item: item
+        fldErrors: state[resource].createFldErrors
     });
 
     const mapDispatchToProps = (dispatch) => ({
