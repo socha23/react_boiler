@@ -37,7 +37,7 @@ FormHelper.propTypes = {
     submitError: PropTypes.bool,
     resetAfterSubmitSuccess: PropTypes.bool,
     onSubmit: PropTypes.func,
-    errors: PropTypes.object
+    fldErrors: PropTypes.object
 };
 
 FormHelper.defaultProps = {
@@ -45,6 +45,6 @@ FormHelper.defaultProps = {
     submitSuccess: false,
     submitError: false,
     resetAfterSubmitSuccess: false,
-    errors: {},
+    fldErrors: {},
     onSubmit: () => {}
 };

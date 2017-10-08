@@ -42,7 +42,7 @@ function crudCreate(
         submitSuccess: state[resource].createSuccess,
         resetAfterSubmitSuccess: true,
         submitText: "Create",
-        errors: state[resource].errors,
+        fldErrors: state[resource].createFldErrors,
         item: item
     });
 
