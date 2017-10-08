@@ -2,28 +2,83 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {crudCreate} from '../common/crud/crudContainers'
 
-class ArtifactForm extends React.Component {
-
+class FormHelper extends React.Component {
     state = {
-        isSubmitting: false,
-        item: {weight: '' + this.props.item.weight, ...this.props.item}
+        isSubmitting: false
+    };
+
+    componentWillMount = () => {
+        this.setState({fields: this.itemToFields(this.props.item)});
     };
 
     changeField = fld => {
         return e => {
-            var newItem = {...this.state.item};
-            newItem[fld] = e.target.value;
-            this.setState({item: newItem})
+            var newFields = {...this.state.fields};
+            newFields[fld] = e.target.value;
+            this.setState({fields: newFields})
         }
     };
 
+    onSubmit = e => {
+        e.preventDefault();
+        var item = this.fieldsToItem(this.state.fields);
+
+        if (this.props.onSubmit) {
+            this.props.onSubmit(item);
+        }
+        return false;
+    };
+
+    canSubmit() {
+        return !this.props.isSubmitting
+    }
+
+    itemToFields = item => ({
+        ...item
+    });
+
+    fieldsToItem = fields => ({
+        ...fields
+    });
+}
+
+FormHelper.propTypes = {
+    isSubmitting: PropTypes.bool,
+    item: PropTypes.object,
+    submitText: PropTypes.string,
+    onSubmit: PropTypes.func
+};
+
+FormHelper.defaultProps = {
+    isSubmitting: false,
+    submitText: "Submit",
+    item: {},
+    onSubmit: () => {
+    }
+};
+
+
+
+class ArtifactForm extends FormHelper {
+
+    itemToFields = item => ({
+        ...item,
+        weight: '' + item.weight
+
+    });
+
+    fieldsToItem = fields => ({
+        ...fields,
+        weight: parseFloat(fields.weight)
+    });
+
     render() {
-        return <form onSubmit={this.onSubmit.bind(this)}>
+        return <form onSubmit={this.onSubmit}>
             <div className="form-group">
                 <label htmlFor="artifactName">Name</label>
                 <input
                     type="text"
-                    value={this.state.item.name}
+                    value={this.state.fields.name}
                     onChange={this.changeField("name")}
                     className="form-control"
                     id="artifactName"
@@ -34,7 +89,7 @@ class ArtifactForm extends React.Component {
                 <label htmlFor="artifactWeight">Weight</label>
                 <input
                     type="number"
-                    value={this.state.item.weight}
+                    value={this.state.fields.weight}
                     onChange={this.changeField("weight")}
                     className="form-control"
                     id="artifactWeight"
@@ -43,43 +98,12 @@ class ArtifactForm extends React.Component {
             </div>
 
             <button type="submit"
-                    className="btn btn-lg btn-primary"
+                    className="btn btn-primary"
                     disabled={!this.canSubmit()}
             >{this.props.submitText}</button>
         </form>
     }
-
-
-    canSubmit() {
-        return !this.props.isSubmitting
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
-
-        var item = {...this.state.item, weight: parseFloat(this.state.item.weight)};
-
-        if (this.props.onSubmit) {
-            console.log(item);
-            this.props.onSubmit(item);
-        }
-    }
 }
-
-ArtifactForm.propTypes = {
-    isSubmitting: PropTypes.bool,
-    item: PropTypes.object,
-    submitText: PropTypes.string,
-    onSubmit: PropTypes.func
-};
-
-ArtifactForm.defaultProps = {
-    isSubmitting: false,
-    item: {name: '', weight: ''},
-    submitText: "Submit",
-    onSubmit: () => {
-    }
-};
 
 module.exports = {
     ArtifactForm : ArtifactForm,
