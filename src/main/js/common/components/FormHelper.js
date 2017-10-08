@@ -16,6 +16,14 @@ export default class FormHelper extends React.Component {
         }
     };
 
+    stateSettingListener = (fld) => {
+        return (ev) => {
+            var newState = {};
+            newState[fld] = ev.target.value;
+            this.setState(newState);
+        }
+    };
+
     getItemToSubmit = () => ({
     });
 
