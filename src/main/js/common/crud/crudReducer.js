@@ -7,6 +7,7 @@ export default function restReducer(resource) {
     return function reduce(state = {
         isFetching: false,
         isCreating: false,
+        createSuccess: false,
         items: []
     }, action = null) {
         switch (action.type) {
@@ -24,12 +25,14 @@ export default function restReducer(resource) {
             case ActionNames.REQUEST_CREATE:
                 return {
                     ...state,
+                    createSuccess: false,
                     isCreating: true
                 };
             case ActionNames.CREATE_SUCCESS:
                 return {
                     ...state,
                     isCreating: false,
+                    createSuccess: true,
                     items: [action.item, ...state.items]
                 };
 
