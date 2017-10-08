@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import {crudList} from '../common/crud/crudContainers'
-
-import {CreateArtifactForm} from './ArtifactForm'
+import {Link} from 'react-router-dom'
 
 var MyList = ({items, reloadItems}) => <div>
     <h1>Artifacts list</h1>
 
-    <CreateArtifactForm/>
+    <Link className="btn btn-primary" to="/artifacts/new">New artifact</Link>
 
     <table className="table">
         <thead>

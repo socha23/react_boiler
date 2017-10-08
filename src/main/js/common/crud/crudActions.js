@@ -95,6 +95,7 @@ export default function restActions(resource) {
                 .then(json => {
                     dispatch(createItemSuccess(json));
                 }).catch(error => {
+                    console.log(error);
                     error.json()
                         .then(json => {
                             var errors = {};

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import growl from '../growl'
 
 export default class FormHelper extends React.Component {
     componentWillMount = () => {
@@ -10,8 +11,14 @@ export default class FormHelper extends React.Component {
 
     componentWillUpdate = (nextProps, nextState) => {
         if (!this.props.submitSuccess && nextProps.submitSuccess) {
-            if (this.props.resetAfterSubmitSuccess && this.resetForm) {
+            if (this.props.afterSubmit.resetForm && this.resetForm) {
                 this.resetForm();
+            }
+            if (this.props.afterSubmit.redirectTo) {
+                this.context.router.history.push(this.props.afterSubmit.redirectTo);
+            }
+            if (this.props.afterSubmit.growl) {
+                growl(this.props.afterSubmit.growl);
             }
         }
     };
@@ -43,7 +50,7 @@ FormHelper.propTypes = {
     isSubmitting: PropTypes.bool,
     submitSuccess: PropTypes.bool,
     submitError: PropTypes.bool,
-    resetAfterSubmitSuccess: PropTypes.bool,
+    afterSubmit: PropTypes.object,
     onSubmit: PropTypes.func,
     fldErrors: PropTypes.object
 };
@@ -52,7 +59,13 @@ FormHelper.defaultProps = {
     isSubmitting: false,
     submitSuccess: false,
     submitError: false,
-    resetAfterSubmitSuccess: false,
+    afterSubmit: {},
     fldErrors: {},
     onSubmit: () => {}
+};
+
+FormHelper.contextTypes = {
+    router: PropTypes.shape({
+      history: PropTypes.object.isRequired
+    })
 };

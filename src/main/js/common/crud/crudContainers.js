@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import crudActions from './crudActions'
 
-
 function runOnMount(Component) {
     return class extends React.Component {
         componentDidMount() {
@@ -33,14 +32,15 @@ function crudList(resource, Component) {
 function crudCreate(
     resource,
     Component,
-    item = {}
+    item = {},
+    afterSubmit = {resetForm: true, growl: "Item created"}
 ) {
     const actions = crudActions(resource);
 
     const mapStateToProps = (state) =>({
         isSubmitting: state[resource].isCreating,
         submitSuccess: state[resource].createSuccess,
-        resetAfterSubmitSuccess: true,
+        afterSubmit: afterSubmit,
         submitText: "Create",
         fldErrors: state[resource].createFldErrors,
         item: item
