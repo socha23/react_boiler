@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {crudList} from '../common/crud/crudContainers'
 import {Link} from 'react-router-dom'
 

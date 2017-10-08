@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import FormHelper from '../common/components/FormHelper'
-import {crudCreate, afterSubmitRedirectTo} from '../common/crud/crudContainers'
+import {crudCreate} from '../common/crud/crudContainers'
 import {floatToString, stringToFloat} from '../common/conversionHelpers'
 import {Priority, Type} from './ArtifactVocs'
 

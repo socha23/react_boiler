@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Priority, Type} from './ArtifactVocs'
 import {crudCreate} from '../common/crud/crudContainers'
 
