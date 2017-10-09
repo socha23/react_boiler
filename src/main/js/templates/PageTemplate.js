@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-const PageTemplate = ({pageNav, content}) => <div>
+const PageTemplate = ({pageNav, content}) => <div className="pageWithNav">
     <div className="pageNavContainer">
         <nav className="pageNav">
             {pageNav}

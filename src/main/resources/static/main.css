@@ -59,8 +59,7 @@ body {
     }
 
     .contents {
-        position: absolute;
-        left: 75px;
+        margin-left: 75px;
     }
 }
 
@@ -79,10 +78,24 @@ body {
  * PAGE NAV BAR
  */
 
+.pageWithNav {
+    position: relative;
+}
+
+.pageWithNavBody {
+    position: relative;
+    z-index: 1;
+}
+
+.pageNavContainer {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    width: 100%;
+}
+
 .pageNav ul {
     background-color: #E4E4E4;
-    position: fixed;
-    top: 0;
     height: 50px;
     width: 100%;
     font-size: 14px;
