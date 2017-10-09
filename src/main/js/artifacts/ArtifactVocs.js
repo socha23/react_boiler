@@ -1,37 +1,45 @@
 export const Priority = [
     {
         id: "P3_HIGH",
-        name: "High"
+        name: "Wysoki",
+        iconText: "3"
     },
     {
         id: "P2_MEDIUM",
-        name: "Medium"
+        name: "Średni",
+        iconText: "2"
     },
     {
         id: "P1_LOW",
-        name: "Low"
+        name: "Niski",
+        iconText: "1"
     }
 ];
 
 export const Type = [
     {
         id: "PAINTING",
-        name: "painting"
+        name: "Obraz",
+        iconClass: "glyphicon glyphicon-picture"
     },
     {
         id: "SCULPTURE",
-        name: "sculpture"
+        name: "Rzeźba",
+        iconClass: "glyphicon glyphicon-user"
     },
     {
         id: "POTTERY",
-        name: "pottery"
+        name: "Ceramika",
+        iconClass: "glyphicon glyphicon-piggy-bank"
     },
     {
         id: "DOCUMENT",
-        name: "document"
+        name: "Dokument",
+        iconClass: "glyphicon glyphicon-book"
     },
     {
         id: "OTHER",
-        name: "other"
+        name: "Inne",
+        iconClass: "glyphicon glyphicon-gift"
     }
 ];

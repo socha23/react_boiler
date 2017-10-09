@@ -1,3 +1,27 @@
+/*
+ * adjust bootstrap
+ */
+
+.form-inline label {
+    margin-right: 5px;
+}
+
+.form-inline input, .form-inline select {
+    margin-right: 15px;
+}
+
+.panel {
+    margin-bottom: 10px;
+}
+
+.table th {
+    padding-top: 0 !important;
+}
+
+
+
+
+
 body {
     background-color: #F2F2F2;
 }
@@ -87,11 +111,17 @@ body {
     z-index: 1;
 }
 
-.pageNavContainer {
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    width: 100%;
+@media (min-width: 768px) {
+    .pageNavContainer {
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        width: 100%;
+    }
+
+    .pageWithNavBody {
+        margin-top: 50px;
+    }
 }
 
 .pageNav ul {
@@ -106,8 +136,9 @@ body {
 }
 
 @media (max-width: 767px) {
-    .pageNav ul {
+    .pageNavContainer {
         top: 70px;
+        width: 100%;
     }
 }
 
@@ -131,18 +162,41 @@ body {
 }
 
 .pageWithNavBody {
-    margin-top: 50px;
-    padding: 10px 20px 0 20px;
+    padding: 15px 5px 0 5px;
+}
+
+.colWithSmallerGutter {
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 /*
- * FORMS
+ * own components
  */
 
-.form-inline label {
-    margin-right: 5px;
+.toggleButtons .btn {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
-.form-inline input, .form-inline select {
-    margin-right: 15px;
+.toggleButtons .btn i {
+    padding-right: 10px;
+}
+
+.toggleButtons .btn .badge {
+    margin-right: 10px;
+}
+
+.toggleButtons .btn-default i {
+    color: #AAA;
+}
+
+.toggleButtons .btn-default .badge {
+    background-color: #AAA;
+}
+
+.toggleButtons .btn:last-child {
+    width: 100%;
+    margin-bottom: 0;
 }
