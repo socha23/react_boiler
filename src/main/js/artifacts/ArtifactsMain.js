@@ -3,7 +3,7 @@ import {Switch, Route, Redirect} from 'react-router'
 import LiNavLink from '../common/components/LiNavLink'
 import PageTemplate from '../templates/PageTemplate'
 
-import ArtifactsList from './ArtifactsList'
+import ArtifactsPage from './ArtifactsPage'
 import CreateArtifactPage from './CreateArtifactPage'
 
 const menu = <ul>
@@ -12,7 +12,7 @@ const menu = <ul>
 </ul>;
 
 const content = <Switch>
-    <Route exact path="/artifacts" component={ArtifactsList}/>
+    <Route exact path="/artifacts" component={ArtifactsPage}/>
     <Route path="/artifacts/new" component={CreateArtifactPage}/>
 </Switch>;
 
