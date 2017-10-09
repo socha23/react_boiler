@@ -16,7 +16,7 @@ public class MainController {
     @Value("${spring.application.name}")
     private String title;
 
-    @RequestMapping(value = {"/" /* i inne ścieżki, np "project/**", "responders/**", "activities/**"*/})
+    @RequestMapping(value = {"/", "artifacts/**"})
     public String index() {
         return "index";
     }
