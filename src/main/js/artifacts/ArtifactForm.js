@@ -8,17 +8,17 @@ import {Priority, Type} from './ArtifactVocs'
 
 class ArtifactForm extends FormHelper {
 
-    resetForm = () => {
+    resetForm = (item = {}) => {
         this.setState({
-            name: this.props.item.name,
-            type: this.props.item.type,
-            priority: this.props.item.priority,
-            weight: floatToString(this.props.item.weight),
-            width: floatToString(this.props.item.width),
-            height: floatToString(this.props.item.height),
-            depth: floatToString(this.props.item.depth),
-            identificationNotes: this.props.item.identificationNotes,
-            evacuationNotes: this.props.item.evacuationNotes
+            name: item.name || '',
+            type: item.type || Type[0].id,
+            priority: item.priority || Priority[0].id,
+            weight: floatToString(item.weight) || '',
+            width: floatToString(item.width) || '',
+            height: floatToString(item.height) || '',
+            depth: floatToString(item.depth) || '',
+            identificationNotes: item.identificationNotes || '',
+            evacuationNotes: item.evacuationNotes || ''
         });
     };
 
@@ -37,6 +37,7 @@ class ArtifactForm extends FormHelper {
     });
 
     render() {
+        console.log(this.props.item);
         return <form onSubmit={this.onSubmit}>
             <div className="form-group">
                 <label htmlFor="artifactName">Name</label>

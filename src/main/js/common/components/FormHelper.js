@@ -4,14 +4,12 @@ import growl from '../growl'
 
 export default class FormHelper extends React.Component {
     componentWillMount = () => {
-        if (this.resetForm) {
-            this.resetForm();
-        }
+        this.resetForm(this.props.item);
     };
 
     componentWillUpdate = (nextProps, nextState) => {
         if (!this.props.submitSuccess && nextProps.submitSuccess) {
-            if (this.props.afterSubmit.resetForm && this.resetForm) {
+            if (this.props.afterSubmit.resetForm) {
                 this.resetForm();
             }
             if (this.props.afterSubmit.redirectTo) {
@@ -22,6 +20,12 @@ export default class FormHelper extends React.Component {
             }
         }
     };
+
+    componentWillReceiveProps = (nextProps) => {
+        this.resetForm(nextProps.item)
+    };
+
+    resetForm = (item) => {};
 
     stateSettingListener = (fld) => {
         return (ev) => {

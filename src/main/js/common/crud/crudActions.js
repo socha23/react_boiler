@@ -42,7 +42,7 @@ export default function restActions(resource) {
     function fetchItems() {
         return function (dispatch) {
             dispatch(request());
-            return fetch(API_PATH + resource + "?sort=id,desc") // spring data rest
+            return fetch(API_PATH + resource + "?sort=id,desc&size=1000") // spring data rest
                 .then(response => response.json())
                 .then(json => {
                     dispatch(receive(json._embedded[resource]));

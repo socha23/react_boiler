@@ -14,7 +14,7 @@ exports.content = <Switch>
     <Route exact path="/">
         <Redirect to="/artifacts"/>
     </Route>
-    <Route path="/artifacts" component={Artifacts}/>
+    <Route path="/artifacts/:artifactId?" component={Artifacts}/>
     <Route path="/foo">
         <div>
             FOOOO

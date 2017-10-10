@@ -4,8 +4,8 @@ import * as vocFunctions from '../common/vocFunctions'
 import VocIcon from '../common/components/VocIcon'
 import {EnumFilter} from '../common/components/filters'
 
-export const ArtifactsList = ({items}) => <div>
-    <table className="table table-hover">
+export const ArtifactsList = ({selected = {}, items = [], onSelectItem = (() => {})}) => <div>
+    <table className="table table-hover table-pointer">
         <thead>
         <tr>
             <th>Typ</th>
@@ -14,7 +14,7 @@ export const ArtifactsList = ({items}) => <div>
         </tr>
         </thead>
         <tbody>
-        {items.map(a => <tr key={a.id}>
+        {items.map(a => <tr key={a.id} className={selected == a ? 'success' : ''} onClick={() => {onSelectItem(a)}}>
             <td><VocIcon value={vocFunctions.find(Type, a.type)}/></td>
             <td>{a.name}</td>
             <td><VocIcon value={vocFunctions.find(Priority, a.priority)}/></td>
