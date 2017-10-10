@@ -18,6 +18,9 @@
     padding-top: 0 !important;
 }
 
+.table {
+    margin-bottom: 0;
+}
 
 
 
@@ -199,4 +202,12 @@ body {
 .toggleButtons .btn:last-child {
     width: 100%;
     margin-bottom: 0;
+}
+
+.vocIcon i {
+    color: #AAA;
+}
+
+.vocIcon .badge {
+    background-color: #AAA;
 }
