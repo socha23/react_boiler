@@ -1,6 +1,8 @@
 import React from 'react'
+import {Type, Priority} from './ArtifactVocs'
+import {EnumFilter} from '../common/components/filters'
 
-const ArtifactsList = ({items}) => <div>
+export const ArtifactsList = ({items}) => <div>
     <table className="table table-hover">
         <thead>
         <tr>
@@ -21,4 +23,17 @@ const ArtifactsList = ({items}) => <div>
     </table>
 </div>;
 
-export default ArtifactsList
+export const ArtifactTypeFilter = ({filter, onFilterChange}) => <EnumFilter
+    items={Type}
+    field="type"
+    filter={filter}
+    onFilterChange={onFilterChange}
+/>;
+
+export const ArtifactPriorityFilter = ({filter, onFilterChange}) => <EnumFilter
+    items={Priority}
+    field="priority"
+    filter={filter}
+    onFilterChange={onFilterChange}
+/>;
+
