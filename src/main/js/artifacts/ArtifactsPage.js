@@ -3,26 +3,22 @@ import {crudList} from '../common/crud/crudContainers'
 import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter} from './ArtifactsList'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 import ArtifactForm from './ArtifactForm'
-import {EnumFilter} from '../common/components/filters'
-import {Priority, Type} from './ArtifactVocs'
+import {SearchFilter} from '../common/components/filters'
 
 const ArtifactsPage = ({filter, items, onFilterChange}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
                 <Panel>
+                    <SearchFilter placeholder="Szukaj" filter={filter} onFilterChange={onFilterChange}/>
+                </Panel>
+                <Panel>
                     <p><b>Typ muzealiów</b></p>
-                    <ArtifactTypeFilter
-                        filter={filter}
-                        onFilterChange={onFilterChange}
-                    />
+                    <ArtifactTypeFilter filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
                 <Panel>
                     <p><b>Priorytet</b></p>
-                    <ArtifactPriorityFilter
-                        filter={filter}
-                        onFilterChange={onFilterChange}
-                    />
+                    <ArtifactPriorityFilter filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
             </div>
             <div className="col-sm-5 colWithSmallerGutter">
@@ -54,6 +50,8 @@ class ArtifactsPageContainer extends React.Component {
             if (currentFilter.type && !(currentFilter.type[i.type])) {
                 return false;
             } else if (currentFilter.priority && !currentFilter.priority[i.priority]) {
+                return false;
+            } else if (currentFilter.search && !i.name.toLowerCase().includes(currentFilter.search.toLowerCase())) {
                 return false;
             }
             return true;

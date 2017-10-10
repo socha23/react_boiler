@@ -1,6 +1,8 @@
 import React from 'react'
 import ToggleButtons from './ToggleButtons'
+import SearchInput from './SearchInput'
 import PropTypes from 'prop-types'
+
 
 export class EnumFilter extends React.Component {
 
@@ -42,4 +44,29 @@ EnumFilter.propTypes = {
     filter: PropTypes.object,
     field: PropTypes.string,
     onFilterChange: PropTypes.func
+};
+
+
+export class SearchFilter extends React.Component {
+
+    onSearch = (val) => {
+        val = (val || "").trim();
+        let newFilter = {...this.props.filter};
+        if (val == "") {
+            delete newFilter.search
+        } else {
+            newFilter.search = val;
+        }
+        this.props.onFilterChange(newFilter);
+    };
+
+    render() {
+        return <SearchInput value={this.props.filter.search} onSearch={this.onSearch} placeholder={this.props.placeholder}/>
+    }
+}
+
+SearchFilter.propTypes = {
+    filter: PropTypes.object,
+    onFilterChange: PropTypes.func,
+    placeholder: PropTypes.string
 };
