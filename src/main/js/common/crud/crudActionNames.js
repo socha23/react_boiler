@@ -9,7 +9,11 @@ export default function restActionNames(resource) {
 
         REQUEST_DELETE: 'REQUEST_DELETE_' + resource.toUpperCase(),
         DELETE_SUCCESS: 'DELETE_SUCCESS_' + resource.toUpperCase(),
-        DELETE_ERROR: 'DELETE_ERROR_' + resource.toUpperCase()
+        DELETE_ERROR: 'DELETE_ERROR_' + resource.toUpperCase(),
+
+        REQUEST_UPDATE: 'REQUEST_UPDATE' + resource.toUpperCase(),
+        UPDATE_SUCCESS: 'UPDATE_SUCCESS_' + resource.toUpperCase(),
+        UPDATE_ERROR: 'UPDATE_ERROR_' + resource.toUpperCase()
 
     }
 }

@@ -9,7 +9,7 @@ import fadeOnItemChange from '../common/components/fadeOnItemChange'
 
 const FadingArtifactCard = fadeOnItemChange(ArtifactCard);
 
-const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete}) =>
+const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
@@ -34,7 +34,7 @@ const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectI
                 {
                     selected ?
                         <Panel>
-                            <FadingArtifactCard item={selected} animationTime={150} onDelete={onDelete}/>
+                            <FadingArtifactCard item={selected} animationTime={150} onDelete={onDelete} onUpdate={onUpdate}/>
                         </Panel>
                         :
                         <div></div>

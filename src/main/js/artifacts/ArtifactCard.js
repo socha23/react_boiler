@@ -38,7 +38,10 @@ export default class ArtifactCard extends React.Component {
     };
 
     onUpdate = (item) => {
-        this.setState({edit: false});
+        this.props.onUpdate(item, () => {
+            this.setState({edit: false});
+            growl("Zapisano zmiany");
+        });
     };
 
     onDelete = () => {

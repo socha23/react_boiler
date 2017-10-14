@@ -22,19 +22,23 @@ class ArtifactForm extends FormHelper {
         });
     };
 
-    getItemToSubmit = () => ({
-        name: this.state.name,
-        type: this.state.type || null,
-        priority: this.state.priority || null,
-        weight: stringToFloat(this.state.weight),
-        dimensions: {
+    getItemToSubmit = () => {
+
+        let item = {...this.props.item};
+
+        item.name = this.state.name;
+        item.type = this.state.type;
+        item.priority = this.state.priority;
+        item.weight = stringToFloat(this.state.weight);
+        item.dimensions = {
             height: stringToFloat(this.state.height),
             width: stringToFloat(this.state.width),
             depth: stringToFloat(this.state.depth)
-        },
-        identificationNotes: this.state.identificationNotes,
-        evacuationNotes: this.state.evacuationNotes
-    });
+        };
+        item.identificationNotes = this.state.identificationNotes;
+        item.evacuationNotes = this.state.evacuationNotes;
+        return item;
+    };
 
     render() {
         return <form onSubmit={this.onSubmit}>
@@ -84,7 +88,7 @@ class ArtifactForm extends FormHelper {
                         className="form-control"
                         id="artifactHeight"
                         placeholder="Height (cm)"
-                        />
+                    />
                 </div>
                 <div className="form-group">
                     <label htmlFor="artifactHeight">Width</label>
@@ -95,7 +99,7 @@ class ArtifactForm extends FormHelper {
                         className="form-control"
                         id="artifactWidth"
                         placeholder="Width (cm)"
-                        />
+                    />
                 </div>
                 <div className="form-group">
                     <label htmlFor="artifactDepth">Depth</label>
@@ -106,7 +110,7 @@ class ArtifactForm extends FormHelper {
                         className="form-control"
                         id="artifactDepth"
                         placeholder="Depth (cm)"
-                        />
+                    />
                 </div>
             </div>
 

@@ -25,11 +25,11 @@ export default function fadeOnItemChange(Component, animationTime = 150) {
             };
 
             if (empty(this.props.item) && nonEmpty(nextProps.item)) {
-                // make visible
+                // animate to visible
                 setNewItem(nextProps.item)();
                 $(this.content).fadeIn(animationTime);
             } else if (nonEmpty(this.props.item) && empty(nextProps.item)) {
-                // make invisible
+                // animate to invisible
                 $(this.content).fadeOut(animationTime, setNewItem(nextProps.item));
 
             } else if (empty(this.props.item) && empty(nextProps.item)) {
@@ -37,7 +37,7 @@ export default function fadeOnItemChange(Component, animationTime = 150) {
                 $(this.content).hide();
                 setNewItem(nextProps.item)();
             } else if (nonEmpty(this.props.item) && nonEmpty(nextProps.item) && this.props.item != nextProps.item) {
-                // change
+                // animate change
                 $(this.content).fadeOut(animationTime, () => {
                     $(this.content).fadeIn(animationTime);
                     setNewItem(nextProps.item)();

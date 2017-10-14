@@ -124,11 +124,10 @@ export default function restActions(resource) {
         }
     }
 
-    // nie jest używane jak na razie
-    function deleteItemError(errors) {
+    function deleteItemError(item) {
         return {
             type: ActionNames.DELETE_ERROR,
-            errors: errors
+            item: item
         }
     }
 
@@ -145,16 +144,73 @@ export default function restActions(resource) {
                     onSuccess();
                 }).catch(error => {
                     console.log(error);
+                    dispatch(deleteItemError(item));
                 });
         }
     }
+
+    // update item
+
+    function updateItemRequest() {
+        return {
+            type: ActionNames.REQUEST_UPDATE
+        }
+    }
+
+    function updateItemSuccess(item) {
+        return {
+            type: ActionNames.UPDATE_SUCCESS,
+            item: item
+        }
+    }
+
+    function updateItemError(errors) {
+        return {
+            type: ActionNames.UPDATE_ERROR,
+            errors: errors
+        }
+    }
+
+    function updateItem(item, onSuccess = () => {}, onError = () => {}) {
+        return (dispatch) => {
+            dispatch(updateItemRequest());
+            return fetch(API_PATH + resource + "/" + item.id, {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(item)
+            })
+                .then(checkStatus)
+                .then(parseJSON)
+                .then(json => {
+                    dispatch(updateItemSuccess(json));
+                    dispatch(fetchItemsIfNeeded());
+                    onSuccess(json);
+                }).catch(error => {
+                    console.log(error);
+                    error.json()
+                        .then(json => {
+                            var errors = {};
+                            json.errors.forEach(e => {
+                                errors[e.property] = e.message;
+                            });
+                            return errors;
+                        })
+                        .then(e => {
+                            dispatch(updateItemError(e));
+                            onError(e);
+                        });
+                    });
+        }
+    }
+
 
 
     return {
         fetchItems,
         fetchItemsIfNeeded,
         createItem,
-        deleteItem
+        deleteItem,
+        updateItem
     }
 
 
