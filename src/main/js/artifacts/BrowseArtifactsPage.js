@@ -32,7 +32,7 @@ const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectI
             </div>
             <div className="col-sm-5 colWithSmallerGutter">
                 <Panel>
-                    <CardWithFade item={selected || {}}/>
+                    <CardWithFade item={selected || {}} animationTime={150}/>
                 </Panel>
             </div>
         </div>
