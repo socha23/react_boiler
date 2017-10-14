@@ -37,7 +37,6 @@ class ArtifactForm extends FormHelper {
     });
 
     render() {
-        console.log(this.props.item);
         return <form onSubmit={this.onSubmit}>
             <div className="form-group">
                 <label htmlFor="artifactName">Name</label>
