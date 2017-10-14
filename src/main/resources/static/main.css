@@ -215,3 +215,11 @@ body {
 .vocIcon .badge {
     background-color: #AAA;
 }
+
+.buttonRow .btn {
+    margin-right: 6px;
+}
+
+.buttonRow .btn:last-child {
+    margin-right: 0;
+}
