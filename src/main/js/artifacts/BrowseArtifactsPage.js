@@ -5,9 +5,11 @@ import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter} from './Artif
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 import ArtifactForm from './ArtifactForm'
 import {SearchFilter} from '../common/components/filters'
-import ShowWhenItemSelected from '../common/components/ShowWhenItemSelected'
+import fadeOnItemChange from '../common/components/fadeOnItemChange'
 
-const BrowseArtifactsPage = ({selected, items, filter, onFilterChange, onSelectItem}) =>
+const FormWithFade = fadeOnItemChange(ArtifactForm);
+
+const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
@@ -29,11 +31,9 @@ const BrowseArtifactsPage = ({selected, items, filter, onFilterChange, onSelectI
                 </Panel>
             </div>
             <div className="col-sm-5 colWithSmallerGutter">
-                <ShowWhenItemSelected item={selected}>
-                    <Panel>
-                        <ArtifactForm item={selected || {}} submitText="Zapisz"/>
-                    </Panel>
-                </ShowWhenItemSelected>
+                <Panel>
+                    <FormWithFade item={selected || {}} submitText="Zapisz"/>
+                </Panel>
             </div>
         </div>
     </div>;
