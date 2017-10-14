@@ -1,15 +1,15 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
-import {crudList} from '../common/crud/crudContainers'
+import {crudList, crudActions} from '../common/crud/crudContainers'
 import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter} from './ArtifactsList'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 import ArtifactCard from './ArtifactCard'
 import {SearchFilter} from '../common/components/filters'
 import fadeOnItemChange from '../common/components/fadeOnItemChange'
 
-const CardWithFade = fadeOnItemChange(ArtifactCard);
+const FadingArtifactCard = fadeOnItemChange(ArtifactCard);
 
-const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem}) =>
+const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
@@ -31,9 +31,15 @@ const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectI
                 </Panel>
             </div>
             <div className="col-sm-5 colWithSmallerGutter">
-                <Panel>
-                    <CardWithFade item={selected || {}} animationTime={150}/>
-                </Panel>
+                {
+                    selected ?
+                        <Panel>
+                            <FadingArtifactCard item={selected} animationTime={150} onDelete={onDelete}/>
+                        </Panel>
+                        :
+                        <div></div>
+
+                }
             </div>
         </div>
     </div>;
@@ -84,4 +90,4 @@ ArtifactsPageContainer.contextTypes = {
     })
 };
 
-export default crudList("artifacts", ArtifactsPageContainer)
+export default crudActions("artifacts", crudList("artifacts", ArtifactsPageContainer))

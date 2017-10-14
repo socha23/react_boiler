@@ -5,7 +5,12 @@ export default function restActionNames(resource) {
 
         REQUEST_CREATE: 'REQUEST_CREATE_' + resource.toUpperCase(),
         CREATE_SUCCESS: 'CREATE_SUCCESS_' + resource.toUpperCase(),
-        CREATE_ERROR: 'CREATE_ERROR_' + resource.toUpperCase()
+        CREATE_ERROR: 'CREATE_ERROR_' + resource.toUpperCase(),
+
+        REQUEST_DELETE: 'REQUEST_DELETE_' + resource.toUpperCase(),
+        DELETE_SUCCESS: 'DELETE_SUCCESS_' + resource.toUpperCase(),
+        DELETE_ERROR: 'DELETE_ERROR_' + resource.toUpperCase()
+
     }
 }
 

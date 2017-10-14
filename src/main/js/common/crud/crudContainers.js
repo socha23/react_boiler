@@ -23,13 +23,13 @@ function crudList(resource, Component) {
 
     const mapDispatchToProps = (dispatch) => ({
         onMount: () => dispatch(actions.fetchItemsIfNeeded()),
-        reloadItems: () => dispatch(actions.fetchItemsIfNeeded())
+        reloadItems: () => dispatch(actions.fetchItemsIfNeeded()),
     });
 
     return connect(mapStateToProps, mapDispatchToProps)(runOnMount(Component));
 }
 
-function crudCreate(
+function myCrudActions(
     resource,
     Component
 ) {
@@ -42,15 +42,19 @@ function crudCreate(
     });
 
     const mapDispatchToProps = (dispatch) => ({
-        onSubmit: (item) => dispatch(actions.createItem(item))
+        onCreate: (item) => dispatch(actions.createItem(item)),
+        onDelete: (item, onSuccess) => dispatch(actions.deleteItem(item, onSuccess))
     });
 
     return connect(mapStateToProps, mapDispatchToProps)(Component);
 }
 
 
+
+
 module.exports = {
     crudList: crudList,
-    crudCreate: crudCreate
-
+    crudActions: myCrudActions
 };
+
+

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ArtifactForm from './ArtifactForm'
 import ConfirmableLink from '../common/components/ConfirmableLink'
+import growl from "../common/growl"
 
 const ArtifactView = ({item, onEdit, onDelete}) => <div>
     <h3>{item.name}
@@ -28,7 +29,8 @@ export default class ArtifactCard extends React.Component {
     static propTypes = {
         animationTime: PropTypes.number,
         item: PropTypes.object,
-        onUpdate: PropTypes.func
+        onUpdate: PropTypes.func,
+        onDelete: PropTypes.func
     };
 
     onEdit = () => {
@@ -39,8 +41,10 @@ export default class ArtifactCard extends React.Component {
         this.setState({edit: false});
     };
 
-    onDelete = (item) => {
-        window.alert("DELETE");
+    onDelete = () => {
+        this.props.onDelete(this.props.item, () => {
+            growl("Usunięto '" + this.props.item.name + "'");
+        });
     };
 
     componentWillReceiveProps = (nextProps) => {
@@ -56,8 +60,6 @@ export default class ArtifactCard extends React.Component {
             } else {
                 return <ArtifactView item={this.props.item} onEdit={this.onEdit} onDelete={this.onDelete}/>
             }
-        } else {
-            return <div></div>
         }
     }
 }

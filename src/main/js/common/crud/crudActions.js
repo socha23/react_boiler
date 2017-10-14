@@ -109,10 +109,52 @@ export default function restActions(resource) {
         }
     }
 
+    // deleteItem
+
+    function deleteItemRequest() {
+        return {
+            type: ActionNames.REQUEST_DELETE
+        }
+    }
+
+    function deleteItemSuccess(item) {
+        return {
+            type: ActionNames.DELETE_SUCCESS,
+            item: item
+        }
+    }
+
+    // nie jest używane jak na razie
+    function deleteItemError(errors) {
+        return {
+            type: ActionNames.DELETE_ERROR,
+            errors: errors
+        }
+    }
+
+    function deleteItem(item, onSuccess) {
+        return (dispatch) => {
+            dispatch(deleteItemRequest());
+            return fetch(item._links.self.href,  {
+                method: "DELETE"
+            })
+                .then(checkStatus)
+                .then(() => {
+                    dispatch(deleteItemSuccess(item));
+                    dispatch(fetchItemsIfNeeded());
+                    onSuccess();
+                }).catch(error => {
+                    console.log(error);
+                });
+        }
+    }
+
+
     return {
         fetchItems,
         fetchItemsIfNeeded,
-        createItem
+        createItem,
+        deleteItem
     }
 
 

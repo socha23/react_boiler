@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 
-
 function nonEmpty(obj) {
     return obj && Object.keys(obj).length > 0;
 }
@@ -15,20 +14,15 @@ export default function fadeOnItemChange(Component, animationTime = 150) {
     return class extends React.Component {
 
         state = {
-            item: this.props.state
+            item: this.props.item
         };
 
-
-
         componentWillReceiveProps = (nextProps) => {
-
             let setNewItem = (i) => {
                 return () => {
                     this.setState({item: i});
                 }
             };
-
-
 
             if (empty(this.props.item) && nonEmpty(nextProps.item)) {
                 // make visible
@@ -44,7 +38,7 @@ export default function fadeOnItemChange(Component, animationTime = 150) {
                 setNewItem(nextProps.item)();
             } else if (nonEmpty(this.props.item) && nonEmpty(nextProps.item) && this.props.item != nextProps.item) {
                 // change
-                $(this.content).fadeOut(animationTime , () => {
+                $(this.content).fadeOut(animationTime, () => {
                     $(this.content).fadeIn(animationTime);
                     setNewItem(nextProps.item)();
                 });
