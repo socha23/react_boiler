@@ -5,8 +5,9 @@ import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter} from './Artif
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 import ArtifactForm from './ArtifactForm'
 import {SearchFilter} from '../common/components/filters'
+import ShowWhenItemSelected from '../common/components/ShowWhenItemSelected'
 
-const ArtifactsPage = ({selected, items, filter, onFilterChange, onSelectItem}) =>
+const BrowseArtifactsPage = ({selected, items, filter, onFilterChange, onSelectItem}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
@@ -28,9 +29,11 @@ const ArtifactsPage = ({selected, items, filter, onFilterChange, onSelectItem}) 
                 </Panel>
             </div>
             <div className="col-sm-5 colWithSmallerGutter">
-                <Panel>
-                    <ArtifactForm item={selected || {}} submitText="Zapisz"/>
-                </Panel>
+                <ShowWhenItemSelected item={selected}>
+                    <Panel>
+                        <ArtifactForm item={selected || {}} submitText="Zapisz"/>
+                    </Panel>
+                </ShowWhenItemSelected>
             </div>
         </div>
     </div>;
@@ -64,7 +67,7 @@ class ArtifactsPageContainer extends React.Component {
     };
 
     render() {
-        return <ArtifactsPage
+        return <BrowseArtifactsPage
             {...this.props}
             items={this.filterItems(this.props.items)}
             selected={this.props.items.find(i => i.id == this.props.match.params.id)}
@@ -77,7 +80,7 @@ class ArtifactsPageContainer extends React.Component {
 
 ArtifactsPageContainer.contextTypes = {
     router: PropTypes.shape({
-      history: PropTypes.object.isRequired
+        history: PropTypes.object.isRequired
     })
 };
 

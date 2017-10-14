@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 import LiNavLink from '../common/components/LiNavLink'
 import PageTemplate from '../templates/PageTemplate'
 
-import ArtifactsPage from './ArtifactsPage'
+import BrowseArtifactsPage from './BrowseArtifactsPage'
 import CreateArtifactPage from './CreateArtifactPage'
 
 const menu = <ul>
@@ -16,7 +16,7 @@ const menu = <ul>
 </ul>;
 
 const content = <Switch>
-    <Route exact path="/artifacts/:id?" component={ArtifactsPage}/>
+    <Route exact path="/artifacts/:id?" component={BrowseArtifactsPage}/>
     <Route path="/artifacts/new" component={CreateArtifactPage}/>
 </Switch>;
 
