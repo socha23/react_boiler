@@ -3,11 +3,11 @@ import {PropTypes} from 'prop-types'
 import {crudList} from '../common/crud/crudContainers'
 import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter} from './ArtifactsList'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
-import ArtifactForm from './ArtifactForm'
+import ArtifactCard from './ArtifactCard'
 import {SearchFilter} from '../common/components/filters'
 import fadeOnItemChange from '../common/components/fadeOnItemChange'
 
-const FormWithFade = fadeOnItemChange(ArtifactForm);
+const CardWithFade = fadeOnItemChange(ArtifactCard);
 
 const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem}) =>
     <div className="container-fluid">
@@ -32,7 +32,7 @@ const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectI
             </div>
             <div className="col-sm-5 colWithSmallerGutter">
                 <Panel>
-                    <FormWithFade item={selected || {}} submitText="Zapisz"/>
+                    <CardWithFade item={selected || {}}/>
                 </Panel>
             </div>
         </div>
