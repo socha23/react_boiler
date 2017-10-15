@@ -14,7 +14,7 @@ public class Artifact {
 
     private String id;
 
-    @NotEmpty(message = "Please enter name")
+    @NotEmpty(message = "Proszę wprowadzić nazwę")
     private String name = "";
 
     private Priority priority;

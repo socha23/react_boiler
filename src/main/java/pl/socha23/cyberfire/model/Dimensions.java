@@ -2,11 +2,13 @@ package pl.socha23.cyberfire.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Dimensions in centimeters
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Dimensions {
 

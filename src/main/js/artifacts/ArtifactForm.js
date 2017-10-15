@@ -10,14 +10,16 @@ import ErrorList from '../common/components/ErrorList'
 class ArtifactForm extends FormHelper {
 
     resetForm = (item = {}) => {
+        let dimensions = item.dimensions || {};
+
         this.setState({
             name: item.name || '',
             type: item.type || Type[0].id,
             priority: item.priority || Priority[0].id,
             weight: floatToString(item.weight) || '',
-            width: floatToString(item.width) || '',
-            height: floatToString(item.height) || '',
-            depth: floatToString(item.depth) || '',
+            width: floatToString(dimensions.width) || '',
+            height: floatToString(dimensions.height) || '',
+            depth: floatToString(dimensions.depth) || '',
             identificationNotes: item.identificationNotes || '',
             evacuationNotes: item.evacuationNotes || ''
         });
