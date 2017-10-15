@@ -21,8 +21,6 @@ public class ImageController {
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> item = new HashMap<>();
 
-        file.getBytes()
-
         item.put("name", file.getOriginalFilename());
         item.put("id", "xxxxx" + ++autoInc); // TODO
 
