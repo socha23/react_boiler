@@ -42,24 +42,12 @@ export default class ArtifactCard extends React.Component {
         this.setState({edit: true});
     };
 
-    onUpdate = (item, onSuccess, onError) => {
-        this.props.onUpdate(item, (item) => {
+    onSubmit = (item, onSuccess, onError) => {
+        const handler = this.props.createMode ? this.props.onCreate : this.props.onUpdate;
+        handler(item, (item) => {
             onSuccess(item);
             this.setState({edit: false});
             growl("Zapisano zmiany");
-        }, (errors) => {
-            onError(errors);
-            growl("Wystąpiły błędy");
-
-        });
-    };
-
-    onCreate = (item, onSuccess, onError) => {
-        this.props.onCreate(item, (item) => {
-            onSuccess(item);
-            this.setState({edit: false});
-            growl("Zapisano zmiany");
-
         }, (errors) => {
             onError(errors);
             growl("Wystąpiły błędy");
@@ -84,7 +72,7 @@ export default class ArtifactCard extends React.Component {
             return <ArtifactForm
                 createMode={this.props.createMode}
                 item={this.props.item}
-                onSubmit={this.props.createMode ? this.onCreate : this.onUpdate}
+                onSubmit={this.onSubmit}
                 submitText="Zapisz"
             />
         } else {
