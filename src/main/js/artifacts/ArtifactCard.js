@@ -1,27 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ArtifactForm from './ArtifactForm'
-import ConfirmableLink from '../common/components/ConfirmableLink'
+import ArtifactView from './ArtifactView'
 import growl from "../common/growl"
-
-const ArtifactView = ({item, onEdit, onDelete}) => <div>
-    <h3>{item.name}
-        <div className="pull-right buttonRow">
-            <a className="btn btn-primary" onClick={onEdit}
-               title="Zmień">
-                <i className="glyphicon glyphicon-edit"/>
-            </a>
-            <ConfirmableLink className="btn btn-danger" onClick={onDelete}
-                             title="Usuń"
-                             message={"Czy na pewno usunąć " + item.name + "?"}>
-                <i className="glyphicon glyphicon-remove"/>
-            </ConfirmableLink>
-        </div>
-    </h3>
-
-
-</div>;
-
 
 export default class ArtifactCard extends React.Component {
 
@@ -58,6 +39,11 @@ export default class ArtifactCard extends React.Component {
             growl("Usunięto '" + this.props.item.name + "'");
         });
     };
+
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({edit: false});
+    };
+
 
     render() {
         if (this.props.createMode || this.state.edit) {

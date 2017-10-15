@@ -1,3 +1,5 @@
+import * as vocFunctions from '../common/vocFunctions'
+
 export const Priority = [
     {
         id: "P3_HIGH",
@@ -16,7 +18,19 @@ export const Priority = [
     }
 ];
 
+export const priority = function(id) {
+    return vocFunctions.find(Priority, id);
+};
 
+
+export const priorityName = function(id) {
+    let vocVal = priority(id);
+    if (vocVal) {
+        return vocVal.name;
+    } else {
+        return "";
+    }
+};
 
 export const Type = [
     {

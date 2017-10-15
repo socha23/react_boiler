@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const VocIcon = ({value}) => {
+const VocIcon = ({value, className}) => {
     if (value) {
-        return <div className="vocIcon">
+        return <span className={"vocIcon " + className}>
             {value.iconClass ? <i className={value.iconClass}/> : ""}
             {value.iconText ? <span className="badge">{value.iconText}</span> : ""}
-        </div>
+        </span>
     } else {
         return <span/>
     }

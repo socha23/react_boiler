@@ -187,11 +187,11 @@ body {
     text-align: left;
 }
 
-.toggleButtons .btn i {
+.iconWithName i {
     padding-right: 10px;
 }
 
-.toggleButtons .btn .badge {
+.iconWithName .badge {
     margin-right: 10px;
 }
 
@@ -223,3 +223,4 @@ body {
 .buttonRow .btn:last-child {
     margin-right: 0;
 }
+

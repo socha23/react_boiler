@@ -39,9 +39,9 @@ export default class FormHelper extends React.Component {
     };
 
     formGroupClassName = (field) => {
-        let result = "form-group";
+        let result = "form-group ";
         if (this.state.fldErrors[field]) {
-            result += " has-error";
+            result += " has-error ";
         }
         return result;
     };

@@ -47,116 +47,130 @@ class ArtifactForm extends FormHelper {
         return <form onSubmit={this.onSubmit}>
             <ErrorList errors={this.state.errors}/>
 
-            <div className={this.formGroupClassName('name')}>
-                <label htmlFor="artifactName">Name</label>
-                <input
-                    type="text"
-                    value={this.state.name}
-                    onChange={this.stateSettingListener("name")}
-                    className="form-control"
-                    id="artifactName"
-                    placeholder="Please enter artifact name"/>
-            </div>
-            <div className="form-inline">
+            <div className="form-horizontal">
+                <div className={this.formGroupClassName('name')}>
+                    <label htmlFor="artifactName" className="col-sm-2 control-label">Nazwa:</label>
+                    <div className="col-sm-10">
+                        <input
+                            type="text"
+                            value={this.state.name}
+                            onChange={this.stateSettingListener("name")}
+                            className="form-control"
+                            id="artifactName"
+                            placeholder="Wprowadź nazwę"/>
+                    </div>
+                </div>
+
                 <div className={this.formGroupClassName('type')}>
-                    <label htmlFor="artifactType">Type</label>
-                    <select
-                        value={this.state.type}
-                        onChange={this.stateSettingListener("type")}
-                        className="form-control"
-                        id="artifactType"
-                    >
-                        {Type.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-                    </select>
+                    <label htmlFor="artifactType" className="col-sm-2 control-label">Typ:</label>
+                    <div className="col-sm-10">
+                        <select
+                            value={this.state.type}
+                            onChange={this.stateSettingListener("type")}
+                            className="form-control"
+                            id="artifactType"
+                        >
+                            {Type.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                        </select>
+                    </div>
                 </div>
+
                 <div className={this.formGroupClassName('priority')}>
-                    <label htmlFor="artifactPriority">Priority</label>
-                    <select
-                        value={this.state.priority}
-                        onChange={this.stateSettingListener("priority")}
-                        className="form-control"
-                        id="artifactPriority"
-                    >
-                        {Priority.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
-                    </select>
+                    <label htmlFor="artifactPriority" className="col-sm-2 control-label">Priorytet:</label>
+                    <div className="col-sm-10">
+                        <select
+                            value={this.state.priority}
+                            onChange={this.stateSettingListener("priority")}
+                            className="form-control"
+                            id="artifactPriority"
+                        >
+                            {Priority.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                        </select>
+                    </div>
                 </div>
+
+                <hr/>
+
+                <div className={this.formGroupClassName('weight')}>
+                    <label htmlFor="artifactWeight" className="col-sm-2 control-label">Waga:</label>
+                    <div className="col-sm-10">
+                        <input
+                                type="number"
+                            value={this.state.weight}
+                            onChange={this.stateSettingListener("weight")}
+                            className="form-control"
+                            id="artifactWeight"
+                            placeholder="Wprowadź wagę w kg"
+                        />
+                    </div>
+                </div>
+
+                <div className={this.formGroupClassName('width') + this.formGroupClassName('height') + this.formGroupClassName('depth')}>
+                    <label htmlFor="artifactDimensions" className="col-sm-2 control-label">Rozmiar:</label>
+                    <div className="col-sm-10 form-inline">
+                        <input
+                            type="number"
+                            value={this.state.width}
+                            onChange={this.stateSettingListener("width")}
+                            className="form-control"
+                            style={{width: 120}}
+                            id="artifactWidth"
+                            placeholder="Szer. (cm)"
+                        />
+                        <input
+                            type="number"
+                            value={this.state.height}
+                            onChange={this.stateSettingListener("height")}
+                            className="form-control"
+                            style={{width: 120}}
+                            id="artifactHeight"
+                            placeholder="Wys. (cm)"
+                        />
+                        <input
+                            type="number"
+                            value={this.state.depth}
+                            onChange={this.stateSettingListener("depth")}
+                            className="form-control"
+                            style={{width: 120}}
+                            id="artifactDepth"
+                            placeholder="Głęb. (cm)"
+                        />
+                    </div>
+                </div>
+
             </div>
 
-            <div className="form-inline">
-                <div className={this.formGroupClassName('height')}>
-                    <label htmlFor="artifactHeight">Height</label>
-                    <input
-                        type="number"
-                        value={this.state.height}
-                        onChange={this.stateSettingListener("height")}
-                        className="form-control"
-                        id="artifactHeight"
-                        placeholder="Height (cm)"
-                    />
-                </div>
-                <div className={this.formGroupClassName('width')}>
-                    <label htmlFor="artifactHeight">Width</label>
-                    <input
-                        type="number"
-                        value={this.state.width}
-                        onChange={this.stateSettingListener("width")}
-                        className="form-control"
-                        id="artifactWidth"
-                        placeholder="Width (cm)"
-                    />
-                </div>
-                <div className={this.formGroupClassName('depth')}>
-                    <label htmlFor="artifactDepth">Depth</label>
-                    <input
-                        type="number"
-                        value={this.state.depth}
-                        onChange={this.stateSettingListener("depth")}
-                        className="form-control"
-                        id="artifactDepth"
-                        placeholder="Depth (cm)"
-                    />
-                </div>
-            </div>
-
-
-            <div className={this.formGroupClassName('weight')}>
-                <label htmlFor="artifactWeight">Weight</label>
-                <input
-                    type="number"
-                    value={this.state.weight}
-                    onChange={this.stateSettingListener("weight")}
-                    className="form-control"
-                    id="artifactWeight"
-                    placeholder="Please enter weight (kg)"
-                />
-            </div>
+            <hr/>
 
             <div className={this.formGroupClassName('identificationNotes')}>
-                <label htmlFor="artifactIdentificationNotes">Identification notes</label>
+                <label htmlFor="artifactIdentificationNotes">Identyfikacja:</label>
                 <textarea
                     value={this.state.identificationNotes}
                     onChange={this.stateSettingListener("identificationNotes")}
                     className="form-control"
                     id="artifactIdentificationNotes"
-                    placeholder="Enter identification notes here"
+                    placeholder="Notatki dotyczące identyfikacji"
                 />
             </div>
 
             <div className={this.formGroupClassName('evacuationNotes')}>
-                <label htmlFor="artifactEvacuationNotes">Evacuation notes</label>
+                <label htmlFor="artifactEvacuationNotes">Ewakuacja:</label>
                 <textarea
                     value={this.state.evacuationNotes}
                     onChange={this.stateSettingListener("evacuationNotes")}
                     className="form-control"
                     id="artifactEvacuationNotes"
-                    placeholder="Enter evacuation notes here"
+                    placeholder="Notatki dotyczące ewakuacji"
                 />
             </div>
 
             <button type="submit"
-                    className="btn btn-primary"
+                    className="btn btn-primary pull-right iconWithName"
                     disabled={!this.canSubmit()}
-            >{this.props.submitText}</button>
+            >
+                <i className="glyphicon glyphicon-ok"/>
+                {this.props.submitText}
+            </button>
         </form>
     }
 }
