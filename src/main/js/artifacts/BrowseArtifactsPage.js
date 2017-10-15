@@ -37,7 +37,8 @@ const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectI
                                 onDelete={onDelete}
                                 onUpdate={onUpdate}
                                 createMode={createMode}
-                                onCreate={onCreate}
+                                onCreate={(i, s, e) => {onCreate(i, onSelectItem, e)}}
+
                             />
                         </Panel>
                         :

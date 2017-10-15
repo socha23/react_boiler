@@ -59,6 +59,7 @@ export default class ArtifactCard extends React.Component {
             onSuccess(item);
             this.setState({edit: false});
             growl("Zapisano zmiany");
+
         }, (errors) => {
             onError(errors);
             growl("Wystąpiły błędy");
