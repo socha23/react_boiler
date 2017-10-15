@@ -4,6 +4,7 @@ import FormHelper from '../common/components/FormHelper'
 import {crudCreate} from '../common/crud/crudContainers'
 import {floatToString, stringToFloat} from '../common/conversionHelpers'
 import {Priority, Type} from './ArtifactVocs'
+import Uploader from '../common/components/Uploader'
 import ErrorList from '../common/components/ErrorList'
 
 
@@ -113,27 +114,27 @@ class ArtifactForm extends FormHelper {
                             value={this.state.width}
                             onChange={this.stateSettingListener("width")}
                             className="form-control"
-                            style={{width: 120}}
+                            style={{width: 100}}
                             id="artifactWidth"
-                            placeholder="Szer. (cm)"
+                            placeholder="Szer. cm"
                         />
                         <input
                             type="number"
                             value={this.state.height}
                             onChange={this.stateSettingListener("height")}
                             className="form-control"
-                            style={{width: 120}}
+                            style={{width: 100}}
                             id="artifactHeight"
-                            placeholder="Wys. (cm)"
+                            placeholder="Wys. cm"
                         />
                         <input
                             type="number"
                             value={this.state.depth}
                             onChange={this.stateSettingListener("depth")}
                             className="form-control"
-                            style={{width: 120}}
+                            style={{width: 100}}
                             id="artifactDepth"
-                            placeholder="Głęb. (cm)"
+                            placeholder="Głęb. cm"
                         />
                     </div>
                 </div>
@@ -163,6 +164,10 @@ class ArtifactForm extends FormHelper {
                     placeholder="Notatki dotyczące ewakuacji"
                 />
             </div>
+
+            <strong>Zdjęcia</strong>
+            <Uploader/>
+
 
             <button type="submit"
                     className="btn btn-primary pull-right iconWithName"

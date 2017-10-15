@@ -224,3 +224,13 @@ body {
     margin-right: 0;
 }
 
+.fileUploadContainer {
+    display: table;
+}
+
+.fileUploadError {
+    padding-right: 10px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
