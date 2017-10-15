@@ -35,10 +35,8 @@ const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectI
                             <ArtifactCard
                                 item={selected}
                                 onDelete={onDelete}
-                                onUpdate={onUpdate}
                                 createMode={createMode}
-                                onCreate={(i, s, e) => {onCreate(i, onSelectItem, e)}}
-
+                                onSubmit={createMode ? (i, s, e) => {onCreate(i, onSelectItem, e)} : onUpdate}
                             />
                         </Panel>
                         :

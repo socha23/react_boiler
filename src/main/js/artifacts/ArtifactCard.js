@@ -33,9 +33,8 @@ export default class ArtifactCard extends React.Component {
         animationTime: PropTypes.number,
         item: PropTypes.object,
         createMode: PropTypes.bool,
-        onUpdate: PropTypes.func,
-        onDelete: PropTypes.func,
-        onCreate: PropTypes.func
+        onSubmit: PropTypes.func,
+        onDelete: PropTypes.func
     };
 
     onEdit = () => {
@@ -43,8 +42,7 @@ export default class ArtifactCard extends React.Component {
     };
 
     onSubmit = (item, onSuccess, onError) => {
-        const handler = this.props.createMode ? this.props.onCreate : this.props.onUpdate;
-        handler(item, (item) => {
+        this.props.onSubmit(item, (item) => {
             onSuccess(item);
             this.setState({edit: false});
             growl("Zapisano zmiany");
@@ -59,12 +57,6 @@ export default class ArtifactCard extends React.Component {
         this.props.onDelete(this.props.item, () => {
             growl("Usunięto '" + this.props.item.name + "'");
         });
-    };
-
-    componentWillReceiveProps = (nextProps) => {
-        setTimeout(() => {
-            this.setState({edit: false});
-        }, this.props.animationTime)
     };
 
     render() {
