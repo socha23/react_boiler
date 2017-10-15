@@ -76,16 +76,10 @@ export default class ArtifactCard extends React.Component {
     };
 
     render() {
-        if (this.props.createMode) {
-            return <ArtifactForm createMode={this.props.createMode} onSubmit={this.onCreate} submitText="Zapisz"/>
-        } else if (this.props.item) {
-            if (this.state.edit) {
-                return <ArtifactForm item={this.props.item} onSubmit={this.onUpdate} submitText="Zapisz"/>
-            } else {
-                return <ArtifactView item={this.props.item} onEdit={this.onEdit} onDelete={this.onDelete}/>
-            }
+        if (this.props.createMode || this.state.edit) {
+            return <ArtifactForm createMode={this.props.createMode} item={this.props.item} onSubmit={this.props.createMode ? this.onCreate : this.onUpdate} submitText="Zapisz"/>
         } else {
-            return <div></div>
+            return <ArtifactView item={this.props.item} onEdit={this.onEdit} onDelete={this.onDelete}/>
         }
     }
 }

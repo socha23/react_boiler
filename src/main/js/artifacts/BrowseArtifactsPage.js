@@ -7,9 +7,6 @@ import ArtifactCard from './ArtifactCard'
 import {SearchFilter} from '../common/components/filters'
 import fadeOnItemChange from '../common/components/fadeOnItemChange'
 
-const FadingArtifactCard = fadeOnItemChange(ArtifactCard);
-//const FadingArtifactCard = ArtifactCard;
-
 const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate}) =>
     <div className="container-fluid">
         <div className="row">
@@ -35,13 +32,12 @@ const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectI
                 {
                     (selected || createMode) ?
                         <Panel>
-                            <FadingArtifactCard
-                                                item={createMode ? {"foo":"bar"} : selected}
-                                                animationTime={1500}
-                                                onDelete={onDelete}
-                                                onUpdate={onUpdate}
-                                                createMode={createMode}
-                                                onCreate={onCreate}
+                            <ArtifactCard
+                                item={selected}
+                                onDelete={onDelete}
+                                onUpdate={onUpdate}
+                                createMode={createMode}
+                                onCreate={onCreate}
                             />
                         </Panel>
                         :
