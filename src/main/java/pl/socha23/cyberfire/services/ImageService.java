@@ -20,8 +20,8 @@ public class ImageService {
         return Image.builder()
                 .filename(filename)
                 .format(determineFormat(bytes))
-                .fullSized(normalize(bytes, 1000, 1000))
-                .thumbnail(normalize(bytes, 100, 100))
+                .fullSized(normalize(bytes, 1000, 600))
+                .thumbnail(normalize(bytes, 100, 60))
                 .build();
     }
 

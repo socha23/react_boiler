@@ -4,6 +4,7 @@ import ConfirmableLink from '../common/components/ConfirmableLink'
 import VocIcon from '../common/components/VocIcon'
 import {priorityName, priority, Type, Priority} from './ArtifactVocs'
 import * as vocFunctions from '../common/vocFunctions'
+import {ImageListWithView} from './ArtifactImageList'
 
 const ValueOrQuestion = ({value}) => {
     if (value) {
@@ -113,7 +114,7 @@ const ArtifactView = ({item, onEdit, onDelete}) =>
                     <ArtifactDetails item={item}/>
                 </div>
                 <div className="col-sm-6">
-                    OBRAZEK
+                    <ImageListWithView items={item.images}/>
                 </div>
             </div>
 

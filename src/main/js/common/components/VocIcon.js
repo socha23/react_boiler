@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const VocIcon = ({value, className}) => {
     if (value) {
-        return <span className={"vocIcon " + className}>
+        return <span title={value.name} className={"vocIcon " + className}>
             {value.iconClass ? <i className={value.iconClass}/> : ""}
             {value.iconText ? <span className="badge">{value.iconText}</span> : ""}
         </span>

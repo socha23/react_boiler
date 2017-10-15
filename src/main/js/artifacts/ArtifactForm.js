@@ -6,7 +6,7 @@ import {floatToString, stringToFloat} from '../common/conversionHelpers'
 import {Priority, Type} from './ArtifactVocs'
 import Uploader from '../common/components/Uploader'
 import ErrorList from '../common/components/ErrorList'
-import EditableImageList from './EditableImageList'
+import {EditableImageList} from './ArtifactImageList'
 
 class ArtifactForm extends FormHelper {
 
@@ -172,6 +172,7 @@ class ArtifactForm extends FormHelper {
                 />
             </div>
 
+            <strong>Zdjęcia</strong>
             <EditableImageList items={this.state.images} onChange={this.onImagesChange}/>
 
 
