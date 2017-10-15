@@ -27,14 +27,13 @@ export default class Uploader extends React.Component {
             error: null,
             filename: files[0].name
         })
-
     };
 
     onUploadSuccess = (resp) => {
         this.setState({
             uploading: false
         });
-        console.log(resp);
+        this.props.onUploadSuccess(resp);
     };
 
     onUploadError = (resp) => {

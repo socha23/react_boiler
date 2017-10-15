@@ -6,7 +6,7 @@ import {floatToString, stringToFloat} from '../common/conversionHelpers'
 import {Priority, Type} from './ArtifactVocs'
 import Uploader from '../common/components/Uploader'
 import ErrorList from '../common/components/ErrorList'
-
+import EditableImageList from './EditableImageList'
 
 class ArtifactForm extends FormHelper {
 
@@ -22,7 +22,9 @@ class ArtifactForm extends FormHelper {
             height: floatToString(dimensions.height) || '',
             depth: floatToString(dimensions.depth) || '',
             identificationNotes: item.identificationNotes || '',
-            evacuationNotes: item.evacuationNotes || ''
+            evacuationNotes: item.evacuationNotes || '',
+            images: item.images || []
+
         });
     };
 
@@ -41,7 +43,12 @@ class ArtifactForm extends FormHelper {
         };
         item.identificationNotes = this.state.identificationNotes;
         item.evacuationNotes = this.state.evacuationNotes;
+        item.images = this.state.images;
         return item;
+    };
+
+    onImagesChange = (images) => {
+        this.setState({images: images});
     };
 
     render() {
@@ -165,8 +172,7 @@ class ArtifactForm extends FormHelper {
                 />
             </div>
 
-            <strong>Zdjęcia</strong>
-            <Uploader/>
+            <EditableImageList items={this.state.images} onChange={this.onImagesChange}/>
 
 
             <button type="submit"

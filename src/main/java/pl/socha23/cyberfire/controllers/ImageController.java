@@ -13,14 +13,18 @@ import java.util.Map;
 @RestController
 public class ImageController {
 
+    int autoInc = 0;
+
     @RequestMapping("/api/images")
     public Map handleFileUpload(@RequestParam("file") MultipartFile file) {
 
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> item = new HashMap<>();
 
+        file.getBytes()
+
         item.put("name", file.getOriginalFilename());
-        item.put("id", "xxxxx"); // TODO
+        item.put("id", "xxxxx" + ++autoInc); // TODO
 
         result.put("success", true);
         result.put("item", item);

@@ -9,6 +9,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import pl.socha23.cyberfire.model.Artifact;
+import pl.socha23.cyberfire.model.ImageRef;
 
 @Configuration
 public class RestConfiguration extends RepositoryRestConfigurerAdapter {
@@ -17,6 +18,7 @@ public class RestConfiguration extends RepositoryRestConfigurerAdapter {
     @Override
      public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
          config.exposeIdsFor(Artifact.class);
+         config.exposeIdsFor(ImageRef.class);
      }
 
 
