@@ -42,7 +42,7 @@ function myCrudActions(
     });
 
     const mapDispatchToProps = (dispatch) => ({
-        onCreate: (item) => dispatch(actions.createItem(item)),
+        onCreate: (item, onSuccess, onError) => dispatch(actions.createItem(item, onSuccess, onError)),
         onDelete: (item, onSuccess) => dispatch(actions.deleteItem(item, onSuccess)),
         onUpdate: (item, onSuccess, onError) => dispatch(actions.updateItem(item, onSuccess, onError))
     });

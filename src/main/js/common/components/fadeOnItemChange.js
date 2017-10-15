@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 
 function nonEmpty(obj) {
-    return obj && Object.keys(obj).length > 0;
+    return obj
 }
 
 function empty(obj) {
@@ -39,8 +39,8 @@ export default function fadeOnItemChange(Component, animationTime = 150) {
             } else if (nonEmpty(this.props.item) && nonEmpty(nextProps.item) && this.props.item != nextProps.item) {
                 // animate change
                 $(this.content).fadeOut(animationTime, () => {
-                    $(this.content).fadeIn(animationTime);
                     setNewItem(nextProps.item)();
+                    $(this.content).fadeIn(animationTime);
                 });
             }
         };

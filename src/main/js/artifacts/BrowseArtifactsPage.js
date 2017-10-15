@@ -8,8 +8,9 @@ import {SearchFilter} from '../common/components/filters'
 import fadeOnItemChange from '../common/components/fadeOnItemChange'
 
 const FadingArtifactCard = fadeOnItemChange(ArtifactCard);
+//const FadingArtifactCard = ArtifactCard;
 
-const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate}) =>
+const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
@@ -32,9 +33,16 @@ const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectI
             </div>
             <div className="col-sm-5 colWithSmallerGutter">
                 {
-                    selected ?
+                    (selected || createMode) ?
                         <Panel>
-                            <FadingArtifactCard item={selected} animationTime={150} onDelete={onDelete} onUpdate={onUpdate}/>
+                            <FadingArtifactCard
+                                                item={createMode ? {"foo":"bar"} : selected}
+                                                animationTime={1500}
+                                                onDelete={onDelete}
+                                                onUpdate={onUpdate}
+                                                createMode={createMode}
+                                                onCreate={onCreate}
+                            />
                         </Panel>
                         :
                         <div></div>
@@ -77,6 +85,7 @@ class ArtifactsPageContainer extends React.Component {
             {...this.props}
             items={this.filterItems(this.props.items)}
             selected={this.props.items.find(i => i.id == this.props.match.params.id)}
+            createMode={this.props.match.params.id == "new"}
             onSelectItem={this.onSelectItem}
             filter={this.state.filter}
             onFilterChange={this.onFilterChange}

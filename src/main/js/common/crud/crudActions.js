@@ -82,7 +82,7 @@ export default function restActions(resource) {
         }
     }
 
-    function createItem(item) {
+    function createItem(item, onSuccess = () => {}, onError = () => {}) {
         return (dispatch) => {
             dispatch(createItemRequest());
             return fetch(API_PATH + resource, {
@@ -94,17 +94,14 @@ export default function restActions(resource) {
                 .then(parseJSON)
                 .then(json => {
                     dispatch(createItemSuccess(json));
+                    onSuccess(json);
                 }).catch(error => {
                     console.log(error);
                     error.json()
                         .then(json => {
-                            var errors = {};
-                            json.errors.forEach(e => {
-                                errors[e.property] = e.message;
-                            });
-                            return errors;
+                            dispatch(createItemError(json.errors));
+                            onError(json.errors);
                         })
-                        .then(e => dispatch(createItemError(e)));
                     });
         }
     }
@@ -174,7 +171,7 @@ export default function restActions(resource) {
     function updateItem(item, onSuccess = () => {}, onError = () => {}) {
         return (dispatch) => {
             dispatch(updateItemRequest());
-            return fetch(API_PATH + resource + "/" + item.id, {
+            return fetch(item._links.self.href, {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(item)
@@ -189,15 +186,8 @@ export default function restActions(resource) {
                     console.log(error);
                     error.json()
                         .then(json => {
-                            var errors = {};
-                            json.errors.forEach(e => {
-                                errors[e.property] = e.message;
-                            });
-                            return errors;
-                        })
-                        .then(e => {
-                            dispatch(updateItemError(e));
-                            onError(e);
+                            dispatch(updateItemError(json.errors));
+                            onError(json.errors);
                         });
                     });
         }

@@ -29,18 +29,37 @@ export default class ArtifactCard extends React.Component {
     static propTypes = {
         animationTime: PropTypes.number,
         item: PropTypes.object,
+        createMode: PropTypes.bool,
         onUpdate: PropTypes.func,
-        onDelete: PropTypes.func
+        onDelete: PropTypes.func,
+        onCreate: PropTypes.func
     };
 
     onEdit = () => {
         this.setState({edit: true});
     };
 
-    onUpdate = (item) => {
-        this.props.onUpdate(item, () => {
+    onUpdate = (item, onSuccess, onError) => {
+        this.props.onUpdate(item, (item) => {
+            onSuccess(item);
             this.setState({edit: false});
             growl("Zapisano zmiany");
+        }, (errors) => {
+            onError(errors);
+            growl("Wystąpiły błędy");
+
+        });
+    };
+
+    onCreate = (item, onSuccess, onError) => {
+        this.props.onCreate(item, (item) => {
+            onSuccess(item);
+            this.setState({edit: false});
+            growl("Zapisano zmiany");
+        }, (errors) => {
+            onError(errors);
+            growl("Wystąpiły błędy");
+
         });
     };
 
@@ -57,12 +76,16 @@ export default class ArtifactCard extends React.Component {
     };
 
     render() {
-        if (this.props.item) {
+        if (this.props.createMode) {
+            return <ArtifactForm createMode={this.props.createMode} onSubmit={this.onCreate} submitText="Zapisz"/>
+        } else if (this.props.item) {
             if (this.state.edit) {
                 return <ArtifactForm item={this.props.item} onSubmit={this.onUpdate} submitText="Zapisz"/>
             } else {
                 return <ArtifactView item={this.props.item} onEdit={this.onEdit} onDelete={this.onDelete}/>
             }
+        } else {
+            return <div></div>
         }
     }
 }

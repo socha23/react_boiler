@@ -4,6 +4,7 @@ import FormHelper from '../common/components/FormHelper'
 import {crudCreate} from '../common/crud/crudContainers'
 import {floatToString, stringToFloat} from '../common/conversionHelpers'
 import {Priority, Type} from './ArtifactVocs'
+import ErrorList from '../common/components/ErrorList'
 
 
 class ArtifactForm extends FormHelper {
@@ -42,9 +43,10 @@ class ArtifactForm extends FormHelper {
 
     render() {
         return <form onSubmit={this.onSubmit}>
-            <div className="form-group">
+            <ErrorList errors={this.state.errors}/>
+
+            <div className={this.formGroupClassName('name')}>
                 <label htmlFor="artifactName">Name</label>
-                <span>{this.props.fldErrors.name}</span>
                 <input
                     type="text"
                     value={this.state.name}
@@ -54,7 +56,7 @@ class ArtifactForm extends FormHelper {
                     placeholder="Please enter artifact name"/>
             </div>
             <div className="form-inline">
-                <div className="form-group">
+                <div className={this.formGroupClassName('type')}>
                     <label htmlFor="artifactType">Type</label>
                     <select
                         value={this.state.type}
@@ -65,7 +67,7 @@ class ArtifactForm extends FormHelper {
                         {Type.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                     </select>
                 </div>
-                <div className="form-group">
+                <div className={this.formGroupClassName('priority')}>
                     <label htmlFor="artifactPriority">Priority</label>
                     <select
                         value={this.state.priority}
@@ -79,7 +81,7 @@ class ArtifactForm extends FormHelper {
             </div>
 
             <div className="form-inline">
-                <div className="form-group">
+                <div className={this.formGroupClassName('height')}>
                     <label htmlFor="artifactHeight">Height</label>
                     <input
                         type="number"
@@ -90,7 +92,7 @@ class ArtifactForm extends FormHelper {
                         placeholder="Height (cm)"
                     />
                 </div>
-                <div className="form-group">
+                <div className={this.formGroupClassName('width')}>
                     <label htmlFor="artifactHeight">Width</label>
                     <input
                         type="number"
@@ -101,7 +103,7 @@ class ArtifactForm extends FormHelper {
                         placeholder="Width (cm)"
                     />
                 </div>
-                <div className="form-group">
+                <div className={this.formGroupClassName('depth')}>
                     <label htmlFor="artifactDepth">Depth</label>
                     <input
                         type="number"
@@ -115,7 +117,7 @@ class ArtifactForm extends FormHelper {
             </div>
 
 
-            <div className="form-group">
+            <div className={this.formGroupClassName('weight')}>
                 <label htmlFor="artifactWeight">Weight</label>
                 <input
                     type="number"
@@ -127,7 +129,7 @@ class ArtifactForm extends FormHelper {
                 />
             </div>
 
-            <div className="form-group">
+            <div className={this.formGroupClassName('identificationNotes')}>
                 <label htmlFor="artifactIdentificationNotes">Identification notes</label>
                 <textarea
                     value={this.state.identificationNotes}
@@ -138,7 +140,7 @@ class ArtifactForm extends FormHelper {
                 />
             </div>
 
-            <div className="form-group">
+            <div className={this.formGroupClassName('evacuationNotes')}>
                 <label htmlFor="artifactEvacuationNotes">Evacuation notes</label>
                 <textarea
                     value={this.state.evacuationNotes}
