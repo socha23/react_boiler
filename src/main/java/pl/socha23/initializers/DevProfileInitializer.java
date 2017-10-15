@@ -1,4 +1,4 @@
-package pl.socha23.application.initializers;
+package pl.socha23.initializers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

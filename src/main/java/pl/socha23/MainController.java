@@ -1,4 +1,4 @@
-package pl.socha23.application;
+package pl.socha23;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

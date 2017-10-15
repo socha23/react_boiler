@@ -1,4 +1,4 @@
-package pl.socha23.application;
+package pl.socha23.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

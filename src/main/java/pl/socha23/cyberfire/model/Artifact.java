@@ -3,6 +3,9 @@ package pl.socha23.cyberfire.model;
 import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +26,6 @@ public class Artifact {
     private Double weight;
     private String identificationNotes = "";
     private String evacuationNotes = "";
+
+    private List<ImageRef> images = new ArrayList<>();
 }
