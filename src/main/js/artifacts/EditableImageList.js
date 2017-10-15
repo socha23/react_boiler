@@ -3,7 +3,33 @@ import PropTypes from 'prop-types'
 import Uploader from '../common/components/Uploader'
 import ConfirmableLink from '../common/components/ConfirmableLink'
 
-export default class EditableImageList extends React.Component {
+
+const EditableImageRow = ({image, onDelete}) => <tr>
+        <td style={{paddingTop: 5, paddingBottom: 5}}>
+            <img style={{padding: 5, border: "1px solid #888"}} src={"/api/images/" + image.id + "/thumbnail"}/>
+        </td>
+        <td style={{padding: 10}}>
+            <strong>{image.name}</strong>
+            <p><ConfirmableLink style={{cursor: "pointer"}} onClick={onDelete} message="Czy na pewno usunąć?">
+                Usuń
+            </ConfirmableLink>
+            </p>
+        </td>
+    </tr>
+    ;
+
+const EditableImageList = ({items, onDelete, onUploadSuccess}) => <div>
+    <strong>Zdjęcia</strong>
+    <table>
+        <tbody>
+        {items.map(image =>
+            <EditableImageRow key={image.id} image={image} onDelete={() => onDelete(image)}/>)}
+        </tbody>
+    </table>
+    <Uploader buttonLabel="Dodaj zdjęcie" onUploadSuccess={onUploadSuccess}/>
+</div>;
+
+export default class EditableImageListContainer extends React.Component {
 
     static propTypes = {
         items: PropTypes.array,
@@ -12,7 +38,8 @@ export default class EditableImageList extends React.Component {
 
     static defaultProps = {
         items: [],
-        onChange: () => {}
+        onChange: () => {
+        }
     };
 
     onUploadSuccess = (result) => {
@@ -33,15 +60,7 @@ export default class EditableImageList extends React.Component {
     };
 
     render() {
-        return <div>
-            <strong>Zdjęcia</strong>
-            {this.props.items.map(image => <div key={image.id}>
-                {image.id} {image.name}
-                <ConfirmableLink onClick={() => this.onDelete(image)} message="Czy na pewno usunąć?">
-                    Usuń
-                </ConfirmableLink>
-            </div>)}
-            <Uploader buttonLabel="Dodaj zdjęcie" onUploadSuccess={this.onUploadSuccess}/>
-        </div>
+        return <EditableImageList items={this.props.items} onDelete={this.onDelete}
+                                  onUploadSuccess={this.onUploadSuccess}/>
     }
 }
