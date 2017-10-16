@@ -17,6 +17,7 @@ export default class VocDropDown extends React.Component {
         return <Select
           value={this.props.value}
           options={this.props.items}
+          labelKey="name"
           valueKey="id"
           optionRenderer={optionRenderer}
           valueRenderer={optionRenderer}
