@@ -63,7 +63,7 @@ class ArtifactForm extends FormHelper {
                         <input
                             type="text"
                             value={this.state.name}
-                            onChange={this.stateSettingListener("name")}
+                            onChange={this.stateSettingEventListener("name")}
                             className="form-control"
                             id="artifactName"
                             placeholder="Wprowadź nazwę"/>
@@ -75,7 +75,7 @@ class ArtifactForm extends FormHelper {
                     <div className="col-sm-10">
                         <VocDropDown
                             value={this.state.type}
-                            onChange={this.stateSettingListener("type")}
+                            onChange={this.stateSettingValueListener("type")}
                             id="artifactType"
                             items={Type}
                         />
@@ -87,7 +87,7 @@ class ArtifactForm extends FormHelper {
                     <div className="col-sm-10">
                         <VocDropDown
                             value={this.state.priority}
-                            onChange={this.stateSettingListener("priority")}
+                            onChange={this.stateSettingValueListener("priority")}
                             id="artifactPriority"
                             items={Priority}
                         />
@@ -102,7 +102,7 @@ class ArtifactForm extends FormHelper {
                         <input
                                 type="number"
                             value={this.state.weight}
-                            onChange={this.stateSettingListener("weight")}
+                            onChange={this.stateSettingEventListener("weight")}
                             className="form-control"
                             id="artifactWeight"
                             placeholder="Wprowadź wagę w kg"
@@ -116,7 +116,7 @@ class ArtifactForm extends FormHelper {
                         <input
                             type="number"
                             value={this.state.width}
-                            onChange={this.stateSettingListener("width")}
+                            onChange={this.stateSettingEventListener("width")}
                             className="form-control"
                             style={{width: 100}}
                             id="artifactWidth"
@@ -125,7 +125,7 @@ class ArtifactForm extends FormHelper {
                         <input
                             type="number"
                             value={this.state.height}
-                            onChange={this.stateSettingListener("height")}
+                            onChange={this.stateSettingEventListener("height")}
                             className="form-control"
                             style={{width: 100}}
                             id="artifactHeight"
@@ -134,7 +134,7 @@ class ArtifactForm extends FormHelper {
                         <input
                             type="number"
                             value={this.state.depth}
-                            onChange={this.stateSettingListener("depth")}
+                            onChange={this.stateSettingEventListener("depth")}
                             className="form-control"
                             style={{width: 100}}
                             id="artifactDepth"
@@ -151,7 +151,7 @@ class ArtifactForm extends FormHelper {
                 <label htmlFor="artifactIdentificationNotes">Identyfikacja:</label>
                 <textarea
                     value={this.state.identificationNotes}
-                    onChange={this.stateSettingListener("identificationNotes")}
+                    onChange={this.stateSettingEventListener("identificationNotes")}
                     className="form-control"
                     id="artifactIdentificationNotes"
                     placeholder="Notatki dotyczące identyfikacji"
@@ -162,7 +162,7 @@ class ArtifactForm extends FormHelper {
                 <label htmlFor="artifactEvacuationNotes">Ewakuacja:</label>
                 <textarea
                     value={this.state.evacuationNotes}
-                    onChange={this.stateSettingListener("evacuationNotes")}
+                    onChange={this.stateSettingEventListener("evacuationNotes")}
                     className="form-control"
                     id="artifactEvacuationNotes"
                     placeholder="Notatki dotyczące ewakuacji"

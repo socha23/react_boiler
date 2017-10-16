@@ -20,10 +20,18 @@ export default class FormHelper extends React.Component {
 
     resetForm = (item) => {};
 
-    stateSettingListener = (fld) => {
+    stateSettingEventListener = (fld) => {
         return (ev) => {
             var newState = {};
             newState[fld] = ev.target.value;
+            this.setState(newState);
+        }
+    };
+
+    stateSettingValueListener = (fld) => {
+        return (val) => {
+            var newState = {};
+            newState[fld] = val;
             this.setState(newState);
         }
     };
