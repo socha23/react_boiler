@@ -6,6 +6,7 @@ import {floatToString, stringToFloat} from '../common/conversionHelpers'
 import {Priority, Type} from './ArtifactVocs'
 import Uploader from '../common/components/Uploader'
 import ErrorList from '../common/components/ErrorList'
+import VocDropDown from '../common/components/VocDropDown'
 import {EditableImageList} from './ArtifactImageList'
 
 class ArtifactForm extends FormHelper {
@@ -72,28 +73,24 @@ class ArtifactForm extends FormHelper {
                 <div className={this.formGroupClassName('type')}>
                     <label htmlFor="artifactType" className="col-sm-2 control-label">Typ:</label>
                     <div className="col-sm-10">
-                        <select
+                        <VocDropDown
                             value={this.state.type}
                             onChange={this.stateSettingListener("type")}
-                            className="form-control"
                             id="artifactType"
-                        >
-                            {Type.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-                        </select>
+                            items={Type}
+                        />
                     </div>
                 </div>
 
                 <div className={this.formGroupClassName('priority')}>
                     <label htmlFor="artifactPriority" className="col-sm-2 control-label">Priorytet:</label>
                     <div className="col-sm-10">
-                        <select
+                        <VocDropDown
                             value={this.state.priority}
                             onChange={this.stateSettingListener("priority")}
-                            className="form-control"
                             id="artifactPriority"
-                        >
-                            {Priority.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
-                        </select>
+                            items={Priority}
+                        />
                     </div>
                 </div>
 
