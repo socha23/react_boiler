@@ -5,7 +5,6 @@ import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter} from './Artif
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 import ArtifactCard from './ArtifactCard'
 import {SearchFilter} from '../common/components/filters'
-import fadeOnItemChange from '../common/components/fadeOnItemChange'
 
 const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate}) =>
     <div className="container-fluid">

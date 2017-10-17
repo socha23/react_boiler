@@ -19,7 +19,7 @@ public class MockTagsService implements ITagsService {
     private void createSampleTags() {
         Random r = new Random();
         for (int i = 1; i <= 20; i++) {
-            int floor = r.nextInt(2);
+            int floor = r.nextInt(3);
             tags.add(
                     Tag.builder()
                             .id("tag_" + i)
