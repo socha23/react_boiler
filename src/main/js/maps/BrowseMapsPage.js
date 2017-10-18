@@ -2,15 +2,24 @@ import React from 'react'
 import {PropTypes} from 'prop-types'
 import {crudList, crudActions} from '../common/crud/crudContainers'
 import {MapList} from './MapList'
+import FloorPlan from './FloorPlan'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 
 const BrowseMapsPage = ({items, filter, onFilterChange, selected, onSelectItem}) =>
     <div className="container-fluid">
         <div className="row">
-            <div className="col-sm-5 colWithSmallerGutter">
+            <div className="col-sm-6 colWithSmallerGutter">
                 <Panel>
                     <MapList selected={selected} items={items} onSelectItem={onSelectItem}/>
                 </Panel>
+            </div>
+            <div className="col-sm-6 colWithSmallerGutter">
+                { selected ?
+                    <Panel>
+                        <FloorPlan map={selected}/>
+                    </Panel>
+                    : <span/>
+                }
             </div>
         </div>
     </div>;
