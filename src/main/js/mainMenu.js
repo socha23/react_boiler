@@ -17,7 +17,7 @@ exports.content = <Switch>
     <Route exact path="/">
         <Redirect to="/artifacts"/>
     </Route>
-    <Route path="/artifacts/:artifactId?" component={Artifacts}/>
+    <Route path="/artifacts" component={Artifacts}/>
     <Route path="/tags" component={Tags}/>
     <Route path="/maps" component={Maps}/>
 </Switch>;
