@@ -1,6 +1,8 @@
 package pl.socha23.cyberfire.services;
 
 import org.springframework.stereotype.Component;
+import pl.socha23.cyberfire.model.FloorPlan;
+import pl.socha23.cyberfire.model.Position;
 import pl.socha23.cyberfire.model.Tag;
 
 import javax.annotation.PostConstruct;
@@ -27,7 +29,7 @@ public class MockTagsService implements ITagsService {
                     .color(COLORS[r.nextInt(COLORS.length)])
                     .coordinateSystemId("map" + floor)
                     .coordinateSystemName(floor == 0 ? "Parter" : floor + " piętro")
-                    .position(new Tag.Position(r.nextDouble() * 100, r.nextDouble() * 50, r.nextDouble() * 30))
+                    .position(new Position(r.nextDouble() * 100, r.nextDouble() * 50, r.nextDouble() * 30))
                     .build()
             );
         }

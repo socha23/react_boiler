@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Tag {
-
+public class FloorPlan {
     private String id;
     private String name;
-    private String color;
-    private String coordinateSystemId;
-    private String coordinateSystemName;
-    private Position position;
+    private Position topLeft;
+    private Position bottomRight;
+    private String base64content;
 }
