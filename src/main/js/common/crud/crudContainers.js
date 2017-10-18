@@ -54,6 +54,7 @@ function myCrudActions(
 
 
 module.exports = {
+    runOnMount: runOnMount,
     crudList: crudList,
     crudActions: myCrudActions
 };
