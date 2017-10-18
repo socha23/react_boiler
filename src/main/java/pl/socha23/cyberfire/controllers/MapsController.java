@@ -8,9 +8,9 @@ import pl.socha23.cyberfire.services.IFloorPlansService;
 import java.util.Map;
 
 @RestController
-public class FloorPlansController {
+public class MapsController {
 
-    private final static String RESOURCE_NAME = "floorPlans";
+    private final static String RESOURCE_NAME = "maps";
 
     @Autowired
     private IFloorPlansService floorPlansService;

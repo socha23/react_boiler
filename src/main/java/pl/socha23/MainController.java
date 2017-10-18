@@ -16,7 +16,7 @@ public class MainController {
     @Value("${spring.application.name}")
     private String title;
 
-    @RequestMapping(value = {"/", "artifacts/**", "tags/**", "floorPlans/**"})
+    @RequestMapping(value = {"/", "artifacts/**", "tags/**", "maps/**"})
     public String index() {
         return "index";
     }

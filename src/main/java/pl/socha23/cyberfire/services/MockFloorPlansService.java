@@ -19,7 +19,7 @@ public class MockFloorPlansService implements IFloorPlansService {
 
     @PostConstruct
     private void createSampleFloorPlans() {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             floorPlans.add(FloorPlan.builder()
                     .id("floorPlan" + i)
                     .name(FLOOR_NAMES[i])
