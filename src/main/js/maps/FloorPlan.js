@@ -6,14 +6,17 @@ import restActions from '../common/crud/crudActions'
 import {MapList} from './MapList'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 import {runOnMount} from '../common/crud/crudContainers'
+import ResizeAware from 'react-resize-aware';
 
 const TAG_SIZE = 20;
 
-const Tag = ({id, color, position}) =>
-    <div style={{
+const Tag = ({id, color, pxPosition, name}) =>
+    <div
+        title={name}
+        style={{
         position: "absolute",
-        left: position.x,
-        top: position.y,
+        left: pxPosition.x,
+        top: pxPosition.y,
         backgroundColor: color,
         width: TAG_SIZE,
         height: TAG_SIZE,
@@ -22,13 +25,44 @@ const Tag = ({id, color, position}) =>
     }}>
     </div>;
 
-const FloorPlan = ({map, tags = [{id: "t1", color: "red", position: {x: 150, y: 150}}]}) =>
-    (map ? <div style={{position: "relative"}}>
-        <img style={{width: "100%"}}
-             src={map.base64content}
-             title={map.name}/>
-        {tags.map(t => <Tag {...t} key={t.id}/>)}
-    </div> : <span/>);
+function rescaleToPx(posUnits, fromUnits, toUnits, maxPx) {
+    let widthUnits = toUnits - fromUnits;
+    let unitsToPx = maxPx / widthUnits;
+    return (posUnits - fromUnits) * unitsToPx;
+
+}
+
+function pxPosition(map, position, containerWidth, containerHeight) {
+    if (position) {
+        return {
+            x: rescaleToPx(position.x, map.topLeft.x, map.bottomRight.x, containerWidth),
+            y: rescaleToPx(position.y, map.topLeft.y, map.bottomRight.y, containerHeight)
+        }
+    } else {
+        return {x: 0, y: 0}
+    }
+
+
+    console.log(containerWidth + " x " + containerHeight);
+    return position;
+}
+
+const FloorPlanBody = ({map, tags, width, height}) => <div>
+    <img style={{width: "100%"}}
+         src={map.base64content}
+    />
+    {tags.map(t =>
+        <Tag {...t}
+            key={t.id}
+            pxPosition={pxPosition(map, t.position, width, height)}
+        />
+    )}
+</div>;
+
+const FloorPlan = (props) =>
+    (props.map ? <ResizeAware style={{position: "relative"}}>
+        <FloorPlanBody {...props}/>
+    </ResizeAware> : <span/>);
 
 const mapStateToProps = (state, ownProps) => {
     const myMapId = ownProps.map ? ownProps.map.id : ownProps.mapId;
