@@ -41,9 +41,6 @@ function pxPosition(map, position, containerWidth, containerHeight) {
     } else {
         return {x: 0, y: 0}
     }
-
-
-    console.log(containerWidth + " x " + containerHeight);
     return position;
 }
 
