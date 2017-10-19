@@ -23,15 +23,13 @@ const Content = ({maps}) => maps.length == 0 ? <span/> : <Switch>
     </Route>
 </Switch>;
 
-let MyPage = ({items}) => <PageTemplate
+const MyPage = ({items}) => <PageTemplate
     pageNav={<MapTabs maps={items}/>}
     content={<Content maps={items}/>}
 />;
 
-MyPage = withRouter(crudList({
+export default () => withRouter(crudList({
     resource: "maps",
     onlyOnce: true
 }, MyPage));
 
-
-export default () => <MyPage/>
