@@ -18,8 +18,8 @@ import java.util.Random;
 @Component
 public class MockFloorPlansService implements IFloorPlansService {
 
-    private final static Resource BASEMENT_PNG = new ClassPathResource("maps/basement.png");
-    private final static Resource GROUND_PNG = new ClassPathResource("maps/ground.png");
+    private final static Resource BASEMENT_PNG = new ClassPathResource("examples/maps/basement.png");
+    private final static Resource GROUND_PNG = new ClassPathResource("examples/maps/ground.png");
 
     private List<FloorPlan> floorPlans = new ArrayList<>();
 

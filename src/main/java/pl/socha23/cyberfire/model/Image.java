@@ -17,4 +17,7 @@ public class Image {
     private byte[] thumbnail;
     private byte[] fullSized;
 
+    public ImageRef createRef() {
+        return new ImageRef(id, filename);
+    }
 }
