@@ -24,6 +24,9 @@ const Tag = ({id, color, pxPosition, name}) =>
     </div>;
 
 function rescaleToPx(posUnits, fromUnits, toUnits, maxPx) {
+    if (!maxPx) {
+        return 0;
+    }
     let widthUnits = toUnits - fromUnits;
     let unitsToPx = maxPx / widthUnits;
     return (posUnits - fromUnits) * unitsToPx;

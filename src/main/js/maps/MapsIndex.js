@@ -1,15 +1,37 @@
 import React from 'react'
-import {Switch, Route, Redirect} from 'react-router'
+import {withRouter, Switch, Route, Redirect} from 'react-router'
 import LiNavLink from '../common/components/LiNavLink'
+import {crudList} from '../common/crud/crudContainers'
 import PageTemplate from '../templates/PageTemplate'
-import BrowseMapsPage from './BrowseMapsPage'
+import ViewMapPage from './ViewMapPage'
 
-const menu = <ul>
-    <LiNavLink to="/maps/:id?">Lista map</LiNavLink>
+let MapTabs = ({maps}) => <ul>
+    {
+        maps.map(m =>
+            <LiNavLink key={m.id} to={"/maps/" + m.id}>{m.name}</LiNavLink>
+        )
+    }
 </ul>;
 
-const content = <Switch>
-    <Route exact path="/maps/:id?" component={BrowseMapsPage}/>
+const Content = ({maps}) => maps.length == 0 ? <span/> : <Switch>
+    <Route exact path="/maps">
+        <Redirect to={"/maps/" + maps[0].id }/>
+    </Route>
+    <Route path="/maps/:id" render={({match}) =>
+        <ViewMapPage map={maps.find(i => i.id == match.params.id)}/>
+    }>
+    </Route>
 </Switch>;
 
-export default () => <PageTemplate pageNav={menu} content={content}/>
+let MyPage = ({items}) => <PageTemplate
+    pageNav={<MapTabs maps={items}/>}
+    content={<Content maps={items}/>}
+/>;
+
+MyPage = withRouter(crudList({
+    resource: "maps",
+    onlyOnce: true
+}, MyPage));
+
+
+export default () => <MyPage/>
