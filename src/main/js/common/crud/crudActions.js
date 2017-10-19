@@ -35,8 +35,20 @@ export default function restActions(resource) {
         }
     }
 
-    function shouldFetch(state) {
-        return !state.isFetching;
+    function shouldFetch(state, options = {
+        onlyOnce: false,
+        maxAge: 0
+    }) {
+        if (state.isFetching) {
+            return false;
+        } else if (options.onlyOnce && state.itemsTimestamp) {
+            return false;
+        } else if (state.itemsTimestamp && options.maxAge
+            && (new Date() - state.itemsTimestamp) / 1000 < options.maxAge) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     function fetchItems() {
@@ -50,9 +62,9 @@ export default function restActions(resource) {
         }
     }
 
-    function fetchItemsIfNeeded() {
+    function loadItems(options) {
         return (dispatch, getState) => {
-            if (shouldFetch(getState()[resource])) {
+            if (shouldFetch(getState()[resource], options)) {
                 return dispatch(fetchItems())
             } else {
                 return Promise.resolve()
@@ -82,7 +94,9 @@ export default function restActions(resource) {
         }
     }
 
-    function createItem(item, onSuccess = () => {}, onError = () => {}) {
+    function createItem(item, onSuccess = () => {
+    }, onError = () => {
+    }) {
         return (dispatch) => {
             dispatch(createItemRequest());
             return fetch(API_PATH + resource, {
@@ -102,7 +116,7 @@ export default function restActions(resource) {
                             dispatch(createItemError(json.errors));
                             onError(json.errors);
                         })
-                    });
+                });
         }
     }
 
@@ -131,13 +145,13 @@ export default function restActions(resource) {
     function deleteItem(item, onSuccess) {
         return (dispatch) => {
             dispatch(deleteItemRequest());
-            return fetch(item._links.self.href,  {
+            return fetch(item._links.self.href, {
                 method: "DELETE"
             })
                 .then(checkStatus)
                 .then(() => {
                     dispatch(deleteItemSuccess(item));
-                    dispatch(fetchItemsIfNeeded());
+                    dispatch(loadItems());
                     onSuccess();
                 }).catch(error => {
                     console.log(error);
@@ -168,7 +182,9 @@ export default function restActions(resource) {
         }
     }
 
-    function updateItem(item, onSuccess = () => {}, onError = () => {}) {
+    function updateItem(item, onSuccess = () => {
+    }, onError = () => {
+    }) {
         return (dispatch) => {
             dispatch(updateItemRequest());
             return fetch(item._links.self.href, {
@@ -180,7 +196,7 @@ export default function restActions(resource) {
                 .then(parseJSON)
                 .then(json => {
                     dispatch(updateItemSuccess(json));
-                    dispatch(fetchItemsIfNeeded());
+                    dispatch(loadItems());
                     onSuccess(json);
                 }).catch(error => {
                     console.log(error);
@@ -189,15 +205,13 @@ export default function restActions(resource) {
                             dispatch(updateItemError(json.errors));
                             onError(json.errors);
                         });
-                    });
+                });
         }
     }
 
 
-
     return {
-        fetchItems,
-        fetchItemsIfNeeded,
+        loadItems,
         createItem,
         deleteItem,
         updateItem

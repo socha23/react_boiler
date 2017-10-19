@@ -14,7 +14,16 @@ function runOnMount(Component) {
     }
 }
 
-function crudList(resource, Component) {
+function crudList(arg, Component) {
+    let resource = "";
+    let options = {};
+
+    if (typeof arg === "string") {
+        resource = arg;
+    } else {
+        resource = arg.resource;
+        options = arg;
+    }
     const actions = crudActions(resource);
 
     const mapStateToProps = (state) =>({
@@ -22,8 +31,8 @@ function crudList(resource, Component) {
     });
 
     const mapDispatchToProps = (dispatch) => ({
-        onMount: () => dispatch(actions.fetchItemsIfNeeded()),
-        reloadItems: () => dispatch(actions.fetchItemsIfNeeded()),
+        onMount: () => dispatch(actions.loadItems(options)),
+        reloadItems: () => dispatch(actions.loadItems(options))
     });
 
     return connect(mapStateToProps, mapDispatchToProps)(runOnMount(Component));

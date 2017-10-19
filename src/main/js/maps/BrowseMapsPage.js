@@ -63,4 +63,4 @@ BrowseMapsPageContainer.contextTypes = {
     })
 };
 
-export default crudList("maps", BrowseMapsPageContainer)
+export default crudList({resource: "maps", onlyOnce: true}, BrowseMapsPageContainer)

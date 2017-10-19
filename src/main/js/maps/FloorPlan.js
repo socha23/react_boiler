@@ -1,10 +1,8 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
-import {crudList} from '../common/crud/crudContainers'
 import restActions from '../common/crud/crudActions'
 import {MapList} from './MapList'
-import {Panel, PanelWithTitle} from '../common/components/Panel'
 import {runOnMount} from '../common/crud/crudContainers'
 import ResizeAware from 'react-resize-aware';
 
@@ -41,7 +39,6 @@ function pxPosition(map, position, containerWidth, containerHeight) {
     } else {
         return {x: 0, y: 0}
     }
-    return position;
 }
 
 const FloorPlanBody = ({map, tags, width, height}) => <div>
@@ -74,8 +71,8 @@ const mapActions = restActions("maps");
 
 const mapDispatchToProps = (dispatch) => ({
     onMount: () => {
-        dispatch(tagActions.fetchItemsIfNeeded());
-        dispatch(mapActions.fetchItemsIfNeeded());
+        dispatch(tagActions.loadItems());
+        dispatch(mapActions.loadItems({onlyOnce: true}));
     }
 });
 

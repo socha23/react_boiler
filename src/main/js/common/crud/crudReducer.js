@@ -7,7 +7,8 @@ export default function restReducer(resource) {
     return function reduce(state = {
         isFetching: false,
         isCreating: false,
-        items: []
+        items: [],
+        itemsTimestamp: null
     }, action = null) {
         switch (action.type) {
             case ActionNames.REQUEST_ITEMS:
@@ -19,7 +20,8 @@ export default function restReducer(resource) {
                 return {
                     ...state,
                     isFetching: false,
-                    items: action.items
+                    items: action.items,
+                    itemsTimestamp: new Date()
                 };
             case ActionNames.REQUEST_CREATE:
                 return {
