@@ -105,7 +105,6 @@ class ZoomableFloorPlan extends React.Component {
                 name: "fooo",
                 id: 'foo3'
             }
-
         ];
 
         const mapHeight = $(window).height() - 150;
