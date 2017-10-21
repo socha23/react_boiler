@@ -4,12 +4,12 @@ import {crudList, crudActions} from '../common/crud/crudContainers'
 import {TagsList} from './TagsList'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 
-const BrowseTagsPage = ({items, filter, onFilterChange, selected, onSelectItem}) =>
+const BrowseTagsPage = ({items, filter, onFilterChange, selected, onSelect}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-5 colWithSmallerGutter">
                 <Panel>
-                    <TagsList selected={selected} items={items} onSelectItem={onSelectItem}/>
+                    <TagsList selected={selected} items={items} onSelect={onSelect}/>
                 </Panel>
             </div>
         </div>
