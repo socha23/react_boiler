@@ -43,10 +43,7 @@ class ZoomableFloorPlan extends React.Component {
             animate: 'skip',
             $zoomIn: $(this.zoomIn),
             $zoomOut: $(this.zoomOut),
-            onChange: this.panZoomChanged,
-            __minScale: Math.max(
-                this.elem.parent().width() / this.elem.width(),
-                this.elem.parent().height() / this.elem.height())
+            onChange: this.panZoomChanged
         });
         this.panzoom = this.elem.data("__pz__");
 
@@ -62,11 +59,22 @@ class ZoomableFloorPlan extends React.Component {
                 focal: e
             });
         });
+
+        // w timeoucie bo czasem obliczenia width() / height() zawodziły bez niego
+        setTimeout(() => {
+            this.panzoom.option({
+                minScale: Math.max(
+                    this.elem.parent().width() / this.elem.width(),
+                    this.elem.parent().height() / this.elem.height())
+
+            });
+
+
+        });
     };
 
     panZoomChanged = () => {
         this.setState({matrix: this.panzoom.getMatrix().map(i => parseFloat(i))});
-        console.log(this.panzoom.getMatrix());
     };
 
     posToImagePx = (pos) => {
@@ -112,29 +120,28 @@ class ZoomableFloorPlan extends React.Component {
     };
 
     panTo = (pos) => {
+        const outerRecPx = this.elem.parent()[0].getBoundingClientRect();
+        const imgWidth = this.elem.find("img")[0].naturalWidth;
+        const imgHeight = this.elem.find("img")[0].naturalHeight;
+        const zoom = this.state.matrix[0];
+
         let rebasedPos = this.posToImagePx(pos);
+        let dx = rebasedPos.x - imgWidth / 2;
+        let dy = rebasedPos.y - imgHeight / 2;
 
-        rebasedPos = {x: -rebasedPos.x, y: -rebasedPos.y};
+        let x = - (imgWidth / 2 + dx * zoom) + outerRecPx.width / 2;
+        let y = - (imgHeight / 2 + dy * zoom) + outerRecPx.height / 2;
 
-        this.panzoom.pan(rebasedPos.x, rebasedPos.y);
-
-//        let m = this.state.matrix;
-//        this.panzoom.setMatrix([m[0], m[1], m[2], m[3], -rebasedPos.x, -rebasedPos.y]);
-
-
-
-//                this.elem.panzoom("pan", rebasedPos.x, rebasedPos.y);
-        console.log("PANNED TO", rebasedPos);
-
+        this.panzoom.pan(x, y);
     };
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.selectedTag && this.props.selectedTag != nextProps.selectedTag) {
             let newPos = nextProps.selectedTag.position;
-//            if (!this.fitsInViewport(this.posToContainerPx(newPos))) {
+            if (!this.fitsInViewport(this.posToContainerPx(newPos))) {
                 this.panTo(newPos);
             }
-//        }
+        }
     };
 
 
