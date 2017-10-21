@@ -28,7 +28,7 @@ const MyPage = ({items}) => <PageTemplate
     content={<Content maps={items}/>}
 />;
 
-export default () => withRouter(crudList({
+export default withRouter(crudList({
     resource: "maps",
     onlyOnce: true
 }, MyPage));

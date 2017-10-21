@@ -1,6 +1,6 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
-import FloorPlan from './FloorPlan'
+import FloorPlan from './ZoomableFloorPlan'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 
 const ViewMapPage  = ({map}) =>
