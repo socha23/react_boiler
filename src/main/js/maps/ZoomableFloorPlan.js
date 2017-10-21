@@ -36,9 +36,7 @@ class ZoomableFloorPlan extends React.Component {
             $zoomIn: $(this.zoomIn),
             $zoomOut: $(this.zoomOut),
             onChange: this.panZoomChanged,
-            onReset: this.panZoomChanged,
-            onStart: this.panZoomChanged,
-            minScale: Math.max(
+            __minScale: Math.max(
                 this.elem.parent().width() / this.elem.width(),
                 this.elem.parent().height() / this.elem.height())
         });
@@ -80,6 +78,9 @@ class ZoomableFloorPlan extends React.Component {
     };
 
     fitsInViewport = (pos) => {
+        if (!this.elem) {
+            return false;
+        }
         const outerRecPx = this.elem.parent()[0].getBoundingClientRect();
         return 0 <= pos.x && pos.x <= outerRecPx.width
         && 0 <= pos.y && pos.y <= outerRecPx.height;
