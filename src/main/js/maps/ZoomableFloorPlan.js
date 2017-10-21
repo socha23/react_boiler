@@ -59,19 +59,30 @@ class ZoomableFloorPlan extends React.Component {
         this.setState({matrix: panzoom.getMatrix().map(i => parseFloat(i))});
     };
 
-    posToPx = (pos) => {
+    posToPx = (pos, map) => {
         if (!this.elem) {
             return pos;
         }
+        // pos to map image px
+        // left top to (0, 0)
+        pos = {
+            x: pos.x - map.topLeft.x,
+            y: pos.y - map.topLeft.y
+        };
+        // scale to image natural size
+        pos = {
+            x: pos.x / (map.bottomRight.x - map.topLeft.x) * this.elem.find("img")[0].naturalWidth,
+            y: pos.y / (map.bottomRight.y - map.topLeft.y) * this.elem.find("img")[0].naturalHeight
+        };
+        // image px to screen px (pan and zoom)
         const zoom = this.state.matrix[0];
-
         const innerRecPx = this.elem[0].getBoundingClientRect();
         const outerRecPx = this.elem.parent()[0].getBoundingClientRect();
-
         return {
             x: pos.x * zoom + innerRecPx.x - outerRecPx.x,
             y: pos.y * zoom + innerRecPx.y - outerRecPx.y
         };
+
     };
 
     fitsInViewport = (pos) => {
@@ -85,41 +96,16 @@ class ZoomableFloorPlan extends React.Component {
     };
 
     render() {
-
-        var tags = [
-            {
-                position: {x: 0, y: 0},
-                color: "red",
-                name: "fooo",
-                id: 'foo'
-            },
-            {
-                position: {x: 50, y: 50},
-                color: "green",
-                name: "fooo",
-                id: 'foo2'
-            },
-            {
-                position: {x: 100, y: 100},
-                color: "blue",
-                name: "fooo",
-                id: 'foo3'
-            }
-        ];
-
         const mapHeight = $(window).height() - 150;
 
         return <div>
             <div style={{height: mapHeight}}>
-                <div style={{_backgroundColor: "red", position: "absolute"}} ref={elem => this.elem = $(elem)}>
-                    <img
-                        ref={elem => this.elem = elem}
-                        src={this.props.map.base64content}
-                    />
+                <div style={{position: "absolute"}} ref={elem => this.elem = $(elem)}>
+                    <img src={this.props.map.base64content} />
                 </div>
             </div>
             {this.props.tags
-                .map(t => ({...t, pxPosition: this.posToPx(t.position)}))
+                .map(t => ({...t, pxPosition: this.posToPx(t.position, this.props.map)}))
                 .filter(t => this.fitsInViewport(t.pxPosition))
                 .map(t => <Tag {...t} key={t.id}/>)
             }
