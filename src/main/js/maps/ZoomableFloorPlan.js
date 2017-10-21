@@ -1,24 +1,34 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
-import {connect} from 'react-redux'
-import restActions from '../common/crud/crudActions'
 
 const TAG_SIZE = 20;
 
-const Tag = ({id, color, pxPosition, name}) =>
+const Tag = ({id, color, pxPosition, name, selected, onClick}) =>
     <div
+        onClick={onClick}
         title={name}
         style={{
-        position: "absolute",
-        left: pxPosition.x,
-        top: pxPosition.y,
-        backgroundColor: color,
-        width: TAG_SIZE,
-        height: TAG_SIZE,
-        borderRadius: TAG_SIZE / 2,
-        border: "1px solid black",
-        cursor: "pointer"
+            position: "absolute",
+            left: pxPosition.x + TAG_SIZE / 2,
+            top: pxPosition.y + TAG_SIZE / 2,
+            backgroundColor: color,
+            width: TAG_SIZE,
+            height: TAG_SIZE,
+            borderRadius: TAG_SIZE / 2,
+            border: "1px solid black",
+            cursor: "pointer"
     }}>
+        {selected ?
+            <img
+                src="/mapMarker.png"
+                style={{
+                    position: 'relative',
+                    left: -23,
+                    top: -52
+                }}
+
+            />
+            : <span/>}
     </div>;
 
 class ZoomableFloorPlan extends React.Component {
@@ -28,8 +38,6 @@ class ZoomableFloorPlan extends React.Component {
     };
 
     componentDidMount = () => {
-        this.props.onMount();
-
         this.elem.panzoom({
             contain: 'socha',
             animate: 'skip',
@@ -40,8 +48,9 @@ class ZoomableFloorPlan extends React.Component {
                 this.elem.parent().width() / this.elem.width(),
                 this.elem.parent().height() / this.elem.height())
         });
+        this.panzoom = this.elem.data("__pz__");
 
-        this.panZoomChanged(null, this.elem.data("__pz__"));
+        this.panZoomChanged();
 
         this.elem.parent().on('mousewheel.focal', e => {
             e.preventDefault();
@@ -55,15 +64,13 @@ class ZoomableFloorPlan extends React.Component {
         });
     };
 
-    panZoomChanged = (e, panzoom) => {
-        this.setState({matrix: panzoom.getMatrix().map(i => parseFloat(i))});
+    panZoomChanged = () => {
+        this.setState({matrix: this.panzoom.getMatrix().map(i => parseFloat(i))});
+        console.log(this.panzoom.getMatrix());
     };
 
-    posToPx = (pos, map) => {
-        if (!this.elem) {
-            return pos;
-        }
-        // pos to map image px
+    posToImagePx = (pos) => {
+        const map = this.props.map;
         // left top to (0, 0)
         pos = {
             x: pos.x - map.topLeft.x,
@@ -74,6 +81,15 @@ class ZoomableFloorPlan extends React.Component {
             x: pos.x / (map.bottomRight.x - map.topLeft.x) * this.elem.find("img")[0].naturalWidth,
             y: pos.y / (map.bottomRight.y - map.topLeft.y) * this.elem.find("img")[0].naturalHeight
         };
+
+        return pos;
+    };
+
+    posToContainerPx = (pos) => {
+        if (!this.elem) {
+            return pos;
+        }
+        pos = this.posToImagePx(pos);
         // image px to screen px (pan and zoom)
         const zoom = this.state.matrix[0];
         const innerRecPx = this.elem[0].getBoundingClientRect();
@@ -91,46 +107,61 @@ class ZoomableFloorPlan extends React.Component {
         }
         const outerRecPx = this.elem.parent()[0].getBoundingClientRect();
         return 0 <= pos.x && pos.x <= outerRecPx.width
-        && 0 <= pos.y && pos.y <= outerRecPx.height;
+            && 0 <= pos.y && pos.y <= outerRecPx.height;
 
     };
+
+    panTo = (pos) => {
+        let rebasedPos = this.posToImagePx(pos);
+
+        rebasedPos = {x: -rebasedPos.x, y: -rebasedPos.y};
+
+        this.panzoom.pan(rebasedPos.x, rebasedPos.y);
+
+//        let m = this.state.matrix;
+//        this.panzoom.setMatrix([m[0], m[1], m[2], m[3], -rebasedPos.x, -rebasedPos.y]);
+
+
+
+//                this.elem.panzoom("pan", rebasedPos.x, rebasedPos.y);
+        console.log("PANNED TO", rebasedPos);
+
+    };
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.selectedTag && this.props.selectedTag != nextProps.selectedTag) {
+            let newPos = nextProps.selectedTag.position;
+//            if (!this.fitsInViewport(this.posToContainerPx(newPos))) {
+                this.panTo(newPos);
+            }
+//        }
+    };
+
 
     render() {
         const mapHeight = $(window).height() - 150;
 
         return <div>
-            <div style={{height: mapHeight}}>
+            <div style={{height: mapHeight, border: "1px solid #BBB"}}>
                 <div style={{position: "absolute"}} ref={elem => this.elem = $(elem)}>
-                    <img src={this.props.map.base64content} />
+                    <img src={this.props.map.base64content}/>
                 </div>
             </div>
             {this.props.tags
-                .map(t => ({...t, pxPosition: this.posToPx(t.position, this.props.map)}))
+                .map(t => ({...t, pxPosition: this.posToContainerPx(t.position)}))
                 .filter(t => this.fitsInViewport(t.pxPosition))
-                .map(t => <Tag {...t} key={t.id}/>)
+                .map(t => <Tag {...t}
+                    key={t.id}
+                    selected={this.props.selectedTag && t.id == this.props.selectedTag.id}
+                    onClick={() => this.props.onClickTag(t)}
+                />)
             }
-            <a className="btn btn-default" ref={zoomIn => this.zoomIn = zoomIn}>+</a>
-            <a className="btn btn-default" ref={zoomOut => this.zoomOut = zoomOut}>-</a>
+            {/*
+             <a className="btn btn-default" ref={zoomIn => this.zoomIn = zoomIn}>+</a>
+             <a className="btn btn-default" ref={zoomOut => this.zoomOut = zoomOut}>-</a>
+             */}
         </div>
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    const myMapId = ownProps.map ? ownProps.map.id : ownProps.mapId;
-    return {
-        map: state.maps.items.find((m) => m.id == myMapId),
-        tags: state.tags.items.filter((t) => t.coordinateSystemId == myMapId)
-    }
-};
-
-const tagActions = restActions("tags");
-const mapActions = restActions("maps");
-
-const mapDispatchToProps = (dispatch) => ({
-    onMount: () => {
-        dispatch(tagActions.loadItems());
-        dispatch(mapActions.loadItems({onlyOnce: true}));
-    }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ZoomableFloorPlan);
+export default ZoomableFloorPlan;

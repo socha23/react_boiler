@@ -1,15 +1,26 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router'
+import restActions from '../common/crud/crudActions'
+import {runOnMount} from '../common/crud/crudContainers'
+
+import {TagsList} from '../tags/TagsList'
 import FloorPlan from './ZoomableFloorPlan'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 
-const ViewMapPage  = ({map}) =>
+const ViewMapPage  = ({map, tags, selectedTag, onSelectTag}) =>
     <div className="container-fluid">
         <div className="row">
-            <div className="col-sm-6 colWithSmallerGutter">
+            <div className="col-sm-4 colWithSmallerGutter">
+                <Panel>
+                    <TagsList items={tags} selected={selectedTag} onSelect={onSelectTag}/>
+                </Panel>
+            </div>
+            <div className="col-sm-8 colWithSmallerGutter">
                 { map ?
                     <Panel>
-                        <FloorPlan map={map}/>
+                        <FloorPlan map={map} tags={tags} selectedTag={selectedTag} onClickTag={onSelectTag}/>
                     </Panel>
                     : <span/>
                 }
@@ -18,5 +29,26 @@ const ViewMapPage  = ({map}) =>
     </div>;
 
 
+const mapStateToProps = (state, ownProps) => {
+    const myMapId = ownProps.map ? ownProps.map.id : ownProps.mapId;
+    const myTagId = ownProps.tagId;
+    return {
+        map: state.maps.items.find((m) => m.id == myMapId),
+        tags: state.tags.items.filter((t) => t.coordinateSystemId == myMapId),
+        selectedTag: myTagId ? state.tags.items.find((m) => m.id == myTagId) : null,
+        onSelectTag: (tag) => {
+            ownProps.history.push("/maps/" + myMapId + "/" + tag.id)
+        }
+    }
+};
 
-export default ViewMapPage
+const mapDispatchToProps = (dispatch) => ({
+    onMount: () => {
+        dispatch(restActions("tags").loadItems());
+        dispatch(restActions("maps").loadItems({onlyOnce: true}));
+    }
+});
+
+const redux = connect(mapStateToProps, mapDispatchToProps);
+
+export default withRouter(redux(runOnMount(ViewMapPage)));

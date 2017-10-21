@@ -25,7 +25,7 @@ class BrowseTagsPageContainer extends React.Component {
         this.setState({filter: filter});
     };
 
-    onSelectItem = (item) => {
+    onSelectTag = (item) => {
         this.context.router.history.push("/tags/" + item.id);
     };
 
@@ -41,7 +41,7 @@ class BrowseTagsPageContainer extends React.Component {
             {...this.props}
             items={this.filterItems(this.props.items)}
             selected={this.props.items.find(i => i.id == this.props.match.params.id)}
-            onSelectItem={this.onSelectItem}
+            onSelect={this.onSelectTag}
             filter={this.state.filter}
             onFilterChange={this.onFilterChange}
         />

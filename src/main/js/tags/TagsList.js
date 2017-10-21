@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const TagsList = ({selected = {}, items = [], onSelectItem = (() => {})}) => <div>
+export const TagsList = ({selected = {}, items = [], onSelect = (() => {})}) => <div>
     <table className="table table-hover table-pointer">
         <thead>
         <tr>
@@ -10,7 +10,7 @@ export const TagsList = ({selected = {}, items = [], onSelectItem = (() => {})})
         </tr>
         </thead>
         <tbody>
-        {items.map(t => <tr key={t.id} className={selected == t ? 'success' : ''} onClick={() => {onSelectItem(t)}}>
+        {items.map(t => <tr key={t.id} className={selected == t ? 'success' : ''} onClick={() => {onSelect(t)}}>
             <td>{t.name}</td>
             <td>{t.coordinateSystemName}</td>
             <td>{t.position.x}, {t.position.y}</td>

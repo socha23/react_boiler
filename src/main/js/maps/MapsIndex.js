@@ -17,8 +17,8 @@ const Content = ({maps}) => maps.length == 0 ? <span/> : <Switch>
     <Route exact path="/maps">
         <Redirect to={"/maps/" + maps[0].id }/>
     </Route>
-    <Route path="/maps/:id" render={({match}) =>
-        <ViewMapPage map={maps.find(i => i.id == match.params.id)}/>
+    <Route path="/maps/:id/:tagId?" render={({match}) =>
+        <ViewMapPage map={maps.find(i => i.id == match.params.id)} tagId={match.params.tagId}/>
     }>
     </Route>
 </Switch>;
