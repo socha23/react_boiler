@@ -63,10 +63,7 @@ class ZoomableFloorPlan extends React.Component {
         if (!this.elem) {
             return pos;
         }
-
         const zoom = this.state.matrix[0];
-        const dx = this.state.matrix[4];
-        const dy = this.state.matrix[5];
 
         const innerRecPx = this.elem[0].getBoundingClientRect();
         const outerRecPx = this.elem.parent()[0].getBoundingClientRect();
