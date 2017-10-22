@@ -1,13 +1,11 @@
-function tagsByArtifactId(artifacts, tags) {
-    if (!artifacts || !tags) {
+function artifactsByTagId(artifacts) {
+    if (!artifacts) {
         return {};
     }
-    let tagsById = {};
-    tags.forEach(t => tagsById[t.id] = t);
     let result = {};
     artifacts.forEach(a => {
         if (a.tagId) {
-            result[a.id] = tagsById[a.tagId];
+            result[a.tagId] = a;
         }
     });
     return result;
@@ -28,6 +26,6 @@ function availableTags(artifacts, tags, forArtifact) {
 
 
 module.exports = {
-    tagsByArtifactId: tagsByArtifactId,
+    artifactsByTagId:artifactsByTagId,
     availableTags: availableTags
 };

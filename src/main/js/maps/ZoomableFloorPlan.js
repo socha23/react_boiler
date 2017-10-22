@@ -1,12 +1,14 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
+import {connect} from 'react-redux'
+import {artifactsByTagId} from '../tags/tagHelpers'
 
 const TAG_SIZE = 20;
 
-const Tag = ({id, color, pxPosition, name, selected, onClick}) =>
+let Tag = ({id, color, pxPosition, name, selected, onClick, artifactsByTagId}) =>
     <div
         onClick={onClick}
-        title={name}
+        title={artifactsByTagId[id] ? artifactsByTagId[id].name + " (" + name + ")" : name}
         style={{
             position: "absolute",
             left: pxPosition.x + TAG_SIZE / 2,
@@ -30,6 +32,15 @@ const Tag = ({id, color, pxPosition, name, selected, onClick}) =>
             />
             : <span/>}
     </div>;
+
+const mapStateToProps = (state, ownProps) => ({
+    artifactsByTagId: artifactsByTagId(state.artifacts.items)
+});
+
+Tag = connect(mapStateToProps)(Tag);
+
+
+
 
 class ZoomableFloorPlan extends React.Component {
 
@@ -178,4 +189,4 @@ class ZoomableFloorPlan extends React.Component {
     }
 }
 
-export default ZoomableFloorPlan;
+export default ZoomableFloorPlan

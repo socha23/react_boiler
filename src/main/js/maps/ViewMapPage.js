@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 import restActions from '../common/crud/crudActions'
 
-import {TagsList} from '../tags/TagsList'
+import TaggedObjectsList from '../tags/TaggedObjectsList'
 import FloorPlan from './ZoomableFloorPlan'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 
@@ -13,7 +13,7 @@ const ViewMapPage  = ({map, tags, selectedTag, onSelectTag}) =>
         <div className="row">
             <div className="col-sm-4 colWithSmallerGutter">
                 <Panel>
-                    <TagsList items={tags} selected={selectedTag} onSelect={onSelectTag}/>
+                    <TaggedObjectsList tags={tags} selected={selectedTag} onSelect={onSelectTag}/>
                 </Panel>
             </div>
             <div className="col-sm-8 colWithSmallerGutter">
