@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router'
 import crudActions from './crudActions'
+import AjaxSpinner from '../components/AjaxSpinner'
 
 function runOnMount(Component) {
     return class extends React.Component {
@@ -38,10 +40,8 @@ function crudList(arg, Component) {
     return connect(mapStateToProps, mapDispatchToProps)(runOnMount(Component));
 }
 
-function myCrudActions(
-    resource,
-    Component
-) {
+function myCrudActions(resource,
+                       Component) {
     const actions = crudActions(resource);
 
     const mapStateToProps = (state) =>({
@@ -61,11 +61,34 @@ function myCrudActions(
 
 
 
+let ResourceLoader = ({resources = [], everythingLoaded = true, children}) =>
+    everythingLoaded ? children : <AjaxSpinner/>;
+
+const mapStateToProps = (state, ownProps = {resources: []}) => {
+    ownProps.resources.forEach(resource => {
+        if (!ownProps[resource].itemsTimestamp) {
+            return {everythingLoaded: false};
+        }
+    });
+    return {everythingLoaded: true};
+};
+
+const mapDispatchToProps = (dispatch, ownProps = {resources: []}) => ({
+    onMount: () => {
+        ownProps.resources.forEach(resource => {
+            dispatch(crudActions(resource).loadItems());
+        });
+    }
+});
+
+ResourceLoader = withRouter(connect(mapStateToProps, mapDispatchToProps)(runOnMount(ResourceLoader)));
+
 
 module.exports = {
     runOnMount: runOnMount,
     crudList: crudList,
-    crudActions: myCrudActions
+    crudActions: myCrudActions,
+    ResourceLoader: ResourceLoader
 };
 
 

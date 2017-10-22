@@ -2,6 +2,7 @@ import React from 'react'
 import LiNavLink from './common/components/LiNavLink'
 import {Switch, Route, Redirect} from 'react-router'
 import Artifacts from './artifacts/ArtifactsIndex'
+import {ResourceLoader} from './common/crud/crudContainers'
 import Tags from './tags/TagsIndex'
 import Maps from './maps/MapsIndex'
 
@@ -13,13 +14,16 @@ exports.navBar = <ul>
     <LiNavLink to="/fire"><i title="Pożar!" className="glyphicon glyphicon-fire"/></LiNavLink>
 </ul>;
 
-exports.content = <Switch>
-    <Route exact path="/">
-        <Redirect to="/artifacts"/>
-    </Route>
-    <Route path="/artifacts" component={Artifacts}/>
-    <Route path="/tags" component={Tags}/>
-    <Route path="/maps" component={Maps}/>
-</Switch>;
+exports.content = <ResourceLoader>
+    <Switch>
+        <Route exact path="/">
+            <Redirect to="/artifacts"/>
+        </Route>
+        <Route path="/artifacts" component={Artifacts}/>
+        <Route path="/tags" component={Tags}/>
+        <Route path="/maps" component={Maps}/>
+    </Switch>
+</ResourceLoader>;
+
 
 
