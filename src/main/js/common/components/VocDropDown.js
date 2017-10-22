@@ -6,25 +6,17 @@ function optionRenderer(item) {
     return <span><VocIcon value={item} className="iconWithName"/>{item.name}</span>
 }
 
-export default class VocDropDown extends React.Component {
 
+const VocDropDown = ({id, value, items, onChange}) => <Select
+    value={value}
+    options={items}
+    labelKey="name"
+    valueKey="id"
+    optionRenderer={optionRenderer}
+    valueRenderer={optionRenderer}
+    onChange={(i) => onChange(i.id)}
+    clearable={false}
+    id={id}
+/>;
 
-    onChange = (i) => {
-        this.props.onChange(i.id);
-    };
-
-    render() {
-        return <Select
-          value={this.props.value}
-          options={this.props.items}
-          labelKey="name"
-          valueKey="id"
-          optionRenderer={optionRenderer}
-          valueRenderer={optionRenderer}
-          onChange={this.onChange}
-          clearable={false}
-          id={this.props.id}
-        />
-    };
-}
-
+export default VocDropDown;

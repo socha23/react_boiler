@@ -5,6 +5,7 @@ import VocIcon from '../common/components/VocIcon'
 import {priorityName, priority, Type, Priority} from './ArtifactVocs'
 import * as vocFunctions from '../common/vocFunctions'
 import {ImageListWithView} from './ArtifactImageList'
+import TagValue from '../tags/TagValue'
 
 const ValueOrQuestion = ({value}) => {
     if (value) {
@@ -48,7 +49,15 @@ const ArtifactDetails = ({item}) => <div>
             </div>
         </div>
         <div className="row">
-            <div className="col-sm-12 form-group">
+            <div className="col-sm-6 form-group">
+                <label>
+                    Znacznik:
+                </label>
+                <p className="form-control-static">
+                    <TagValue tagId={item.tagId} link={true}/>
+                </p>
+            </div>
+            <div className="col-sm-6 form-group">
                 <label>
                     Wymiary:
                 </label>

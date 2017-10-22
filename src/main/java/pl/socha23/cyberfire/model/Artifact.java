@@ -28,4 +28,6 @@ public class Artifact {
     private String evacuationNotes = "";
 
     private List<ImageRef> images = new ArrayList<>();
+
+    private String tagId;
 }

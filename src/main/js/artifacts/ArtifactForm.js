@@ -8,6 +8,7 @@ import Uploader from '../common/components/Uploader'
 import ErrorList from '../common/components/ErrorList'
 import VocDropDown from '../common/components/VocDropDown'
 import {EditableImageList} from './ArtifactImageList'
+import AvailableTagsDropDown from '../tags/AvailableTagsDropDown'
 
 class ArtifactForm extends FormHelper {
 
@@ -24,7 +25,8 @@ class ArtifactForm extends FormHelper {
             depth: floatToString(dimensions.depth) || '',
             identificationNotes: item.identificationNotes || '',
             evacuationNotes: item.evacuationNotes || '',
-            images: item.images || []
+            images: item.images || [],
+            tagId: item.tagId
 
         });
     };
@@ -45,6 +47,7 @@ class ArtifactForm extends FormHelper {
         item.identificationNotes = this.state.identificationNotes;
         item.evacuationNotes = this.state.evacuationNotes;
         item.images = this.state.images;
+        item.tagId = this.state.tagId;
         return item;
     };
 
@@ -82,6 +85,8 @@ class ArtifactForm extends FormHelper {
                     </div>
                 </div>
 
+                <hr/>
+
                 <div className={this.formGroupClassName('priority')}>
                     <label htmlFor="artifactPriority" className="col-sm-2 control-label">Priorytet:</label>
                     <div className="col-sm-10">
@@ -93,6 +98,19 @@ class ArtifactForm extends FormHelper {
                         />
                     </div>
                 </div>
+
+                <div className={this.formGroupClassName('tagId')}>
+                    <label htmlFor="artifactTagId" className="col-sm-2 control-label">Znacznik:</label>
+                    <div className="col-sm-10">
+                        <AvailableTagsDropDown
+                            value={this.state.tagId}
+                            onChange={this.stateSettingValueListener("tagId")}
+                            id="artifactTagId"
+                            forArtifact={this.props.item}
+                        />
+                    </div>
+                </div>
+
 
                 <hr/>
 
