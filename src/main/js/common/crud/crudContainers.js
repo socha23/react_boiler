@@ -64,16 +64,16 @@ function myCrudActions(resource,
 let ResourceLoader = ({resources = [], everythingLoaded = true, children}) =>
     everythingLoaded ? children : <AjaxSpinner/>;
 
-const mapStateToProps = (state, ownProps = {resources: []}) => {
+const mapStateToProps = (state, ownProps) => {
     ownProps.resources.forEach(resource => {
-        if (!ownProps[resource].itemsTimestamp) {
+        if (!ownProps[resource] || !ownProps[resource].itemsTimestamp) {
             return {everythingLoaded: false};
         }
     });
     return {everythingLoaded: true};
 };
 
-const mapDispatchToProps = (dispatch, ownProps = {resources: []}) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
     onMount: () => {
         ownProps.resources.forEach(resource => {
             dispatch(crudActions(resource).loadItems());

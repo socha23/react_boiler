@@ -69,6 +69,13 @@ class ZoomableFloorPlan extends React.Component {
 
             });
 
+            // wymuszenie rerendera, żeby znów odpowiednio poumieszczał tagi
+            this.setState({pleaseRerenderMe: true});
+
+            if (this.props.selectedTag) {
+                this.panTo(this.props.selectedTag.position);
+            }
+
 
         });
     };

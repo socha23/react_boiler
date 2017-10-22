@@ -3,7 +3,6 @@ import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 import restActions from '../common/crud/crudActions'
-import {runOnMount} from '../common/crud/crudContainers'
 
 import {TagsList} from '../tags/TagsList'
 import FloorPlan from './ZoomableFloorPlan'
@@ -42,13 +41,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    onMount: () => {
-        dispatch(restActions("tags").loadItems());
-        dispatch(restActions("maps").loadItems({onlyOnce: true}));
-    }
-});
-
-const redux = connect(mapStateToProps, mapDispatchToProps);
-
-export default withRouter(redux(runOnMount(ViewMapPage)));
+export default withRouter(connect(mapStateToProps)(ViewMapPage));

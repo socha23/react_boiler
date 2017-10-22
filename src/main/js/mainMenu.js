@@ -14,7 +14,7 @@ exports.navBar = <ul>
     <LiNavLink to="/fire"><i title="Pożar!" className="glyphicon glyphicon-fire"/></LiNavLink>
 </ul>;
 
-exports.content = <ResourceLoader>
+exports.content = <ResourceLoader resources={["artifacts", "tags", "maps"]}>
     <Switch>
         <Route exact path="/">
             <Redirect to="/artifacts"/>
