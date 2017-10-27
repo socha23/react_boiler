@@ -9,6 +9,7 @@ import ErrorList from '../common/components/ErrorList'
 import VocDropDown from '../common/components/VocDropDown'
 import {EditableImageList} from './ArtifactImageList'
 import AvailableTagsDropDown from '../tags/AvailableTagsDropDown'
+import AvailableCratesDropDown from '../tags/AvailableCratesDropDown'
 
 class ArtifactForm extends FormHelper {
 
@@ -26,7 +27,8 @@ class ArtifactForm extends FormHelper {
             identificationNotes: item.identificationNotes || '',
             evacuationNotes: item.evacuationNotes || '',
             images: item.images || [],
-            tagId: item.tagId
+            tagId: item.tagId,
+            crateId: item.crateId
 
         });
     };
@@ -48,6 +50,7 @@ class ArtifactForm extends FormHelper {
         item.evacuationNotes = this.state.evacuationNotes;
         item.images = this.state.images;
         item.tagId = this.state.tagId;
+        item.crateId = this.state.crateId;
         return item;
     };
 
@@ -111,7 +114,6 @@ class ArtifactForm extends FormHelper {
                     </div>
                 </div>
 
-
                 <hr/>
 
                 <div className={this.formGroupClassName('weight')}>
@@ -157,6 +159,18 @@ class ArtifactForm extends FormHelper {
                             style={{width: 100}}
                             id="artifactDepth"
                             placeholder="Głęb. cm"
+                        />
+                    </div>
+                </div>
+
+                <div className={this.formGroupClassName('crateId')}>
+                    <label htmlFor="artifactCrateId" className="col-sm-2 control-label">Skrzynia:</label>
+                    <div className="col-sm-10">
+                        <AvailableCratesDropDown
+                            value={this.state.crateId}
+                            onChange={this.stateSettingValueListener("crateId")}
+                            id="artifactCrateId"
+                            forArtifact={this.props.item}
                         />
                     </div>
                 </div>

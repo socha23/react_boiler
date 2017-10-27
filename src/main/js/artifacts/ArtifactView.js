@@ -6,6 +6,7 @@ import {priorityName, priority, Type, Priority} from './ArtifactVocs'
 import * as vocFunctions from '../common/vocFunctions'
 import {ImageListWithView} from './ArtifactImageList'
 import TagValue from '../tags/TagValue'
+import LocatorValue from '../tags/LocatorValue'
 
 const ValueOrQuestion = ({value}) => {
     if (value) {
@@ -63,6 +64,17 @@ const ArtifactDetails = ({item}) => <div>
                 </label>
                 <p className="form-control-static">
                     <Dimensions value={item.dimensions}/>
+                </p>
+            </div>
+        </div>
+
+        <div className="row">
+            <div className="col-sm-12 form-group">
+                <label>
+                    Skrzynia:
+                </label>
+                <p className="form-control-static">
+                    <LocatorValue locatorId={item.crateId} link={true}/>
                 </p>
             </div>
         </div>
