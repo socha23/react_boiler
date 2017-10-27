@@ -10,6 +10,7 @@ exports.INITIAL_STATE = {
 
 const artifactsCrudReducer = crudReducer("artifacts");
 const tagsReducer = crudReducer("tags");
+const locatorsReducer = crudReducer("locators");
 const mapsReducer = crudReducer("maps");
 
 exports.reducer = (oldState = INITIAL_STATE, action = null) => {
@@ -18,6 +19,7 @@ exports.reducer = (oldState = INITIAL_STATE, action = null) => {
         routing: routerReducer(oldState.routing, action),
         artifacts: artifactsCrudReducer(oldState.artifacts, action),
         tags: tagsReducer(oldState.tags, action),
+        locators: locatorsReducer(oldState.locators, action),
         maps: mapsReducer(oldState.maps, action)
     };
 };
