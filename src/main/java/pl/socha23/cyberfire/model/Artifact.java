@@ -30,4 +30,5 @@ public class Artifact {
     private List<ImageRef> images = new ArrayList<>();
 
     private String tagId;
+    private String locatorId;
 }
