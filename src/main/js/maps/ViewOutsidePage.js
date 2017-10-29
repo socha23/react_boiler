@@ -18,7 +18,7 @@ const ViewOutside  = ({locators, selectedLocator, onSelectLocator}) =>
             </div>
             <div className="col-sm-8 colWithSmallerGutter">
                 <Panel>
-                    <GoogleMap locators={locators}/>
+                    <GoogleMap locators={locators} selected={selectedLocator} onClick={onSelectLocator}/>
                 </Panel>
             </div>
         </div>

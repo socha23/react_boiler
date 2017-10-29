@@ -11,7 +11,7 @@ const WARSAW = {
 };
 const DEFAULT_ZOOM = 12;
 
-const GoogleMap = ({locators}) =>
+const GoogleMap = ({locators, selected, onClick}) =>
     <HeightExpander style={{border: "1px solid #BBB"}}>
         <GoogleMapReact
             bootstrapURLKeys={{key: API_KEY}}
@@ -25,6 +25,9 @@ const GoogleMap = ({locators}) =>
                     lng={t.longitude}
                     dotCorrection={-1}
                     name={t.name}
+                    color="yellow"
+                    selected={selected && t.id == selected.id}
+                    onClick={() => onClick(t)}
                 />
                 )}
         </GoogleMapReact>
