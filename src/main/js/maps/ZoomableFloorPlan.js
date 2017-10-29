@@ -3,6 +3,7 @@ import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
 import {artifactsByTagId} from '../tags/tagHelpers'
 import {Marker, DOT_SIZE} from './Marker'
+import HeightExpander from '../common/components/HeightExpander'
 
 
 let Tag = ({id, color, pxPosition, name, selected, onClick, artifactsByTagId}) =>
@@ -150,14 +151,12 @@ class ZoomableFloorPlan extends React.Component {
 
 
     render() {
-        const mapHeight = $(window).height() - 150;
-
         return <div>
-            <div style={{height: mapHeight, border: "1px solid #BBB"}}>
+            <HeightExpander style={{border: "1px solid #BBB"}}>
                 <div style={{position: "absolute"}} ref={elem => this.elem = $(elem)}>
                     <img src={this.props.map.base64content}/>
                 </div>
-            </div>
+            </HeightExpander>
             {this.props.tags
                 .map(t => ({...t, pxPosition: this.posToContainerPx(t.position)}))
                 .filter(t => this.fitsInViewport(t.pxPosition))
