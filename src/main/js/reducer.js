@@ -11,7 +11,7 @@ exports.INITIAL_STATE = {
 const artifactsCrudReducer = crudReducer("artifacts");
 const tagsReducer = crudReducer("tags");
 const locatorsReducer = crudReducer("locators");
-const mapsReducer = crudReducer("maps");
+const floorPlansReducer = crudReducer("floorPlans");
 
 exports.reducer = (oldState = INITIAL_STATE, action = null) => {
     return {
@@ -20,6 +20,6 @@ exports.reducer = (oldState = INITIAL_STATE, action = null) => {
         artifacts: artifactsCrudReducer(oldState.artifacts, action),
         tags: tagsReducer(oldState.tags, action),
         locators: locatorsReducer(oldState.locators, action),
-        maps: mapsReducer(oldState.maps, action)
+        floorPlans: floorPlansReducer(oldState.floorPlans, action)
     };
 };

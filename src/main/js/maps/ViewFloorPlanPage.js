@@ -8,7 +8,7 @@ import TaggedObjectsList from '../tags/TaggedObjectsList'
 import FloorPlan from './ZoomableFloorPlan'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 
-const ViewMapPage  = ({map, tags, selectedTag, onSelectTag}) =>
+const ViewFloorPlan  = ({map, tags, selectedTag, onSelectTag}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-4 colWithSmallerGutter">
@@ -32,7 +32,7 @@ const mapStateToProps = (state, ownProps) => {
     const myMapId = ownProps.map ? ownProps.map.id : ownProps.mapId;
     const myTagId = ownProps.tagId;
     return {
-        map: state.maps.items.find((m) => m.id == myMapId),
+        map: state.floorPlans.items.find((m) => m.id == myMapId),
         tags: state.tags.items.filter((t) => t.coordinateSystemId == myMapId),
         selectedTag: myTagId ? state.tags.items.find((m) => m.id == myTagId) : null,
         onSelectTag: (tag) => {
@@ -41,4 +41,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-export default withRouter(connect(mapStateToProps)(ViewMapPage));
+export default withRouter(connect(mapStateToProps)(ViewFloorPlan));

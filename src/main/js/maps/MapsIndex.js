@@ -3,7 +3,7 @@ import {withRouter, Switch, Route, Redirect} from 'react-router'
 import LiNavLink from '../common/components/LiNavLink'
 import {crudList} from '../common/crud/crudContainers'
 import PageTemplate from '../templates/PageTemplate'
-import ViewMapPage from './ViewMapPage'
+import ViewFloorPlanPage from './ViewFloorPlanPage'
 
 let MapTabs = ({maps}) => <ul>
     {
@@ -18,7 +18,7 @@ const Content = ({maps}) => maps.length == 0 ? <span/> : <Switch>
         <Redirect to={"/maps/" + maps[0].id }/>
     </Route>
     <Route path="/maps/:id/:tagId?" render={({match}) =>
-        <ViewMapPage map={maps.find(i => i.id == match.params.id)} tagId={match.params.tagId}/>
+        <ViewFloorPlanPage map={maps.find(i => i.id == match.params.id)} tagId={match.params.tagId}/>
     }>
     </Route>
 </Switch>;
@@ -29,7 +29,7 @@ const MyPage = ({items}) => <PageTemplate
 />;
 
 export default withRouter(crudList({
-    resource: "maps",
+    resource: "floorPlans",
     onlyOnce: true
 }, MyPage));
 
