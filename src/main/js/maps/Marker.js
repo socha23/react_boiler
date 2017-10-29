@@ -18,6 +18,8 @@ function appendStyle(style) {
     }
 }
 
+// dotCorrection is multiplied by half of dotsize to determine relative amount to move the marker by
+
 const Marker = ({id, color = "red", style = {}, name = "", selected = false, onClick = () => {}, dotCorrection = 1
 
     }) =>

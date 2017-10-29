@@ -20,7 +20,7 @@ const Content = ({maps}) => maps.length == 0 ? <span/> : <Switch>
         <Redirect to={"/maps/" + maps[0].id }/>
     </Route>
     <Route path="/maps/outside/:locatorId?" render={({match}) =>
-        <ViewOutsidePage locatorId={match.params.locatorIdId}/>
+        <ViewOutsidePage locatorId={match.params.locatorId}/>
     }/>
     <Route path="/maps/:id/:tagId?" render={({match}) =>
         <ViewFloorPlanPage map={maps.find(i => i.id == match.params.id)} tagId={match.params.tagId}/>

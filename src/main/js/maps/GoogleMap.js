@@ -5,17 +5,28 @@ import {Marker} from './Marker'
 
 const API_KEY = 'AIzaSyC77HrEgEXqjx73wgVDrHCuLQwmHPVUx0k';
 
+const WARSAW = {
+    lat: 52.2297,
+    lng: 21.0122
+};
+const DEFAULT_ZOOM = 12;
+
 const GoogleMap = ({locators}) =>
     <HeightExpander style={{border: "1px solid #BBB"}}>
         <GoogleMapReact
             bootstrapURLKeys={{key: API_KEY}}
-            center={{lat: 59.955413, lng: 30.337844}}
-            zoom={8}
+            center={WARSAW}
+            zoom={DEFAULT_ZOOM}
         >
-            <Marker lat={59.955413}
-                    lng={30.337844}
+            {locators.map(t =>
+                <Marker
+                    key={t.id}
+                    lat={t.latitude}
+                    lng={t.longitude}
                     dotCorrection={-1}
-                    name="MArker"/>
+                    name={t.name}
+                />
+                )}
         </GoogleMapReact>
     </HeightExpander>;
 
