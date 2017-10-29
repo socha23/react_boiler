@@ -11,11 +11,21 @@ const itemDivStyle = {
     paddingBottom: 5
 };
 
-let Locator = ({locator, artifact, history}) => <div style={itemDivStyle}>
-    {locator.name}
+let LocatedArtifact = ({locator, artifact, history}) => <div style={itemDivStyle}>
+    <VocIcon value={find(Type, artifact.type)} className="iconWithName"/>
+    <a onClick={(e) => {e.stopPropagation(); history.push("/artifacts/" + artifact.id)}}>{artifact.name}</a>
+    <small style={{marginLeft: 10, color: "#AAA"}}>
+        {locator.name}
+    </small>
+    <VocIcon value={find(Priority, artifact.priority)} className="pull-right"/>
 </div>;
 
-Locator = withRouter(Locator);
+LocatedArtifact = withRouter(LocatedArtifact);
+
+const Locator = ({locator}) => <div style={itemDivStyle}>
+    <span style={{marginLeft: 26}}>{locator.name}</span>
+</div>;
+
 
 const LocatorObjectsList = ({
     selected = {},
@@ -27,7 +37,11 @@ const LocatorObjectsList = ({
         <tbody>
         {locators.map(t => <tr key={t.id} className={selected == t ? 'success' : ''} onClick={() => {onSelect(t)}}>
             <td>
-                <Locator locator={t} artifact={artifactsByCrateId[t.id]}/>
+                {
+                    artifactsByCrateId[t.id] ?
+                        <LocatedArtifact locator={t} artifact={artifactsByCrateId[t.id]}/>
+                        : <Locator locator={t}/>
+                }
             </td>
         </tr>)
         }

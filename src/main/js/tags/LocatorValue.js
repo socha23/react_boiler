@@ -6,7 +6,7 @@ const LocatorValue = ({locator, link, history}) => locator ? <span>
             { link ?
                 <a
                     style={{cursor: "pointer"}}
-                    onClick={() => history.push("/tags/locators/" + locator.id)}
+                    onClick={() => history.push("/maps/outside/" + locator.id)}
                 >
                     {locator.name}
                 </a>
