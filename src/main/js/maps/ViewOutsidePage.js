@@ -5,12 +5,8 @@ import {withRouter} from 'react-router'
 import restActions from '../common/crud/crudActions'
 import LocatorObjectsList from '../tags/LocatorObjectsList'
 
-import FloorPlan from './ZoomableFloorPlan'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
-
-const GoogleMap = ({locators}) => {
-
-};
+import GoogleMap from './GoogleMap'
 
 const ViewOutside  = ({locators, selectedLocator, onSelectLocator}) =>
     <div className="container-fluid">
@@ -22,7 +18,7 @@ const ViewOutside  = ({locators, selectedLocator, onSelectLocator}) =>
             </div>
             <div className="col-sm-8 colWithSmallerGutter">
                 <Panel>
-                    {/*<GoogleMap locators={locators}/>*/}
+                    <GoogleMap locators={locators}/>
                 </Panel>
             </div>
         </div>
