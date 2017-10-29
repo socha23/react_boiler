@@ -3,7 +3,6 @@ import React from 'react';
 const DOT_SIZE = 20;
 
 const STYLE_COMMON = {
-    position: "absolute",
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: DOT_SIZE / 2,
@@ -29,6 +28,7 @@ const Marker = ({id, color = "red", style = {}, name = "", selected = false, onC
         style={appendStyle({
             ...style,
             backgroundColor: color,
+            zIndex: 1000,
             left: (style.left || 0) + dotCorrection * DOT_SIZE / 2,
             top: (style.top || 0) + dotCorrection * DOT_SIZE / 2
         })}>
@@ -37,6 +37,7 @@ const Marker = ({id, color = "red", style = {}, name = "", selected = false, onC
                 src="/mapMarker.png"
                 style={{
                     position: 'relative',
+                    zIndex: 2000,
                     left: -23,
                     top: -52
                 }}
