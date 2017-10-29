@@ -13,8 +13,8 @@ let Tag = ({id, color, pxPosition, name, selected, onClick, artifactsByTagId}) =
         name={artifactsByTagId[id] ? artifactsByTagId[id].name + " (" + name + ")" : name}
         style={{
             position: "absolute",
-            left: pxPosition.x + DOT_SIZE / 2,
-            top: pxPosition.y + DOT_SIZE / 2
+            left: pxPosition.x,
+            top: pxPosition.y
         }}
         selected={selected}
         onClick={onClick}

@@ -18,11 +18,18 @@ function appendStyle(style) {
     }
 }
 
-const Marker = ({id, color = "red", style = {}, name = "", selected = false, onClick = () => {}}) =>
+const Marker = ({id, color = "red", style = {}, name = "", selected = false, onClick = () => {}, dotCorrection = 1
+
+    }) =>
     <div
         onClick={onClick}
         title={name}
-        style={appendStyle({...style, backgroundColor: color})}>
+        style={appendStyle({
+            ...style,
+            backgroundColor: color,
+            left: (style.left || 0) + dotCorrection * DOT_SIZE / 2,
+            top: (style.top || 0) + dotCorrection * DOT_SIZE / 2
+        })}>
         {selected ?
             <img
                 src="/mapMarker.png"
