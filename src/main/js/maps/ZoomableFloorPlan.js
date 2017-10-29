@@ -2,36 +2,22 @@ import React from 'react'
 import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
 import {artifactsByTagId} from '../tags/tagHelpers'
+import {Marker, DOT_SIZE} from './Marker'
 
-const TAG_SIZE = 20;
 
 let Tag = ({id, color, pxPosition, name, selected, onClick, artifactsByTagId}) =>
-    <div
-        onClick={onClick}
-        title={artifactsByTagId[id] ? artifactsByTagId[id].name + " (" + name + ")" : name}
+    <Marker
+        id={id}
+        color={color}
+        name={artifactsByTagId[id] ? artifactsByTagId[id].name + " (" + name + ")" : name}
         style={{
             position: "absolute",
-            left: pxPosition.x + TAG_SIZE / 2,
-            top: pxPosition.y + TAG_SIZE / 2,
-            backgroundColor: color,
-            width: TAG_SIZE,
-            height: TAG_SIZE,
-            borderRadius: TAG_SIZE / 2,
-            border: "1px solid black",
-            cursor: "pointer"
-    }}>
-        {selected ?
-            <img
-                src="/mapMarker.png"
-                style={{
-                    position: 'relative',
-                    left: -23,
-                    top: -52
-                }}
-
-            />
-            : <span/>}
-    </div>;
+            left: pxPosition.x + DOT_SIZE / 2,
+            top: pxPosition.y + DOT_SIZE / 2
+        }}
+        selected={selected}
+        onClick={onClick}
+        />;
 
 const mapStateToProps = (state, ownProps) => ({
     artifactsByTagId: artifactsByTagId(state.artifacts.items)

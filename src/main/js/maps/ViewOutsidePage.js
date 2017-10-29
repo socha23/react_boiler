@@ -8,6 +8,10 @@ import LocatorObjectsList from '../tags/LocatorObjectsList'
 import FloorPlan from './ZoomableFloorPlan'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 
+const GoogleMap = ({locators}) => {
+
+};
+
 const ViewOutside  = ({locators, selectedLocator, onSelectLocator}) =>
     <div className="container-fluid">
         <div className="row">
@@ -17,7 +21,9 @@ const ViewOutside  = ({locators, selectedLocator, onSelectLocator}) =>
                 </Panel>
             </div>
             <div className="col-sm-8 colWithSmallerGutter">
-                TUTAJ MAPA
+                <Panel>
+                    {/*<GoogleMap locators={locators}/>*/}
+                </Panel>
             </div>
         </div>
     </div>;
