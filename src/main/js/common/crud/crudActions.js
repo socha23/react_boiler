@@ -55,9 +55,16 @@ export default function restActions(resource) {
         return function (dispatch) {
             dispatch(request());
             return fetch(API_PATH + resource + "?sort=id,desc&size=1000") // spring data rest
-                .then(response => response.json())
+                .then(checkStatus)
+                .then(parseJSON)
                 .then(json => {
                     dispatch(receive(json._embedded[resource]));
+                }).catch(error => {
+                    error.json()
+                        .then(json => {
+                            console.error(json);
+                            window.alert(json.message);
+                        })
                 });
         }
     }

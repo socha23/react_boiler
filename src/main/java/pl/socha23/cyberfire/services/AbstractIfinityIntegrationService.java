@@ -89,6 +89,9 @@ public abstract class AbstractIfinityIntegrationService<T> implements Applicatio
             }
         } catch (Exception e) {
             LOG.error("Error invoking integration service", e);
+            serviceResponseCode = -1L;
+            serviceResponseStatus = "Call service error";
+            serviceResponseMessage = e.getMessage();
         }
     }
 
