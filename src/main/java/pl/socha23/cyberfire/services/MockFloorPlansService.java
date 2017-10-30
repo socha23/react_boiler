@@ -1,20 +1,20 @@
 package pl.socha23.cyberfire.services;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
 import pl.socha23.cyberfire.model.Position;
-import pl.socha23.cyberfire.model.Tag;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.Random;
 
+@Qualifier("mock")
 @Component
 public class MockFloorPlansService implements IFloorPlansService {
 
