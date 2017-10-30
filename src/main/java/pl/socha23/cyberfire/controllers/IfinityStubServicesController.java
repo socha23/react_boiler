@@ -1,6 +1,8 @@
 package pl.socha23.cyberfire.controllers;
 
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,8 @@ import static pl.socha23.utils.CollectionUtils.map;
 @RestController
 public class IfinityStubServicesController {
 
+    private final static Log LOG = LogFactory.getLog(IfinityStubServicesController.class);
+
     @Qualifier("mock")
     @Autowired
     private ITagsService tagsService;
@@ -28,7 +32,8 @@ public class IfinityStubServicesController {
     private IFloorPlansService floorPlansService;
 
     @RequestMapping("/api/ifinityStub/qpe/getTagPosition")
-    public Map getTagLocations() {
+    public Map getTagPosition() {
+        LOG.info("getTagPosition() called");
         return map(
                 "code", 0,
                 "status", "Ok",
@@ -57,6 +62,7 @@ public class IfinityStubServicesController {
 
     @RequestMapping("/api/ifinityStub/qpe/getProjectInfo")
     public Map getProjectInfo() {
+        LOG.info("getProjectInfo() called");
         return map(
                 "code", 0,
                 "status", "Ok",
@@ -71,7 +77,7 @@ public class IfinityStubServicesController {
     private static Map floorPlanToJSON(FloorPlan floorPlan) {
         return map(
                 "id", floorPlan.getId(),
-                "name", floorPlan.getId(),
+                "name", floorPlan.getName(),
                 "backgroundImages", list(
                         map(
                                 "id", floorPlan.getId() + "_img",
