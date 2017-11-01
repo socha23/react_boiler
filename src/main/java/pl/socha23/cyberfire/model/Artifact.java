@@ -1,6 +1,9 @@
 package pl.socha23.cyberfire.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.ArrayList;
@@ -30,5 +33,10 @@ public class Artifact {
     private List<ImageRef> images = new ArrayList<>();
 
     private String tagId;
+
+    // przypisana skrzynia
     private String crateId;
+
+    // lokator w którym znajduje się obiekt - może to być skrzynia (przypisana bądź nie), może to być kontener
+    private String currentLocatorId;
 }

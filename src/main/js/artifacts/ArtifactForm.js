@@ -10,6 +10,7 @@ import VocDropDown from '../common/components/VocDropDown'
 import {EditableImageList} from './ArtifactImageList'
 import AvailableTagsDropDown from '../tags/AvailableTagsDropDown'
 import AvailableCratesDropDown from '../tags/AvailableCratesDropDown'
+import AllLocatorsDropDown from '../tags/AllLocatorsDropDown'
 
 class ArtifactForm extends FormHelper {
 
@@ -28,7 +29,8 @@ class ArtifactForm extends FormHelper {
             evacuationNotes: item.evacuationNotes || '',
             images: item.images || [],
             tagId: item.tagId,
-            crateId: item.crateId
+            crateId: item.crateId,
+            currentLocatorId: item.currentLocatorId
 
         });
     };
@@ -51,6 +53,7 @@ class ArtifactForm extends FormHelper {
         item.images = this.state.images;
         item.tagId = this.state.tagId;
         item.crateId = this.state.crateId;
+        item.currentLocatorId = this.state.currentLocatorId
         return item;
     };
 
@@ -175,6 +178,21 @@ class ArtifactForm extends FormHelper {
                     </div>
                 </div>
 
+            </div>
+
+            <hr/>
+
+            <div className="form-horizontal">
+                <div className={this.formGroupClassName('currentLocatorId')}>
+                    <label htmlFor="currentLocatorId" className="col-sm-2 control-label">Aktualnie w:</label>
+                    <div className="col-sm-10">
+                        <AllLocatorsDropDown
+                            value={this.state.currentLocatorId}
+                            onChange={this.stateSettingValueListener("currentLocatorId")}
+                            id="currentLocatorId"
+                        />
+                    </div>
+                </div>
             </div>
 
             <hr/>

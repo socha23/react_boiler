@@ -6,7 +6,7 @@ const TagValue = ({tag, link, history}) => tag ? <span>
             { link ?
                 <a
                     style={{cursor: "pointer"}}
-                    onClick={() => history.push("/maps/" + tag.coordinateSystemId + "/" + tag.id)}
+                    onClick={e => {e.stopPropagation(); history.push("/maps/" + tag.coordinateSystemId + "/" + tag.id)}}
                 >
                     {tag.name}
                 </a>

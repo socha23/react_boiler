@@ -41,7 +41,7 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
                     .name(node.get("name").asText())
                     .color(node.get("color").asText("red"))
                     .coordinateSystemId(node.get("coordinateSystemId").asText())
-                    .coordinateSystemName(node.get("coordinateSystemId").asText())
+                    .coordinateSystemName(node.get("coordinateSystemName").asText())
                     .position(new Position(
                             position.get(0).asDouble(),
                             position.get(1).asDouble(),

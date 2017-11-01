@@ -6,15 +6,11 @@ const LocatorValue = ({locator, link, history}) => locator ? <span>
             { link ?
                 <a
                     style={{cursor: "pointer"}}
-                    onClick={() => history.push("/maps/outside/" + locator.id)}
+                    onClick={e => {e.stopPropagation(); history.push("/maps/outside/" + locator.id)}}
                 >
-                    {locator.name}
-                </a>
+                    {locator.name}</a>
             : locator.name
             }
-            <small style={{marginLeft: 10, color: "#AAA"}}>
-
-            </small>
     </span> :
     <span>nie wybrano</span>
     ;

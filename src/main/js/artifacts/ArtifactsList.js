@@ -3,8 +3,16 @@ import {Type, Priority} from './ArtifactVocs'
 import * as vocFunctions from '../common/vocFunctions'
 import VocIcon from '../common/components/VocIcon'
 import {EnumFilter} from '../common/components/filters'
+import LocatorValue from '../tags/LocatorValue'
 
 const STYLE_FLAG_COLUMN = {width: 60, textAlign: "center"};
+
+const ArtifactNameColumn = ({artifact}) => <div>
+    {artifact.name}
+    {artifact.currentLocatorId ?
+        <span> (<LocatorValue locatorId={artifact.currentLocatorId} link/>)</span>
+    : <span/>}
+</div>;
 
 export const ArtifactsList = ({selected = {}, items = [], onSelectItem = (() => {})}) => <div>
     <table className="table table-hover table-pointer">
@@ -20,7 +28,7 @@ export const ArtifactsList = ({selected = {}, items = [], onSelectItem = (() => 
         <tbody>
         {items.map(a => <tr key={a.id} className={selected == a ? 'success' : ''} onClick={() => {onSelectItem(a)}}>
             <td><VocIcon value={vocFunctions.find(Type, a.type)}/></td>
-            <td>{a.name}</td>
+            <td><ArtifactNameColumn artifact={a}/></td>
             <td style={STYLE_FLAG_COLUMN}>{a.tagId ? <i className="glyphicon glyphicon-ok" /> : <span/>}</td>
             <td style={STYLE_FLAG_COLUMN}>{a.crateId ? <i className="glyphicon glyphicon-ok" /> : <span/>}</td>
             <td style={STYLE_FLAG_COLUMN}><VocIcon value={vocFunctions.find(Priority, a.priority)}/></td>

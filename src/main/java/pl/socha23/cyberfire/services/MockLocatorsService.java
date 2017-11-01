@@ -23,12 +23,22 @@ public class MockLocatorsService implements ILocatorsService {
     @PostConstruct
     private void createSampleLocators() {
         for (int i = 1; i <= 5; i++) {
-
             locators.add(
                     Locator.builder()
-                            .id("locator_" + i)
+                            .id("crate_" + i)
                             .name("Skrzynia #" + i)
                             .type(Locator.Type.CRATE)
+                            .latitude(WARSAW_LAT + gaussianScatter())
+                            .longitude(WARSAW_LNG + gaussianScatter())
+                    .build()
+            );
+        }
+        for (int i = 1; i <= 5; i++) {
+            locators.add(
+                    Locator.builder()
+                            .id("container_" + i)
+                            .name("Kontener #" + i)
+                            .type(Locator.Type.CONTAINER)
                             .latitude(WARSAW_LAT + gaussianScatter())
                             .longitude(WARSAW_LNG + gaussianScatter())
                     .build()
