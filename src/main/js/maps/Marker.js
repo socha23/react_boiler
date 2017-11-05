@@ -34,7 +34,7 @@ const Marker = ({id, color = "red", style = {}, name = "", selected = false, onC
         })}>
         {selected ?
             <img
-                src="/mapMarker.png"
+                src={CONTEXT_PATH + "/mapMarker.png"}
                 style={{
                     position: 'relative',
                     zIndex: 2000,

@@ -5,18 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title th:text="${applicationName}">My application name</title>
-    <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/alertify/alertify.core.css" />
-    <link rel="stylesheet" href="/alertify/alertify.default.css" />
-    <link rel="stylesheet" href="/react-select.css" />
-    <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" th:href="@{/bootstrap-3.3.7-dist/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/alertify/alertify.core.css}" />
+    <link rel="stylesheet" th:href="@{/alertify/alertify.default.css}" />
+    <link rel="stylesheet" th:href="@{/react-select.css}" />
+    <link rel="stylesheet" th:href="@{/main.css}" />
 
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
         window.application = {
             profile: [[${profile}]],
-            applicationName: [[${applicationName}]]
+            applicationName: [[${applicationName}]],
+            contextPath: [[${contextPath}]]
         };
+        CONTEXT_PATH = [[${contextPath}]];
         /*]]>*/
     </script>
 </head>
@@ -24,15 +26,15 @@
     <div id="app">
         <div class="ajaxSpinner">
             <div class="ajaxSpinnerInner">
-                <img src="/gears.svg" alt="Please wait..."/>
+                <img th:src="@{/gears.svg}" alt="Please wait..."/>
             </div>
         </div>
     </div>
 
-    <script src="/jquery-3.1.1.min.js"></script>
-    <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script src="/alertify/alertify.min.js"></script>
-    <script src="/jquery.panzoom.socha.js"></script>
-    <script src="/bundle.js"></script>
+    <script th:src="@{/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/alertify/alertify.min.js}"></script>
+    <script th:src="@{/jquery.panzoom.socha.js}"></script>
+    <script th:src="@{/bundle.js}"></script>
 </body>
 </html>

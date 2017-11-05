@@ -15,7 +15,7 @@ const store = createStore(reducer, INITIAL_STATE, applyMiddleware(
 
 render((
     <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename={CONTEXT_PATH}>
             <Template navBar={navBar} content={content}/>
         </BrowserRouter>
     </Provider>

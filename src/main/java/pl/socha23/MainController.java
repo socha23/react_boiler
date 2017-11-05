@@ -16,6 +16,9 @@ public class MainController {
     @Value("${spring.application.name}")
     private String title;
 
+    @Value("${server.contextPath}")
+    private String contextPath;
+
     @RequestMapping(value = {"/", "artifacts/**", "tags/**", "maps/**", "locators/**"})
     public String index() {
         return "index";
@@ -31,5 +34,11 @@ public class MainController {
     public String getProfile() {
         return String.join(", ", environment.getActiveProfiles());
     }
+
+    @ModelAttribute("contextPath")
+    public String getContextPath() {
+        return contextPath;
+    }
+
 }
 

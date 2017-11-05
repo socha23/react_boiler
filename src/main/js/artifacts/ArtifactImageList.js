@@ -12,7 +12,7 @@ const ImageRow = ({image, onDelete, selected, onClick}) =>
             title={image.name}
         >
             <td style={{paddingTop: 5, paddingBottom: 5, width: 130}}>
-                <img style={{padding: 5, border: "1px solid #888"}} src={"/api/images/" + image.id + "/thumbnail"}/>
+                <img style={{padding: 5, border: "1px solid #888"}} src={CONTEXT_PATH + "/api/images/" + image.id + "/thumbnail"}/>
             </td>
             <td style={{padding: 10, maxWidth: 150, overflow: "hidden"}}>
                 <div>
@@ -77,7 +77,7 @@ class EditableImageListContainer extends React.Component {
 const ImageListWithView = ({items, item, onClick}) => <div>
     {
         item ? <div>
-            <img style={{width: "100%", padding: 5, border: "1px solid #888"}} src={"/api/images/" + item.id}/>
+            <img style={{width: "100%", padding: 5, border: "1px solid #888"}} src={CONTEXT_PATH + "/api/images/" + item.id}/>
         </div> : <span/>
     }
     <table className="table">
