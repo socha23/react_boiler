@@ -10,15 +10,13 @@ def profile = (hasProperty("profile") ? profile  : "dev")
 
 apply plugin: "war"
 
-
-
 war {
-    baseName = "react_boiler"
+    baseName = "cyberfire"
     version = "0.0.1"
 }
 
 jar {
-    baseName = 'react_boiler'
+    baseName = 'cyberfire'
     version = "0.0.1"
 }
 
