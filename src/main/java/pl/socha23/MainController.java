@@ -16,7 +16,7 @@ public class MainController {
     @Value("${spring.application.name}")
     private String title;
 
-    @Value("${server.contextPath}")
+    @Value("#{servletContext.contextPath}")
     private String contextPath;
 
     @RequestMapping(value = {"/", "artifacts/**", "tags/**", "maps/**", "locators/**"})
