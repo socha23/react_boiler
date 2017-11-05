@@ -33,7 +33,6 @@ public class IfinityStubServicesController {
 
     @RequestMapping("/api/ifinityStub/qpe/getTagPosition")
     public Map getTagPosition() {
-        LOG.info("getTagPosition() called");
         return map(
                 "code", 0,
                 "status", "Ok",
@@ -62,7 +61,6 @@ public class IfinityStubServicesController {
 
     @RequestMapping("/api/ifinityStub/qpe/getProjectInfo")
     public Map getProjectInfo() {
-        LOG.info("getProjectInfo() called");
         return map(
                 "code", 0,
                 "status", "Ok",
