@@ -1,14 +1,12 @@
 package pl.socha23.cyberfire.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Locator {
 
     public enum Type {CRATE, CONTAINER}

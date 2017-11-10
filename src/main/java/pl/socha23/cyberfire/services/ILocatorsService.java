@@ -7,4 +7,6 @@ import java.util.List;
 public interface ILocatorsService {
 
     List<Locator> getAllLocators();
+
+    void update(Locator locator);
 }

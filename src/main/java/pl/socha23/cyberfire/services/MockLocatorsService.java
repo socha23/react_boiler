@@ -4,9 +4,9 @@ import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.Locator;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Component
 public class MockLocatorsService implements ILocatorsService {
@@ -17,13 +17,14 @@ public class MockLocatorsService implements ILocatorsService {
 
     private final static Random random = new Random();
 
-    private List<Locator> locators = new ArrayList<>();
+    private List<Locator> staticLocators = new ArrayList<>();
+    private ForgettingStore<Locator> dynamicLocators = new ForgettingStore<>(60 * 1000);
 
 
     @PostConstruct
     private void createSampleLocators() {
         for (int i = 1; i <= 5; i++) {
-            locators.add(
+            staticLocators.add(
                     Locator.builder()
                             .id("crate_" + i)
                             .name("Skrzynia #" + i)
@@ -34,7 +35,7 @@ public class MockLocatorsService implements ILocatorsService {
             );
         }
         for (int i = 1; i <= 5; i++) {
-            locators.add(
+            staticLocators.add(
                     Locator.builder()
                             .id("container_" + i)
                             .name("Kontener #" + i)
@@ -52,6 +53,41 @@ public class MockLocatorsService implements ILocatorsService {
 
     @Override
     public List<Locator> getAllLocators() {
-        return locators;
+        List<Locator> result = new ArrayList<>();
+        result.addAll(staticLocators);
+        result.addAll(dynamicLocators.list());
+        return result;
+    }
+
+    @Override
+    public void update(Locator locator) {
+        dynamicLocators.put(locator.getId(), locator);
+    }
+
+
+    private static class ForgettingStore<T> {
+        private Map<String, T> items = new HashMap<>();
+        private Map<String, Instant> timestamps = new HashMap<>();
+
+        private int memoryTimeMillis = 1000;
+
+        public ForgettingStore(int memoryTimeMillis) {
+            this.memoryTimeMillis = memoryTimeMillis;
+        }
+
+        public List<T> list() {
+            List<T> result = new ArrayList<>();
+            for (String id : items.keySet()) {
+                if (timestamps.get(id).plus(memoryTimeMillis, ChronoUnit.MILLIS).isAfter(Instant.now())) {
+                    result.add(items.get(id));
+                }
+            }
+            return result;
+        }
+
+        public void put(String id, T item) {
+            items.put(id, item);
+            timestamps.put(id, Instant.now());
+        }
     }
 }

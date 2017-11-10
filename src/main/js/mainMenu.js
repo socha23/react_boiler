@@ -14,15 +14,17 @@ exports.navBar = <ul>
     <LiNavLink to="/fire"><i title="Pożar!" className="glyphicon glyphicon-fire"/></LiNavLink>
 </ul>;
 
-exports.content = <ResourceLoader resources={["artifacts", "tags", "floorPlans", "locators"]}>
-    <Switch>
-        <Route exact path="/">
-            <Redirect to="/artifacts"/>
-        </Route>
-        <Route path="/artifacts" component={Artifacts}/>
-        <Route path="/tags" component={Tags}/>
-        <Route path="/maps" component={Maps}/>
-    </Switch>
+exports.content = <ResourceLoader resources={["artifacts", "floorPlans"]}>
+    <ResourceLoader resources={["tags", "locators"]} interval={1000}>
+        <Switch>
+            <Route exact path="/">
+                <Redirect to="/artifacts"/>
+            </Route>
+            <Route path="/artifacts" component={Artifacts}/>
+            <Route path="/tags" component={Tags}/>
+            <Route path="/maps" component={Maps}/>
+        </Switch>
+        </ResourceLoader>
 </ResourceLoader>;
 
 

@@ -61,8 +61,39 @@ function myCrudActions(resource,
 
 
 
-let ResourceLoader = ({resources = [], everythingLoaded = true, children}) =>
-    everythingLoaded ? children : <AjaxSpinner/>;
+class ResourceLoader extends React.Component {
+
+    static defaultProps = {
+        resources: [],
+        interval: 0
+    };
+
+    componentDidMount = () => {
+        this.props.loadResources();
+        if (this.props.interval > 0) {
+            this.intervalHandle = setInterval(() => {
+                this.props.loadResources();
+            }, this.props.interval);
+        }
+    };
+
+    componentWillUnmount = () => {
+        this.props.loadResources();
+        if (this.intervalHandle) {
+            this.intervalHandle();
+            this.intervalHandle = null;
+        }
+
+    };
+
+    render = () => {
+        if (this.props.everythingLoaded) {
+            return this.props.children
+        } else {
+            return <AjaxSpinner/>
+        }
+    };
+}
 
 const mapStateToProps = (state, ownProps) => {
     ownProps.resources.forEach(resource => {
@@ -74,14 +105,14 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onMount: () => {
+    loadResources: () => {
         ownProps.resources.forEach(resource => {
             dispatch(crudActions(resource).loadItems());
         });
     }
 });
 
-ResourceLoader = withRouter(connect(mapStateToProps, mapDispatchToProps)(runOnMount(ResourceLoader)));
+ResourceLoader = withRouter(connect(mapStateToProps, mapDispatchToProps)(ResourceLoader));
 
 
 module.exports = {
