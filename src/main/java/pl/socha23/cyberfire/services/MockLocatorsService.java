@@ -4,9 +4,9 @@ import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.Locator;
 
 import javax.annotation.PostConstruct;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Component
 public class MockLocatorsService implements ILocatorsService {
@@ -65,29 +65,4 @@ public class MockLocatorsService implements ILocatorsService {
     }
 
 
-    private static class ForgettingStore<T> {
-        private Map<String, T> items = new HashMap<>();
-        private Map<String, Instant> timestamps = new HashMap<>();
-
-        private int memoryTimeMillis = 1000;
-
-        public ForgettingStore(int memoryTimeMillis) {
-            this.memoryTimeMillis = memoryTimeMillis;
-        }
-
-        public List<T> list() {
-            List<T> result = new ArrayList<>();
-            for (String id : items.keySet()) {
-                if (timestamps.get(id).plus(memoryTimeMillis, ChronoUnit.MILLIS).isAfter(Instant.now())) {
-                    result.add(items.get(id));
-                }
-            }
-            return result;
-        }
-
-        public void put(String id, T item) {
-            items.put(id, item);
-            timestamps.put(id, Instant.now());
-        }
-    }
 }
