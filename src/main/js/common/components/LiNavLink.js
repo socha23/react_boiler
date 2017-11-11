@@ -14,6 +14,7 @@ const LiNavLink = ({
     location,
     className,
     activeClassName,
+    liStyle,
     style,
     activeStyle,
     ariaCurrent,
@@ -30,7 +31,7 @@ const LiNavLink = ({
             return (
               <li
                 className={isActive ? [ className, activeClassName ].filter(i => i).join(' ') : className}
-                style={isActive ? { ...style, ...activeStyle } : style}
+                style={isActive ? { ...liStyle, ...activeStyle } : liStyle}
                 >
                   <Link
                     to={to}
