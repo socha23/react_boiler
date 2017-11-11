@@ -5,7 +5,7 @@ import {withRouter} from 'react-router'
 import restActions from '../common/crud/crudActions'
 import LocatorObjectsList from '../tags/LocatorObjectsList'
 
-import {Panel, PanelWithTitle} from '../common/components/Panel'
+import Panel from '../common/components/Panel'
 import GoogleMap from './GoogleMap'
 
 const ViewOutside  = ({locators, selectedLocator, onSelectLocator}) =>

@@ -2,7 +2,7 @@ import React from 'react'
 import {PropTypes} from 'prop-types'
 import {crudList, crudActions} from '../common/crud/crudContainers'
 import {TagsList} from './TagsList'
-import {Panel, PanelWithTitle} from '../common/components/Panel'
+import Panel from '../common/components/Panel'
 
 const BrowseTagsPage = ({items, filter, onFilterChange, selected, onSelect}) =>
     <div className="container-fluid">

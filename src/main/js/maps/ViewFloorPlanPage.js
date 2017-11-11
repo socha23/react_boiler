@@ -6,7 +6,7 @@ import restActions from '../common/crud/crudActions'
 
 import TaggedObjectsList from '../tags/TaggedObjectsList'
 import FloorPlan from './ZoomableFloorPlan'
-import {Panel, PanelWithTitle} from '../common/components/Panel'
+import Panel from '../common/components/Panel'
 
 const ViewFloorPlan  = ({map, tags, selectedTag, onSelectTag}) =>
     <div className="container-fluid">
