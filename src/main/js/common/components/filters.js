@@ -1,50 +1,68 @@
 import React from 'react'
 import ToggleButtons from './ToggleButtons'
+import PopupToggleButtons from './PopupToggleButtons'
 import SearchInput from './SearchInput'
 import PropTypes from 'prop-types'
 
+function toggleButtonsFilter(Component) {
+    return class extends React.Component {
+        state = {
+            filter: this.props.filter
+        };
 
-export class EnumFilter extends React.Component {
+        componentWillReceiveProps(nextProps) {
+            this.setState({...this.state, filter: nextProps.filter});
+        };
 
-    state = {
-        filter: this.props.filter || this.props.field
-    };
+        onSelectionChange = (selection) => {
+            var newFilter = {...this.state.filter};
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({...this.state, filter: nextProps.filter});
-    };
+            if (Object.keys(selection).length == 0) {
+                delete newFilter[this.props.field]
+            } else {
+                newFilter[this.props.field] = selection;
+            }
+            this.setState({...this.state, filter: newFilter});
+            if (this.props.onFilterChange) {
+                this.props.onFilterChange(newFilter);
+            }
+        };
 
-    onSelectionChange = (selection) => {
-        var newFilter = {...this.state.filter};
-
-        if (Object.keys(selection).length == 0) {
-            delete newFilter[this.props.field]
-        } else {
-            newFilter[this.props.field] = selection;
+        render() {
+            return <div>
+                <Component
+                    {...this.props}
+                    selected={this.state.filter[this.props.field]}
+                    onSelectionChange={this.onSelectionChange}
+                />
+            </div>
         }
-        this.setState({...this.state, filter: newFilter});
-        if (this.props.onFilterChange) {
-            this.props.onFilterChange(newFilter);
-        }
-    };
-
-    render() {
-        return <div>
-            <ToggleButtons
-                items={this.props.items}
-                selected={this.state.filter[this.props.field]}
-                onSelectionChange={this.onSelectionChange}
-            />
-        </div>
     }
 }
 
-EnumFilter.propTypes = {
+
+
+export const ToggleButtonsFilter = toggleButtonsFilter(ToggleButtons);
+
+ToggleButtonsFilter.propTypes = {
     items: PropTypes.array,
     filter: PropTypes.object,
     field: PropTypes.string,
     onFilterChange: PropTypes.func
 };
+
+
+export const PopupToggleButtonsFilter = toggleButtonsFilter(PopupToggleButtons);
+
+PopupToggleButtonsFilter.propTypes = {
+    items: PropTypes.array,
+    filter: PropTypes.object,
+    field: PropTypes.string,
+    onFilterChange: PropTypes.func
+};
+
+
+
 
 
 export class SearchFilter extends React.Component {

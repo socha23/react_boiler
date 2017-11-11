@@ -7,6 +7,11 @@ class ToggleButtons extends React.Component {
         selected: this.props.selected || {}
     };
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({selected: nextProps.selected || {}});
+    };
+
+
     onToggle = (item) => {
         var newState = {...this.state, selected: {...this.state.selected}};
         const id = item.id;
@@ -21,6 +26,8 @@ class ToggleButtons extends React.Component {
         }
 
     };
+
+
 
     render() {
         return <div className="toggleButtons">

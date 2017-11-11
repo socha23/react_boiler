@@ -1,12 +1,53 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
 import {crudList, crudActions} from '../common/crud/crudContainers'
-import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter} from './ArtifactsList'
+import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter, PopupArtifactTypeFilter, PopupArtifactPriorityFilter} from './ArtifactsList'
 import {Panel, PanelWithTitle} from '../common/components/Panel'
 import ArtifactCard from './ArtifactCard'
 import {SearchFilter} from '../common/components/filters'
+import * as Responsive from '../common/components/responsive'
 
-const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate}) =>
+const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate}) =>
+    <div className="container-fluid">
+        <div className="row">
+            <div className="col-sm-6 colWithSmallerGutter">
+                <div className="row">
+                    <div className="col-sm-6 colWithSmallerGutter">
+                        <Panel>
+                            <PopupArtifactTypeFilter filter={filter} onFilterChange={onFilterChange}/>
+                        </Panel>
+                    </div>
+                    <div className="col-sm-6 colWithSmallerGutter">
+                        <Panel>
+                            <PopupArtifactPriorityFilter filter={filter} onFilterChange={onFilterChange}/>
+                        </Panel>
+                    </div>
+                </div>
+                <Panel>
+                    <ArtifactsList selected={selected} items={items} onSelectItem={onSelectItem}/>
+                </Panel>
+            </div>
+            <div className="col-sm-6 colWithSmallerGutter">
+                {
+                    (selected || createMode) ?
+                        <Panel>
+                            <ArtifactCard
+                                item={selected}
+                                onDelete={onDelete}
+                                createMode={createMode}
+                                onSubmit={createMode ? (i, s, e) => {onCreate(i, onSelectItem, e)} : onUpdate}
+                            />
+                        </Panel>
+                        :
+                        <div></div>
+
+                }
+            </div>
+        </div>
+    </div>;
+
+
+const WideBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
@@ -45,6 +86,20 @@ const BrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectI
             </div>
         </div>
     </div>;
+
+
+const BrowseArtifactsPage = (props) =>
+    <div>
+        <Responsive.Below1024>
+            <NarrowBrowseArtifactsPage {...props}/>
+        </Responsive.Below1024>
+        <Responsive.Above1024>
+            <WideBrowseArtifactsPage {...props}/>
+        </Responsive.Above1024>
+    </div>;
+
+
+
 
 
 class ArtifactsPageContainer extends React.Component {
