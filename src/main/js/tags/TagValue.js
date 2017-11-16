@@ -16,7 +16,7 @@ const TagValue = ({tag, link, history}) => tag ? <span>
                 {tag.coordinateSystemName}
             </small>
     </span> :
-    <span>nie wybrano</span>
+    <span></span>
     ;
 
 const mapStateToProps = (state, ownProps) => {
