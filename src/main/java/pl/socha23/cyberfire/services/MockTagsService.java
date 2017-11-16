@@ -38,22 +38,39 @@ public class MockTagsService implements ITagsService {
                     .color(randomColor())
                     .coordinateSystemId(floor.getId())
                     .coordinateSystemName(floor.getName())
-                    .position(randomPositionOn(floor))
+                    .position(randomPositionOnTopLeftQuadrant(floor))
                     .build()
             );
         }
     }
 
-    private Position randomPositionOn(FloorPlan floor) {
+    private Position randomPositionOnTopLeftQuadrant(FloorPlan floor) {
 
         double width = floor.getBottomRight().getX() - floor.getTopLeft().getX();
         double height = floor.getBottomRight().getY() - floor.getTopLeft().getY();
 
-        double x = width * random.nextDouble() + floor.getTopLeft().getX();
-        double y = height * random.nextDouble() + floor.getTopLeft().getY();
+        double x = width * 0.5 + floor.getTopLeft().getX();
+        double y = height * 0.5 + floor.getTopLeft().getY();
 
-        return new Position(x, y, floor.getTopLeft().getZ());
+        return randomPositionInSquare(floor.getTopLeft(), new Position(x, y, floor.getTopLeft().getZ()));
     }
+
+
+    private Position randomPositionOn(FloorPlan floor) {
+        return randomPositionInSquare(floor.getTopLeft(), floor.getBottomRight());
+    }
+
+    private Position randomPositionInSquare(Position topLeft, Position bottomRight) {
+
+        double width = bottomRight.getX() - topLeft.getX();
+        double height = bottomRight.getY() - topLeft.getY();
+
+        double x = width * random.nextDouble() + topLeft.getX();
+        double y = height * random.nextDouble() + topLeft.getY();
+
+        return new Position(x, y, topLeft.getZ());
+    }
+
 
     private String randomColor() {
         return COLORS[random.nextInt(COLORS.length)];

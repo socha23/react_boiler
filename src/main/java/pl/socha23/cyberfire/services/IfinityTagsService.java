@@ -32,20 +32,19 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
     @Override
     protected List<Tag> decodeResult(JsonNode json) {
         List<Tag> tags = new ArrayList<>();
-        ArrayNode tagNodes = (ArrayNode)json.get("tags");
+        ArrayNode tagNodes = (ArrayNode)json;
         for (JsonNode node : tagNodes) {
 
-            ArrayNode position = (ArrayNode)node.get("smoothedPosition");
             Tag t = Tag.builder()
                     .id(node.get("id").asText())
                     .name(node.get("name").asText())
                     .color(node.get("color").asText("red"))
-                    .coordinateSystemId(node.get("coordinateSystemId").asText())
-                    .coordinateSystemName(node.get("coordinateSystemName").asText())
+                    .coordinateSystemId(node.get("areaId").asText())
+                    .coordinateSystemName(node.get("areaName").asText())
                     .position(new Position(
-                            position.get(0).asDouble(),
-                            position.get(1).asDouble(),
-                            position.get(2).asDouble()
+                            node.get("smoothedPositionX").asDouble(),
+                            node.get("smoothedPositionY").asDouble(),
+                            node.get("smoothedPositionZ").asDouble()
                             ))
                     .build();
             tags.add(t);

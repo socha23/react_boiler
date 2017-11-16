@@ -1,6 +1,5 @@
 package pl.socha23.cyberfire.services;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.Locator;
 
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Profile("dev")
+//@Profile("dev")
 @Component
 public class MockLocatorsService implements ILocatorsService {
 

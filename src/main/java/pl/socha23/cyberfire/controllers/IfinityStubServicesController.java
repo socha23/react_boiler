@@ -1,94 +1,32 @@
 package pl.socha23.cyberfire.controllers;
 
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import pl.socha23.cyberfire.model.FloorPlan;
-import pl.socha23.cyberfire.model.Tag;
-import pl.socha23.cyberfire.services.IFloorPlansService;
-import pl.socha23.cyberfire.services.ITagsService;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static pl.socha23.utils.CollectionUtils.list;
-import static pl.socha23.utils.CollectionUtils.map;
-
-@RestController
+@Controller
 public class IfinityStubServicesController {
 
     private final static Log LOG = LogFactory.getLog(IfinityStubServicesController.class);
 
-    @Autowired
-    private ITagsService tagsService;
+    private Resource tagPositionResource = new ClassPathResource("ifinityStub/getTagPosition.json");
+    private Resource projectInfoResource = new ClassPathResource("ifinityStub/getProjectInfo.json");
 
-    @Autowired
-    private IFloorPlansService floorPlansService;
-
-    @RequestMapping("/api/ifinityStub/qpe/getTagPosition")
-    public Map getTagPosition() {
-        return map(
-                "code", 0,
-                "status", "Ok",
-                "tags", tagsService
-                        .getAllTags()
-                        .stream()
-                        .map(IfinityStubServicesController::tagToJSON)
-                        .collect(Collectors.toList())
-        );
+    @RequestMapping(value="/api/ifinityStub/qpe/getTagPosition",  produces={"application/json"})
+    @ResponseBody
+    public String getTagPosition() throws Exception {
+        return IOUtils.toString(tagPositionResource.getInputStream());
     }
 
-    private static Map tagToJSON(Tag tag) {
-        return map(
-                "id", tag.getId(),
-                "name", tag.getName(),
-                "color", tag.getColor(),
-                "coordinateSystemId", tag.getCoordinateSystemId(),
-                "coordinateSystemName", tag.getCoordinateSystemName(),
-                "smoothedPosition", list(
-                        tag.getPosition().getX(),
-                        tag.getPosition().getY(),
-                        tag.getPosition().getZ()
-                )
-        );
+    @RequestMapping(value="/api/ifinityStub/qpe/getProjectInfo",  produces={"application/json"})
+    @ResponseBody
+    public String getProjectInfo() throws Exception {
+        return IOUtils.toString(projectInfoResource.getInputStream());
     }
-
-    @RequestMapping("/api/ifinityStub/qpe/getProjectInfo")
-    public Map getProjectInfo() {
-        return map(
-                "code", 0,
-                "status", "Ok",
-                "coordinateSystems", floorPlansService
-                        .getAllFloorPlans()
-                        .stream()
-                        .map(IfinityStubServicesController::floorPlanToJSON)
-                        .collect(Collectors.toList())
-        );
-    }
-
-    private static Map floorPlanToJSON(FloorPlan floorPlan) {
-        return map(
-                "id", floorPlan.getId(),
-                "name", floorPlan.getName(),
-                "backgroundImages", list(
-                        map(
-                                "id", floorPlan.getId() + "_img",
-                                "metersPerPixelX", 0.1,
-                                "metersPerPixelY", 0.1,
-                                "origoX", 0,
-                                "origoY", 0,
-                                "rotation", 0,
-                                "base64", getBase64Bytes(floorPlan.getBase64content())
-                        )
-                )
-        );
-    }
-
-    private static String getBase64Bytes(String base64content) {
-        return base64content.substring(base64content.indexOf(",") + 1);
-    }
-
 }

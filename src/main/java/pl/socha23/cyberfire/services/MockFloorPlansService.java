@@ -23,21 +23,24 @@ public class MockFloorPlansService implements IFloorPlansService {
 
     private List<FloorPlan> floorPlans = new ArrayList<>();
 
+    public final static Position TOP_LEFT = new Position(100, 100, 0);
+    public final static Position BOTTOM_RIGHT = new Position(-100, -100, 0);
+
     @PostConstruct
     private void createSampleFloorPlans() {
         floorPlans.add(FloorPlan.builder()
                 .id("basement")
                 .name("Piwnica")
-                .topLeft(new Position(0, 0, 0))
-                .bottomRight(new Position(400, 400, 0))
+                .topLeft(TOP_LEFT)
+                .bottomRight(BOTTOM_RIGHT)
                 .base64content(getBase64content(BASEMENT_PNG))
                 .build()
         );
         floorPlans.add(FloorPlan.builder()
                 .id("ground")
                 .name("Parter")
-                .topLeft(new Position(0, 0, 0))
-                .bottomRight(new Position(400, 400, 0))
+                .topLeft(TOP_LEFT)
+                .bottomRight(BOTTOM_RIGHT)
                 .base64content(getBase64content(GROUND_PNG))
                 .build()
         );

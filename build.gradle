@@ -5,7 +5,7 @@ plugins {
     id 'groovy'
 }
 
-def profile = (hasProperty("profile") ? profile  : "dev")
+def profile = (hasProperty("profile") ? profile  : "prod")
 
 
 apply plugin: "war"
@@ -55,7 +55,7 @@ node {
 }
 
 def bundleTask = (profile.split(",").contains('prod') ? 'npm_run_bundle-prod' : 'npm_run_bundle')
-processResources.dependsOn(['npmInstall', bundleTask])
+//processResources.dependsOn(['npmInstall', bundleTask])
 
 task addProfileToProperties {
     doLast {

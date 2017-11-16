@@ -35,6 +35,7 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
         ArrayNode coordinateSystemNodes = (ArrayNode)json.get("coordinateSystems");
         for (JsonNode systemNode : coordinateSystemNodes) {
             JsonNode imageNode = ((ArrayNode)systemNode.get("backgroundImages")).get(0);
+            JsonNode areaNode = ((ArrayNode)((((ArrayNode)systemNode.get("polygons")).get(0)).get("trackingAreas"))).get(0);
 
             double bottomLeftX = imageNode.get("xMeter").asDouble();
             double bottomLeftY = imageNode.get("yMeter").asDouble();
@@ -42,8 +43,8 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
             double imageHeight = imageNode.get("heightMeter").asDouble();
 
             FloorPlan plan = FloorPlan.builder()
-                    .id(systemNode.get("id").asText())
-                    .name(nullSafeGet(systemNode, "name", "Floor plan name"))
+                    .id(areaNode.get("id").asText())
+                    .name(nullSafeGet(areaNode, "name", "Floor plan name"))
                     .topLeft(new Position(
                             bottomLeftX,
                             bottomLeftY + imageHeight,

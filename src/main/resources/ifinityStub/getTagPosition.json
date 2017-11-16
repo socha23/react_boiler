@@ -1,0 +1,45 @@
+[
+  {
+    "responseTimestampEpoch": 1510843769396,
+    "color": "#0033FF",
+    "covariance01": 0.0048261401679653365,
+    "covariance00": 0.03303516000883801,
+    "covariance11": 0.033944577172527135,
+    "positionAccuracy": 0.05873980255142933,
+    "positionTimestamp": "Thu Nov 16 15:49:28 CET 2017",
+    "version": "1.1",
+    "positionTimestampEpoch": 1510843768298,
+    "positionX": -0.158012223184809,
+    "positionY": 4.400897639131914,
+    "positionZ": 1.2000000476837158,
+    "areaId": "Tracking001_2D",
+    "areaName": "Conference Room",
+    "name": "OZAB1",
+    "id": "04a3169a3483",
+    "smoothedPositionZ": 1.2000000476837158,
+    "smoothedPositionY": 4.402928516468112,
+    "smoothedPositionX": -0.1418995920712651
+  },
+  {
+    "responseTimestampEpoch": 1510843769396,
+    "color": "#FF0099",
+    "covariance01": 7.380204886533069E-4,
+    "covariance00": 0.044148851131040535,
+    "covariance11": 0.030086616576597492,
+    "positionAccuracy": 0.06306245343676316,
+    "positionTimestamp": "Thu Nov 16 15:49:28 CET 2017",
+    "version": "1.1",
+    "positionTimestampEpoch": 1510843768317,
+    "positionX": 2.0498877840138507,
+    "positionY": 4.706380748925321,
+    "positionZ": 1.2000000476837158,
+    "areaId": "Tracking001_2D",
+    "areaName": "Conference Room",
+    "name": "OZAB2",
+    "id": "884aea99714f",
+    "smoothedPositionZ": 1.2000000476837158,
+    "smoothedPositionY": 4.775007353531651,
+    "smoothedPositionX": 1.7273530102507637
+  }
+]
+

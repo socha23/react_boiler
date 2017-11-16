@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
@@ -79,15 +80,12 @@ public abstract class AbstractIfinityIntegrationService<T> implements Applicatio
     protected void callService() {
         try {
             JsonNode result = restTemplate.getForObject(getServiceUrl(), JsonNode.class);
-            serviceResponseCode = result.get("code").asLong();
-            serviceResponseStatus = nullSafeGet(result, "status", "no status");
-            serviceResponseMessage = nullSafeGet(result, "message", "no details");
-
+            serviceResponseCode = RESPONSE_OK;
             if (isResponseOk()) {
                 serviceResponseTimestamp = Instant.now();
                 serviceResult = decodeResult(result);
             }
-        } catch (Exception e) {
+        } catch (RestClientException e) {
             LOG.error("Error invoking integration service", e);
             serviceResponseCode = -1L;
             serviceResponseStatus = "Call service error";
