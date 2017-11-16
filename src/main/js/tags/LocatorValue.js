@@ -12,7 +12,7 @@ const LocatorValue = ({locator, link, history}) => locator ? <span>
             : locator.name
             }
     </span> :
-    <span></span>
+    <span>nie wybrano</span>
     ;
 
 const mapStateToProps = (state, ownProps) => {

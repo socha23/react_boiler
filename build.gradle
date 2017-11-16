@@ -55,7 +55,7 @@ node {
 }
 
 def bundleTask = (profile.split(",").contains('prod') ? 'npm_run_bundle-prod' : 'npm_run_bundle')
-//processResources.dependsOn(['npmInstall', bundleTask])
+processResources.dependsOn(['npmInstall', bundleTask])
 
 task addProfileToProperties {
     doLast {
