@@ -4,7 +4,6 @@ package pl.socha23.cyberfire.controllers;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.socha23.cyberfire.model.FloorPlan;
@@ -23,11 +22,9 @@ public class IfinityStubServicesController {
 
     private final static Log LOG = LogFactory.getLog(IfinityStubServicesController.class);
 
-    @Qualifier("mock")
     @Autowired
     private ITagsService tagsService;
 
-    @Qualifier("mock")
     @Autowired
     private IFloorPlansService floorPlansService;
 

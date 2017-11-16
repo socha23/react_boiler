@@ -1,7 +1,7 @@
 package pl.socha23.cyberfire.services;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-@Qualifier("mock")
+@Profile("dev")
 @Component
 public class MockFloorPlansService implements IFloorPlansService {
 

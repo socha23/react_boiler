@@ -1,5 +1,8 @@
 import React from 'react'
+import TabPanel from '../common/components/TabPanel'
 
-export default () => <div>
-    RESCUE INSIDE PAGE
-</div>
+export default () => <TabPanel tabs={["pierwszy", "drugi"]}>
+        RESCUE INSIDE PAGE
+    </TabPanel>
+
+

@@ -1,7 +1,7 @@
 package pl.socha23.cyberfire.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
 import pl.socha23.cyberfire.model.Position;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Qualifier("mock")
+@Profile("dev")
 @Component
 public class MockTagsService implements ITagsService {
     private final static Random random = new Random();
@@ -20,7 +20,6 @@ public class MockTagsService implements ITagsService {
     private final static String[] COLORS = {"red", "blue", "yellow", "green"};
 
     @Autowired
-    @Qualifier("mock")
     private IFloorPlansService floorPlansService;
 
     private List<Tag> tags = new ArrayList<>();

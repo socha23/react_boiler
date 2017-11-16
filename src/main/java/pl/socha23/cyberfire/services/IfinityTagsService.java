@@ -2,7 +2,7 @@ package pl.socha23.cyberfire.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.Position;
 import pl.socha23.cyberfire.model.Tag;
@@ -10,7 +10,7 @@ import pl.socha23.cyberfire.model.Tag;
 import java.util.ArrayList;
 import java.util.List;
 
-@Primary
+@Profile("prod")
 @Component
 public class IfinityTagsService extends AbstractIfinityIntegrationService<List<Tag>> implements ITagsService {
 
