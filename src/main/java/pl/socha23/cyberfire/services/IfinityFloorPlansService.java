@@ -36,15 +36,22 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
         for (JsonNode systemNode : coordinateSystemNodes) {
             JsonNode imageNode = ((ArrayNode)systemNode.get("backgroundImages")).get(0);
 
+            double bottomLeftX = imageNode.get("xMeter").asDouble();
+            double bottomLeftY = imageNode.get("yMeter").asDouble();
+            double imageWidth = imageNode.get("widthMeter").asDouble();
+            double imageHeight = imageNode.get("heightMeter").asDouble();
+
             FloorPlan plan = FloorPlan.builder()
                     .id(systemNode.get("id").asText())
                     .name(nullSafeGet(systemNode, "name", "Floor plan name"))
                     .topLeft(new Position(
-                            imageNode.get("origoX").asDouble(),
-                            imageNode.get("origoY").asDouble(),
+                            bottomLeftX,
+                            bottomLeftY + imageHeight,
                             0))
-                    // TODO
-                    .bottomRight(new Position(400, 400, 0))
+                    .bottomRight(new Position(
+                            bottomLeftX + imageWidth,
+                            bottomLeftY,
+                            0))
                     .base64content(bytesToImgSrc(nullSafeGet(imageNode, "base64", "")))
                     .build();
             floorPlans.add(plan);
@@ -53,6 +60,6 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
     }
 
     private String bytesToImgSrc(String base64) {
-        return "data:image/png;base64," + base64;
+        return base64;
     }
 }
