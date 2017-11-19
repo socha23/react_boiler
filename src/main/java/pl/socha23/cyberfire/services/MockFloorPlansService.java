@@ -6,11 +6,13 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
+import pl.socha23.cyberfire.model.FloorPlanArea;
 import pl.socha23.cyberfire.model.Position;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -34,6 +36,10 @@ public class MockFloorPlansService implements IFloorPlansService {
                 .topLeft(TOP_LEFT)
                 .bottomRight(BOTTOM_RIGHT)
                 .base64content(getBase64content(BASEMENT_PNG))
+                .areas(Arrays.asList(
+                        new FloorPlanArea("b1", "Piwnica A"),
+                        new FloorPlanArea("b2", "Piwnica B")
+                        ))
                 .build()
         );
         floorPlans.add(FloorPlan.builder()
@@ -42,6 +48,11 @@ public class MockFloorPlansService implements IFloorPlansService {
                 .topLeft(TOP_LEFT)
                 .bottomRight(BOTTOM_RIGHT)
                 .base64content(getBase64content(GROUND_PNG))
+                .areas(Arrays.asList(
+                        new FloorPlanArea("g1", "Parter A"),
+                        new FloorPlanArea("g2", "Parter B"),
+                        new FloorPlanArea("g3", "Parter C")
+                        ))
                 .build()
         );
     }

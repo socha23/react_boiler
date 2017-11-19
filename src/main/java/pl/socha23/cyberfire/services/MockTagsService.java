@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
+import pl.socha23.cyberfire.model.FloorPlanArea;
 import pl.socha23.cyberfire.model.Position;
 import pl.socha23.cyberfire.model.Tag;
 
@@ -30,6 +31,7 @@ public class MockTagsService implements ITagsService {
         for (int i = 1; i <= 20; i++) {
 
             FloorPlan floor = randomFloor();
+            FloorPlanArea area = randomArea(floor);
 
             tags.add(
                     Tag.builder()
@@ -38,6 +40,8 @@ public class MockTagsService implements ITagsService {
                     .color(randomColor())
                     .coordinateSystemId(floor.getId())
                     .coordinateSystemName(floor.getName())
+                    .areaId(area.getId())
+                    .areaName(area.getName())
                     .position(randomPositionOnTopLeftQuadrant(floor))
                     .build()
             );
@@ -79,6 +83,11 @@ public class MockTagsService implements ITagsService {
     private FloorPlan randomFloor() {
         List<FloorPlan> floors = floorPlansService.getAllFloorPlans();
         return floors.get(random.nextInt(floors.size()));
+    }
+
+    private FloorPlanArea randomArea(FloorPlan plan) {
+        List<FloorPlanArea> areas = plan.getAreas();
+        return areas.get(random.nextInt(areas.size()));
     }
 
     @Override

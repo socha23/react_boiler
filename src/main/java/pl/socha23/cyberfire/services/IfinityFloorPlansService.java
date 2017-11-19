@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
+import pl.socha23.cyberfire.model.FloorPlanArea;
 import pl.socha23.cyberfire.model.Position;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
         ArrayNode coordinateSystemNodes = (ArrayNode)json.get("coordinateSystems");
         for (JsonNode systemNode : coordinateSystemNodes) {
             JsonNode imageNode = ((ArrayNode)systemNode.get("backgroundImages")).get(0);
-            JsonNode areaNode = ((ArrayNode)((((ArrayNode)systemNode.get("polygons")).get(0)).get("trackingAreas"))).get(0);
+
+            List<FloorPlanArea> areas = decodeAreas(systemNode);
 
             double bottomLeftX = imageNode.get("xMeter").asDouble();
             double bottomLeftY = imageNode.get("yMeter").asDouble();
@@ -43,8 +45,8 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
             double imageHeight = imageNode.get("heightMeter").asDouble();
 
             FloorPlan plan = FloorPlan.builder()
-                    .id(areaNode.get("id").asText())
-                    .name(nullSafeGet(areaNode, "name", "Floor plan name"))
+                    .id(systemNode.get("id").asText())
+                    .name(nullSafeGet(systemNode, "name", systemNode.get("id").asText()))
                     .topLeft(new Position(
                             bottomLeftX,
                             bottomLeftY + imageHeight,
@@ -54,10 +56,21 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
                             bottomLeftY,
                             0))
                     .base64content(bytesToImgSrc(nullSafeGet(imageNode, "base64", "")))
+                    .areas(areas)
                     .build();
             floorPlans.add(plan);
         }
         return floorPlans;
+    }
+
+    private List<FloorPlanArea> decodeAreas(JsonNode systemNode) {
+        List<FloorPlanArea> result = new ArrayList<>();
+        for (JsonNode polygon : (ArrayNode)systemNode.get("polygons")) {
+            for (JsonNode area : (ArrayNode)polygon.get("trackingAreas")) {
+                result.add(new FloorPlanArea(area.get("id").asText(), nullSafeGet(area, "name", "Unknown Area")));
+            }
+        }
+        return result;
     }
 
     private String bytesToImgSrc(String base64) {

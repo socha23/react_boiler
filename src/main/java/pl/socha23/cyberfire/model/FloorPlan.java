@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,4 +18,5 @@ public class FloorPlan {
     private Position topLeft;
     private Position bottomRight;
     private String base64content;
+    private List<FloorPlanArea> areas = new ArrayList<>();
 }

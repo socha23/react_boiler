@@ -9,17 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Tag {
-
+public class FloorPlanArea {
     private String id;
     private String name;
-    private String color;
-
-    private String areaId;
-    private String areaName;
-
-    private String coordinateSystemId;
-    private String coordinateSystemName;
-
-    private Position position;
 }
