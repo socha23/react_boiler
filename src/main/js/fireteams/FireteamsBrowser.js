@@ -12,7 +12,7 @@ const EmptyFireteamsList = () => <div>
     <b>Nie zdefiniowano jeszcze żadnej roty</b>
 </div>;
 
-const ItemActionsButtons = ({onDelete, onEdit}) => <div className="pull-right buttonRow" style={{marginTop: 10}}>
+const ItemActionButtons = ({onDelete, onEdit}) => <div className="pull-right">
     <a className="btn btn-primary iconWithName" onClick={onEdit} title="Zmień">
         <i className="glyphicon glyphicon-edit"/>
         Zmień
@@ -26,6 +26,12 @@ const ItemActionsButtons = ({onDelete, onEdit}) => <div className="pull-right bu
     </ConfirmableLink>
 </div>;
 
+const CommonButtons = ({onCreate}) => <span>
+    <a className="btn btn-success iconWithName" onClick={onCreate} title="Dodaj">
+        <i className="glyphicon glyphicon-plus"/>
+        Dodaj
+    </a>
+</span>;
 
 class FireteamModalEdit extends React.Component {
 
@@ -56,8 +62,8 @@ class FireteamModalEdit extends React.Component {
 
     onFormSubmit = (item, onSuccess, onError) => {
         this.props.onOk(item,
-            () => {onSuccess(item); this.closeModal()},
-            () => {onError(item)}
+            (item) => {onSuccess(item); this.closeModal()},
+            (errors) => {onError(errors)}
         );
     };
 
@@ -77,7 +83,13 @@ class FireteamModalEdit extends React.Component {
 class FireteamsBrowser extends React.Component {
 
     static propTypes = {
-        items: PropTypes.array.isRequired
+        items: PropTypes.array.isRequired,
+        onUpdate: PropTypes.func
+    };
+
+    static defaultProps = {
+        onUpdate: (item, onSuccess, onError) => {onSuccess(item)},
+        onCreate: (item, onSuccess, onError) => {onSuccess(item)}
     };
 
     state = {
@@ -99,6 +111,9 @@ class FireteamsBrowser extends React.Component {
         this.modalEdit.showModal(this.state.selected);
     };
 
+    onCreate = () => {
+        this.modalCreate.showModal({});
+    };
 
     render = () => (<div>
             {this.props.items.length > 0 ?
@@ -106,18 +121,21 @@ class FireteamsBrowser extends React.Component {
                 : <EmptyFireteamsList/>
             }
 
-            <div>
+            <div className="buttonRow" style={{marginTop: 10}}>
+                <CommonButtons onCreate={this.onCreate}/>
                 {this.state.selected.id ?
-                    <ItemActionsButtons onDelete={this.onDelete} onEdit={this.onEdit}/>
+                    <ItemActionButtons onDelete={this.onDelete} onEdit={this.onEdit}/>
                 : <span/>}
             </div>
 
             <FireteamModalEdit ref={(modalEdit) => this.modalEdit = modalEdit}
                 labelPopupTitle="Edycja roty"
-                onOk={(item, onSuccess, onError) => {
-                    console.log("Saving!", item);
-                    onSuccess(item);
-                }}
+                onOk={this.props.onUpdate}
+            />
+
+            <FireteamModalEdit ref={(modalCreate) => this.modalCreate = modalCreate}
+                labelPopupTitle="Nowa rota"
+                onOk={this.props.onCreate}
             />
 
         </div>

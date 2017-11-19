@@ -1,13 +1,13 @@
 import React from 'react'
 import FireteamsBrowserContainer from '../fireteams/FireteamsBrowserContainer'
-import Panel from '../common/components/Panel'
+import PanelWithTitle from '../common/components/PanelWithTitle'
 
 export default () => <div className="container-fluid">
         <div className="row">
             <div className="col-sm-4 colWithSmallerGutter">
-                <Panel>
+                <PanelWithTitle title="Roty strażackie">
                     <FireteamsBrowserContainer/>
-                </Panel>
+                </PanelWithTitle>
             </div>
         </div>
 </div>
