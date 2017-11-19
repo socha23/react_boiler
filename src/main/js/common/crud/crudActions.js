@@ -159,7 +159,7 @@ export default function restActions(resource) {
                 .then(() => {
                     dispatch(deleteItemSuccess(item));
                     dispatch(loadItems());
-                    onSuccess();
+                    onSuccess(item);
                 }).catch(error => {
                     console.log(error);
                     dispatch(deleteItemError(item));
