@@ -4,7 +4,7 @@ import {availableTags} from './tagHelpers'
 import TagValue from './TagValue'
 import Select from 'react-select'
 
-const optionRenderer = (item) => <TagValue tag={item}/>;
+const optionRenderer = (item) => <TagValue tag={item} inline/>;
 
 const TagDropDown = ({id, value, items, onChange}) => <Select
     value={value}
@@ -19,7 +19,9 @@ const TagDropDown = ({id, value, items, onChange}) => <Select
 />;
 
 const mapStateToProps = (state, ownProps) => ({
-    items: availableTags(state.artifacts.items, state.tags.items, ownProps.forArtifact)
+    items: availableTags(
+        [state.artifacts.items, state.fireteams.items],
+        state.tags.items, ownProps.for)
 });
 
 export default connect(mapStateToProps)(TagDropDown);

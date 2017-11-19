@@ -17,6 +17,7 @@ public class Fireteam {
     @NotEmpty(message = "Proszę wprowadzić nazwę roty")
     private String name = "";
 
+    @NotEmpty(message = "Proszę wybrać znacznik identyfikujący rotę")
     private String tagId;
 
     private String targetTagId;

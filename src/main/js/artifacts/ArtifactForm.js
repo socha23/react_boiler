@@ -112,7 +112,7 @@ class ArtifactForm extends FormHelper {
                             value={this.state.tagId}
                             onChange={this.stateSettingValueListener("tagId")}
                             id="artifactTagId"
-                            forArtifact={this.props.item}
+                            for={this.props.item}
                         />
                     </div>
                 </div>

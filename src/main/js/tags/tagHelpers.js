@@ -11,15 +11,17 @@ function artifactsByTagId(artifacts) {
     return result;
 }
 
-function availableTags(artifacts, tags, forArtifact) {
-    if (!artifacts || !tags) {
+function availableTags(itemLists, tags, forItem) {
+    if (!itemLists || !tags) {
         return [];
     }
     let usedTagIds = {};
-    artifacts.forEach(a => {
-        if (a.tagId && (!forArtifact || a.id != forArtifact.id)) {
-            usedTagIds[a.tagId] = a.tagId;
-        }
+    itemLists.forEach ( list => {
+        list.forEach(a => {
+            if (a.tagId && (!forItem || a.id != forItem.id)) {
+                usedTagIds[a.tagId] = a.tagId;
+            }
+        });
     });
     return tags.filter(t => !usedTagIds[t.id]);
 }
