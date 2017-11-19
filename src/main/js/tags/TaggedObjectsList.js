@@ -15,7 +15,7 @@ let TaggedArtifact = ({tag, artifact, history}) => <div style={itemDivStyle}>
     <VocIcon value={find(Type, artifact.type)} className="iconWithName"/>
     <a onClick={(e) => {e.stopPropagation(); history.push("/artifacts/" + artifact.id)}}>{artifact.name}</a>
     <small style={{marginLeft: 10, color: "#AAA"}}>
-        {tag.name}
+        {tag.areaName}
     </small>
     <VocIcon value={find(Priority, artifact.priority)} className="pull-right"/>
 </div>;
@@ -24,6 +24,9 @@ TaggedArtifact = withRouter(TaggedArtifact);
 
 const Tag = ({tag}) => <div style={itemDivStyle}>
     <span style={{marginLeft: 26}}>{tag.name}</span>
+    <small style={{marginLeft: 10, color: "#AAA"}}>
+        {tag.areaName}
+    </small>
 </div>;
 
 const TaggedObjectsList = ({

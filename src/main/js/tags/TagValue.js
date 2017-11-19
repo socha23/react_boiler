@@ -12,8 +12,9 @@ const TagValue = ({tag, link, history}) => tag ? <span>
                 </a>
             : tag.name
             }
-            <small style={{marginLeft: 10, color: "#AAA"}}>
-                {tag.coordinateSystemName}
+            <br/>
+            <small style={{color: "#AAA"}}>
+                {tag.areaName}
             </small>
     </span> :
     <span>nie wybrano</span>
