@@ -6,17 +6,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import pl.socha23.cyberfire.model.Artifact;
-import pl.socha23.cyberfire.model.Dimensions;
-import pl.socha23.cyberfire.model.Image;
-import pl.socha23.cyberfire.model.ImageRef;
+import pl.socha23.cyberfire.model.*;
 import pl.socha23.cyberfire.repositories.ArtifactRepository;
+import pl.socha23.cyberfire.repositories.FireteamRepository;
 import pl.socha23.cyberfire.repositories.ImageRepository;
+import pl.socha23.cyberfire.services.ITagsService;
 import pl.socha23.cyberfire.services.ImageService;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 
 @Profile("dev")
@@ -32,6 +32,11 @@ public class DevProfileInitializer implements CommandLineRunner {
     @Autowired
     private ImageRepository imageRepository;
 
+    @Autowired
+    private FireteamRepository fireteamRepository;
+
+    @Autowired
+    private ITagsService tagsService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -39,10 +44,17 @@ public class DevProfileInitializer implements CommandLineRunner {
         if (noArtifacts()) {
             createSampleArtifacts();
         }
+
+        if (noFireteams()) {
+            createSampleFireteams(2);
+        }
     }
 
     private boolean noArtifacts() {
         return artifactRepository.count() == 0;
+    }
+    private boolean noFireteams() {
+        return fireteamRepository.count() == 0;
     }
 
     private void createSampleArtifacts() {
@@ -150,4 +162,16 @@ public class DevProfileInitializer implements CommandLineRunner {
         Artifact a = build.apply(Artifact.builder()).build();
         artifactRepository.save(a);
     }
+
+    private void createSampleFireteams(int howMany) {
+        List<Tag> tags = new ArrayList<>(tagsService.getAllTags());
+        Random r = new Random();
+        for (int i = 1; i <= howMany; i++) {
+            Tag tag = tags.remove(r.nextInt(tags.size()));
+
+            Fireteam team = new Fireteam("f" + i, "Rota " + i, tag.getId(), null);
+            fireteamRepository.save(team);
+        }
+    }
+
 }

@@ -1,0 +1,23 @@
+package pl.socha23.cyberfire.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Fireteam {
+
+    private String id;
+
+    @NotEmpty(message = "Proszę wprowadzić nazwę roty")
+    private String name = "";
+
+    private String tagId;
+
+    private String targetTagId;
+}
