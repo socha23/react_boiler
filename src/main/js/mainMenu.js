@@ -15,7 +15,7 @@ exports.navBar = <ul>
 </ul>;
 
 exports.content = <ResourceLoader resources={["artifacts", "floorPlans"]}>
-    <ResourceLoader resources={["tags", "locators"]} interval={1000}>
+    <ResourceLoader resources={["tags", "locators", "fireteams"]} interval={1000}>
         <Switch>
             <Route exact path="/">
                 <Redirect to="/artifacts"/>
