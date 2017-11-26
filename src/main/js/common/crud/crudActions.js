@@ -60,6 +60,7 @@ export default function restActions(resource) {
                 .then(json => {
                     dispatch(receive(json._embedded[resource]));
                 }).catch(error => {
+                    console.error(error);
                     error.json()
                         .then(json => {
                             console.error(json);

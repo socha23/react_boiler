@@ -44,7 +44,6 @@ function availableCrates(artifacts, locators, forArtifact) {
         .filter(t => !usedCrateIds[t.id]);
 }
 
-
 module.exports = {
     artifactsByCrateId: artifactsByCrateId,
     artifactsByCurrentLocatorId: artifactsByCurrentLocatorId,

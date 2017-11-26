@@ -1,19 +1,16 @@
 import React from 'react'
-import {Type, Priority} from './ArtifactVocs'
+
 import * as vocFunctions from '../common/vocFunctions'
 import VocIcon from '../common/components/VocIcon'
+
 import {ToggleButtonsFilter, PopupToggleButtonsFilter} from '../common/components/filters'
-import LocatorValue from '../tags/LocatorValue'
 import * as Responsive from '../common/components/responsive'
 
-const STYLE_FLAG_COLUMN = {width: 60, textAlign: "center"};
+import ArtifactLocation from "./ArtifactLocation"
+import {Type, Priority} from './ArtifactVocs'
+import LocatorValue from '../tags/LocatorValue'
 
-const ArtifactNameColumn = ({artifact}) => <div>
-    {artifact.name}
-    {artifact.currentLocatorId ?
-        <span> (<LocatorValue locatorId={artifact.currentLocatorId} link/>)</span>
-    : <span/>}
-</div>;
+const STYLE_FLAG_COLUMN = {width: 60, textAlign: "center"};
 
 
 const NarrowArtifactsList = ({selected = {}, items = [], onSelectItem = (() => {})}) => <div>
@@ -22,13 +19,15 @@ const NarrowArtifactsList = ({selected = {}, items = [], onSelectItem = (() => {
         <tr>
             <th>Typ</th>
             <th>Nazwa</th>
+            <th>Położenie</th>
             <th>Priorytet</th>
         </tr>
         </thead>
         <tbody>
         {items.map(a => <tr key={a.id} className={selected == a ? 'success' : ''} onClick={() => {onSelectItem(a)}}>
             <td><VocIcon value={vocFunctions.find(Type, a.type)}/></td>
-            <td><ArtifactNameColumn artifact={a}/></td>
+            <td>{a.name}</td>
+            <td><ArtifactLocation artifact={a}/></td>
             <td style={STYLE_FLAG_COLUMN}><VocIcon value={vocFunctions.find(Priority, a.priority)}/></td>
         </tr>)
         }
@@ -43,17 +42,23 @@ const WideArtifactsList = ({selected = {}, items = [], onSelectItem = (() => {})
         <tr>
             <th>Typ</th>
             <th>Nazwa</th>
+            <th>Położenie</th>
+            {/*
             <th>Znacznik</th>
             <th>Skrzynia</th>
+                */}
             <th>Priorytet</th>
         </tr>
         </thead>
         <tbody>
         {items.map(a => <tr key={a.id} className={selected == a ? 'success' : ''} onClick={() => {onSelectItem(a)}}>
             <td><VocIcon value={vocFunctions.find(Type, a.type)}/></td>
-            <td><ArtifactNameColumn artifact={a}/></td>
+            <td>{a.name}</td>
+            <td><ArtifactLocation artifact={a}/></td>
+            {/*
             <td style={STYLE_FLAG_COLUMN}>{a.tagId ? <i className="glyphicon glyphicon-ok" /> : <span/>}</td>
             <td style={STYLE_FLAG_COLUMN}>{a.crateId ? <i className="glyphicon glyphicon-ok" /> : <span/>}</td>
+                */}
             <td style={STYLE_FLAG_COLUMN}><VocIcon value={vocFunctions.find(Priority, a.priority)}/></td>
         </tr>)
         }
