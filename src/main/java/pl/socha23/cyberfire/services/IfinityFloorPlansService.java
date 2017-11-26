@@ -37,6 +37,10 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
         for (JsonNode systemNode : coordinateSystemNodes) {
             JsonNode imageNode = ((ArrayNode)systemNode.get("backgroundImages")).get(0);
 
+            if (imageNode == null) {
+                continue;
+            }
+
             List<FloorPlanArea> areas = decodeAreas(systemNode);
 
             double bottomLeftX = imageNode.get("xMeter").asDouble();
