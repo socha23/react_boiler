@@ -7,11 +7,23 @@ import ArtifactCard from './ArtifactCard'
 import {SearchFilter} from '../common/components/filters'
 import * as Responsive from '../common/components/responsive'
 
-const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate}) =>
+
+const NewArtifactButton = ({onClick}) => <a className="btn btn-large btn-primary btn-block iconWithName" onClick={onClick}>
+    <i className="glyphicon glyphicon-plus"/>
+    Dodaj nowy obiekt
+</a>;
+
+
+const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-6 colWithSmallerGutter">
                 <div className="row">
+                    <div className="col-sm-12 colWithSmallerGutter">
+                        <Panel>
+                            <NewArtifactButton onClick={onNewItem}/>
+                        </Panel>
+                    </div>
                     <div className="col-sm-6 colWithSmallerGutter">
                         <Panel>
                             <PopupArtifactTypeFilter filter={filter} onFilterChange={onFilterChange}/>
@@ -47,10 +59,13 @@ const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onS
     </div>;
 
 
-const WideBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate}) =>
+const WideBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
+                <Panel>
+                    <NewArtifactButton onClick={onNewItem}/>
+                </Panel>
                 <Panel>
                     <SearchFilter placeholder="Szukaj" filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
@@ -99,9 +114,6 @@ const BrowseArtifactsPage = (props) =>
     </div>;
 
 
-
-
-
 class ArtifactsPageContainer extends React.Component {
     state = {
         filter: {}
@@ -113,6 +125,10 @@ class ArtifactsPageContainer extends React.Component {
 
     onSelectItem = (item) => {
         this.context.router.history.push("/artifacts/" + item.id);
+    };
+
+    onNewItem = (item) => {
+        this.context.router.history.push("/artifacts/new");
     };
 
     filterItems = (items) => {
@@ -138,6 +154,7 @@ class ArtifactsPageContainer extends React.Component {
             onSelectItem={this.onSelectItem}
             filter={this.state.filter}
             onFilterChange={this.onFilterChange}
+            onNewItem={this.onNewItem}
         />
     }
 }
