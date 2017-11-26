@@ -19,7 +19,7 @@ import ViewOutsidePage from '../maps/ViewOutsidePage'
 let MuzealnikTabs = ({maps}) => <div>
     <ul>
         <PageNavTitleLi>OZAB - Muzealnik</PageNavTitleLi>
-        <LiNavLink exact to="/artifacts/:id?">Lista muzealiów</LiNavLink>
+        <LiNavLink to="/artifacts/">Lista muzealiów</LiNavLink>
         {
             maps.map(m =>
                 <LiNavLink key={m.id} to={"/maps/" + m.id}>{m.name}</LiNavLink>
