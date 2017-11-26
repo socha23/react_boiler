@@ -1,11 +1,14 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
+
 import {crudList, crudActions} from '../common/crud/crudContainers'
-import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter, PopupArtifactTypeFilter, PopupArtifactPriorityFilter} from './ArtifactsList'
 import Panel from '../common/components/Panel'
-import ArtifactCard from './ArtifactCard'
 import {SearchFilter} from '../common/components/filters'
 import * as Responsive from '../common/components/responsive'
+
+import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter, PopupArtifactTypeFilter, PopupArtifactPriorityFilter} from './ArtifactsList'
+import {ArtifactLocationFilter, PopupArtifactLocationFilter, locationFilterMatches} from './ArtifactLocationFilter'
+import ArtifactCard from './ArtifactCard'
 
 
 const NewArtifactButton = ({onClick}) => <a className="btn btn-large btn-primary btn-block iconWithName" onClick={onClick}>
@@ -22,6 +25,11 @@ const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onS
                     <div className="col-sm-12 colWithSmallerGutter">
                         <Panel>
                             <NewArtifactButton onClick={onNewItem}/>
+                        </Panel>
+                    </div>
+                    <div className="col-sm-6 colWithSmallerGutter">
+                        <Panel>
+                            <PopupArtifactLocationFilter filter={filter} onFilterChange={onFilterChange}/>
                         </Panel>
                     </div>
                     <div className="col-sm-6 colWithSmallerGutter">
@@ -68,6 +76,10 @@ const WideBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSel
                 </Panel>
                 <Panel>
                     <SearchFilter placeholder="Szukaj" filter={filter} onFilterChange={onFilterChange}/>
+                </Panel>
+                <Panel>
+                    <p><b>Położenie</b></p>
+                    <ArtifactLocationFilter filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
                 <Panel>
                     <p><b>Typ muzealiów</b></p>
@@ -139,6 +151,8 @@ class ArtifactsPageContainer extends React.Component {
             } else if (currentFilter.priority && !currentFilter.priority[i.priority]) {
                 return false;
             } else if (currentFilter.search && !i.name.toLowerCase().includes(currentFilter.search.toLowerCase())) {
+                return false;
+            } else if (currentFilter.location && !locationFilterMatches(i, currentFilter)) {
                 return false;
             }
             return true;
