@@ -63,8 +63,7 @@ class ZoomableFloorPlan extends React.Component {
             this.panzoom.option({
                 minScale: Math.max(
                     this.elem.parent().width() / this.elem.width(),
-                    this.elem.parent().height() / this.elem.height())
-
+                    this.elem.parent().height() / this.elem.height()) / 5
             });
 
             // wymuszenie rerendera, żeby znów odpowiednio poumieszczał tagi
@@ -156,6 +155,14 @@ class ZoomableFloorPlan extends React.Component {
                 <div style={{position: "absolute"}} ref={elem => this.elem = $(elem)}>
                     <img src={this.props.map.base64content}/>
                 </div>
+                <div style={{position: "absolute", right: 15, bottom: 15}}>
+                    <a className="mapZoomButton" ref={zoomIn => this.zoomIn = zoomIn}>
+                        <i className="glyphicon glyphicon-plus"/>
+                    </a>
+                    <a className="mapZoomButton" ref={zoomOut => this.zoomOut = zoomOut}>
+                        <i className="glyphicon glyphicon-minus"/>
+                    </a>
+                </div>
             </HeightExpander>
             {this.props.tags
                 .map(t => ({...t, pxPosition: this.posToContainerPx(t.position)}))
@@ -166,10 +173,8 @@ class ZoomableFloorPlan extends React.Component {
                     onClick={() => this.props.onClickTag(t)}
                 />)
             }
-            {/*
-             <a className="btn btn-default" ref={zoomIn => this.zoomIn = zoomIn}>+</a>
-             <a className="btn btn-default" ref={zoomOut => this.zoomOut = zoomOut}>-</a>
-             */}
+
+
         </div>
     }
 }

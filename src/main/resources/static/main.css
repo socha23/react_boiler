@@ -239,3 +239,18 @@ body {
     vertical-align: middle;
 }
 
+
+.mapZoomButton {
+    color: #888;
+    cursor: pointer;
+    display: block;
+    border: 1px solid #CCC;
+    width: 30px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+}
+
+.mapZoomButton:first-child {
+    border-bottom: none
+}
