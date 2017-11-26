@@ -29,7 +29,7 @@ const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onS
                     </div>
                     <div className="col-sm-6 colWithSmallerGutter">
                         <Panel>
-                            <PopupArtifactLocationFilter filter={filter} onFilterChange={onFilterChange}/>
+                            <PopupArtifactLocationFilter artifacts={items} filter={filter} onFilterChange={onFilterChange}/>
                         </Panel>
                     </div>
                     <div className="col-sm-6 colWithSmallerGutter">
@@ -79,7 +79,7 @@ const WideBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSel
                 </Panel>
                 <Panel>
                     <p><b>Położenie</b></p>
-                    <ArtifactLocationFilter filter={filter} onFilterChange={onFilterChange}/>
+                    <ArtifactLocationFilter artifacts={items} filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
                 <Panel>
                     <p><b>Typ muzealiów</b></p>

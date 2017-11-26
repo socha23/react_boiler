@@ -16,18 +16,24 @@ function artifactLocationId(a) {
     }
 }
 
-function locations(maps) {
+function locations(maps, artifacts = []) {
     let result = [...maps];
     result.push({
         id: "outside",
         name: "Na zewnątrz"
     });
+    result.forEach(loc => {
+       let count = artifacts.filter(a => artifactLocationId(a) == loc.id).length;
+        if (count > 0) {
+            loc.number = count;
+        }
+    });
     return result;
 }
 
 
-let PopupArtifactLocationFilter = ({filter, items, onFilterChange}) => <PopupToggleButtonsFilter
-    items={locations(items)}
+let PopupArtifactLocationFilter = ({filter, items:maps, artifacts=[], onFilterChange}) => <PopupToggleButtonsFilter
+    items={locations(maps, artifacts)}
     field="location"
     filter={filter}
     onFilterChange={onFilterChange}
@@ -40,8 +46,8 @@ PopupArtifactLocationFilter = crudList({
 }, PopupArtifactLocationFilter);
 
 
-let ArtifactLocationFilter = ({filter, items, onFilterChange}) => <ToggleButtonsFilter
-    items={locations(items)}
+let ArtifactLocationFilter = ({filter, items:maps, artifacts=[], onFilterChange}) => <ToggleButtonsFilter
+    items={locations(maps, artifacts)}
     field="location"
     filter={filter}
     onFilterChange={onFilterChange}

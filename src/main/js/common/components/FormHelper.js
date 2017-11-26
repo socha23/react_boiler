@@ -15,7 +15,7 @@ export default class FormHelper extends React.Component {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        if (nextProps.item.id != this.props.item.id) {
+        if (!nextProps.item || (nextProps.item.id != this.props.item.id)) {
             this.resetForm(nextProps.item)
         }
     };
