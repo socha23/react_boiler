@@ -37,46 +37,48 @@ function locations(maps, artifacts = [], tags = [], locators = []) {
     return result;
 }
 
+function filterWithLocationArtifactIds(filter, artifacts, tags, locators) {
+    let result = {...filter};
+    if (filter.location) {
+        let ids = {};
+        artifacts.forEach(a => {
+            if (filter.location[artifactLocationId(a, tags, locators)]) {
+                ids[a.id] = a.id;
+            }
+        });
+        result.locationArtifactIds = ids;
+    } else {
+        delete result.locationArtifactIds;
+    }
+    return result;
+}
 
-let PopupArtifactLocationFilter = ({filter, items:maps, onFilterChange, artifacts=[], tags=[], locators=[]}) => <PopupToggleButtonsFilter
-    items={locations(maps, artifacts, tags, locators)}
+let PopupArtifactLocationFilter = ({filter, onFilterChange, floorPlans=[], artifacts=[], tags=[], locators=[]}) => <PopupToggleButtonsFilter
+    items={locations(floorPlans, artifacts, tags, locators)}
     field="location"
     filter={filter}
-    onFilterChange={onFilterChange}
+    onFilterChange={(f) => onFilterChange(filterWithLocationArtifactIds(f, artifacts, tags, locators))}
     labelPopupTitle="Wybierz priorytety"
     labelNoSelection="Dowolny priorytet"
 />;
-PopupArtifactLocationFilter = crudList({
-    resource: "floorPlans",
-    onlyOnce: true
-}, PopupArtifactLocationFilter);
 
-
-let ArtifactLocationFilter = ({filter, items:maps, onFilterChange, artifacts=[], tags=[], locators=[]}) => <ToggleButtonsFilter
-    items={locations(maps, artifacts, tags, locators)}
+let ArtifactLocationFilter = ({filter, onFilterChange, floorPlans=[], artifacts=[], tags=[], locators=[]}) => <ToggleButtonsFilter
+    items={locations(floorPlans, artifacts, tags, locators)}
     field="location"
     filter={filter}
-    onFilterChange={onFilterChange}
+    onFilterChange={(f) => onFilterChange(filterWithLocationArtifactIds(f, artifacts, tags, locators))}
 />;
-
-ArtifactLocationFilter = crudList({
-    resource: "floorPlans",
-    onlyOnce: true
-}, ArtifactLocationFilter);
-
-function locationFilterMatches(artifact, filter, tags, locators) {
-    return filter.location[artifactLocationId(artifact, tags, locators)];
-}
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        artifacts: state.artifacts.items,
         tags: state.tags.items,
-        locators: state.locators.items
+        locators: state.locators.items,
+        floorPlans: state.floorPlans.items
     };
 };
 
 module.exports = {
     PopupArtifactLocationFilter: connect(mapStateToProps)(PopupArtifactLocationFilter),
-    ArtifactLocationFilter: connect(mapStateToProps)(ArtifactLocationFilter),
-    locationFilterMatches
+    ArtifactLocationFilter: connect(mapStateToProps)(ArtifactLocationFilter)
 };

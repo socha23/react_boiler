@@ -1,6 +1,5 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
-import {connect} from 'react-redux'
 
 import {crudList, crudActions} from '../common/crud/crudContainers'
 import Panel from '../common/components/Panel'
@@ -8,7 +7,7 @@ import {SearchFilter} from '../common/components/filters'
 import * as Responsive from '../common/components/responsive'
 
 import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter, PopupArtifactTypeFilter, PopupArtifactPriorityFilter} from './ArtifactsList'
-import {ArtifactLocationFilter, PopupArtifactLocationFilter, locationFilterMatches} from './ArtifactLocationFilter'
+import {ArtifactLocationFilter, PopupArtifactLocationFilter} from './ArtifactLocationFilter'
 import ArtifactCard from './ArtifactCard'
 
 
@@ -18,7 +17,7 @@ const NewArtifactButton = ({onClick}) => <a className="btn btn-large btn-primary
 </a>;
 
 
-const NarrowBrowseArtifactsPage = ({allItems, items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
+const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-6 colWithSmallerGutter">
@@ -30,7 +29,7 @@ const NarrowBrowseArtifactsPage = ({allItems, items, filter, onFilterChange, sel
                     </div>
                     <div className="col-sm-6 colWithSmallerGutter">
                         <Panel>
-                            <PopupArtifactLocationFilter artifacts={allItems} filter={filter} onFilterChange={onFilterChange}/>
+                            <PopupArtifactLocationFilter filter={filter} onFilterChange={onFilterChange}/>
                         </Panel>
                     </div>
                     <div className="col-sm-6 colWithSmallerGutter">
@@ -68,7 +67,7 @@ const NarrowBrowseArtifactsPage = ({allItems, items, filter, onFilterChange, sel
     </div>;
 
 
-const WideBrowseArtifactsPage = ({allItems, items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
+const WideBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
@@ -80,7 +79,7 @@ const WideBrowseArtifactsPage = ({allItems, items, filter, onFilterChange, selec
                 </Panel>
                 <Panel>
                     <p><b>Położenie</b></p>
-                    <ArtifactLocationFilter artifacts={allItems} filter={filter} onFilterChange={onFilterChange}/>
+                    <ArtifactLocationFilter filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
                 <Panel>
                     <p><b>Typ muzealiów</b></p>
@@ -153,7 +152,7 @@ class ArtifactsPageContainer extends React.Component {
                 return false;
             } else if (currentFilter.search && !i.name.toLowerCase().includes(currentFilter.search.toLowerCase())) {
                 return false;
-            } else if (currentFilter.location && !locationFilterMatches(i, currentFilter, this.props.tags, this.props.locators)) {
+            } else if (currentFilter.locationArtifactIds && !currentFilter.locationArtifactIds[i.id]) {
                 return false;
             }
             return true;
@@ -163,7 +162,6 @@ class ArtifactsPageContainer extends React.Component {
     render() {
         return <BrowseArtifactsPage
             {...this.props}
-            allItems={this.props.items}
             items={this.filterItems(this.props.items)}
             selected={this.props.items.find(i => i.id == this.props.match.params.id)}
             createMode={this.props.match.params.id == "new"}
@@ -181,11 +179,4 @@ ArtifactsPageContainer.contextTypes = {
     })
 };
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        tags: state.tags.items,
-        locators: state.locators.items
-    };
-};
-
-export default crudActions("artifacts", crudList("artifacts", connect(mapStateToProps)(ArtifactsPageContainer)))
+export default crudActions("artifacts", crudList("artifacts", ArtifactsPageContainer))
