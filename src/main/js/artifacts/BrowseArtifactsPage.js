@@ -18,7 +18,7 @@ const NewArtifactButton = ({onClick}) => <a className="btn btn-large btn-primary
 </a>;
 
 
-const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
+const NarrowBrowseArtifactsPage = ({allItems, items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-6 colWithSmallerGutter">
@@ -30,7 +30,7 @@ const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onS
                     </div>
                     <div className="col-sm-6 colWithSmallerGutter">
                         <Panel>
-                            <PopupArtifactLocationFilter artifacts={items} filter={filter} onFilterChange={onFilterChange}/>
+                            <PopupArtifactLocationFilter artifacts={allItems} filter={filter} onFilterChange={onFilterChange}/>
                         </Panel>
                     </div>
                     <div className="col-sm-6 colWithSmallerGutter">
@@ -68,7 +68,7 @@ const NarrowBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onS
     </div>;
 
 
-const WideBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
+const WideBrowseArtifactsPage = ({allItems, items, filter, onFilterChange, selected, onSelectItem, onDelete, onUpdate, createMode, onCreate, onNewItem}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
@@ -80,7 +80,7 @@ const WideBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSel
                 </Panel>
                 <Panel>
                     <p><b>Położenie</b></p>
-                    <ArtifactLocationFilter artifacts={items} filter={filter} onFilterChange={onFilterChange}/>
+                    <ArtifactLocationFilter artifacts={allItems} filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
                 <Panel>
                     <p><b>Typ muzealiów</b></p>
@@ -163,6 +163,7 @@ class ArtifactsPageContainer extends React.Component {
     render() {
         return <BrowseArtifactsPage
             {...this.props}
+            allItems={this.props.items}
             items={this.filterItems(this.props.items)}
             selected={this.props.items.find(i => i.id == this.props.match.params.id)}
             createMode={this.props.match.params.id == "new"}
