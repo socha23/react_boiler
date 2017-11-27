@@ -57,7 +57,7 @@ MyPage = withRouter(crudList({
 }, MyPage));
 
 export default () => <ResourceLoader resources={["artifacts", "floorPlans"]}>
-    <ResourceLoader resources={["tags", "locators", "fireteams"]} interval={1000}>
+    <ResourceLoader resources={["tags", "locators", "fireteams"]} interval={500}>
         <MyPage/>
     </ResourceLoader>
 </ResourceLoader>;

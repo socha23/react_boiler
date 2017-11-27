@@ -26,7 +26,7 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
 
     @Override
     protected int getRefreshIntervalMillis() {
-        return 1000;
+        return 500;
     }
 
     @Override

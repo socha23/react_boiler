@@ -1,8 +1,9 @@
 import React from 'react'
 import {withRouter} from 'react-router'
+import {connect} from 'react-redux'
 
-import {artifactLocator} from '../tags/locatorFunctions'
-import {artifactTag} from '../tags/tagFunctions'
+import {artifactLocator} from "../tags/locatorHelpers"
+import {artifactTag} from "../tags/tagHelpers"
 
 const ArtifactTagLocation = ({tag, history}) => <span>
     <a
@@ -26,12 +27,19 @@ const ArtifactLocatorLocation = ({locator, history}) => <span>
 </span>;
 
 
-const ArtifactLocation = ({artifact, tagsById, history}) => <div>
+const ArtifactLocation = ({artifact, tags, locators, history}) => <div>
     {
-        artifactLocator(artifact) ? <ArtifactLocatorLocation locator={artifactLocator(artifact)} history={history}/> :
-            artifactTag(artifact) ? <ArtifactTagLocation tag={artifactTag(artifact)} history={history}/>
+        artifactLocator(locators, artifact) ? <ArtifactLocatorLocation locator={artifactLocator(locators, artifact)} history={history}/> :
+            artifactTag(tags, artifact) ? <ArtifactTagLocation tag={artifactTag(tags, artifact)} history={history}/>
                 : <span/>
     }
 </div>;
 
-export default withRouter(ArtifactLocation);
+const mapStateToProps = (state, ownProps) => {
+    return {
+        tags: state.tags.items,
+        locators: state.locators.items
+    };
+};
+
+export default withRouter(connect(mapStateToProps)(ArtifactLocation));

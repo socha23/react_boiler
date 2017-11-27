@@ -41,7 +41,9 @@ export default class ArtifactCard extends React.Component {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        this.setState({edit: false});
+        if (!nextProps.item || !this.props.item || (nextProps.item.id != this.props.item.id)) {
+            this.setState({edit: false});
+        }
     };
 
 

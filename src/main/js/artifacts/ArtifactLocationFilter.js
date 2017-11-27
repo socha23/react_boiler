@@ -1,39 +1,45 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 import {ToggleButtonsFilter, PopupToggleButtonsFilter} from '../common/components/filters'
 import {crudList} from '../common/crud/crudContainers'
 
-import {artifactLocator} from "../tags/locatorFunctions"
-import {artifactTag} from "../tags/tagFunctions"
+import {artifactLocator} from "../tags/locatorHelpers"
+import {artifactTag} from "../tags/tagHelpers"
 
-function artifactLocationId(a) {
-    if (artifactLocator(a)) {
+function artifactLocationId(a, tags, locators) {
+    if (artifactLocator(locators, a)) {
         return "outside";
-    } else if (artifactTag(a)) {
-        return artifactTag(a).coordinateSystemId;
+    } else if (artifactTag(tags, a)) {
+        return artifactTag(tags, a).coordinateSystemId;
     } else {
         return null;
     }
 }
 
-function locations(maps, artifacts = []) {
-    let result = [...maps];
+function locations(maps, artifacts = [], tags = [], locators = []) {
+    let result = [];
+    maps.forEach(map => {
+        result.push({...map});
+    });
     result.push({
         id: "outside",
         name: "Na zewnątrz"
     });
     result.forEach(loc => {
-       let count = artifacts.filter(a => artifactLocationId(a) == loc.id).length;
+       let count = artifacts.filter(a => artifactLocationId(a, tags, locators) == loc.id).length;
         if (count > 0) {
             loc.number = count;
+        } else {
+            loc.number = null;
         }
     });
     return result;
 }
 
 
-let PopupArtifactLocationFilter = ({filter, items:maps, artifacts=[], onFilterChange}) => <PopupToggleButtonsFilter
-    items={locations(maps, artifacts)}
+let PopupArtifactLocationFilter = ({filter, items:maps, onFilterChange, artifacts=[], tags=[], locators=[]}) => <PopupToggleButtonsFilter
+    items={locations(maps, artifacts, tags, locators)}
     field="location"
     filter={filter}
     onFilterChange={onFilterChange}
@@ -46,8 +52,8 @@ PopupArtifactLocationFilter = crudList({
 }, PopupArtifactLocationFilter);
 
 
-let ArtifactLocationFilter = ({filter, items:maps, artifacts=[], onFilterChange}) => <ToggleButtonsFilter
-    items={locations(maps, artifacts)}
+let ArtifactLocationFilter = ({filter, items:maps, onFilterChange, artifacts=[], tags=[], locators=[]}) => <ToggleButtonsFilter
+    items={locations(maps, artifacts, tags, locators)}
     field="location"
     filter={filter}
     onFilterChange={onFilterChange}
@@ -58,12 +64,19 @@ ArtifactLocationFilter = crudList({
     onlyOnce: true
 }, ArtifactLocationFilter);
 
-function locationFilterMatches(artifact, filter) {
-    return filter.location[artifactLocationId(artifact)];
+function locationFilterMatches(artifact, filter, tags, locators) {
+    return filter.location[artifactLocationId(artifact, tags, locators)];
 }
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        tags: state.tags.items,
+        locators: state.locators.items
+    };
+};
+
 module.exports = {
-    PopupArtifactLocationFilter,
-    ArtifactLocationFilter,
+    PopupArtifactLocationFilter: connect(mapStateToProps)(PopupArtifactLocationFilter),
+    ArtifactLocationFilter: connect(mapStateToProps)(ArtifactLocationFilter),
     locationFilterMatches
 };

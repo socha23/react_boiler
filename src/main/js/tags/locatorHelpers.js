@@ -44,8 +44,27 @@ function availableCrates(artifacts, locators, forArtifact) {
         .filter(t => !usedCrateIds[t.id]);
 }
 
+function getLocatorById(locators, id) {
+    if (!locators || !id) {
+        return null;
+    }
+    for (let i = 0; i < locators.length; i++) {
+        if (locators[i].id == id) {
+            return locators[i];
+        }
+    }
+    return null;
+}
+
+function artifactLocator(locators, artifact) {
+    return getLocatorById(locators, artifact.currentLocatorId);
+}
+
+
 module.exports = {
-    artifactsByCrateId: artifactsByCrateId,
-    artifactsByCurrentLocatorId: artifactsByCurrentLocatorId,
-    availableCrates: availableCrates
+    artifactsByCrateId,
+    artifactsByCurrentLocatorId,
+    availableCrates,
+    getLocatorById,
+    artifactLocator
 };

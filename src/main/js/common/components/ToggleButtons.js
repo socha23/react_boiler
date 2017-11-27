@@ -36,7 +36,7 @@ class ToggleButtons extends React.Component {
                     {item.iconClass ? <i className={item.iconClass}/> : ""}
                     {item.iconText ? <span className="badge">{item.iconText}</span> : ""}
                     {item.name}
-                    {item.number ? <span className="pull-right">{item.number}</span> : ""}
+                    {item.number ? <span style={{marginLeft: 30}}>{item.number}</span> : ""}
                 </a>
             )}
         </div>

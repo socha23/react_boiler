@@ -1,5 +1,6 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
+import {connect} from 'react-redux'
 
 import {crudList, crudActions} from '../common/crud/crudContainers'
 import Panel from '../common/components/Panel'
@@ -152,7 +153,7 @@ class ArtifactsPageContainer extends React.Component {
                 return false;
             } else if (currentFilter.search && !i.name.toLowerCase().includes(currentFilter.search.toLowerCase())) {
                 return false;
-            } else if (currentFilter.location && !locationFilterMatches(i, currentFilter)) {
+            } else if (currentFilter.location && !locationFilterMatches(i, currentFilter, this.props.tags, this.props.locators)) {
                 return false;
             }
             return true;
@@ -179,4 +180,11 @@ ArtifactsPageContainer.contextTypes = {
     })
 };
 
-export default crudActions("artifacts", crudList("artifacts", ArtifactsPageContainer))
+const mapStateToProps = (state, ownProps) => {
+    return {
+        tags: state.tags.items,
+        locators: state.locators.items
+    };
+};
+
+export default crudActions("artifacts", crudList("artifacts", connect(mapStateToProps)(ArtifactsPageContainer)))

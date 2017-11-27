@@ -26,8 +26,27 @@ function availableTags(itemLists, tags, forItem) {
     return tags.filter(t => !usedTagIds[t.id]);
 }
 
+function getTagById(tags, id) {
+    if (!tags || !id) {
+        return null;
+    }
+    for (let i = 0; i < tags.length; i++) {
+        if (tags[i].id == id) {
+            return tags[i];
+        }
+    }
+    return null;
+}
+
+function artifactTag(tags, artifact) {
+    return getTagById(tags, artifact.tagId);
+}
+
+
 
 module.exports = {
-    artifactsByTagId:artifactsByTagId,
-    availableTags: availableTags
+    artifactsByTagId,
+    availableTags,
+    getTagById,
+    artifactTag
 };
