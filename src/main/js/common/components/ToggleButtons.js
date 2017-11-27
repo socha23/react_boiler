@@ -33,10 +33,12 @@ class ToggleButtons extends React.Component {
         return <div className="toggleButtons">
             {this.props.items.map(item =>
                 <a key={item.id} className={"iconWithName btn btn-default " + ((this.state.selected[item.id]) ? "active" : "")} onClick={() => this.onToggle(item)}>
-                    {item.iconClass ? <i className={item.iconClass}/> : ""}
-                    {item.iconText ? <span className="badge">{item.iconText}</span> : ""}
-                    {item.name}
-                    {item.number ? <span style={{marginLeft: 30}}>{item.number}</span> : ""}
+                    <span className="pull-left">
+                        {item.iconClass ? <i className={item.iconClass}/> : ""}
+                        {item.iconText ? <span className="badge">{item.iconText}</span> : ""}
+                        {item.name}
+                    </span>
+                    {item.number ? <span className="pull-right">{item.number}</span> : ""}
                 </a>
             )}
         </div>
