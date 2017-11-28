@@ -242,6 +242,7 @@ body {
 
 .mapZoomButton {
     color: #888;
+    background-color: white;
     cursor: pointer;
     display: block;
     border: 1px solid #CCC;

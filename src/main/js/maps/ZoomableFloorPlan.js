@@ -47,7 +47,7 @@ class ZoomableFloorPlan extends React.Component {
 
         this.panZoomChanged();
 
-        this.elem.parent().on('mousewheel.focal', e => {
+        this.elem.parent().on('wheel', e => {
             e.preventDefault();
             var delta = e.delta || e.originalEvent.wheelDelta;
             var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
