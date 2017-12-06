@@ -36,7 +36,4 @@ public class Artifact {
 
     // przypisana skrzynia
     private String crateId;
-
-    // lokator w którym znajduje się obiekt - może to być skrzynia (przypisana bądź nie), może to być kontener
-    private String currentLocatorId;
 }

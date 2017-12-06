@@ -1,7 +1,11 @@
 package pl.socha23.cyberfire.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.socha23.cyberfire.model.Artifact;
 import pl.socha23.cyberfire.model.Locator;
+import pl.socha23.cyberfire.model.NearbyDevice;
+import pl.socha23.cyberfire.repositories.ArtifactRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -21,9 +25,14 @@ public class MockLocatorsService implements ILocatorsService {
     private List<Locator> staticLocators = new ArrayList<>();
     private ForgettingStore<Locator> dynamicLocators = new ForgettingStore<>(60 * 1000);
 
+    @Autowired
+    private ArtifactRepository artifactRepository;
+
 
     @PostConstruct
     private void createSampleLocators() {
+        List<Artifact> artifacts = artifactRepository.findAll();
+
         for (int i = 1; i <= 5; i++) {
             staticLocators.add(
                     Locator.builder()
@@ -32,19 +41,27 @@ public class MockLocatorsService implements ILocatorsService {
                             .type(Locator.Type.CRATE)
                             .latitude(WARSAW_LAT + gaussianScatter())
                             .longitude(WARSAW_LNG + gaussianScatter())
-                    .build()
+                            .build()
             );
         }
         for (int i = 1; i <= 5; i++) {
-            staticLocators.add(
-                    Locator.builder()
-                            .id("container_" + i)
-                            .name("Kontener #" + i)
-                            .type(Locator.Type.CONTAINER)
-                            .latitude(WARSAW_LAT + gaussianScatter())
-                            .longitude(WARSAW_LNG + gaussianScatter())
-                    .build()
-            );
+            Locator container = Locator.builder()
+                    .id("container_" + i)
+                    .name("Kontener #" + i)
+                    .type(Locator.Type.CONTAINER)
+                    .latitude(WARSAW_LAT + gaussianScatter())
+                    .longitude(WARSAW_LNG + gaussianScatter())
+                    .build();
+
+            if (random.nextInt(3) == 0) {
+                int numOfArtifactsInContainer = random.nextInt(Math.min(4, artifacts.size()));
+                for (int j = 0; j < numOfArtifactsInContainer; j++) {
+                    Artifact a = artifacts.remove(random.nextInt(artifacts.size()));
+                    container.getNearbyDevices().add(new NearbyDevice(a.getId(), (int)(-60 + random.nextGaussian() * 30)));
+                }
+            }
+
+            staticLocators.add(container);
         }
     }
 
