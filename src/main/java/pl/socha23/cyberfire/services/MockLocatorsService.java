@@ -51,6 +51,7 @@ public class MockLocatorsService implements ILocatorsService {
                     .type(Locator.Type.CONTAINER)
                     .latitude(WARSAW_LAT + gaussianScatter())
                     .longitude(WARSAW_LNG + gaussianScatter())
+                    .nearbyDevices(new ArrayList<>())
                     .build();
 
             if (random.nextInt(3) == 0) {
