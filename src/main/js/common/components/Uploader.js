@@ -49,7 +49,7 @@ export default class Uploader extends React.Component {
 
     render() {
         const options = {
-            baseUrl: "/api/images",
+            baseUrl: CONTEXT_PATH + "/api/images",
             chooseAndUpload: true,
             multiple: false,
             fileFieldName: 'file',
