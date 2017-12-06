@@ -29,9 +29,7 @@ class ArtifactForm extends FormHelper {
             evacuationNotes: item.evacuationNotes || '',
             images: item.images || [],
             tagId: item.tagId,
-            crateId: item.crateId,
-            currentLocatorId: item.currentLocatorId
-
+            crateId: item.crateId
         });
     };
 
@@ -53,7 +51,6 @@ class ArtifactForm extends FormHelper {
         item.images = this.state.images;
         item.tagId = this.state.tagId;
         item.crateId = this.state.crateId;
-        item.currentLocatorId = this.state.currentLocatorId
         return item;
     };
 
@@ -178,21 +175,6 @@ class ArtifactForm extends FormHelper {
                     </div>
                 </div>
 
-            </div>
-
-            <hr/>
-
-            <div className="form-horizontal">
-                <div className={this.formGroupClassName('currentLocatorId')}>
-                    <label htmlFor="currentLocatorId" className="col-sm-2 control-label">Aktualnie w:</label>
-                    <div className="col-sm-10">
-                        <AllLocatorsDropDown
-                            value={this.state.currentLocatorId}
-                            onChange={this.stateSettingValueListener("currentLocatorId")}
-                            id="currentLocatorId"
-                        />
-                    </div>
-                </div>
             </div>
 
             <hr/>

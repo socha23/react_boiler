@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
-import {artifactsByCurrentLocatorId} from './locatorHelpers'
 import {Type, Priority} from '../artifacts/ArtifactVocs'
 import {find} from '../common/vocFunctions'
 import VocIcon from '../common/components/VocIcon'
@@ -18,16 +17,19 @@ const LocatorObjectsList = ({
     selected = {},
     locators = [],
     onSelect = () => {},
-    artifactsByCurrentLocatorId = {}
+    artifactsById = {}
     }) => <div>
     <table className="table table-hover table-pointer">
         <tbody>
         {locators.map(t => <tr key={t.id} className={selected == t ? 'success' : ''} onClick={() => {onSelect(t)}}>
             <td>{t.name}</td>
             <td>
-                {(artifactsByCurrentLocatorId[t.id] || []).map(a =>
-                    <LocatedArtifact key={a.id} artifact={a}/>
-                )}
+                {t.nearbyDevices
+                    .map(d => artifactsById[d.id])
+                    .filter(a => a != null)
+                    .map(a =>
+                        <LocatedArtifact key={a.id} artifact={a}/>
+                    )}
             </td>
         </tr>)
         }
@@ -36,7 +38,7 @@ const LocatorObjectsList = ({
 </div>;
 
 const mapStateToProps = (state, ownProps) => ({
-    artifactsByCurrentLocatorId: artifactsByCurrentLocatorId(state.artifacts.items)
+    artifactsById: state.artifacts.itemsById
 });
 
 export default connect(mapStateToProps)(LocatorObjectsList);

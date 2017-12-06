@@ -11,23 +11,6 @@ function artifactsByCrateId(artifacts) {
     return result;
 }
 
-function artifactsByCurrentLocatorId(artifacts) {
-    if (!artifacts) {
-        return {};
-    }
-    let result = {};
-    artifacts
-        .filter(a => a.currentLocatorId)
-        .forEach(a => {
-            if (!result[a.currentLocatorId]) {
-                result[a.currentLocatorId] = [];
-            }
-            result[a.currentLocatorId].push(a);
-        });
-    return result;
-}
-
-
 function availableCrates(artifacts, locators, forArtifact) {
     if (!artifacts || !locators) {
         return [];
@@ -57,13 +40,14 @@ function getLocatorById(locators, id) {
 }
 
 function artifactLocator(locators, artifact) {
-    return getLocatorById(locators, artifact.currentLocatorId);
+    return locators.find(loc =>
+        (loc.nearbyDevices || []).find(dev => dev.id == artifact.id)
+    );
 }
 
 
 module.exports = {
     artifactsByCrateId,
-    artifactsByCurrentLocatorId,
     availableCrates,
     getLocatorById,
     artifactLocator

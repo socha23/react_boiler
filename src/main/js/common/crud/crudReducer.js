@@ -1,4 +1,5 @@
 import restActionNames from './crudActionNames'
+import {indexById} from '../resourceFunctions'
 
 export default function restReducer(resource) {
 
@@ -21,6 +22,7 @@ export default function restReducer(resource) {
                     ...state,
                     isFetching: false,
                     items: action.items,
+                    itemsById: indexById(action.items),
                     itemsTimestamp: new Date()
                 };
             case ActionNames.REQUEST_CREATE:
@@ -32,7 +34,8 @@ export default function restReducer(resource) {
                 return {
                     ...state,
                     isCreating: false,
-                    items: [action.item, ...state.items]
+                    items: [action.item, ...state.items],
+                    itemsById: {...state.itemsById, [action.item.id]: action.item}
                 };
             case ActionNames.CREATE_ERROR:
                 return {
