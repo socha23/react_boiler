@@ -2,6 +2,7 @@ package pl.socha23.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
@@ -11,9 +12,11 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import pl.socha23.cyberfire.model.Artifact;
 import pl.socha23.cyberfire.model.Fireteam;
 import pl.socha23.cyberfire.model.ImageRef;
+import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
 
 @Configuration
-public class RestConfiguration extends RepositoryRestConfigurerAdapter {
+@Import(SpringDataRestConfiguration.class)
+public class DataRestConfiguration extends RepositoryRestConfigurerAdapter {
 
     // żeby mieć IDki w obiektach
     @Override
