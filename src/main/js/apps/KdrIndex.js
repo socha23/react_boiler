@@ -8,6 +8,7 @@ import LiNavLink from '../common/components/LiNavLink'
 import PageTemplate from '../templates/PageTemplate'
 import PageNavTitleLi from '../templates/PageNavTitleLi'
 
+import RescuePage from '../rescue/RescuePage'
 import RescueAdminPage from '../rescue/RescueAdminPage'
 
 let KdrTabs = () => <div>
@@ -19,16 +20,7 @@ let KdrTabs = () => <div>
 </div>;
 
 const KdrContent = ({maps}) => <Switch>
-    <Route exact path="/">
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-sm-12 colWithSmallerGutter">
-                    <h1>Akcja ratunkowa </h1>
-                </div>
-            </div>
-
-        </div>
-    </Route>
+    <Route exact path="/" component={RescuePage}/>
     <Route path="/admin" component={RescueAdminPage}/>
 </Switch>;
 
