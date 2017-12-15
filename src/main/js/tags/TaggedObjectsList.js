@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router'
 import {artifactsByTagId} from './tagHelpers'
 import {Type, Priority} from '../artifacts/ArtifactVocs'
 import {find} from '../common/vocFunctions'
@@ -11,16 +10,19 @@ const itemDivStyle = {
     paddingBottom: 5
 };
 
-let TaggedArtifact = ({tag, artifact, history}) => <div style={itemDivStyle}>
+let TaggedArtifact = ({tag, artifact, history, onClick}) => <div style={itemDivStyle}>
     <VocIcon value={find(Type, artifact.type)} className="iconWithName"/>
-    <a onClick={(e) => {e.stopPropagation(); history.push("/artifacts/" + artifact.id)}}>{artifact.name}</a>
+    {onClick ?
+        <a onClick={(e) => {e.stopPropagation(); onClick(artifact)}}>{artifact.name}</a>
+        :
+        <span>{artifact.name}</span>
+    }
+
     <small style={{marginLeft: 10, color: "#AAA"}}>
         {tag.areaName}
     </small>
     <VocIcon value={find(Priority, artifact.priority)} className="pull-right"/>
 </div>;
-
-TaggedArtifact = withRouter(TaggedArtifact);
 
 const Tag = ({tag}) => <div style={itemDivStyle}>
     <span style={{marginLeft: 26}}>{tag.name}</span>
@@ -33,15 +35,16 @@ const TaggedObjectsList = ({
     selected = {},
     tags = [],
     onSelect = () => {},
-    artifactsByTagId = {}
+    artifactsByTagId = {},
+    onArtifactClick
     }) => <div>
     <table className="table table-hover table-pointer">
         <tbody>
-        {tags.map(t => <tr key={t.id} className={selected == t ? 'success' : ''} onClick={() => {onSelect(t)}}>
+        {tags.map(t => <tr key={t.id} className={selected && selected.id == t.id ? 'success' : ''} onClick={() => {onSelect(t)}}>
             <td>
                 {
                     artifactsByTagId[t.id] ?
-                        <TaggedArtifact tag={t} artifact={artifactsByTagId[t.id]}/>
+                        <TaggedArtifact tag={t} artifact={artifactsByTagId[t.id]} onClick={onArtifactClick}/>
                         : <Tag tag={t}/>
                 }
             </td>

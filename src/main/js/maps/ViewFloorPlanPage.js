@@ -8,12 +8,12 @@ import TaggedObjectsList from '../tags/TaggedObjectsList'
 import FloorPlan from './ZoomableFloorPlan'
 import Panel from '../common/components/Panel'
 
-const ViewFloorPlan  = ({map, tags, selectedTag, onSelectTag}) =>
+const ViewFloorPlan  = ({map, tags, selectedTag, onSelectTag, onArtifactClick}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-4 colWithSmallerGutter">
                 <Panel>
-                    <TaggedObjectsList tags={tags} selected={selectedTag} onSelect={onSelectTag}/>
+                    <TaggedObjectsList tags={tags} selected={selectedTag} onSelect={onSelectTag} onArtifactClick={onArtifactClick}/>
                 </Panel>
             </div>
             <div className="col-sm-8 colWithSmallerGutter">
@@ -37,6 +37,9 @@ const mapStateToProps = (state, ownProps) => {
         selectedTag: myTagId ? state.tags.items.find((m) => m.id == myTagId) : null,
         onSelectTag: (tag) => {
             ownProps.history.push("/maps/" + myMapId + "/" + tag.id)
+        },
+        onArtifactClick: (artifact) => {
+            ownProps.history.push("/artifacts/" + artifact.id)
         }
     }
 };
