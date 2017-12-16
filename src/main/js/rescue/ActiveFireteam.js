@@ -9,9 +9,9 @@ import DistanceBetweenTags from '../tags/DistanceBetweenTags'
 import * as fireteamActions from '../fireteams/fireteamActions'
 
 const ActiveFireteam = ({fireteam, fireteamTag, targetTag, selectedTag, tagDescriptionsByTagId = {}, onSetTargetTag = () => {
-}}) => <div>
+}}) => <div style={{minHeight: 150}}>
     <div>
-        <span style={{fontWeight: "bold", fontSize: 18, marginRight: 5}}>
+        <span style={{fontWeight: "bold", fontSize: 18, marginRight: 10}}>
             {fireteam.name}
         </span>
         <TagAreaName tag={fireteamTag}/>

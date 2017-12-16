@@ -19,16 +19,15 @@ const RescuePage = ({tags, fireteams, floorPlans, selectedTargetTag, onSelectTar
                 </Panel>
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
-                <RescueFloorPlans floorPlans={floorPlans} additionalMargin={200}/>
-                <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", margin: "0 -5px"}}>
-                    {fireteams.map(t => <div style={{flexGrow: 1, margin: 5}} key={t.id}>
+                <RescueFloorPlans floorPlans={floorPlans} additionalMargin={193}/>
+                <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", margin: "-5px -5px 0 -5px"}}>
+                    {fireteams.map(t => <div style={{flex: 1, margin: 5}} key={t.id}>
                             <Panel>
                                 <ActiveFireteam fireteam={t} selectedTag={selectedTargetTag}/>
                             </Panel>
                         </div>
                     )}
                 </div>
-                ;
             </div>
         </div>
     </div>;
