@@ -31,6 +31,18 @@ Tag = connect(mapStateToProps)(Tag);
 
 class ZoomableFloorPlan extends React.Component {
 
+    static propTypes = {
+        map: PropTypes.object.isRequired,
+        tags: PropTypes.array,
+        selectedTag: PropTypes.object,
+        onClickTag: PropTypes.func
+    };
+
+    static defaultProps = {
+        onClickTag: () => {},
+        tags: []
+    };
+
     state = {
         matrix: [1, 0, 0, 1, 0, 0]
     };

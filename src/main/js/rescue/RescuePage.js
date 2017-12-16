@@ -4,11 +4,11 @@ import {connect} from 'react-redux'
 import Panel from '../common/components/Panel'
 import HeightExpander from '../common/components/HeightExpander'
 
-
 import ActiveFireteam from './ActiveFireteam'
 import FireteamTargetChooser from './FireteamTargetChooser'
+import RescueFloorPlans from './RescueFloorPlans'
 
-const RescuePage = ({tags, fireteams, selectedTargetTag, onSelectTargetTag}) =>
+const RescuePage = ({tags, fireteams, floorPlans, selectedTargetTag, onSelectTargetTag}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-3 colWithSmallerGutter">
@@ -19,9 +19,7 @@ const RescuePage = ({tags, fireteams, selectedTargetTag, onSelectTargetTag}) =>
                 </Panel>
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
-                <Panel>
-                    Mapa
-                </Panel>
+                <RescueFloorPlans floorPlans={floorPlans}/>
                 <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", margin: "0 -5px"}}>
                     {fireteams.map(t => <div style={{flexGrow: 1, margin: 5}} key={t.id}>
                             <Panel>
@@ -46,8 +44,7 @@ class RescuePageContainer extends React.Component {
     };
 
     render = () => (<RescuePage
-        tags={this.props.tags}
-        fireteams={this.props.fireteams}
+        {...this.props}
         onSelectTargetTag={this.onSelectTargetTag}
         selectedTargetTag={this.state.selectedTag}
     />)
@@ -55,7 +52,8 @@ class RescuePageContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
     fireteams: state.fireteams.items,
-    tags: state.tags.items
+    tags: state.tags.items,
+    floorPlans: state.floorPlans.items
 });
 
 export default connect(mapStateToProps)(RescuePageContainer)
