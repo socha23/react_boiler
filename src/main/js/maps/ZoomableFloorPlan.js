@@ -35,12 +35,14 @@ class ZoomableFloorPlan extends React.Component {
         map: PropTypes.object.isRequired,
         tags: PropTypes.array,
         selectedTag: PropTypes.object,
-        onClickTag: PropTypes.func
+        onClickTag: PropTypes.func,
+        additionalMargin: PropTypes.number
     };
 
     static defaultProps = {
         onClickTag: () => {},
-        tags: []
+        tags: [],
+        additionalMargin: 0
     };
 
     state = {
@@ -163,7 +165,7 @@ class ZoomableFloorPlan extends React.Component {
 
     render() {
         return <div>
-            <HeightExpander style={{border: "1px solid #BBB"}}>
+            <HeightExpander style={{border: "1px solid #BBB"}} additionalMargin={this.props.additionalMargin}>
                 <div style={{position: "absolute"}} ref={elem => this.elem = $(elem)}>
                     <img src={this.props.map.base64content}/>
                 </div>

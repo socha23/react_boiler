@@ -19,7 +19,7 @@ const RescuePage = ({tags, fireteams, floorPlans, selectedTargetTag, onSelectTar
                 </Panel>
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
-                <RescueFloorPlans floorPlans={floorPlans}/>
+                <RescueFloorPlans floorPlans={floorPlans} additionalMargin={200}/>
                 <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", margin: "0 -5px"}}>
                     {fireteams.map(t => <div style={{flexGrow: 1, margin: 5}} key={t.id}>
                             <Panel>

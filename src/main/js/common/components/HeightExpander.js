@@ -5,11 +5,16 @@ const EXPECTED_TOP = 80;
 
 class HeightExpander extends React.Component {
 
+    static defaultProps = {
+        additionalMargin: 0
+    };
+
+
     guessHeight = () => {
         if (!this.elem) {
-            return $(window).height() - EXPECTED_TOP - MARGIN;
+            return $(window).height() - EXPECTED_TOP - MARGIN - this.props.additionalMargin;
         } else {
-            return $(window).height() - $(this.elem).offset().top - MARGIN;
+            return $(window).height() - $(this.elem).offset().top - MARGIN - this.props.additionalMargin;
         }
     };
 
