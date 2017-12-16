@@ -20,11 +20,13 @@ class RescueFloorPlans extends React.Component {
         currentTab: 0
     };
 
-    // TODO obsługa zmiany taba!
+    onTabChange = (idx) => {
+        this.setState({currentTab: idx});
+    };
 
     render = () => {
         if (this.state.currentTab < this.props.floorPlans.length) {
-            return <TabPanel tabs={this.props.floorPlans.map(fp => fp.name)}>
+            return <TabPanel tabs={this.props.floorPlans.map(fp => fp.name)} onTabChange={this.onTabChange}>
                 <ZoomableFloorPlan map={this.props.floorPlans[this.state.currentTab]} additionalMargin={this.props.additionalMargin}/>
             </TabPanel>
 
