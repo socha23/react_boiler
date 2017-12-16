@@ -42,11 +42,18 @@ function artifactTag(tags, artifact) {
     return getTagById(tags, artifact.tagId);
 }
 
-
+function tagDescriptionsByTagId(tags=[], artifacts=[], fireteams=[]) {
+    let result = {};
+    tags.forEach(t => {result[t.id] = t.name});
+    artifacts.forEach(a => {result[a.tagId] = a.name});
+    fireteams.forEach(f => {result[f.tagId] = f.name});
+    return result;
+}
 
 module.exports = {
     artifactsByTagId,
     availableTags,
     getTagById,
-    artifactTag
+    artifactTag,
+    tagDescriptionsByTagId
 };

@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 
+import TagAreaName from './TagAreaName'
+
 const TagValue = ({tag, link, history, inline}) => tag ? <span>
             { link ?
                 <a
@@ -13,9 +15,7 @@ const TagValue = ({tag, link, history, inline}) => tag ? <span>
             : tag.name
             }
             { inline ? <span style={{marginLeft: 10}}/> : <br/>}
-            <small style={{color: "#AAA"}}>
-                {tag.areaName}
-            </small>
+            <TagAreaName tag={tag}/>
     </span> :
     <span>nie wybrano</span>
     ;
