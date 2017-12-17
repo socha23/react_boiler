@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import HeightExpander from './HeightExpander'
 
 const tabStyle = {
     display: "inline-block",
@@ -29,12 +30,14 @@ class TabPanel extends React.Component {
     static propTypes = {
         tabs: PropTypes.array.isRequired,
         onTabChange: PropTypes.func,
-        padding: PropTypes.number
+        padding: PropTypes.number,
+        heightExpander: PropTypes.bool
     };
 
     static defaultProps = {
         onTabChange: () => {},
-        padding: 15
+        padding: 15,
+        heightExpander: false
 
     };
 
@@ -51,6 +54,10 @@ class TabPanel extends React.Component {
     };
 
     render = () => {
+        let body = this.state.selected < this.props.tabs.length ?
+                                this.props.tabs[this.state.selected].body
+                                : <span/>;
+
         return <div>
             <nav>
                 <ul style={{listStyleType: "none", marginBottom: 0, paddingLeft: 15}}>
@@ -70,9 +77,12 @@ class TabPanel extends React.Component {
             </nav>
             <div className="panel panel-default">
                 <div className="panel-body" style={{padding: this.props.padding}}>
-                    {this.state.selected < this.props.tabs.length ?
-                        this.props.tabs[this.state.selected].body
-                        : <span/>
+                    {
+                        this.props.heightExpander ?
+                            <HeightExpander>
+                                {body}
+                            </HeightExpander>
+                            : body
                     }
                 </div>
             </div>
