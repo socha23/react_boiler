@@ -31,8 +31,8 @@ const Marker = ({id, style = {}, name = "", selected = false, onClick = () => {}
                 style={{
                     position: 'relative',
                     zIndex: 2000,
-                    left: -23,
-                    top: -52
+                    left: -18,
+                    top: -84
                 }}
 
             />
