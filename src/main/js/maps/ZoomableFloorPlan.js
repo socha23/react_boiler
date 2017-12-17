@@ -132,8 +132,8 @@ class ZoomableFloorPlan extends React.Component {
             return false;
         }
         const outerRecPx = this.elem.parent()[0].getBoundingClientRect();
-        return 0 <= pos.x && pos.x <= outerRecPx.width
-            && 0 <= pos.y && pos.y <= outerRecPx.height;
+        return 0 <= pos.x && pos.x <= outerRecPx.width - DOT_SIZE
+            && DOT_SIZE <= pos.y && pos.y <= outerRecPx.height;
 
     };
 
