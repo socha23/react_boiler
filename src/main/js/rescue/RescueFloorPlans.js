@@ -6,35 +6,11 @@ import TabPanel from '../common/components/TabPanel'
 
 import ZoomableFloorPlan from '../maps/ZoomableFloorPlan'
 
-class RescueFloorPlans extends React.Component {
-    static propTypes = {
-        floorPlans: PropTypes.array.isRequired,
-        additionalMargin: PropTypes.number
-    };
-
-    static defaultProps = {
-        additionalMargin: 0
-    };
-
-    state = {
-        currentTab: 0
-    };
-
-    onTabChange = (idx) => {
-        this.setState({currentTab: idx});
-    };
-
-    render = () => {
-        if (this.state.currentTab < this.props.floorPlans.length) {
-            return <TabPanel tabs={this.props.floorPlans.map(fp => fp.name)} onTabChange={this.onTabChange}>
-                <ZoomableFloorPlan map={this.props.floorPlans[this.state.currentTab]} additionalMargin={this.props.additionalMargin}/>
-            </TabPanel>
-
-        } else {
-            return <span/>
-        }
-    };
-
-}
+const RescueFloorPlans = ({floorPlans, additionalMargin = 0}) => <TabPanel tabs={
+       floorPlans.map(fp => ({
+            label: fp.name,
+            body: <ZoomableFloorPlan map={fp} additionalMargin={additionalMargin}/>
+       }))
+    }/>;
 
 export default RescueFloorPlans

@@ -24,7 +24,6 @@ const FireteamTargetChooser = ({
         onSelectTag={onSelect}
     />;
 
-
 const ArtifactTargetChooser = ({
     artifacts = [],
     tagsById = {},

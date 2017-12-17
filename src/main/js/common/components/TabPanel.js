@@ -19,6 +19,11 @@ const activeTabStyle = {
 };
 
 
+/* tabs ex
+ [{label: 'tab one', body: <div>Tab one</div>}, {label: 'tab two', body: <div>Tab two</div>}]
+
+  */
+
 class TabPanel extends React.Component {
 
     static propTypes = {
@@ -47,14 +52,14 @@ class TabPanel extends React.Component {
             <nav>
                 <ul style={{listStyleType: "none", marginBottom: 0, paddingLeft: 15}}>
                     {
-                        this.props.tabs.map( (tabName, idx) => {
+                        this.props.tabs.map( (tab, idx) => {
                             let style = (idx == this.state.selected) ? {...tabStyle, ...activeTabStyle} : tabStyle;
                             return <li
                                 key={idx}
                                 style={style}
                                 onClick={() => this.onTabClick(idx)}
                             >
-                                <a>{tabName}</a>
+                                <a>{tab.label}</a>
                             </li>
                         })
                     }
@@ -62,13 +67,14 @@ class TabPanel extends React.Component {
             </nav>
             <div className="panel panel-default">
                 <div className="panel-body">
-                    {this.props.children}
+                    {this.state.selected < this.props.tabs.length ?
+                        this.props.tabs[this.state.selected].body
+                        : <span/>
+                    }
                 </div>
             </div>
         </div>
-
     }
 }
-
 
 export default TabPanel
