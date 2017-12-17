@@ -20,7 +20,7 @@ const ActiveFireteam = ({fireteam, fireteamTag, targetTag, selectedTag, tagDescr
         <FireteamTarget fireteamTag={fireteamTag} targetTag={targetTag} tagDescriptionsByTagId={tagDescriptionsByTagId}/>
     </div>
     <div>
-        {selectedTag ? <SetTargetButton fireteam={fireteam} fireteamTag={fireteamTag} targetTag={selectedTag} tagDescriptionsByTagId={tagDescriptionsByTagId} onSetTargetTag={onSetTargetTag}/> : <span/>}
+        {selectedTag && selectedTag.id != fireteamTag.id ? <SetTargetButton fireteam={fireteam} fireteamTag={fireteamTag} targetTag={selectedTag} tagDescriptionsByTagId={tagDescriptionsByTagId} onSetTargetTag={onSetTargetTag}/> : <span/>}
         {fireteam.targetTagId ? <ClearTargetButton fireteam={fireteam} onSetTargetTag={onSetTargetTag}/> : <span/>}
     </div>
 </div>;
