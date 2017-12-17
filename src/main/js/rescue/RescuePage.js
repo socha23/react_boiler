@@ -8,13 +8,17 @@ import ActiveFireteam from './ActiveFireteam'
 import FireteamTargetChooser from './FireteamTargetChooser'
 import RescueFloorPlans from './RescueFloorPlans'
 
-const RescuePage = ({tags, fireteams, floorPlans, selectedTargetTag, onSelectTargetTag}) =>
+const RescuePage = ({tags, artifacts, fireteams, floorPlans, selectedTargetTag, onSelectTargetTag}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-3 colWithSmallerGutter">
                 <Panel>
                     <HeightExpander>
-                        <FireteamTargetChooser tags={tags} selected={selectedTargetTag} onSelect={onSelectTargetTag}/>
+                        <FireteamTargetChooser
+                            tags={tags}
+                            artifacts={artifacts}
+                            fireteams={fireteams}
+                            selected={selectedTargetTag} onSelect={onSelectTargetTag}/>
                     </HeightExpander>
                 </Panel>
             </div>
@@ -52,6 +56,7 @@ class RescuePageContainer extends React.Component {
 const mapStateToProps = (state) => ({
     fireteams: state.fireteams.items,
     tags: state.tags.items,
+    artifacts: state.artifacts.items,
     floorPlans: state.floorPlans.items
 });
 

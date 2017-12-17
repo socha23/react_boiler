@@ -21,7 +21,7 @@ class HeightExpander extends React.Component {
     render = () => {
         return <div
             ref={e => this.elem = e}
-            style={{...(this.props.style || {}), overflowY: "scroll", height: this.guessHeight()}}
+            style={{...(this.props.style || {}), overflowY: "auto", height: this.guessHeight()}}
         >
             {this.props.children}
         </div>
