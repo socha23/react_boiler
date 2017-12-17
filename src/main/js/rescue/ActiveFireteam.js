@@ -20,7 +20,7 @@ const ActiveFireteam = ({fireteam, fireteamTag, targetTag, selectedTag, tagDescr
         <FireteamTarget fireteamTag={fireteamTag} targetTag={targetTag} tagDescriptionsByTagId={tagDescriptionsByTagId}/>
     </div>
     <div>
-        {selectedTag ? <SetTargetButton fireteam={fireteam} targetTag={selectedTag} tagDescriptionsByTagId={tagDescriptionsByTagId} onSetTargetTag={onSetTargetTag}/> : <span/>}
+        {selectedTag ? <SetTargetButton fireteam={fireteam} fireteamTag={fireteamTag} targetTag={selectedTag} tagDescriptionsByTagId={tagDescriptionsByTagId} onSetTargetTag={onSetTargetTag}/> : <span/>}
         {fireteam.targetTagId ? <ClearTargetButton fireteam={fireteam} onSetTargetTag={onSetTargetTag}/> : <span/>}
     </div>
 </div>;
@@ -28,16 +28,16 @@ const ActiveFireteam = ({fireteam, fireteamTag, targetTag, selectedTag, tagDescr
 const FireteamTarget = ({fireteamTag, targetTag, tagDescriptionsByTagId = {}}) =>
     targetTag ?
         <span>
-            {tagDescriptionsByTagId[targetTag.id]} - <DistanceBetweenTags from={fireteamTag} to={targetTag}/>
+            Cel: {tagDescriptionsByTagId[targetTag.id]} - <DistanceBetweenTags from={fireteamTag} to={targetTag}/>
         </span>
 
         :
         <span>Nie ustawiono celu</span>
 ;
 
-const SetTargetButton = ({fireteam, targetTag, tagDescriptionsByTagId, onSetTargetTag}) =>
+const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTagId, onSetTargetTag}) =>
     <a className="btn btn-block btn-default" onClick={() => onSetTargetTag(fireteam, targetTag)}>
-        Ustaw cel: {tagDescriptionsByTagId[targetTag.id]}
+        Ustaw cel: {tagDescriptionsByTagId[targetTag.id]} - <DistanceBetweenTags from={fireteamTag} to={targetTag}/>
     </a>;
 
 const ClearTargetButton = ({fireteam, onSetTargetTag}) =>
