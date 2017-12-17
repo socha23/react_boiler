@@ -1,16 +1,17 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
-import {artifactsByTagId} from '../tags/tagHelpers'
+import {tagDescriptionsByTagId} from '../tags/tagHelpers'
+import TagMapIcon from '../tags/TagMapIcon'
 import {Marker, DOT_SIZE} from './Marker'
 import HeightExpander from '../common/components/HeightExpander'
 
 
-let Tag = ({id, color, pxPosition, name, selected, onClick, artifactsByTagId}) =>
+let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId}) =>
     <Marker
-        id={id}
-        color={color}
-        name={artifactsByTagId[id] ? artifactsByTagId[id].name + " (" + name + ")" : name}
+        id={tag.id}
+        color={tag.color}
+        name={tagDescriptionsByTagId[tag.id]}
         style={{
             position: "absolute",
             left: pxPosition.x,
@@ -18,10 +19,11 @@ let Tag = ({id, color, pxPosition, name, selected, onClick, artifactsByTagId}) =
         }}
         selected={selected}
         onClick={onClick}
+        body={<TagMapIcon tag={tag}/>}
         />;
 
 const mapStateToProps = (state, ownProps) => ({
-    artifactsByTagId: artifactsByTagId(state.artifacts.items)
+    tagDescriptionsByTagId: tagDescriptionsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items)
 });
 
 Tag = connect(mapStateToProps)(Tag);
@@ -182,6 +184,7 @@ class ZoomableFloorPlan extends React.Component {
                 .map(t => ({...t, pxPosition: this.posToContainerPx(t.position)}))
                 .filter(t => this.fitsInViewport(t.pxPosition))
                 .map(t => <Tag {...t}
+                    tag={t}
                     key={t.id}
                     selected={this.props.selectedTag && t.id == this.props.selectedTag.id}
                     onClick={() => this.props.onClickTag(t)}
