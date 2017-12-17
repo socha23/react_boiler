@@ -18,7 +18,7 @@ const RescueInsidePage = ({tags, artifacts, fireteams, floorPlans, selectedTarge
                     selected={selectedTargetTag} onSelect={onSelectTargetTag}/>
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
-                <RescueFloorPlans floorPlans={floorPlans} additionalMargin={183}/>
+                <RescueFloorPlans floorPlans={floorPlans} tags={tags} additionalMargin={183}/>
                 <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", margin: "-5px -5px 0 -5px"}}>
                     {fireteams.map(t => <div style={{flex: 1, margin: 5}} key={t.id}>
                             <Panel>
