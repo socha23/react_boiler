@@ -8,7 +8,7 @@ import LiNavLink from '../common/components/LiNavLink'
 import PageTemplate from '../templates/PageTemplate'
 import PageNavTitleLi from '../templates/PageNavTitleLi'
 
-import RescuePage from '../rescue/RescuePage'
+import RescueInsidePage from '../rescue/RescueInsidePage'
 import RescueAdminPage from '../rescue/RescueAdminPage'
 
 let KdrTabs = () => <div>
@@ -20,7 +20,7 @@ let KdrTabs = () => <div>
 </div>;
 
 const KdrContent = ({maps}) => <Switch>
-    <Route exact path="/" component={RescuePage}/>
+    <Route exact path="/" component={RescueInsidePage}/>
     <Route path="/admin" component={RescueAdminPage}/>
 </Switch>;
 

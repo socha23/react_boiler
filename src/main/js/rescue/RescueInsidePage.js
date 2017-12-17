@@ -7,7 +7,7 @@ import ActiveFireteam from './ActiveFireteam'
 import FireteamTargetChooser from './FireteamTargetChooser'
 import RescueFloorPlans from './RescueFloorPlans'
 
-const RescuePage = ({tags, artifacts, fireteams, floorPlans, selectedTargetTag, onSelectTargetTag}) =>
+const RescueInsidePage = ({tags, artifacts, fireteams, floorPlans, selectedTargetTag, onSelectTargetTag}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-3 colWithSmallerGutter">
@@ -41,7 +41,7 @@ class RescuePageContainer extends React.Component {
         this.setState({selectedTag: tag});
     };
 
-    render = () => (<RescuePage
+    render = () => (<RescueInsidePage
         {...this.props}
         onSelectTargetTag={this.onSelectTargetTag}
         selectedTargetTag={this.state.selectedTag}
