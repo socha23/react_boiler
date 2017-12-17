@@ -28,11 +28,14 @@ class TabPanel extends React.Component {
 
     static propTypes = {
         tabs: PropTypes.array.isRequired,
-        onTabChange: PropTypes.func
+        onTabChange: PropTypes.func,
+        padding: PropTypes.number
     };
 
     static defaultProps = {
-        onTabChange: () => {}
+        onTabChange: () => {},
+        padding: 15
+
     };
 
     state = {
@@ -66,7 +69,7 @@ class TabPanel extends React.Component {
                 </ul>
             </nav>
             <div className="panel panel-default">
-                <div className="panel-body">
+                <div className="panel-body" style={{padding: this.props.padding}}>
                     {this.state.selected < this.props.tabs.length ?
                         this.props.tabs[this.state.selected].body
                         : <span/>

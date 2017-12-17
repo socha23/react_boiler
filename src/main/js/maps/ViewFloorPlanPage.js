@@ -18,7 +18,7 @@ const ViewFloorPlan  = ({map, tags, selectedTag, onSelectTag, onArtifactClick}) 
             </div>
             <div className="col-sm-8 colWithSmallerGutter">
                 { map ?
-                    <Panel>
+                    <Panel padding="0">
                         <FloorPlan map={map} tags={tags} selectedTag={selectedTag} onClickTag={onSelectTag}/>
                     </Panel>
                     : <span/>

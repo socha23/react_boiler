@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MARGIN = 30;
+const MARGIN = 15;
 const EXPECTED_TOP = 80;
 
 class HeightExpander extends React.Component {

@@ -26,6 +26,10 @@
     cursor: pointer;
 }
 
+.table-noTopPadding tr:first-child td {
+    border-top: none;
+}
+
 
 
 

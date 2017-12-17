@@ -31,7 +31,7 @@ const ArtifactTargetChooser = ({
     onSelectTag = () => {
     }
     }) => <div>
-    <table className="table table-hover table-pointer">
+    <table className="table table-hover table-pointer table-noTopPadding">
         <tbody>
         {
             artifacts.map(a =>

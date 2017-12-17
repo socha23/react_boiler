@@ -165,7 +165,7 @@ class ZoomableFloorPlan extends React.Component {
 
     render() {
         return <div>
-            <HeightExpander style={{border: "1px solid #BBB"}} additionalMargin={this.props.additionalMargin}>
+            <HeightExpander additionalMargin={this.props.additionalMargin}>
                 <div style={{position: "absolute"}} ref={elem => this.elem = $(elem)}>
                     <img src={this.props.map.base64content}/>
                 </div>
