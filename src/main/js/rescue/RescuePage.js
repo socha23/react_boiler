@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import Panel from '../common/components/Panel'
-import HeightExpander from '../common/components/HeightExpander'
 
 import ActiveFireteam from './ActiveFireteam'
 import FireteamTargetChooser from './FireteamTargetChooser'
@@ -12,15 +11,11 @@ const RescuePage = ({tags, artifacts, fireteams, floorPlans, selectedTargetTag, 
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-3 colWithSmallerGutter">
-                <Panel padding={0}>
-                    <HeightExpander>
-                        <FireteamTargetChooser
-                            tags={tags}
-                            artifacts={artifacts}
-                            fireteams={fireteams}
-                            selected={selectedTargetTag} onSelect={onSelectTargetTag}/>
-                    </HeightExpander>
-                </Panel>
+                <FireteamTargetChooser
+                    tags={tags}
+                    artifacts={artifacts}
+                    fireteams={fireteams}
+                    selected={selectedTargetTag} onSelect={onSelectTargetTag}/>
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
                 <RescueFloorPlans floorPlans={floorPlans} additionalMargin={183}/>
