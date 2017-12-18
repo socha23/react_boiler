@@ -3,12 +3,14 @@ import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
 import {tagDescriptionsByTagId} from '../tags/tagHelpers'
 import TagMapIcon from '../tags/TagMapIcon'
-import {Marker, DOT_SIZE} from './Marker'
+import {DotMarker, Marker, DOT_SIZE} from './Marker'
 import HeightExpander from '../common/components/HeightExpander'
 
 
 let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId}) =>
-    <Marker
+
+
+    <DotMarker
         id={tag.id}
         color={tag.color}
         name={tagDescriptionsByTagId[tag.id]}
@@ -19,7 +21,6 @@ let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId}) =>
         }}
         selected={selected}
         onClick={onClick}
-        body={<TagMapIcon tag={tag}/>}
         />;
 
 const mapStateToProps = (state, ownProps) => ({
@@ -109,7 +110,6 @@ class ZoomableFloorPlan extends React.Component {
             x: pos.x / (map.bottomRight.x - map.topLeft.x) * this.elem.find("img")[0].naturalWidth,
             y: pos.y / (map.bottomRight.y - map.topLeft.y) * this.elem.find("img")[0].naturalHeight
         };
-
         return pos;
     };
 
@@ -134,8 +134,8 @@ class ZoomableFloorPlan extends React.Component {
             return false;
         }
         const outerRecPx = this.elem.parent()[0].getBoundingClientRect();
-        return 0 <= pos.x && pos.x <= outerRecPx.width - DOT_SIZE
-            && DOT_SIZE <= pos.y && pos.y <= outerRecPx.height;
+        return 0 <= pos.x && pos.x <= outerRecPx.width
+            && 0 <= pos.y && pos.y <= outerRecPx.height;
 
     };
 
@@ -166,7 +166,7 @@ class ZoomableFloorPlan extends React.Component {
 
 
     render() {
-        return <div>
+        return <div style={{position: "relative", overflow: "hidden"}}>
             <HeightExpander additionalMargin={this.props.additionalMargin}>
                 <div style={{position: "absolute"}} ref={elem => this.elem = $(elem)}>
                     <img src={this.props.map.base64content}/>
