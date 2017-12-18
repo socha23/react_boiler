@@ -1,18 +1,20 @@
 import React from 'react';
 
-const DOT_SIZE = 20;
+const DOT_SIZE = 8;
 
-const DotMarker = (props) => <Marker {...props} style={{...props.style, ...STYLE_DOT, backgroundColor: props.color}} elem={null}/>;
-
-const STYLE_DOT = {
+const DotMarker = (props) => <Marker {...props} style={{
+    ...props.style,
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: DOT_SIZE / 2,
-    border: "1px solid black"
-};
+    border: "1px solid black",
+    backgroundColor: props.color,
+    left: (props.style.left || 0) - DOT_SIZE / 2,
+    top: (props.style.top || 0) - DOT_SIZE / 2
+    }} elem={null}/>;
 
 // dotCorrection is multiplied by half of dotsize to determine relative amount to move the marker by
-const Marker = ({id, style = {}, name = "", selected = false, onClick = () => {}, dotCorrection = 1, body
+const Marker = ({id, style = {}, name = "", selected = false, onClick = () => {}, body
 
     }) =>
     <div
@@ -20,9 +22,7 @@ const Marker = ({id, style = {}, name = "", selected = false, onClick = () => {}
         title={name}
         style={appendStyle({
             ...style,
-            zIndex: 1000,
-            left: (style.left || 0) + dotCorrection * DOT_SIZE / 2,
-            top: (style.top || 0) + dotCorrection * DOT_SIZE / 2
+            zIndex: 1000
         })}>
         {body}
         {selected ?
@@ -31,8 +31,8 @@ const Marker = ({id, style = {}, name = "", selected = false, onClick = () => {}
                 style={{
                     position: 'relative',
                     zIndex: 2000,
-                    left: -18,
-                    top: -84
+                    left: -29,
+                    top: -62
                 }}
 
             />
