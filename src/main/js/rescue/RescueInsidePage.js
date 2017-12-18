@@ -7,7 +7,7 @@ import ActiveFireteam from './ActiveFireteam'
 import FireteamTargetChooser from './FireteamTargetChooser'
 import RescueFloorPlans from './RescueFloorPlans'
 
-const RescueInsidePage = ({tags, artifacts, fireteams, floorPlans, selectedTargetTag, onSelectTargetTag}) =>
+const RescueInsidePage = ({tags, artifacts, fireteams, floorPlans, selectedTargetTag, onSelectTargetTag, selectedTagOnMap, onSelectTagOnMap}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-3 colWithSmallerGutter">
@@ -15,14 +15,17 @@ const RescueInsidePage = ({tags, artifacts, fireteams, floorPlans, selectedTarge
                     tags={tags}
                     artifacts={artifacts}
                     fireteams={fireteams}
-                    selected={selectedTargetTag} onSelect={onSelectTargetTag}/>
+                    selected={selectedTargetTag}
+                    onSelect={onSelectTargetTag}
+                    onSelectTagOnMap={onSelectTagOnMap}
+                />
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
-                <RescueFloorPlans floorPlans={floorPlans} tags={tags} additionalMargin={183}/>
+                <RescueFloorPlans floorPlans={floorPlans} tags={tags} additionalMargin={183} selectedTag={selectedTagOnMap}/>
                 <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", margin: "-5px -5px 0 -5px"}}>
-                    {fireteams.map(t => <div style={{flex: 1, margin: 5}} key={t.id}>
+                    {fireteams.map(f => <div style={{flex: 1, margin: 5}} key={f.id}>
                             <Panel>
-                                <ActiveFireteam fireteam={t} selectedTag={selectedTargetTag}/>
+                                <ActiveFireteam fireteam={f} selectedTag={selectedTargetTag} onSelectTagOnMap={() => onSelectTagOnMap(tags.find(t => t.id == f.tagId))}/>
                             </Panel>
                         </div>
                     )}
@@ -34,17 +37,24 @@ const RescueInsidePage = ({tags, artifacts, fireteams, floorPlans, selectedTarge
 
 class RescuePageContainer extends React.Component {
     state = {
-        selectedTag: null
+        selectedTargetTag: null,
+        selectedTagOnMap: null
     };
 
     onSelectTargetTag = (tag) => {
-        this.setState({selectedTag: tag});
+        this.setState({selectedTargetTag: tag});
+    };
+
+    onSelectTagOnMap = (tag) => {
+        this.setState({selectedTagOnMap: tag});
     };
 
     render = () => (<RescueInsidePage
         {...this.props}
         onSelectTargetTag={this.onSelectTargetTag}
-        selectedTargetTag={this.state.selectedTag}
+        selectedTargetTag={this.state.selectedTargetTag}
+        onSelectTagOnMap={this.onSelectTagOnMap}
+        selectedTagOnMap={this.state.selectedTagOnMap}
     />)
 }
 

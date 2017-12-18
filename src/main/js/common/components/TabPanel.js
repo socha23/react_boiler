@@ -29,6 +29,7 @@ class TabPanel extends React.Component {
 
     static propTypes = {
         tabs: PropTypes.array.isRequired,
+        activeTab: PropTypes.number,
         onTabChange: PropTypes.func,
         padding: PropTypes.number,
         heightExpander: PropTypes.bool
@@ -37,12 +38,20 @@ class TabPanel extends React.Component {
     static defaultProps = {
         onTabChange: () => {},
         padding: 15,
-        heightExpander: false
-
+        heightExpander: false,
+        activeTab: null
     };
 
     state = {
-        selected: 0
+        selected: this.props.activeTab ? this.props.activeTab : 0,
+        lastActiveTab: this.props.activeTab
+    };
+
+    componentWillReceiveProps = (nextProps) => {
+        if ((nextProps.activeTab || nextProps.activeTab == 0) && nextProps.activeTab != this.state.lastActiveTab) {
+            this.onTabClick(nextProps.activeTab);
+            this.setState({lastActiveTab: nextProps.activeTab});
+        }
     };
 
     onTabClick = (idx) => {

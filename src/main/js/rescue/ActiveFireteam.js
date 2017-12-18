@@ -8,13 +8,25 @@ import TagAreaName from '../tags/TagAreaName'
 import DistanceBetweenTags from '../tags/DistanceBetweenTags'
 import * as fireteamActions from '../fireteams/fireteamActions'
 
-const ActiveFireteam = ({fireteam, fireteamTag, targetTag, selectedTag, tagDescriptionsByTagId = {}, onSetTargetTag = () => {
-}}) => <div style={{minHeight: 150}}>
-    <div>
-        <span style={{fontWeight: "bold", fontSize: 18, marginRight: 10}}>
-            {fireteam.name}
-        </span>
-        <TagAreaName tag={fireteamTag}/>
+import PanMapButton from './PanMapButton'
+
+const ActiveFireteam = ({
+    fireteam,
+    fireteamTag,
+    targetTag,
+    selectedTag,
+    tagDescriptionsByTagId = {},
+    onSetTargetTag = () => {},
+    onSelectTagOnMap
+    }) => <div style={{minHeight: 150}}>
+    <div style={{display: "flex"}}>
+        <div style={{flex: 1}}>
+            <span style={{fontWeight: "bold", fontSize: 18, marginRight: 10}}>
+                {fireteam.name}
+            </span>
+            <TagAreaName tag={fireteamTag}/>
+        </div>
+        <PanMapButton onClick={onSelectTagOnMap}/>
     </div>
     <div>
         <FireteamTarget fireteamTag={fireteamTag} targetTag={targetTag} tagDescriptionsByTagId={tagDescriptionsByTagId}/>
