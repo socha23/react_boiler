@@ -12,7 +12,7 @@ const LOWER_ROW_HEIGHT = 118;
 const RescueInsidePage = ({
         tags, artifacts, fireteams, floorPlans,
         selectedTargetTag, onSelectTargetTag,
-        selectedTagOnMap, onSelectTagOnMap,
+        tagMarkedOnMap, onMarkTagOnMap,
         selectedFireteam, onSelectFireteam
 
         }) =>
@@ -25,14 +25,19 @@ const RescueInsidePage = ({
                     fireteams={fireteams}
                     selected={selectedTargetTag}
                     onSelect={onSelectTargetTag}
-                    onSelectTagOnMap={onSelectTagOnMap}
                     additionalMargin={LOWER_ROW_HEIGHT}
                 />
                 <FireteamOrders fireteam={selectedFireteam} targetTag={selectedTargetTag}/>
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
-                <RescueFloorPlans floorPlans={floorPlans} tags={tags} additionalMargin={LOWER_ROW_HEIGHT} selectedTag={selectedTagOnMap}/>
-                <FireteamChooser fireteams={fireteams} onSelectTagOnMap={onSelectTagOnMap} selected={selectedFireteam} onSelect={onSelectFireteam}/>
+                <RescueFloorPlans
+                        floorPlans={floorPlans}
+                        tags={tags}
+                        additionalMargin={LOWER_ROW_HEIGHT}
+                        selectedTag={tagMarkedOnMap}
+                        onSelect={onSelectTargetTag}
+                        />
+                <FireteamChooser fireteams={fireteams} onSelectTagOnMap={onMarkTagOnMap} selected={selectedFireteam} onSelect={onSelectFireteam}/>
             </div>
         </div>
     </div>;
@@ -51,6 +56,10 @@ class RescuePageContainer extends React.Component {
             tagOnMap: tag
         });
 
+        let fireteam = this.props.fireteams.find(f => f.tagId == tag.id);
+        if (fireteam) {
+            this.setState({fireteam: fireteam});
+        }
     };
 
     onSelectFireteam = (fireteam) => {
@@ -60,7 +69,7 @@ class RescuePageContainer extends React.Component {
 
     };
 
-    onSelectTagOnMap = (tag) => {
+    onMarkTagOnMap = (tag) => {
         this.setState({tagOnMap: tag});
     };
 
@@ -68,8 +77,8 @@ class RescuePageContainer extends React.Component {
         {...this.props}
         onSelectTargetTag={this.onSelectTargetTag}
         selectedTargetTag={this.state.targetTag}
-        onSelectTagOnMap={this.onSelectTagOnMap}
-        selectedTagOnMap={this.state.tagOnMap}
+        onMarkTagOnMap={this.onMarkTagOnMap}
+        tagMarkedOnMap={this.state.tagOnMap}
         onSelectFireteam={this.onSelectFireteam}
         selectedFireteam={this.state.fireteam}
     />)

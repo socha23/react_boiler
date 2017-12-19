@@ -9,19 +9,33 @@ import {Priority} from '../artifacts/ArtifactVocs'
 import TagAreaName from '../tags/TagAreaName'
 
 const FireteamTargetChooser = ({
-    artifacts = [],
-    fireteams = [],
-    tags = [],
-    tagsById = {},
-    selected = {},
-    onSelect = () => {},
-    additionalMargin = 0
-    }) => <TabPanel
-        heightExpander={true}
-        additionalMargin={additionalMargin}
-        padding={0}
-        tabStyle={STYLE_LG}
-        tabs={[
+        artifacts = [],
+        fireteams = [],
+        tags = [],
+        tagsById = {},
+        selected = {},
+        onSelect = () => {
+        },
+        additionalMargin = 0
+        }) => {
+    let activeTab = 0;
+    if (selected && selected.id) {
+        if (artifacts.find(a => a.tagId == selected.id)) {
+            activeTab = 0;
+        } else if (fireteams.find(f => f.tagId == selected.id)) {
+            activeTab = 1;
+        } else {
+            activeTab = 2;
+        }
+    }
+
+    return <TabPanel
+            heightExpander={true}
+            additionalMargin={additionalMargin}
+            padding={0}
+            tabStyle={STYLE_LG}
+            activeTab={activeTab}
+            tabs={[
         {
             label: "Muzealia",
             body: <ArtifactChooser
@@ -50,12 +64,14 @@ const FireteamTargetChooser = ({
                 />
         }
 
-    ]}/>;
+    ]}/>
+};
 
 const ArtifactChooser = (props) => <TargetChooser {...props} elem={ArtifactTarget}/>;
 
 const ArtifactTarget = ({item, tag}) => <Target>
     <VocIcon value={find(Priority, item.priority)} className="iconWithName"/>
+
     <div style={{flex: 1}}>
         <span>{item.name}</span>
         <CommonTargetData tag={tag}/>
@@ -77,8 +93,12 @@ const NavPointChooser = FireteamChooser;
 function navPoints(tags, artifacts, fireteams) {
     let result = [];
     let nonNavTagIds = {};
-    artifacts.forEach(a => {if (a.tagId) nonNavTagIds[a.tagId] = a.tagId});
-    fireteams.forEach(a => {if (a.tagId) nonNavTagIds[a.tagId] = a.tagId});
+    artifacts.forEach(a => {
+        if (a.tagId) nonNavTagIds[a.tagId] = a.tagId
+    });
+    fireteams.forEach(a => {
+        if (a.tagId) nonNavTagIds[a.tagId] = a.tagId
+    });
     tags.forEach(t => {
         if (!nonNavTagIds[t.id]) {
             result.push({...t, tagId: t.id});
@@ -88,31 +108,32 @@ function navPoints(tags, artifacts, fireteams) {
 }
 
 const TargetChooser = ({
-    elem,
-    items = [],
-    tagsById = {},
-    selectedTag = {},
-    onSelectTag = () => {}
-    }) =>
-    <table className="table table-hover table-pointer table-noTopPadding">
-        <tbody>
-        {
-            items.map(a => {
-                let tag = tagsById[a.tagId];
-                return <tr key={a.id}
-                    className={selectedTag && selectedTag.id == a.tagId ? 'success' : ''}
-                    onClick={() => onSelectTag(tag)}>
-                    <td>
-                        {elem({
-                            item: a,
-                            tag: tag
-                        })}
-                    </td>
-                </tr>
-            })
+        elem,
+        items = [],
+        tagsById = {},
+        selectedTag = {},
+        onSelectTag = () => {
         }
-        </tbody>
-    </table>;
+        }) =>
+        <table className="table table-hover table-pointer table-noTopPadding">
+            <tbody>
+            {
+                items.map(a => {
+                    let tag = tagsById[a.tagId];
+                    return <tr key={a.id}
+                               className={selectedTag && selectedTag.id == a.tagId ? 'success' : ''}
+                               onClick={() => onSelectTag(tag)}>
+                        <td>
+                            {elem({
+                                item: a,
+                                tag: tag
+                            })}
+                        </td>
+                    </tr>
+                })
+            }
+            </tbody>
+        </table>;
 
 
 const Target = ({children}) => <div style={{
@@ -125,7 +146,7 @@ const Target = ({children}) => <div style={{
 let CommonTargetData = ({tag, fireteams}) => <div>
     <TagAreaName tag={tag}/>
     {assignedFireteams(fireteams, tag.id).map(fireteam =>
-        <span key={fireteam.id} style={{marginLeft: 10}} className="label label-success">{fireteam.name}</span>
+                    <span key={fireteam.id} style={{marginLeft: 10}} className="label label-success">{fireteam.name}</span>
     )}
 </div>;
 

@@ -6,7 +6,7 @@ import TabPanel, {STYLE_LG} from '../common/components/TabPanel'
 
 import ZoomableFloorPlan from '../maps/ZoomableFloorPlan'
 
-const RescueFloorPlans = ({floorPlans, tags, selectedTag, additionalMargin = 0}) => <TabPanel
+const RescueFloorPlans = ({floorPlans, tags, selectedTag, onSelect, additionalMargin = 0}) => <TabPanel
     tabStyle={STYLE_LG}
     padding={0}
     activeTab={selectedTag ? floorPlans.findIndex(fp => fp.id == selectedTag.coordinateSystemId): null}
@@ -17,6 +17,7 @@ const RescueFloorPlans = ({floorPlans, tags, selectedTag, additionalMargin = 0})
                 map={fp}
                 tags={tags.filter(t => t.coordinateSystemId == fp.id)}
                 selectedTag={selectedTag}
+                onClickTag={onSelect}
                 additionalMargin={additionalMargin}/>
        }))
     }/>;
