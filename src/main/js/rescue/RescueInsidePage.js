@@ -12,8 +12,8 @@ const LOWER_ROW_HEIGHT = 118;
 const RescueInsidePage = ({
         tags, artifacts, fireteams, floorPlans,
         selectedTargetTag, onSelectTargetTag,
-        tagMarkedOnMap, onMarkTagOnMap,
-        selectedFireteam, onSelectFireteam
+        selectedFireteam, onSelectFireteam,
+        onMarkTagOnMap, tagMarkedOnMap
 
         }) =>
     <div className="container-fluid">
@@ -36,9 +36,9 @@ const RescueInsidePage = ({
                         tags={tags}
                         additionalMargin={LOWER_ROW_HEIGHT}
                         selectedTag={tagMarkedOnMap}
-                        onSelect={onSelectTargetTag}
+                        onSelect={onMarkTagOnMap}
                         />
-                <FireteamChooser fireteams={fireteams} onSelectTagOnMap={onMarkTagOnMap} selected={selectedFireteam} onSelect={onSelectFireteam}/>
+                <FireteamChooser fireteams={fireteams} selected={selectedFireteam} onSelect={onSelectFireteam}/>
             </div>
         </div>
     </div>;
@@ -53,25 +53,30 @@ class RescuePageContainer extends React.Component {
 
     onSelectTargetTag = (tag) => {
         this.setState({
-            targetTag: tag,
-            tagOnMap: tag
+            targetTag: tag
         });
-
-        let fireteam = this.props.fireteams.find(f => f.tagId == tag.id);
-        if (fireteam) {
-            this.setState({fireteam: fireteam});
-        }
+        this.markTagOnMap(tag);
     };
 
     onSelectFireteam = (fireteam) => {
         this.setState({
             fireteam: fireteam
         });
+        this.markTagOnMap(this.props.tagsById[fireteam.tagId]);
+    };
 
+    markTagOnMap = (tag) => {
+        this.setState({tagOnMap: null});
+        setTimeout(() => {this.setState({tagOnMap: tag})});
     };
 
     onMarkTagOnMap = (tag) => {
-        this.setState({tagOnMap: tag});
+        let fireteam = this.props.fireteams.find(f => f.tagId == tag.id);
+        if (fireteam) {
+            this.setState({fireteam: fireteam, tagOnMap: tag});
+        } else {
+            this.setState({targetTag: tag, tagOnMap: tag});
+        }
     };
 
     render = () => (<RescueInsidePage
@@ -88,6 +93,7 @@ class RescuePageContainer extends React.Component {
 const mapStateToProps = (state) => ({
     fireteams: state.fireteams.items,
     tags: state.tags.items,
+    tagsById: state.tags.itemsById,
     artifacts: state.artifacts.items,
     floorPlans: state.floorPlans.items
 });

@@ -133,6 +133,9 @@ class TargetChooser extends React.Component {
 
     panToTag = (tag) => {
         let elem = $(this.elemsByTagId[tag.id]);
+        if (!elem || !elem.offset()) {
+            return;
+        }
         let elemTop = elem.offset().top;
         let container = $(this.rootElem).parent();
 
@@ -140,14 +143,9 @@ class TargetChooser extends React.Component {
             container.scrollTop(elemTop);
         }
 
-        if (container.scrollTop() + container.height() < elemTop + elem.height()) {
+        if (container.scrollTop() + container.height() < elemTop ) {
             container.scrollTop(elemTop);
         }
-
-
-
-
-        console.log("Panning to", elem);
     };
 
     onSelectTag = (tag) => {

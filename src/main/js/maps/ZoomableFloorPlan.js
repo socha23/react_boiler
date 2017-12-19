@@ -199,7 +199,6 @@ class ZoomableFloorPlan extends React.Component {
                             toX: to.x,
                             toY: to.y
                         };
-                        console.log(lineRec);
                         return lineRec;
                     })
                 .map((t, idx) => <Line key={idx} {...t}/>)

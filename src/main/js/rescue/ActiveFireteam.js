@@ -7,20 +7,12 @@ import {tagDescriptionsByTagId} from '../tags/tagHelpers'
 import TagAreaName from '../tags/TagAreaName'
 import DistanceBetweenTags from '../tags/DistanceBetweenTags'
 
-import PanMapButton from './PanMapButton'
-
 const ActiveFireteam = ({
         fireteam,
         fireteamTag,
         targetTag,
         tagDescriptionsByTagId = {},
-        onSelectTagOnMap = () => {
-        }
         }) => <div style={{display: "flex", alignItems: "center", minHeight: 84}}>
-    <div style={{marginRight: 10, fontSize: 40}}>
-        <PanMapButton onClick={onSelectTagOnMap}/>
-    </div>
-
     <div style={{flex: 1}}>
         <div style={{display: "flex"}}>
 

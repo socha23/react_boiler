@@ -7,7 +7,6 @@ import ActiveFireteam from './ActiveFireteam.js'
 
 const FireteamChooser = ({
         fireteams = [],
-        onSelectTagOnMap = () => {},
         selected = null,
         onSelect = () => {},
         tagsById = {}
@@ -23,7 +22,7 @@ const FireteamChooser = ({
                                     }}
                                     onClick={() => onSelect(f)}
                                     >
-                                <ActiveFireteam fireteam={f} onSelectTagOnMap={() => onSelectTagOnMap(tagsById[f.tagId])}/>
+                                <ActiveFireteam fireteam={f}/>
                             </Panel>
                         </div>
                     }
