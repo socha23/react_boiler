@@ -7,9 +7,9 @@ function distance(from, to) {
     return Math.ceil(Math.sqrt(dx * dx + dy * dy));
 }
 
-const DistanceBetweenTags = ({from, to}) => from && to ? (
+const DistanceBetweenTags = ({from, to, wrongFloorLabel = "inne piętro"}) => from && to ? (
     from.coordinateSystemId != to.coordinateSystemId ?
-        <span>inne piętro</span>
+        <span>{wrongFloorLabel}</span>
         :
         <span>{distance(from, to)}m</span>
 ) : <span/>;

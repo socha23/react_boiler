@@ -41,7 +41,7 @@ const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTag
                     Ustaw cel {fireteam.name}:<br/> {tagDescriptionsByTagId[targetTag.id]}
                 </div>
                 <div>
-                    <DistanceBetweenTags from={fireteamTag} to={targetTag}/>
+                    <DistanceBetweenTags from={fireteamTag} to={targetTag} wrongFloorLabel=""/>
                 </div>
             </div>
 
