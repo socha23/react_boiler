@@ -1,14 +1,11 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
-import {tagDescriptionsByTagId, tagColorsByTagId} from '../tags/tagHelpers'
 import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
 import HeightExpander from '../common/components/HeightExpander'
 
 
 let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColorsByTagId}) =>
-
-
     <LabelMarker
         id={tag.id}
         color={tagColorsByTagId[tag.id]}
@@ -23,8 +20,8 @@ let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColor
     />;
 
 const mapStateToProps = (state, ownProps) => ({
-    tagDescriptionsByTagId: tagDescriptionsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items),
-    tagColorsByTagId: tagColorsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items)
+    tagDescriptionsByTagId: state.tagDescriptionsById,
+    tagColorsByTagId: state.tagColorsById
 });
 
 Tag = connect(mapStateToProps)(Tag);
