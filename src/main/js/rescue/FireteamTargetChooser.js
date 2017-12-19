@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import {find} from '../common/vocFunctions'
 import VocIcon from '../common/components/VocIcon'
-import TabPanel from '../common/components/TabPanel'
+import TabPanel, {STYLE_LG} from '../common/components/TabPanel'
 
 import {Priority} from '../artifacts/ArtifactVocs'
 import TagAreaName from '../tags/TagAreaName'
@@ -16,7 +16,12 @@ const FireteamTargetChooser = ({
     selected = {},
     onSelect = () => {},
     additionalMargin = 0
-    }) => <TabPanel heightExpander={true} additionalMargin={additionalMargin} padding={0} tabs={[
+    }) => <TabPanel
+        heightExpander={true}
+        additionalMargin={additionalMargin}
+        padding={0}
+        tabStyle={STYLE_LG}
+        tabs={[
         {
             label: "Muzealia",
             body: <ArtifactChooser

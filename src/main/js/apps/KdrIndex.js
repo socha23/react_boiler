@@ -24,10 +24,7 @@ const KdrContent = ({maps}) => <Switch>
     <Route path="/admin" component={RescueAdminPage}/>
 </Switch>;
 
-let MyPage = () => <PageTemplate
-    pageNav={<KdrTabs/>}
-    content={<KdrContent/>}
-/>;
+let MyPage = () => <KdrContent/>;
 
 export default () => <ResourceLoader resources={["artifacts", "floorPlans"]}>
     <ResourceLoader resources={["tags", "locators", "fireteams"]} interval={500}>

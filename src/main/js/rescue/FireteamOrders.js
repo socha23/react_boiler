@@ -37,7 +37,7 @@ const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTag
                     <i className="glyphicon glyphicon-screenshot"/>
                 </div>
                 <div style={{flex: 1}}>
-                    {fireteam.name}:<br/> {tagDescriptionsByTagId[targetTag.id]}
+                    Ustaw cel {fireteam.name}:<br/> {tagDescriptionsByTagId[targetTag.id]}
                 </div>
                 <div>
                     <DistanceBetweenTags from={fireteamTag} to={targetTag}/>

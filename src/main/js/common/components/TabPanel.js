@@ -3,13 +3,23 @@ import PropTypes from 'prop-types'
 
 import HeightExpander from './HeightExpander'
 
-const tabStyle = {
+const COMMON_TAB_STYLE = {
     display: "inline-block",
-    padding: "5px 10px 2px 10px",
     position: "relative",
-    cursor: "pointer",
+    cursor: "pointer"
+};
+
+export const STYLE_DEFAULT = {
+    padding: "5px 10px 2px 10px",
     top: 1
 };
+
+export const STYLE_LG = {
+    padding: "10px 16px 2px 16px",
+    fontSize: 18,
+    top: 1
+};
+
 
 const activeTabStyle = {
     backgroundColor: "white",
@@ -33,7 +43,8 @@ class TabPanel extends React.Component {
         onTabChange: PropTypes.func,
         padding: PropTypes.number,
         heightExpander: PropTypes.bool,
-        additionalMargin: PropTypes.number
+        additionalMargin: PropTypes.number,
+        tabStyle: PropTypes.object
     };
 
     static defaultProps = {
@@ -41,7 +52,8 @@ class TabPanel extends React.Component {
         activeTab: null,
         padding: 15,
         heightExpander: false,
-        additionalMargin: 0
+        additionalMargin: 0,
+        tabStyle: STYLE_DEFAULT
     };
 
     state = {
@@ -68,13 +80,14 @@ class TabPanel extends React.Component {
         let body = this.state.selected < this.props.tabs.length ?
                                 this.props.tabs[this.state.selected].body
                                 : <span/>;
+        let tabStyle = this.props.tabStyle;
 
         return <div>
             <nav>
                 <ul style={{listStyleType: "none", marginBottom: 0, paddingLeft: 15}}>
                     {
                         this.props.tabs.map( (tab, idx) => {
-                            let style = (idx == this.state.selected) ? {...tabStyle, ...activeTabStyle} : tabStyle;
+                            let style = (idx == this.state.selected) ? {...COMMON_TAB_STYLE, ...tabStyle, ...activeTabStyle} : {...COMMON_TAB_STYLE, ...tabStyle};
                             return <li
                                 key={idx}
                                 style={style}

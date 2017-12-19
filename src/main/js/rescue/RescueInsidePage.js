@@ -7,7 +7,7 @@ import FireteamChooser from './FireteamChooser'
 import RescueFloorPlans from './RescueFloorPlans'
 import FireteamOrders from './FireteamOrders'
 
-const LOWER_ROW_HEIGHT = 116;
+const LOWER_ROW_HEIGHT = 118;
 
 const RescueInsidePage = ({
         tags, artifacts, fireteams, floorPlans,
