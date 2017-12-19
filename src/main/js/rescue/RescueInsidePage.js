@@ -1,13 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import Panel from '../common/components/Panel'
-
 import ActiveFireteam from './ActiveFireteam'
 import FireteamTargetChooser from './FireteamTargetChooser'
+import FireteamChooser from './FireteamChooser'
 import RescueFloorPlans from './RescueFloorPlans'
 
-const RescueInsidePage = ({tags, artifacts, fireteams, floorPlans, selectedTargetTag, onSelectTargetTag, selectedTagOnMap, onSelectTagOnMap}) =>
+const RescueInsidePage = ({
+        tags, artifacts, fireteams, floorPlans,
+        selectedTargetTag, onSelectTargetTag,
+        selectedTagOnMap, onSelectTagOnMap,
+        selectedFireteam, onSelectFireteam
+
+        }) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-3 colWithSmallerGutter">
@@ -22,14 +27,7 @@ const RescueInsidePage = ({tags, artifacts, fireteams, floorPlans, selectedTarge
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
                 <RescueFloorPlans floorPlans={floorPlans} tags={tags} additionalMargin={183} selectedTag={selectedTagOnMap}/>
-                <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap", margin: "-5px -5px 0 -5px"}}>
-                    {fireteams.map(f => <div style={{flex: 1, margin: 5}} key={f.id}>
-                            <Panel>
-                                <ActiveFireteam fireteam={f} selectedTag={selectedTargetTag} onSelectTagOnMap={() => onSelectTagOnMap(tags.find(t => t.id == f.tagId))}/>
-                            </Panel>
-                        </div>
-                    )}
-                </div>
+                <FireteamChooser fireteams={fireteams} selectedTargetTag={selectedTargetTag} onSelectTagOnMap={onSelectTagOnMap} selected={selectedFireteam} onSelect={onSelectFireteam}/>
             </div>
         </div>
     </div>;
@@ -37,28 +35,38 @@ const RescueInsidePage = ({tags, artifacts, fireteams, floorPlans, selectedTarge
 
 class RescuePageContainer extends React.Component {
     state = {
-        selectedTargetTag: null,
-        selectedTagOnMap: null
+        targetTag: null,
+        fireteam: null,
+        tagOnMap: null
     };
 
     onSelectTargetTag = (tag) => {
         this.setState({
-            selectedTargetTag: tag,
-            selectedTagOnMap: tag
+            targetTag: tag,
+            tagOnMap: tag
+        });
+
+    };
+
+    onSelectFireteam = (fireteam) => {
+        this.setState({
+            fireteam: fireteam
         });
 
     };
 
     onSelectTagOnMap = (tag) => {
-        this.setState({selectedTagOnMap: tag});
+        this.setState({tagOnMap: tag});
     };
 
     render = () => (<RescueInsidePage
         {...this.props}
         onSelectTargetTag={this.onSelectTargetTag}
-        selectedTargetTag={this.state.selectedTargetTag}
+        selectedTargetTag={this.state.targetTag}
         onSelectTagOnMap={this.onSelectTagOnMap}
-        selectedTagOnMap={this.state.selectedTagOnMap}
+        selectedTagOnMap={this.state.tagOnMap}
+        onSelectFireteam={this.onSelectFireteam}
+        selectedFireteam={this.state.fireteam}
     />)
 }
 
