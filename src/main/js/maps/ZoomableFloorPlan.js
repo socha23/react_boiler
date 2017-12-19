@@ -193,14 +193,13 @@ class ZoomableFloorPlan extends React.Component {
                 .map(line => {
                         let from = this.posToContainerPx({x: line.fromX, y: line.fromY});
                         let to = this.posToContainerPx({x: line.toX, y: line.toY});
-                        let lineRec = {
+                        return {
                             ...line,
                             fromX: from.x,
                             fromY: from.y,
                             toX: to.x,
                             toY: to.y
                         };
-                        return lineRec;
                     })
                 .map((t, idx) => <Line key={idx} {...t}/>)
             }
