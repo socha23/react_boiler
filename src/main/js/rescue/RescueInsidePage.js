@@ -5,6 +5,9 @@ import ActiveFireteam from './ActiveFireteam'
 import FireteamTargetChooser from './FireteamTargetChooser'
 import FireteamChooser from './FireteamChooser'
 import RescueFloorPlans from './RescueFloorPlans'
+import FireteamOrders from './FireteamOrders'
+
+const LOWER_ROW_HEIGHT = 183;
 
 const RescueInsidePage = ({
         tags, artifacts, fireteams, floorPlans,
@@ -23,11 +26,13 @@ const RescueInsidePage = ({
                     selected={selectedTargetTag}
                     onSelect={onSelectTargetTag}
                     onSelectTagOnMap={onSelectTagOnMap}
+                    additionalMargin={LOWER_ROW_HEIGHT}
                 />
+                <FireteamOrders fireteam={selectedFireteam} targetTag={selectedTargetTag}/>
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
-                <RescueFloorPlans floorPlans={floorPlans} tags={tags} additionalMargin={183} selectedTag={selectedTagOnMap}/>
-                <FireteamChooser fireteams={fireteams} selectedTargetTag={selectedTargetTag} onSelectTagOnMap={onSelectTagOnMap} selected={selectedFireteam} onSelect={onSelectFireteam}/>
+                <RescueFloorPlans floorPlans={floorPlans} tags={tags} additionalMargin={LOWER_ROW_HEIGHT} selectedTag={selectedTagOnMap}/>
+                <FireteamChooser fireteams={fireteams} onSelectTagOnMap={onSelectTagOnMap} selected={selectedFireteam} onSelect={onSelectFireteam}/>
             </div>
         </div>
     </div>;

@@ -14,8 +14,9 @@ const FireteamTargetChooser = ({
     tags = [],
     tagsById = {},
     selected = {},
-    onSelect = () => {}
-    }) => <TabPanel heightExpander={true} padding={0} tabs={[
+    onSelect = () => {},
+    additionalMargin = 0
+    }) => <TabPanel heightExpander={true} additionalMargin={additionalMargin} padding={0} tabs={[
         {
             label: "Muzealia",
             body: <ArtifactChooser

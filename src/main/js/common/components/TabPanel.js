@@ -32,14 +32,16 @@ class TabPanel extends React.Component {
         activeTab: PropTypes.number,
         onTabChange: PropTypes.func,
         padding: PropTypes.number,
-        heightExpander: PropTypes.bool
+        heightExpander: PropTypes.bool,
+        additionalMargin: PropTypes.number
     };
 
     static defaultProps = {
         onTabChange: () => {},
+        activeTab: null,
         padding: 15,
         heightExpander: false,
-        activeTab: null
+        additionalMargin: 0
     };
 
     state = {
@@ -88,7 +90,7 @@ class TabPanel extends React.Component {
                 <div className="panel-body" style={{padding: this.props.padding}}>
                     {
                         this.props.heightExpander ?
-                            <HeightExpander>
+                            <HeightExpander additionalMargin={this.props.additionalMargin}>
                                 {body}
                             </HeightExpander>
                             : body
