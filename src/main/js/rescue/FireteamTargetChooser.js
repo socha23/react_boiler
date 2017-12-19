@@ -8,17 +8,13 @@ import TabPanel from '../common/components/TabPanel'
 import {Priority} from '../artifacts/ArtifactVocs'
 import TagAreaName from '../tags/TagAreaName'
 
-import PanMapButton from './PanMapButton'
-
-
 const FireteamTargetChooser = ({
     artifacts = [],
     fireteams = [],
     tags = [],
     tagsById = {},
     selected = {},
-    onSelect = () => {},
-    onSelectTagOnMap = (tag) => {}
+    onSelect = () => {}
     }) => <TabPanel heightExpander={true} padding={0} tabs={[
         {
             label: "Muzealia",
@@ -27,7 +23,6 @@ const FireteamTargetChooser = ({
                     tagsById={tagsById}
                     selectedTag={selected}
                     onSelectTag={onSelect}
-                    onSelectTagOnMap={onSelectTagOnMap}
                 />
         },
         {
@@ -37,7 +32,6 @@ const FireteamTargetChooser = ({
                     tagsById={tagsById}
                     selectedTag={selected}
                     onSelectTag={onSelect}
-                    onSelectTagOnMap={onSelectTagOnMap}
                 />
         },
         {
@@ -47,7 +41,6 @@ const FireteamTargetChooser = ({
                     tagsById={tagsById}
                     selectedTag={selected}
                     onSelectTag={onSelect}
-                    onSelectTagOnMap={onSelectTagOnMap}
                 />
         }
 
@@ -55,23 +48,21 @@ const FireteamTargetChooser = ({
 
 const ArtifactChooser = (props) => <TargetChooser {...props} elem={ArtifactTarget}/>;
 
-const ArtifactTarget = ({item, tag, onSelectTagOnMap}) => <Target>
+const ArtifactTarget = ({item, tag}) => <Target>
     <VocIcon value={find(Priority, item.priority)} className="iconWithName"/>
     <div style={{flex: 1}}>
         <span>{item.name}</span>
         <CommonTargetData tag={tag}/>
     </div>
-    <PanMapButton onClick={onSelectTagOnMap}/>
 </Target>;
 
 const FireteamChooser = (props) => <TargetChooser {...props} elem={FireteamTarget}/>;
 
-const FireteamTarget = ({item, tag, onSelectTagOnMap}) => <Target>
+const FireteamTarget = ({item, tag}) => <Target>
     <div style={{flex: 1}}>
         <span>{item.name}</span>
         <CommonTargetData tag={tag}/>
     </div>
-    <PanMapButton onClick={onSelectTagOnMap}/>
 </Target>;
 
 // they are the same so far
@@ -91,12 +82,11 @@ function navPoints(tags, artifacts, fireteams) {
 }
 
 const TargetChooser = ({
+    elem,
     items = [],
     tagsById = {},
     selectedTag = {},
-    onSelectTag = () => {},
-    onSelectTagOnMap = () => {},
-    elem
+    onSelectTag = () => {}
     }) =>
     <table className="table table-hover table-pointer table-noTopPadding">
         <tbody>
@@ -109,8 +99,7 @@ const TargetChooser = ({
                     <td>
                         {elem({
                             item: a,
-                            tag: tag,
-                            onSelectTagOnMap: () => onSelectTagOnMap(tag)
+                            tag: tag
                         })}
                     </td>
                 </tr>

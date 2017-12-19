@@ -42,7 +42,11 @@ class RescuePageContainer extends React.Component {
     };
 
     onSelectTargetTag = (tag) => {
-        this.setState({selectedTargetTag: tag});
+        this.setState({
+            selectedTargetTag: tag,
+            selectedTagOnMap: tag
+        });
+
     };
 
     onSelectTagOnMap = (tag) => {
