@@ -1,35 +1,33 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
-import {tagDescriptionsByTagId} from '../tags/tagHelpers'
-import TagMapIcon from '../tags/TagMapIcon'
-import {DotMarker, Marker, DOT_SIZE} from './Marker'
+import {tagDescriptionsByTagId, tagColorsByTagId} from '../tags/tagHelpers'
+import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
 import HeightExpander from '../common/components/HeightExpander'
 
 
-let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId}) =>
+let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColorsByTagId}) =>
 
 
-    <DotMarker
+    <LabelMarker
         id={tag.id}
-        color={tag.color}
+        color={tagColorsByTagId[tag.id]}
         name={tagDescriptionsByTagId[tag.id]}
+        tag={tag}
         style={{
-            position: "absolute",
             left: pxPosition.x,
             top: pxPosition.y
         }}
         selected={selected}
         onClick={onClick}
-        />;
+    />;
 
 const mapStateToProps = (state, ownProps) => ({
-    tagDescriptionsByTagId: tagDescriptionsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items)
+    tagDescriptionsByTagId: tagDescriptionsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items),
+    tagColorsByTagId: tagColorsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items)
 });
 
 Tag = connect(mapStateToProps)(Tag);
-
-
 
 
 class ZoomableFloorPlan extends React.Component {
@@ -43,7 +41,8 @@ class ZoomableFloorPlan extends React.Component {
     };
 
     static defaultProps = {
-        onClickTag: () => {},
+        onClickTag: () => {
+        },
         tags: [],
         additionalMargin: 0
     };
@@ -149,8 +148,8 @@ class ZoomableFloorPlan extends React.Component {
         let dx = rebasedPos.x - imgWidth / 2;
         let dy = rebasedPos.y - imgHeight / 2;
 
-        let x = - (imgWidth / 2 + dx * zoom) + outerRecPx.width / 2;
-        let y = - (imgHeight / 2 + dy * zoom) + outerRecPx.height / 2;
+        let x = -(imgWidth / 2 + dx * zoom) + outerRecPx.width / 2;
+        let y = -(imgHeight / 2 + dy * zoom) + outerRecPx.height / 2;
 
         this.panzoom.pan(x, y);
     };
@@ -182,7 +181,7 @@ class ZoomableFloorPlan extends React.Component {
             </HeightExpander>
             {this.props.tags
                 .map(t => ({...t, pxPosition: this.posToContainerPx(t.position)}))
-                .filter(t => this.fitsInViewport(t.pxPosition))
+                //.filter(t => this.fitsInViewport(t.pxPosition))
                 .map(t => <Tag {...t}
                     tag={t}
                     key={t.id}

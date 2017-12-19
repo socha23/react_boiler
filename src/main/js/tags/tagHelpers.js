@@ -50,10 +50,19 @@ function tagDescriptionsByTagId(tags=[], artifacts=[], fireteams=[]) {
     return result;
 }
 
+function tagColorsByTagId(tags=[], artifacts=[], fireteams=[]) {
+    let result = {};
+    tags.forEach(t => {result[t.id] = "#5bc0de"});
+    artifacts.forEach(a => {result[a.tagId] = "#337ab7"});
+    fireteams.forEach(f => {result[f.tagId] = "#d9534f"});
+    return result;
+}
+
 module.exports = {
     artifactsByTagId,
     availableTags,
     getTagById,
     artifactTag,
-    tagDescriptionsByTagId
+    tagDescriptionsByTagId,
+    tagColorsByTagId
 };
