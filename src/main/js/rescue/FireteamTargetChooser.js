@@ -118,14 +118,55 @@ class TargetChooser extends React.Component {
             onSelectTag: () => {}
     };
 
-    render = () => <table className="table table-hover table-pointer table-noTopPadding">
+    state = {
+        lastSelectedTag: {}
+    };
+
+    elemsByTagId = {};
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.selectedTag && nextProps.selectedTag.id != this.state.lastSelectedTag.id) {
+            this.setState({lastSelectedTag: nextProps.selectedTag});
+            this.panToTag(nextProps.selectedTag);
+        }
+    };
+
+    panToTag = (tag) => {
+        let elem = $(this.elemsByTagId[tag.id]);
+        let elemTop = elem.offset().top;
+        let container = $(this.rootElem).parent();
+
+        if (container.scrollTop() > elemTop) {
+            container.scrollTop(elemTop);
+        }
+
+        if (container.scrollTop() + container.height() < elemTop + elem.height()) {
+            container.scrollTop(elemTop);
+        }
+
+
+
+
+        console.log("Panning to", elem);
+    };
+
+    onSelectTag = (tag) => {
+        this.setState({lastSelectedTag: tag});
+        this.props.onSelectTag(tag);
+    };
+
+    render = () => <table className="table table-hover table-pointer table-noTopPadding"
+            ref={e => this.rootElem = e}
+            >
         <tbody>
         {
             this.props.items.map(a => {
                 let tag = this.props.tagsById[a.tagId];
                 return <tr key={a.id}
                            className={this.props.selectedTag && this.props.selectedTag.id == a.tagId ? 'success' : ''}
-                           onClick={() => this.props.onSelectTag(tag)}>
+                           onClick={() => this.onSelectTag(tag)}
+                           ref={e => this.elemsByTagId[tag.id] = e}
+                        >
                     <td>
                         {this.props.elem({
                             item: a,
