@@ -14,22 +14,29 @@ const FireteamOrders = ({
         tagDescriptionsByTagId = {},
         onSetTargetTag = () => {
         }
-        }) =>
-        <div>
+        }) => {
+
+        if (fireteam && targetTag) {
+            console.log("fti", fireteam.tagId, "ftti", fireteam.targetTagId,  "tti",targetTag.id);
+        }
+        return <div>
             {
 
-                fireteam && targetTag && fireteam.id != targetTag.id ?
+                fireteam && targetTag ?
                         <SetTargetButton fireteam={fireteam} fireteamTag={fireteamTag}
                                          targetTag={targetTag}
+                                         disabled={fireteam.tagId == targetTag.id || fireteam.targetTagId == targetTag.id}
                                          tagDescriptionsByTagId={tagDescriptionsByTagId}
                                          onSetTargetTag={onSetTargetTag}/>
                         : <span/>}
-        </div>;
+        </div>};
 
 
-const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTagId, onSetTargetTag}) =>
-        <a
-                className="btn btn-block btn-primary btn-lg"
+const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTagId, onSetTargetTag, disabled}) =>
+        <button
+                className="btn btn-block btn-lg"
+                style={{backgroundColor: "#006600", color: "white"}}
+                disabled={disabled}
                 onClick={() => onSetTargetTag(fireteam, targetTag)}
                 >
             <div style={{display: "flex", minHeight: 84, alignItems: 'center', textAlign: 'left'}}>
@@ -45,7 +52,7 @@ const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTag
             </div>
 
 
-        </a>;
+        </button>;
 
 const ClearTargetButton = ({fireteam, onSetTargetTag}) =>
         <a className="btn btn-block btn-default" onClick={() => onSetTargetTag(fireteam, null)}>
@@ -55,6 +62,7 @@ const ClearTargetButton = ({fireteam, onSetTargetTag}) =>
 const mapStateToProps = (state, ownProps) => ({
     tagDescriptionsByTagId: tagDescriptionsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items),
     fireteamTag: ownProps.fireteam && ownProps.fireteam.id ? state.tags.itemsById[ownProps.fireteam.tagId] : null
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

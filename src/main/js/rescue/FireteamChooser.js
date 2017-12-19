@@ -17,7 +17,7 @@ const FireteamChooser = ({
                         return <div style={{flex: 1, margin: 5}} key={f.id}>
                             <Panel
                                     style={{
-                                        backgroundColor: isSelected ? "#dff0d8" : "#fff",
+                                        backgroundColor: isSelected ? "#f2dede" : "#fff",
                                         cursor: "pointer"
                                     }}
                                     onClick={() => onSelect(f)}

@@ -86,7 +86,7 @@ class RescuePageContainer extends React.Component {
         onMarkTagOnMap={this.onMarkTagOnMap}
         tagMarkedOnMap={this.state.tagOnMap}
         onSelectFireteam={this.onSelectFireteam}
-        selectedFireteam={this.state.fireteam}
+        selectedFireteam={this.state.fireteam ? this.props.fireteams.find(f => f.id == this.state.fireteam.id) : null}
     />)
 }
 
