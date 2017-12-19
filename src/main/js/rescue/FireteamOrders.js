@@ -14,12 +14,7 @@ const FireteamOrders = ({
         tagDescriptionsByTagId = {},
         onSetTargetTag = () => {
         }
-        }) => {
-
-        if (fireteam && targetTag) {
-            console.log("fti", fireteam.tagId, "ftti", fireteam.targetTagId,  "tti",targetTag.id);
-        }
-        return <div>
+        }) => <div>
             {
 
                 fireteam && targetTag ?
@@ -29,14 +24,13 @@ const FireteamOrders = ({
                                          tagDescriptionsByTagId={tagDescriptionsByTagId}
                                          onSetTargetTag={onSetTargetTag}/>
                         : <span/>}
-        </div>};
+        </div>;
 
 
 const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTagId, onSetTargetTag, disabled}) =>
         <button
-                className="btn btn-block btn-lg"
+                className={"btn btn-block btn-lg " + (disabled ? "" : "pulseGlowGreen")}
                 style={{backgroundColor: "#006600", color: "white"}}
-                disabled={disabled}
                 onClick={() => onSetTargetTag(fireteam, targetTag)}
                 >
             <div style={{display: "flex", minHeight: 84, alignItems: 'center', textAlign: 'left'}}>

@@ -21,14 +21,25 @@ const TagMapIconMarker = (props) => <Marker {...props}>
 </Marker>;
 
 
-const LabelMarker = (props) => <Marker {...props}>
-    <div className="triangleContainer" style={{position: "relative", left: -5, top: -3}}>
-        <i style={{fontSize: 16, color: props.color}} className="glyphicon glyphicon-triangle-top"/>
-    </div>
-    <div style={{position: "relative",  left: -20, top: -10}}>
-        <span className="label" style={{fontSize: 16, backgroundColor: props.color, boxShadow: "2px 4px 10px #888"}}>{props.name}</span>
-    </div>
-</Marker>;
+const LabelMarker = (props) => {
+    let decorationClass = "";
+    let style = {fontSize: 16, backgroundColor: props.color};
+    if (props.decoration) {
+        decorationClass = props.decoration;
+    } else {
+        style.boxShadow = "2px 4px 10px #888";
+    }
+
+    return <Marker {...props}>
+        <div className="triangleContainer" style={{position: "relative", left: -5, top: -3}}>
+            <i style={{fontSize: 16, color: props.color}} className="glyphicon glyphicon-triangle-top"/>
+        </div>
+        <div style={{position: "relative",  left: -20, top: -10}}>
+            <span className={"label " + decorationClass }
+                  style={style}>{props.name}</span>
+        </div>
+    </Marker>
+};
 
 
 // dotCorrection is multiplied by half of dotsize to determine relative amount to move the marker by
@@ -36,31 +47,31 @@ const Marker = ({id, style = {}, name = "", selected = false, onClick = () => {
 }, children
 
     }) =>
-<div>
-    <div
-        onClick={onClick}
-        title={name}
-        style={{
+    <div>
+        <div
+            onClick={onClick}
+            title={name}
+            style={{
             ...style,
             position: "absolute",
             cursor: "pointer",
             zIndex: 1000
         }}>
-        {children}
-    </div>
-    {selected ?
-        <img
-            src={CONTEXT_PATH + "/mapMarker.png"}
-            style={{
+            {children}
+        </div>
+        {selected ?
+            <img
+                src={CONTEXT_PATH + "/mapMarker.png"}
+                style={{
                 position: 'absolute',
                 zIndex: 2000,
                 left: style.left - 28,
                 top: style.top - 62
             }}
 
-        />
-        : <span/>}
-</div>;
+            />
+            : <span/>}
+    </div>;
 
 module.exports = {
     DotMarker,

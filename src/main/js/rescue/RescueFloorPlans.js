@@ -12,7 +12,7 @@ class RescueFloorPlans extends React.Component {
         floorPlans: [],
         fireteams: [],
         tags: [],
-        selectedTag: null,
+        markedTag: null,
         onSelect: () => {
         },
         tagsById: {},
@@ -25,12 +25,12 @@ class RescueFloorPlans extends React.Component {
     };
 
     componentWillReceiveProps = (nextProps) => {
-        if (nextProps.selectedTag && nextProps.selectedTag.id != this.state.lastSelected.id) {
+        if (nextProps.markedTag && nextProps.markedTag.id != this.state.lastSelected.id) {
             this.setState({
-                lastSelected: nextProps.selectedTag,
-                activeTab: this.props.floorPlans.findIndex(fp => fp.id == nextProps.selectedTag.coordinateSystemId)
+                lastSelected: nextProps.markedTag,
+                activeTab: this.props.floorPlans.findIndex(fp => fp.id == nextProps.markedTag.coordinateSystemId)
             });
-        } else if (!nextProps.selectedTag) {
+        } else if (!nextProps.markedTag) {
             this.setState({
                 lastSelected: {}
             });
@@ -52,7 +52,7 @@ class RescueFloorPlans extends React.Component {
                     body: <ZoomableFloorPlan
                         map={fp}
                         tags={this.props.tags.filter(t => t.coordinateSystemId == fp.id)}
-                        selectedTag={this.props.selectedTag}
+                        selectedTag={this.props.markedTag}
                         onClickTag={this.props.onSelect}
                         additionalMargin={this.props.additionalMargin}
                         lines={getTargetLines(fp.id, this.props.fireteams, this.props.tagsById)}
@@ -61,21 +61,37 @@ class RescueFloorPlans extends React.Component {
             }/>
 }
 
-function getTargetLines(coordinateSystemId, fireteams, tagsById) {
+function getTargetLines(coordinateSystemId, fireteams, tagsById = {}) {
     return fireteams
-            .filter(f => f.tagId && tagsById[f.tagId] && tagsById[f.tagId].coordinateSystemId == coordinateSystemId)
-            .filter(f => f.targetTagId && tagsById[f.targetTagId] && tagsById[f.targetTagId].coordinateSystemId == coordinateSystemId)
-            .map(f => {
-                let from = tagsById[f.tagId].position;
-                let to = tagsById[f.targetTagId].position;
-                return {
-                    fromX: from.x,
-                    fromY: from.y,
-                    toX: to.x,
-                    toY: to.y,
-                    style: STYLE_ANIMATED_GREEN
-                }
-            });
+            .filter(f => teamAndTargetOnMyFloor(f, tagsById, coordinateSystemId))
+            .map(f => targetLine(f, tagsById, STYLE_ANIMATED_GREEN));
+}
+
+function teamAndTargetOnMyFloor(fireteam, tagsById, coordinateSystemId) {
+    return allTagsInCoordinateSystem(coordinateSystemId, tagsById[fireteam.tagId], tagsById[fireteam.targetTagId])
+}
+
+function allTagsInCoordinateSystem(coordinateSystemId, ...tags) {
+    for (let i = 0; i < tags.length; i++) {
+        if (!tags[i] || tags[i].coordinateSystemId != coordinateSystemId) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function targetLine(fireteam, tagsById, style) {
+    return line(tagsById[fireteam.tagId], tagsById[fireteam.targetTagId], style);
+}
+
+function line(fromTag, toTag, style) {
+    return {
+        fromX: fromTag.position.x,
+        fromY: fromTag.position.y,
+        toX: toTag.position.x,
+        toY: toTag.position.y,
+        style: style
+    }
 }
 
 const mapStateToProps = (state) => ({

@@ -259,3 +259,34 @@ body {
 .mapZoomButton:first-child {
     border-bottom: none
 }
+
+/*
+ * PULSATING BORDERS
+ */
+
+.pulseGlowRed {
+    animation: pulseGlowRed 1s infinite alternate;
+}
+
+@keyframes pulseGlowRed {
+    from {box-shadow: 0 0 20px 8px #d9534f}
+    to {box-shadow: 0 0 20px #d9534f}
+}
+
+.pulseGlowBlue {
+    animation: pulseGlowBlue 1s infinite alternate;
+}
+
+@keyframes pulseGlowBlue {
+    from {box-shadow: 0 0 20px 8px #337ab7}
+    to {box-shadow: 0 0 20px #337ab7}
+}
+
+.pulseGlowGreen {
+    animation: pulseGlowGreen 1s infinite alternate;
+}
+
+@keyframes pulseGlowGreen {
+    from {box-shadow: 0 0 20px 8px #080}
+    to {box-shadow: 0 0 20px #080}
+}

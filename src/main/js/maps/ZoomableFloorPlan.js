@@ -13,6 +13,7 @@ let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColor
         color={tagColorsByTagId[tag.id]}
         name={tagDescriptionsByTagId[tag.id]}
         tag={tag}
+        decoration={tag.decoration}
         style={{
             left: pxPosition.x,
             top: pxPosition.y
