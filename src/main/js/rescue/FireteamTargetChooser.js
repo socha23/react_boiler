@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
 import {find} from '../common/vocFunctions'
@@ -107,33 +108,36 @@ function navPoints(tags, artifacts, fireteams) {
     return result;
 }
 
-const TargetChooser = ({
-        elem,
-        items = [],
-        tagsById = {},
-        selectedTag = {},
-        onSelectTag = () => {
+class TargetChooser extends React.Component {
+
+    static defaultProps = {
+            elem: null,
+            items: [],
+            tagsById: {},
+            selectedTag: {},
+            onSelectTag: () => {}
+    };
+
+    render = () => <table className="table table-hover table-pointer table-noTopPadding">
+        <tbody>
+        {
+            this.props.items.map(a => {
+                let tag = this.props.tagsById[a.tagId];
+                return <tr key={a.id}
+                           className={this.props.selectedTag && this.props.selectedTag.id == a.tagId ? 'success' : ''}
+                           onClick={() => this.props.onSelectTag(tag)}>
+                    <td>
+                        {this.props.elem({
+                            item: a,
+                            tag: tag
+                        })}
+                    </td>
+                </tr>
+            })
         }
-        }) =>
-        <table className="table table-hover table-pointer table-noTopPadding">
-            <tbody>
-            {
-                items.map(a => {
-                    let tag = tagsById[a.tagId];
-                    return <tr key={a.id}
-                               className={selectedTag && selectedTag.id == a.tagId ? 'success' : ''}
-                               onClick={() => onSelectTag(tag)}>
-                        <td>
-                            {elem({
-                                item: a,
-                                tag: tag
-                            })}
-                        </td>
-                    </tr>
-                })
-            }
-            </tbody>
-        </table>;
+        </tbody>
+    </table>;
+}
 
 
 const Target = ({children}) => <div style={{
