@@ -21,7 +21,7 @@ const ActiveFireteam = ({
                 <span style={{fontWeight: "bold", fontSize: 20, marginRight: 15}}>
                     {fireteam.name}
                 </span>
-                <TagAreaName tag={fireteamTag}/>
+                <TagAreaName tag={fireteamTag} style={{fontSize: 16}}/>
             </div>
             <div style={{fontSize: 20}}>
                 <DistanceBetweenTags from={fireteamTag} to={targetTag}/>

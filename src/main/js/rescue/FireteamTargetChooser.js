@@ -74,7 +74,7 @@ const ArtifactTarget = ({item, tag}) => <Target>
     <VocIcon value={find(Priority, item.priority)} className="iconWithName"/>
 
     <div style={{flex: 1}}>
-        <span>{item.name}</span>
+        <TargetName>{item.name}</TargetName>
         <CommonTargetData tag={tag}/>
     </div>
 </Target>;
@@ -83,7 +83,7 @@ const FireteamChooser = (props) => <TargetChooser {...props} elem={FireteamTarge
 
 const FireteamTarget = ({item, tag}) => <Target>
     <div style={{flex: 1}}>
-        <span>{item.name}</span>
+        <TargetName>{item.name}</TargetName>
         <CommonTargetData tag={tag}/>
     </div>
 </Target>;
@@ -186,10 +186,12 @@ const Target = ({children}) => <div style={{
     alignItems: 'center'
 }}>{children}</div>;
 
+const TargetName = ({children}) => <span style={{fontSize: 20}}>{children}</span>;
+
 let CommonTargetData = ({tag, fireteams}) => <div>
-    <TagAreaName tag={tag}/>
+    <TagAreaName tag={tag} style={{fontSize: 16}}/>
     {assignedFireteams(fireteams, tag.id).map(fireteam =>
-                    <span key={fireteam.id} style={{marginLeft: 10}} className="label label-success">{fireteam.name}</span>
+                    <span key={fireteam.id} style={{marginLeft: 10, fontSize: 16}} className="label label-success">{fireteam.name}</span>
     )}
 </div>;
 

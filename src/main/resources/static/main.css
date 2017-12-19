@@ -250,10 +250,10 @@ body {
     cursor: pointer;
     display: block;
     border: 1px solid #CCC;
-    width: 30px;
+    width: 50px;
     text-align: center;
     vertical-align: middle;
-    line-height: 30px;
+    line-height: 50px;
 }
 
 .mapZoomButton:first-child {

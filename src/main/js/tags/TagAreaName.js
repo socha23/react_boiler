@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-const TagAreaName = ({tag}) => tag ?
-    <small style={{color: "#AAA"}}>
+const TagAreaName = ({tag, style}) => tag ?
+    <small style={{color: "#AAA", ...style}}>
         {tag.areaName}
     </small>
     :
