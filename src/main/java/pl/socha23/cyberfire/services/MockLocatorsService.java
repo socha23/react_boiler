@@ -56,7 +56,7 @@ public class MockLocatorsService implements ILocatorsService {
                     .build();
 
             if (random.nextInt(3) == 0) {
-                int numOfArtifactsInContainer = random.nextInt(Math.min(4, artifacts.size()));
+                int numOfArtifactsInContainer = random.nextInt(Math.min(3, artifacts.size()) + 1);
                 for (int j = 0; j < numOfArtifactsInContainer; j++) {
                     Artifact a = artifacts.remove(random.nextInt(artifacts.size()));
                     container.getNearbyDevices().add(new NearbyDevice(a.getId(), (int)(-60 + random.nextGaussian() * 30)));
