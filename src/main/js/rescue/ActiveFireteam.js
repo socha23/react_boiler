@@ -10,35 +10,46 @@ import DistanceBetweenTags from '../tags/DistanceBetweenTags'
 import PanMapButton from './PanMapButton'
 
 const ActiveFireteam = ({
-    fireteam,
-    fireteamTag,
-    targetTag,
-    tagDescriptionsByTagId = {},
-    onSelectTagOnMap = () => {}
-    }) => <div style={{minHeight: 100}}>
-    <div style={{display: "flex"}}>
-        <div style={{flex: 1}}>
-            <span style={{fontWeight: "bold", fontSize: 20, marginRight: 10}}>
-                {fireteam.name}
-            </span>
-            <TagAreaName tag={fireteamTag}/>
-        </div>
+        fireteam,
+        fireteamTag,
+        targetTag,
+        tagDescriptionsByTagId = {},
+        onSelectTagOnMap = () => {
+        }
+        }) => <div style={{display: "flex", alignItems: "center", minHeight: 84}}>
+    <div style={{marginRight: 10, fontSize: 40}}>
         <PanMapButton onClick={onSelectTagOnMap}/>
     </div>
-    <div>
-        <FireteamTarget fireteamTag={fireteamTag} targetTag={targetTag} tagDescriptionsByTagId={tagDescriptionsByTagId}/>
+
+    <div style={{flex: 1}}>
+        <div style={{display: "flex"}}>
+
+
+            <div style={{flex: 1}}>
+                <span style={{fontWeight: "bold", fontSize: 20, marginRight: 15}}>
+                    {fireteam.name}
+                </span>
+                <TagAreaName tag={fireteamTag}/>
+            </div>
+            <div style={{fontSize: 20}}>
+                <DistanceBetweenTags from={fireteamTag} to={targetTag}/>
+            </div>
+        </div>
+        <div style={{marginTop: 10}}>
+            <FireteamTarget fireteamTag={fireteamTag} targetTag={targetTag} tagDescriptionsByTagId={tagDescriptionsByTagId}/>
+        </div>
     </div>
 </div>;
 
 const FireteamTarget = ({fireteamTag, targetTag, tagDescriptionsByTagId = {}}) =>
-    targetTag ?
-        <span style={{fontSize: 20}}>
-            Cel: {tagDescriptionsByTagId[targetTag.id]} - <DistanceBetweenTags from={fireteamTag} to={targetTag}/>
-        </span>
+                targetTag ?
+                        <span style={{fontSize: 20}}>
+                            {tagDescriptionsByTagId[targetTag.id]}
+                        </span>
 
-        :
-        <span>Nie ustawiono celu</span>
-;
+                        :
+                        <span>Nie ustawiono celu</span>
+        ;
 
 const mapStateToProps = (state, ownProps) => ({
     tagDescriptionsByTagId: tagDescriptionsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items),

@@ -14,25 +14,30 @@ const FireteamOrders = ({
         tagDescriptionsByTagId = {},
         onSetTargetTag = () => {
         }
-        }) => <Panel>
-    <div style={{minHeight: 100}}>
-        {
+        }) =>
+        <div>
+            {
 
-            fireteam && targetTag && fireteam.id != targetTag.id ?
-                    <SetTargetButton fireteam={fireteam} fireteamTag={fireteamTag}
-                                     targetTag={targetTag}
-                                     tagDescriptionsByTagId={tagDescriptionsByTagId}
-                                     onSetTargetTag={onSetTargetTag}/>
-                    : <span/>}
-    </div>
-</Panel>;
+                fireteam && targetTag && fireteam.id != targetTag.id ?
+                        <SetTargetButton fireteam={fireteam} fireteamTag={fireteamTag}
+                                         targetTag={targetTag}
+                                         tagDescriptionsByTagId={tagDescriptionsByTagId}
+                                         onSetTargetTag={onSetTargetTag}/>
+                        : <span/>}
+        </div>;
+
 
 const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTagId, onSetTargetTag}) =>
-        <a className="btn btn-block btn-primary btn-lg" onClick={() => onSetTargetTag(fireteam, targetTag)}>
-            <div style={{display: "flex", minHeight: 80, alignItems: 'center'}}>
-                <div style={{flex: 1, textAlign: 'left'}}>
-                    <i className="glyphicon glyphicon-screenshot" style={{marginRight: 10}}/>
-                    {fireteam.name}: {tagDescriptionsByTagId[targetTag.id]}
+        <a
+                className="btn btn-block btn-primary btn-lg"
+                onClick={() => onSetTargetTag(fireteam, targetTag)}
+                >
+            <div style={{display: "flex", minHeight: 84, alignItems: 'center', textAlign: 'left'}}>
+                <div style={{marginRight: 20, fontSize: 40, paddingTop: 10}}>
+                    <i className="glyphicon glyphicon-screenshot"/>
+                </div>
+                <div style={{flex: 1}}>
+                    {fireteam.name}:<br/> {tagDescriptionsByTagId[targetTag.id]}
                 </div>
                 <div>
                     <DistanceBetweenTags from={fireteamTag} to={targetTag}/>
