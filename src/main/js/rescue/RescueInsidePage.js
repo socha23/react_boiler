@@ -32,6 +32,7 @@ const RescueInsidePage = ({
             <div className="col-sm-9 colWithSmallerGutter">
                 <RescueFloorPlans
                         floorPlans={floorPlans}
+                        fireteams={fireteams}
                         tags={tags}
                         additionalMargin={LOWER_ROW_HEIGHT}
                         selectedTag={tagMarkedOnMap}

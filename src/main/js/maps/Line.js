@@ -14,12 +14,12 @@ function animatedStyle(className) {
     return {
         className: "progress-bar " + className + "  progress-bar-striped active",
         style: {
-            height: 12,
-            borderRadius: 6,
+            height: 10,
+            borderRadius: 5,
             animationDirection: "reverse",
-            transformOrigin: "3px 3px",
+            transformOrigin: "5px 5px",
             transition: 'none',
-            boxShadow: "2px 4px 10px #888"
+            opacity: 0.8
         }
     };
 }
