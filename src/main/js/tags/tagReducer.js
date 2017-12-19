@@ -1,6 +1,6 @@
 import restActionNames from '../common/crud/crudActionNames'
 
-import {tagDescriptionsByTagId, tagColorsByTagId} from './tagHelpers'
+import {tagDescriptionsByTagId, tagColorsByTagId, tagTypeByTagId} from './tagHelpers'
 
 const ActionNames = restActionNames("tags");
 
@@ -16,7 +16,8 @@ export default function reduce(state = {
                 return {
                     ...state,
                     tagDescriptionsById: tagDescriptionsByTagId(action.items, artifacts, fireteams),
-                    tagColorsById: tagColorsByTagId(action.items, artifacts, fireteams)
+                    tagColorsById: tagColorsByTagId(action.items, artifacts, fireteams),
+                    tagTypeById: tagTypeByTagId(action.items, artifacts, fireteams)
                 };
             default:
                 return state;

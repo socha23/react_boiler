@@ -7,24 +7,24 @@ import HeightExpander from '../common/components/HeightExpander'
 import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
 import Line from './Line'
 
-let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColorsByTagId}) =>
+let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColorsByTagId, tagTypeByTagId}) =>
     <LabelMarker
         id={tag.id}
         color={tagColorsByTagId[tag.id]}
         name={tagDescriptionsByTagId[tag.id]}
         tag={tag}
+        arrowDirection={tagTypeByTagId[tag.id] == "fireteam" ? "down" : "up"}
         decoration={tag.decoration}
-        style={{
-            left: pxPosition.x,
-            top: pxPosition.y
-        }}
+        x={pxPosition.x}
+        y={pxPosition.y}
         selected={selected}
         onClick={onClick}
     />;
 
 const mapStateToProps = (state, ownProps) => ({
     tagDescriptionsByTagId: state.tagDescriptionsById,
-    tagColorsByTagId: state.tagColorsById
+    tagColorsByTagId: state.tagColorsById,
+    tagTypeByTagId: state.tagTypeById
 });
 
 Tag = connect(mapStateToProps)(Tag);
@@ -45,6 +45,7 @@ class ZoomableFloorPlan extends React.Component {
         onClickTag: () => {
         },
         tags: [],
+        lines: [],
         additionalMargin: 0
     };
 

@@ -17,7 +17,7 @@ function animatedStyle(className) {
             height: 10,
             borderRadius: 5,
             animationDirection: "reverse",
-            transformOrigin: "5px 5px",
+            transformOrigin: "0 4px",
             transition: 'none',
             opacity: 0.8
         }

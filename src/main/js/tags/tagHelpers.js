@@ -58,11 +58,21 @@ function tagColorsByTagId(tags=[], artifacts=[], fireteams=[]) {
     return result;
 }
 
+function tagTypeByTagId(tags=[], artifacts=[], fireteams=[]) {
+    let result = {};
+    tags.forEach(t => {result[t.id] = "navigation"});
+    artifacts.forEach(a => {result[a.tagId] = "artifact"});
+    fireteams.forEach(f => {result[f.tagId] = "fireteam"});
+    return result;
+}
+
+
 module.exports = {
     artifactsByTagId,
     availableTags,
     getTagById,
     artifactTag,
     tagDescriptionsByTagId,
-    tagColorsByTagId
+    tagColorsByTagId,
+    tagTypeByTagId
 };
