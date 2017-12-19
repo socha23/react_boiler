@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import TabPanel, {STYLE_LG} from '../common/components/TabPanel'
 
 import ZoomableFloorPlan from '../maps/ZoomableFloorPlan'
-import {STYLE_ANIMATED_YELLOW, STYLE_ANIMATED_RED} from '../maps/Line'
+import {STYLE_ANIMATED_YELLOW, STYLE_ANIMATED_RED, STYLE_ANIMATED_GREEN} from '../maps/Line'
 
 class RescueFloorPlans extends React.Component {
     static defaultProps = {
@@ -73,7 +73,7 @@ function getTargetLines(coordinateSystemId, fireteams, tagsById) {
                     fromY: from.y,
                     toX: to.x,
                     toY: to.y,
-                    style: STYLE_ANIMATED_YELLOW
+                    style: STYLE_ANIMATED_GREEN
                 }
             });
 }

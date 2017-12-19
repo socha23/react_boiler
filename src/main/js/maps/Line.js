@@ -25,6 +25,7 @@ function animatedStyle(className) {
 }
 
 export const STYLE_ANIMATED_RED = animatedStyle("progress-bar-danger");
+export const STYLE_ANIMATED_GREEN = animatedStyle("progress-bar-success");
 export const STYLE_ANIMATED_YELLOW = animatedStyle("progress-bar-warning");
 
 
