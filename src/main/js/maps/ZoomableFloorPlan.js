@@ -1,9 +1,11 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
-import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
+
 import HeightExpander from '../common/components/HeightExpander'
 
+import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
+import Line from './Line'
 
 let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColorsByTagId}) =>
     <LabelMarker
@@ -34,7 +36,8 @@ class ZoomableFloorPlan extends React.Component {
         tags: PropTypes.array,
         selectedTag: PropTypes.object,
         onClickTag: PropTypes.func,
-        additionalMargin: PropTypes.number
+        additionalMargin: PropTypes.number,
+        lines: PropTypes.array
     };
 
     static defaultProps = {
@@ -178,13 +181,28 @@ class ZoomableFloorPlan extends React.Component {
             </HeightExpander>
             {this.props.tags
                 .map(t => ({...t, pxPosition: this.posToContainerPx(t.position)}))
-                //.filter(t => this.fitsInViewport(t.pxPosition))
                 .map(t => <Tag {...t}
                     tag={t}
                     key={t.id}
                     selected={this.props.selectedTag && t.id == this.props.selectedTag.id}
                     onClick={() => this.props.onClickTag(t)}
                 />)
+            }
+            {this.props.lines
+                .map(line => {
+                        let from = this.posToContainerPx({x: line.fromX, y: line.fromY});
+                        let to = this.posToContainerPx({x: line.toX, y: line.toY});
+                        let lineRec = {
+                            ...line,
+                            fromX: from.x,
+                            fromY: from.y,
+                            toX: to.x,
+                            toY: to.y
+                        };
+                        console.log(lineRec);
+                        return lineRec;
+                    })
+                .map((t, idx) => <Line key={idx} {...t}/>)
             }
 
 
