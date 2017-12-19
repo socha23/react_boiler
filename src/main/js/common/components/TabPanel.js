@@ -15,7 +15,7 @@ export const STYLE_DEFAULT = {
 };
 
 export const STYLE_LG = {
-    padding: "10px 16px 2px 16px",
+    padding: "10px 16px 6px 16px",
     fontSize: 18,
     top: 1
 };
