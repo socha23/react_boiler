@@ -34,12 +34,10 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
         return getServiceResult();
     }
 
-
 	@Override
 	public Tag update(Tag tag) {
 		throw new RuntimeException("Can't update tags read from Ifinity webservice");
 	}
-
 
 	@Override
     protected List<Tag> decodeResult(JsonNode json) {
