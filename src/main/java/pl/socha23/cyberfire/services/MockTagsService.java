@@ -94,4 +94,15 @@ public class MockTagsService implements ITagsService {
     public List<Tag> getAllTags() {
         return tags;
     }
+
+
+	@Override
+	public Tag update(Tag tag) {
+		for (int i = 0; i < tags.size(); i++) {
+			if (tag.getId().equals(tags.get(i).getId())) {
+				tags.set(i, tag);
+			}
+		}
+		return tag;
+	}
 }

@@ -1,13 +1,17 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import {crudActions} from '../common/crud/crudContainers'
+
 import {tagDescriptionsByTagId, tagColorsByTagId} from '../tags/tagHelpers'
 
 class TagRow extends React.Component {
     static defaultProps = {
         tag: {},
         color: "",
-        description: ""
+        description: "",
+        onUpdate: () => {
+        }
     };
 
     state = {
@@ -17,10 +21,29 @@ class TagRow extends React.Component {
 
     onChangeX = (x) => {
         this.setState({x: x});
+        let currentPos = this.props.tag.position;
+        this.sendUpdate({position: {...currentPos, x: x}});
     };
 
     onChangeY = (y) => {
         this.setState({y: y});
+        let currentPos = this.props.tag.position;
+        this.sendUpdate({position: {...currentPos, y: y}});
+    };
+
+    sendUpdate = (changes) => {
+        let oldTag = this.props.tag;
+        let newTag = {
+            ...oldTag,
+            ...changes,
+            _links: {
+                self: {
+                    href: CONTEXT_PATH + "/api/tags/" + oldTag.id
+                }
+            }
+        };
+        console.log("UPDATING", newTag);
+        this.props.onUpdate(newTag);
     };
 
     render = () => <tr>
@@ -43,4 +66,4 @@ const mapStateToProps = (state, ownProps) => ({
     color: tagColorsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items)[ownProps.tag.id]
 });
 
-export default connect(mapStateToProps)(TagRow);
+export default crudActions("tags", (connect(mapStateToProps)(TagRow)));

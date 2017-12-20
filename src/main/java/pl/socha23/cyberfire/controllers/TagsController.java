@@ -1,8 +1,8 @@
 package pl.socha23.cyberfire.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.socha23.cyberfire.model.Tag;
 import pl.socha23.cyberfire.services.ITagsService;
 
 import java.util.Map;
@@ -10,17 +10,20 @@ import java.util.Map;
 @RestController
 public class TagsController {
 
-    public final static String RESOURCE_NAME = "tags";
+	public final static String RESOURCE_NAME = "tags";
 
-    @Autowired
-    private ITagsService tagsService;
+	@Autowired private ITagsService tagsService;
 
-    @RequestMapping("/api/" + RESOURCE_NAME)
-    public Map list() {
-        return RestControllerUtils.wrapInDataRestFormat(RESOURCE_NAME,
-                tagsService.getAllTags()
-        );
-    }
 
+	@GetMapping("/api/" + RESOURCE_NAME)
+	public Map list() {
+		return RestControllerUtils.wrapInDataRestFormat(RESOURCE_NAME, tagsService.getAllTags());
+	}
+
+
+	@PutMapping("/api/" + RESOURCE_NAME + "/{id}")
+	public Tag update(@PathVariable("id") String id, @RequestBody Tag tag) {
+		return tagsService.update(tag);
+	}
 
 }

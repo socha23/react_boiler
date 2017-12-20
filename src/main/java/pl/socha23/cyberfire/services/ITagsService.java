@@ -7,4 +7,6 @@ import java.util.List;
 public interface ITagsService {
 
     List<Tag> getAllTags();
+
+	Tag update(Tag tag);
 }
