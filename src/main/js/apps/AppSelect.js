@@ -5,6 +5,7 @@ import {BrowserRouter} from 'react-router-dom'
 
 import MuzealnikIndex from './MuzealnikIndex'
 import KdrIndex from './KdrIndex'
+import TestDashboardIndex from './TestDashboardIndex'
 
 
 const AppChooser = () => <div className="well center-block" style={{marginTop: 100, width: 600}}>
@@ -15,6 +16,9 @@ const AppChooser = () => <div className="well center-block" style={{marginTop: 1
     </a>
     <a href={CONTEXT_PATH + "/kdr"} className="btn btn-lg btn-primary btn-block">
         KDR
+    </a>
+    <a href={CONTEXT_PATH + "/test"} className="btn btn-lg btn-default btn-block">
+        Panel testów
     </a>
 
 
@@ -31,6 +35,11 @@ const AppSelect = () => <Switch>
     <Route path="/kdr">
         <BrowserRouter basename={CONTEXT_PATH + "/kdr"}>
             <KdrIndex/>
+        </BrowserRouter>
+    </Route>
+    <Route path="/test">
+        <BrowserRouter basename={CONTEXT_PATH + "/test"}>
+            <TestDashboardIndex/>
         </BrowserRouter>
     </Route>
 </Switch>;

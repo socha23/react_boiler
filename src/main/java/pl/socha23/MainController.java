@@ -19,7 +19,7 @@ public class MainController {
     @Value("#{servletContext.contextPath}")
     private String contextPath;
 
-    @RequestMapping(value = {"/", "muzealnik/**", "kdr/**"})
+    @RequestMapping(value = {"/", "muzealnik/**", "kdr/**", "test/**"})
     public String index() {
         return "index";
     }
