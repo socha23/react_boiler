@@ -6,7 +6,7 @@ import {tagTypeByTagId} from '../tags/tagHelpers'
 import TagRow from './TagRow'
 
 const TagList = ({tags}) =>
-    <table className="table table-striped">
+    <table className="table table-striped table-hover">
         <tbody>
         {tags.map(t =>
             <TagRow key={t.id} tag={t}/>
