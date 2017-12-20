@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
 import Slider from 'react-rangeslider'
 
 import {crudActions} from '../common/crud/crudContainers'
-
 import {tagDescriptionsByTagId, tagColorsByTagId} from '../tags/tagHelpers'
+
+import AreaChooser from './AreaChooser'
 
 class TagRow extends React.Component {
     static defaultProps = {
@@ -19,7 +19,16 @@ class TagRow extends React.Component {
 
     state = {
         x: this.props.tag.position.x,
-        y: this.props.tag.position.y
+        y: this.props.tag.position.y,
+        areaName: this.props.tag.areaName
+    };
+
+    onChangeAreaNameAndCoordId = ({areaName, coordinateSystemId}) => {
+        this.setState({areaName: areaName});
+        this.sendUpdate({
+            areaName: areaName,
+            coordinateSystemId: coordinateSystemId
+        });
     };
 
     onChangeX = (x) => {
@@ -84,6 +93,9 @@ class TagRow extends React.Component {
             </td>
             <td style={{maxWidth: 150}}>
                 <Slider value={this.posToSlider(this.state.y, "y")} onChange={this.onChangeY}/>
+            </td>
+            <td>
+                <AreaChooser value={this.state.areaName} onChange={this.onChangeAreaNameAndCoordId}/>
             </td>
         </tr>
     };
