@@ -22,4 +22,7 @@ public class Tag {
     private String coordinateSystemName;
 
     private Position position;
+
+	private boolean virtual = false;
+	private boolean inside;
 }

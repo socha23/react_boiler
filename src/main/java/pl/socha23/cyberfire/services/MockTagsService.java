@@ -23,6 +23,9 @@ public class MockTagsService implements ITagsService {
     @Autowired
     private IFloorPlansService floorPlansService;
 
+	@Autowired
+	private VirtualTagsService virtualTagsService;
+
     private List<Tag> tags = new ArrayList<>();
 
 
@@ -33,18 +36,9 @@ public class MockTagsService implements ITagsService {
             FloorPlan floor = randomFloor();
             FloorPlanArea area = randomArea(floor);
 
-            tags.add(
-                    Tag.builder()
-                            .id("tag_" + i)
-                            .name("Znacznik #" + i)
-                    .color(randomColor())
-                    .coordinateSystemId(floor.getId())
-                    .coordinateSystemName(floor.getName())
-                    .areaId(area.getId())
-                    .areaName(area.getName())
-                    .position(randomPositionOnTopLeftQuadrant(floor))
-                    .build()
-            );
+            tags.add(Tag.builder().id("tag_" + i).name("Znacznik #" + i).color(randomColor()).coordinateSystemId(floor.getId())
+							.coordinateSystemName(floor.getName()).areaId(area.getId()).areaName(area.getName())
+							.position(randomPositionOnTopLeftQuadrant(floor)).inside(true).build());
         }
     }
 
@@ -92,7 +86,11 @@ public class MockTagsService implements ITagsService {
 
     @Override
     public List<Tag> getAllTags() {
-        return tags;
+		List<Tag> result = new ArrayList<>();
+		result.addAll(tags);
+		result.addAll(virtualTagsService.createVirtualTags(tags));
+        return result;
+
     }
 
 
