@@ -19,19 +19,19 @@ import java.util.stream.Stream;
  * Something that creates virtual tags for missing tagIds
  */
 @Component
-public class VirtualTagsService {
+public class MissingTagsService {
 
 	private ArtifactRepository artifactRepository;
 	private FireteamRepository fireteamRepository;
 
-	public VirtualTagsService(@Autowired ArtifactRepository artifactRepository, @Autowired FireteamRepository fireteamRepository) {
+	public MissingTagsService(@Autowired ArtifactRepository artifactRepository, @Autowired FireteamRepository fireteamRepository) {
 		this.artifactRepository = artifactRepository;
 		this.fireteamRepository = fireteamRepository;
 	}
 
 	public Collection<Tag> createVirtualTags(Collection<Tag> realTags) {
 		return getUnknownTagIds(realTags)
-				.map(VirtualTagsService::createVirtualTag)
+				.map(MissingTagsService::createVirtualTag)
 				.collect(Collectors.toList());
 	}
 
@@ -81,8 +81,8 @@ public class VirtualTagsService {
 	private static Tag createVirtualTag(String id) {
 		return Tag.builder()
 				.id(id)
-				.name("Nie znaleziono znacznika")
-				.virtual(true)
+				.name(id)
+				.missing(true)
 				.inside(false)
 				.build();
 	}

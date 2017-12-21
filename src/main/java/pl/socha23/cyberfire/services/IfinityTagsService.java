@@ -20,7 +20,7 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
     private IFloorPlansService floorPlansService;
 
 	@Autowired
-	private VirtualTagsService virtualTagsService;
+	private MissingTagsService missingTagsService;
 
     @Override
     protected String getServicePath() {
@@ -37,7 +37,7 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
 		List<Tag> realTags = getServiceResult();
 		List<Tag> result = new ArrayList<>();
 		result.addAll(realTags);
-		result.addAll(virtualTagsService.createVirtualTags(realTags));
+		result.addAll(missingTagsService.createVirtualTags(realTags));
         return result;
     }
 

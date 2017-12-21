@@ -2,16 +2,19 @@ import React from 'react'
 import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
 
+import MissingTag from '../tags/MissingTag'
 import {artifactLocator} from "../tags/locatorHelpers"
 import {artifactTag} from "../tags/tagHelpers"
 
 const ArtifactTagLocation = ({tag, history}) => <span>
-    <a
-        style={{cursor: "pointer"}}
-        onClick={e => {e.stopPropagation(); history.push("/maps/" + tag.coordinateSystemId + "/" + tag.id)}}
-    >
-        {tag.coordinateSystemName} - {tag.areaName}
-    </a>
+    {tag.missing ? <MissingTag/> :
+            <a
+                    style={{cursor: "pointer"}}
+                    onClick={e => {e.stopPropagation(); history.push("/maps/" + tag.coordinateSystemId + "/" + tag.id)}}
+                    >
+                {tag.coordinateSystemName} - {tag.areaName}
+            </a>
+    }
 </span>;
 
 const ArtifactLocatorLocation = ({locator, history}) => <span>

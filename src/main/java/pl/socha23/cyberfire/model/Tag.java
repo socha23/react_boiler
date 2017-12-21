@@ -23,6 +23,6 @@ public class Tag {
 
     private Position position;
 
-	private boolean virtual = false;
+	private boolean missing = false;
 	private boolean inside;
 }

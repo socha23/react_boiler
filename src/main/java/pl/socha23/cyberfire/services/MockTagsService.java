@@ -24,7 +24,7 @@ public class MockTagsService implements ITagsService {
     private IFloorPlansService floorPlansService;
 
 	@Autowired
-	private VirtualTagsService virtualTagsService;
+	private MissingTagsService missingTagsService;
 
     private List<Tag> tags = new ArrayList<>();
 
@@ -88,7 +88,7 @@ public class MockTagsService implements ITagsService {
     public List<Tag> getAllTags() {
 		List<Tag> result = new ArrayList<>();
 		result.addAll(tags);
-		result.addAll(virtualTagsService.createVirtualTags(tags));
+		result.addAll(missingTagsService.createVirtualTags(tags));
         return result;
 
     }

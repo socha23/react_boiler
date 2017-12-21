@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Select from 'react-select'
+
 import {availableTags} from './tagHelpers'
 import TagValue from './TagValue'
-import Select from 'react-select'
 
 const optionRenderer = (item) => <TagValue tag={item} inline/>;
 

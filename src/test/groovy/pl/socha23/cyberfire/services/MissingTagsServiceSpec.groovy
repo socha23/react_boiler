@@ -7,7 +7,7 @@ import pl.socha23.cyberfire.repositories.ArtifactRepository
 import pl.socha23.cyberfire.repositories.FireteamRepository
 import spock.lang.Specification
 
-class VirtualTagsServiceSpec extends Specification {
+class MissingTagsServiceSpec extends Specification {
 
     List<Artifact> artifacts
     List<Fireteam> fireteams
@@ -85,7 +85,7 @@ class VirtualTagsServiceSpec extends Specification {
 
     def "virtual tag is virtual and not inside"() {
         expect:
-        sampleVirtualTag.virtual
+        sampleVirtualTag.missing
         !sampleVirtualTag.inside
     }
 
@@ -104,7 +104,7 @@ class VirtualTagsServiceSpec extends Specification {
         FireteamRepository ftRepo = Mock(FireteamRepository)
         ftRepo.findAll() >> fireteams
 
-        VirtualTagsService vts = new VirtualTagsService(artRepo, ftRepo)
+        MissingTagsService vts = new MissingTagsService(artRepo, ftRepo)
         return vts.createVirtualTags(tags)
     }
 
