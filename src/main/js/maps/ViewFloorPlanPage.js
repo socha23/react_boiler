@@ -33,7 +33,7 @@ const mapStateToProps = (state, ownProps) => {
     const myTagId = ownProps.tagId;
     return {
         map: state.floorPlans.items.find((m) => m.id == myMapId),
-        tags: state.tags.items.filter((t) => t.coordinateSystemId == myMapId),
+        tags: state.tags.items.filter((t) => t.inside && t.coordinateSystemId == myMapId),
         selectedTag: myTagId ? state.tags.items.find((m) => m.id == myTagId) : null,
         onSelectTag: (tag) => {
             ownProps.history.push("/maps/" + myMapId + "/" + tag.id)

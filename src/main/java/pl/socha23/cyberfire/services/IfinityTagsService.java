@@ -19,6 +19,9 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
     @Autowired
     private IFloorPlansService floorPlansService;
 
+	@Autowired
+	private MissingTagsService missingTagsService;
+
     @Override
     protected String getServicePath() {
         return "/qpe/getTagPosition";
@@ -31,7 +34,11 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
 
     @Override
     public List<Tag> getAllTags() {
-        return getServiceResult();
+		List<Tag> realTags = getServiceResult();
+		List<Tag> result = new ArrayList<>();
+		result.addAll(realTags);
+		result.addAll(missingTagsService.createVirtualTags(realTags));
+        return result;
     }
 
 	@Override
@@ -60,7 +67,8 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
                             node.get("smoothedPositionY").asDouble(),
                             node.get("smoothedPositionZ").asDouble()
                             ))
-                    .build();
+                    .inside(true)
+					.build();
             tags.add(t);
         }
         return tags;

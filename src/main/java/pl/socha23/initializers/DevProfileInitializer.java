@@ -133,7 +133,7 @@ public class DevProfileInitializer implements CommandLineRunner {
                         .evacuationNotes("Nie łapać za ostrze")
                         .identificationNotes("Miecz")
                         .images(createImages("szczerbiec1.jpg"))
-        );
+		);
     }
 
     private List<ImageRef> createImages(String ... filenames) {
