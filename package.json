@@ -9,6 +9,10 @@
     "bundle-prod": "webpack --config webpack.config.prod.js",
     "test": "jest"
   },
+  "jest": {
+    "verbose": true,
+    "modulePaths": ["<rootDir>/src/main/js/", "<rootDir>/src/test/js/"]
+  },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-preset-stage-2": "^6.24.1",

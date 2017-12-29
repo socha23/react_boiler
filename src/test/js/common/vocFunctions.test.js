@@ -1,4 +1,4 @@
-import {find} from './vocFunctions'
+import {find} from 'common/vocFunctions'
 
 const VOC = [
     {id: "foo"},
