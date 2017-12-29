@@ -34,7 +34,8 @@ const Line = ({fromX, fromY, toX, toY, style=STYLE_DEFAULT}) => {
     let dY = toY - fromY;
     let len = Math.sqrt(dX * dX + dY * dY);
 
-    var angle = Math.PI - Math.atan2(dY, -dX);
+    let angle = Math.PI - Math.atan2(dY, -dX);
+
 
     return <div><div className={style.className} style={{
         ...style.style,
