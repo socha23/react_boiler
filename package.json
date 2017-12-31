@@ -11,11 +11,15 @@
   },
   "jest": {
     "verbose": true,
-    "modulePaths": ["<rootDir>/src/main/js/", "<rootDir>/src/test/js/"]
+    "modulePaths": [
+      "<rootDir>/src/main/js/",
+      "<rootDir>/src/test/js/"
+    ]
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-preset-stage-2": "^6.24.1",
+    "deep-equal": "^1.0.1",
     "google-map-react": "^0.25.0",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",

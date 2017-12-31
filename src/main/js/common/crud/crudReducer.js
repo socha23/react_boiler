@@ -1,5 +1,6 @@
 import restActionNames from './crudActionNames'
 import {indexById} from '../resourceFunctions'
+import deepEqual from 'deep-equal'
 
 export default function restReducer(resource) {
 
@@ -9,6 +10,7 @@ export default function restReducer(resource) {
         isFetching: false,
         isCreating: false,
         items: [],
+        itemsById: {},
         itemsTimestamp: null
     }, action = null) {
         switch (action.type) {
@@ -21,8 +23,8 @@ export default function restReducer(resource) {
                 return {
                     ...state,
                     isFetching: false,
-                    items: action.items,
-                    itemsById: indexById(action.items),
+                    items: updateList(state.items, state.itemsById, action.items),
+                    itemsById: updateIndex(state.items, state.itemsById, action.items),
                     itemsTimestamp: new Date()
                 };
             case ActionNames.REQUEST_CREATE:
@@ -48,5 +50,26 @@ export default function restReducer(resource) {
         }
     }
 }
+
+
+function updateList(oldList = [], oldById = {}, newList) {
+    if (deepEqual(oldList, newList)) {
+        return oldList;
+    } else {
+        return newList.map(item => deepEqual(item, oldById[item.id]) ? oldById[item.id] : item);
+    }
+}
+
+function updateIndex(oldList = [], oldIdx = {}, newList) {
+    if (deepEqual(oldList, newList)) {
+        return oldIdx;
+    }
+    const result = {};
+    newList.forEach(item => {
+        result[item.id] = deepEqual(item, oldIdx[item.id]) ? oldIdx[item.id] : item;
+    });
+return result;
+}
+
 
 
