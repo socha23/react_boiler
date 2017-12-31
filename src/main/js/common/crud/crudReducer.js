@@ -1,5 +1,4 @@
 import restActionNames from './crudActionNames'
-import {indexById} from '../resourceFunctions'
 import deepEqual from 'deep-equal'
 
 export default function restReducer(resource) {
