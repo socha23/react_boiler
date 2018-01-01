@@ -2,12 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Slider from 'react-rangeslider'
 
+import contextPath from '../common/contextPath'
 import {crudActions} from '../common/crud/crudContainers'
 import {tagDescriptionsByTagId, tagColorsByTagId} from '../tags/tagHelpers'
 
 import AreaChooser from './AreaChooser'
 
-class TagRow extends React.Component {
+export class TagRowComponent extends React.Component {
     static defaultProps = {
         tag: {},
         color: "",
@@ -18,8 +19,8 @@ class TagRow extends React.Component {
     };
 
     state = {
-        x: this.props.tag.position.x,
-        y: this.props.tag.position.y,
+        x: this.props.tag.position ? this.props.tag.position.x : 0,
+        y: this.props.tag.position ? this.props.tag.position.y : 0,
         areaName: this.props.tag.areaName
     };
 
@@ -74,7 +75,7 @@ class TagRow extends React.Component {
             ...changes,
             _links: {
                 self: {
-                    href: CONTEXT_PATH + "/api/tags/" + oldTag.id
+                    href: contextPath() + "/api/tags/" + oldTag.id
                 }
             }
         };
@@ -107,4 +108,4 @@ const mapStateToProps = (state, ownProps) => ({
     floorPlan: state.floorPlans.items.find(fp => fp.id == ownProps.tag.coordinateSystemId)
 });
 
-export default crudActions("tags", (connect(mapStateToProps)(TagRow)));
+export default crudActions("tags", (connect(mapStateToProps)(TagRowComponent)));

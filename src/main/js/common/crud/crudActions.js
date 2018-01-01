@@ -1,8 +1,9 @@
 import fetch from 'isomorphic-fetch'
 import {growl} from '../growl'
 import restActionNames from './crudActionNames'
+import contextPath from '../contextPath'
 
-const API_PATH = (global.CONTEXT_PATH || "" )+ "/api/";
+const API_PATH = contextPath() + "/api/";
 
 export default function restActions(resource) {
 
