@@ -21,15 +21,32 @@ export class TagRowComponent extends React.Component {
     state = {
         x: this.props.tag.position ? this.props.tag.position.x : 0,
         y: this.props.tag.position ? this.props.tag.position.y : 0,
+        missing: this.props.tag.missing || false,
+        inside: this.props.tag.inside || false,
         areaName: this.props.tag.areaName
     };
 
-    onChangeArea = ({areaName, areaId, coordinateSystemId}) => {
+    onChangeArea = ({areaName, areaId, coordinateSystemId, coordinateSystemName}) => {
         this.setState({areaName: areaName});
         this.sendUpdate({
             areaId: areaId,
             areaName: areaName,
-            coordinateSystemId: coordinateSystemId
+            coordinateSystemId: coordinateSystemId,
+            coordinateSystemName: coordinateSystemName
+        });
+    };
+
+    onChangeMissing = (missing) => {
+        this.setState({missing: missing});
+        this.sendUpdate({
+            missing: missing
+        });
+    };
+
+    onChangeInside = (inside) => {
+        this.setState({inside: inside});
+        this.sendUpdate({
+            inside: inside
         });
     };
 
@@ -102,6 +119,20 @@ export class TagRowComponent extends React.Component {
             </td>
             <td>
                 <AreaChooser value={this.getAreaChooserValue()} onChange={this.onChangeArea}/>
+            </td>
+            <td>
+                <div className="checkbox">
+                    <label>
+                        <input type="checkbox" checked={this.state.missing} onChange={e => this.onChangeMissing(e.target.checked)}/>
+                        missing
+                    </label>
+                </div>
+                <div className="checkbox">
+                    <label>
+                        <input type="checkbox" checked={this.state.inside} onChange={e => this.onChangeInside(e.target.checked)}/>
+                        inside
+                    </label>
+                </div>
             </td>
         </tr>
     };
