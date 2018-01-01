@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Tag {
 
+    public enum State {MISSING, INSIDE}
+
     private String id;
     private String name;
     private String color;
@@ -23,6 +25,5 @@ public class Tag {
 
     private Position position;
 
-	private boolean missing = false;
-	private boolean inside;
+	private State state = State.INSIDE;
 }

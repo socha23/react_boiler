@@ -38,7 +38,7 @@ public class MockTagsService implements ITagsService {
 
             tags.add(Tag.builder().id("tag_" + i).name("Znacznik #" + i).color(randomColor()).coordinateSystemId(floor.getId())
 							.coordinateSystemName(floor.getName()).areaId(area.getId()).areaName(area.getName())
-							.position(randomPositionOnTopLeftQuadrant(floor)).inside(true).build());
+							.position(randomPositionOnTopLeftQuadrant(floor)).state(Tag.State.INSIDE).build());
         }
     }
 

@@ -4,10 +4,10 @@ import {connect} from 'react-redux'
 
 import MissingTag from '../tags/MissingTag'
 import {artifactLocator} from "../tags/locatorHelpers"
-import {artifactTag} from "../tags/tagHelpers"
+import {artifactTag, isMissing} from "../tags/tagHelpers"
 
 const ArtifactTagLocation = ({tag, history}) => <span>
-    {tag.missing ? <MissingTag/> :
+    {isMissing(tag) ? <MissingTag/> :
             <a
                     style={{cursor: "pointer"}}
                     onClick={e => {e.stopPropagation(); history.push("/maps/" + tag.coordinateSystemId + "/" + tag.id)}}

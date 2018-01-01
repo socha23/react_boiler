@@ -4,7 +4,7 @@ import Slider from 'react-rangeslider'
 
 import contextPath from '../common/contextPath'
 import {crudActions} from '../common/crud/crudContainers'
-import {tagDescriptionsByTagId, tagColorsByTagId} from '../tags/tagHelpers'
+import {tagDescriptionsByTagId, tagColorsByTagId, STATE_MISSING, STATE_INSIDE} from '../tags/tagHelpers'
 
 import AreaChooser from './AreaChooser'
 
@@ -21,8 +21,7 @@ export class TagRowComponent extends React.Component {
     state = {
         x: this.props.tag.position ? this.props.tag.position.x : 0,
         y: this.props.tag.position ? this.props.tag.position.y : 0,
-        missing: this.props.tag.missing || false,
-        inside: this.props.tag.inside || false,
+        tagState: this.props.tag.state || STATE_MISSING,
         areaName: this.props.tag.areaName
     };
 
@@ -36,17 +35,10 @@ export class TagRowComponent extends React.Component {
         });
     };
 
-    onChangeMissing = (missing) => {
-        this.setState({missing: missing});
+    onChangeTagState = (tagState) => {
+        this.setState({tagState: tagState});
         this.sendUpdate({
-            missing: missing
-        });
-    };
-
-    onChangeInside = (inside) => {
-        this.setState({inside: inside});
-        this.sendUpdate({
-            inside: inside
+            state: tagState
         });
     };
 
@@ -70,8 +62,6 @@ export class TagRowComponent extends React.Component {
         let from = fp.topLeft[field];
         let to = fp.bottomRight[field];
 
-        //console.log("stp: v", val, "f", field, "res", (from + (val / 100) * (to - from)));
-
         return (from + (val / 100) * (to - from));
     };
 
@@ -79,8 +69,6 @@ export class TagRowComponent extends React.Component {
         let fp = this.props.floorPlan;
         let from = fp.topLeft[field];
         let to = fp.bottomRight[field];
-
-        //console.log("pts: v", val, "f", field, "res", (val - from) / (to - from) * 100);
 
         return (val - from) / (to - from) * 100;
 
@@ -121,16 +109,22 @@ export class TagRowComponent extends React.Component {
                 <AreaChooser value={this.getAreaChooserValue()} onChange={this.onChangeArea}/>
             </td>
             <td>
-                <div className="checkbox">
+                <div className="radio">
                     <label>
-                        <input type="checkbox" checked={this.state.missing} onChange={e => this.onChangeMissing(e.target.checked)}/>
-                        missing
+                        <input type="radio"
+                               value={STATE_MISSING}
+                               checked={this.state.tagState == STATE_MISSING}
+                               onChange={e => this.onChangeTagState(e.target.value)}/>
+                        Missing
                     </label>
                 </div>
-                <div className="checkbox">
+                <div className="radio">
                     <label>
-                        <input type="checkbox" checked={this.state.inside} onChange={e => this.onChangeInside(e.target.checked)}/>
-                        inside
+                        <input type="radio"
+                               value={STATE_INSIDE}
+                               checked={this.state.tagState == STATE_INSIDE}
+                               onChange={e => this.onChangeTagState(e.target.value)}/>
+                        Inside
                     </label>
                 </div>
             </td>

@@ -2,15 +2,16 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 
+import {isMissing, isInside} from './tagHelpers'
 import TagAreaName from './TagAreaName'
 import MissingTag from './MissingTag'
 
 const TagValue = ({tag, history, link = false, inline = false}) => {
-    if (tag.missing) {
+    if (isMissing(tag)) {
         return <MissingTag tag={tag}/>
     }
     let tagName = tag.name;
-    if (tag.inside && link) {
+    if (isInside(tag) && link) {
         tagName = <a
                 style={{cursor: "pointer"}}
                 onClick={e => {e.stopPropagation(); history.push("/maps/" + tag.coordinateSystemId + "/" + tag.id)}}

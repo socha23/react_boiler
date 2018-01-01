@@ -85,8 +85,7 @@ class MissingTagsServiceSpec extends Specification {
 
     def "virtual tag is virtual and not inside"() {
         expect:
-        sampleVirtualTag.missing
-        !sampleVirtualTag.inside
+        sampleVirtualTag.state == Tag.State.MISSING
     }
 
     //////////////////////////////////////////////////////////////////////////

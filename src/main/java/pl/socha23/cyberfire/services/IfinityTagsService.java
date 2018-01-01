@@ -67,7 +67,7 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
                             node.get("smoothedPositionY").asDouble(),
                             node.get("smoothedPositionZ").asDouble()
                             ))
-                    .inside(true)
+                    .state(Tag.State.INSIDE)
 					.build();
             tags.add(t);
         }

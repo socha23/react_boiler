@@ -3,6 +3,7 @@ import React from 'react'
 import {renderWithProvider} from '../testUtils'
 
 import {TagRowComponent} from 'testDashboard/TagRow'
+import {STATE_MISSING, STATE_INSIDE} from 'tags/tagHelpers'
 
 
 test('renders correctly for a tag without position', () => {
@@ -36,47 +37,26 @@ test('onChangeArea updates areaName, areaId, coordinateSystemId and coordinateSy
 });
 
 
-test('state attribute "missing" taken from tag', () => {
-    let component = tagRow({id: "id", missing: true});
 
-    expect(component.state.missing).toEqual(true)
+test('state attribute "state" taken from tag', () => {
+    let component = tagRow({id: "id", state: STATE_INSIDE});
+
+    expect(component.state.tagState).toEqual(STATE_INSIDE)
 });
 
-test('state attribute "missing" false by default', () => {
+test('state attribute "state" missing by default', () => {
     let component = tagRow({id: "id"});
 
-    expect(component.state.missing).toEqual(false)
+    expect(component.state.tagState).toEqual(STATE_MISSING)
 });
 
-test('onChangeMissing updates missing', () => {
-    let component = tagRow({id: "id"});
-    component.sendUpdate = jest.fn();
-
-    component.onChangeMissing(true);
-
-    expect(component.sendUpdate.mock.calls[0][0]).toEqual({missing: true});
-});
-
-
-test('state attribute "inside" taken from tag', () => {
-    let component = tagRow({id: "id", inside: true});
-
-    expect(component.state.inside).toEqual(true)
-});
-
-test('state attribute "inside" false by default', () => {
-    let component = tagRow({id: "id"});
-
-    expect(component.state.inside).toEqual(false)
-});
-
-test('onChangeInside updates inside', () => {
+test('onChangeState updates state', () => {
     let component = tagRow({id: "id"});
     component.sendUpdate = jest.fn();
 
-    component.onChangeInside(true);
+    component.onChangeTagState(STATE_INSIDE);
 
-    expect(component.sendUpdate.mock.calls[0][0]).toEqual({inside: true});
+    expect(component.sendUpdate.mock.calls[0][0]).toEqual({state: STATE_INSIDE});
 });
 
 

@@ -1,4 +1,4 @@
-function artifactsByTagId(artifacts) {
+export function artifactsByTagId(artifacts) {
     if (!artifacts) {
         return {};
     }
@@ -11,7 +11,7 @@ function artifactsByTagId(artifacts) {
     return result;
 }
 
-function availableTags(itemLists, tags, forItem) {
+export function availableTags(itemLists, tags, forItem) {
     if (!itemLists || !tags) {
         return [];
     }
@@ -26,7 +26,7 @@ function availableTags(itemLists, tags, forItem) {
     return tags.filter(t => !usedTagIds[t.id]);
 }
 
-function getTagById(tags, id) {
+export function getTagById(tags, id) {
     if (!tags || !id) {
         return null;
     }
@@ -38,11 +38,11 @@ function getTagById(tags, id) {
     return null;
 }
 
-function artifactTag(tags, artifact) {
+export function artifactTag(tags, artifact) {
     return getTagById(tags, artifact.tagId);
 }
 
-function tagDescriptionsByTagId(tags=[], artifacts=[], fireteams=[]) {
+export function tagDescriptionsByTagId(tags=[], artifacts=[], fireteams=[]) {
     let result = {};
     tags.forEach(t => {result[t.id] = t.name});
     artifacts.forEach(a => {result[a.tagId] = a.name});
@@ -50,7 +50,7 @@ function tagDescriptionsByTagId(tags=[], artifacts=[], fireteams=[]) {
     return result;
 }
 
-function tagColorsByTagId(tags=[], artifacts=[], fireteams=[]) {
+export function tagColorsByTagId(tags=[], artifacts=[], fireteams=[]) {
     let result = {};
     tags.forEach(t => {result[t.id] = "#5bc0de"});
     artifacts.forEach(a => {result[a.tagId] = "#337ab7"});
@@ -58,7 +58,7 @@ function tagColorsByTagId(tags=[], artifacts=[], fireteams=[]) {
     return result;
 }
 
-function tagTypeByTagId(tags=[], artifacts=[], fireteams=[]) {
+export function tagTypeByTagId(tags=[], artifacts=[], fireteams=[]) {
     let result = {};
     tags.forEach(t => {result[t.id] = "navigation"});
     artifacts.forEach(a => {result[a.tagId] = "artifact"});
@@ -67,12 +67,14 @@ function tagTypeByTagId(tags=[], artifacts=[], fireteams=[]) {
 }
 
 
-module.exports = {
-    artifactsByTagId,
-    availableTags,
-    getTagById,
-    artifactTag,
-    tagDescriptionsByTagId,
-    tagColorsByTagId,
-    tagTypeByTagId
-};
+export const STATE_MISSING = "MISSING";
+export const STATE_INSIDE = "INSIDE";
+
+export function isMissing(tag) {
+    return tag.state == STATE_MISSING
+}
+
+export function isInside(tag) {
+    return tag.state == STATE_INSIDE
+}
+

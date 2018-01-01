@@ -86,8 +86,7 @@ public class MissingTagsService {
 		return Tag.builder()
 				.id(id)
 				.name(id)
-				.missing(true)
-				.inside(false)
+				.state(Tag.State.MISSING)
 				.build();
 	}
 
