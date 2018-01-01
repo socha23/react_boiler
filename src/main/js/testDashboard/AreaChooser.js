@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
     if (state.floorPlans && state.floorPlans.items) {
         state.floorPlans.items.forEach(fp => {
             fp.areas.forEach(a => {
-                let newArea = {areaName: a.name, coordinateSystemId: fp.id};
+                let newArea = {areaName: a.name, areaId: a.id, coordinateSystemId: fp.id};
                 areas.push(newArea);
                 areasByName[newArea.areaName] = newArea;
             });

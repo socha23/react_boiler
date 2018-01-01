@@ -30,7 +30,7 @@ public class MockTagsService implements ITagsService {
 
 
     @PostConstruct
-    private void createSampleTags() {
+    protected void createSampleTags() {
         for (int i = 1; i <= 20; i++) {
 
             FloorPlan floor = randomFloor();
@@ -95,12 +95,14 @@ public class MockTagsService implements ITagsService {
 
 
 	@Override
-	public Tag update(Tag tag) {
+	public Tag updateOrCreate(Tag tag) {
 		for (int i = 0; i < tags.size(); i++) {
 			if (tag.getId().equals(tags.get(i).getId())) {
 				tags.set(i, tag);
+                return tag;
 			}
 		}
+        tags.add(tag);
 		return tag;
 	}
 }

@@ -42,8 +42,8 @@ public class IfinityTagsService extends AbstractIfinityIntegrationService<List<T
     }
 
 	@Override
-	public Tag update(Tag tag) {
-		throw new RuntimeException("Can't update tags read from Ifinity webservice");
+	public Tag updateOrCreate(Tag tag) {
+		throw new RuntimeException("Can't updateOrCreate tags read from Ifinity webservice");
 	}
 
 	@Override

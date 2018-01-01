@@ -24,9 +24,10 @@ export class TagRowComponent extends React.Component {
         areaName: this.props.tag.areaName
     };
 
-    onChangeAreaNameAndCoordId = ({areaName, coordinateSystemId}) => {
+    onChangeArea = ({areaName, areaId, coordinateSystemId}) => {
         this.setState({areaName: areaName});
         this.sendUpdate({
+            areaId: areaId,
             areaName: areaName,
             coordinateSystemId: coordinateSystemId
         });
@@ -82,6 +83,10 @@ export class TagRowComponent extends React.Component {
         this.props.onUpdate(newTag);
     };
 
+    getAreaChooserValue = () => {
+        return this.state.areaName || ""
+    };
+
     render = () => {
         return <tr>
             <td>
@@ -96,7 +101,7 @@ export class TagRowComponent extends React.Component {
                 <Slider value={this.posToSlider(this.state.y, "y")} onChange={this.onChangeY}/>
             </td>
             <td>
-                <AreaChooser value={this.state.areaName} onChange={this.onChangeAreaNameAndCoordId}/>
+                <AreaChooser value={this.getAreaChooserValue()} onChange={this.onChangeArea}/>
             </td>
         </tr>
     };

@@ -23,7 +23,7 @@ public class TagsController {
 
 	@PutMapping("/api/" + RESOURCE_NAME + "/{id}")
 	public Tag update(@PathVariable("id") String id, @RequestBody Tag tag) {
-		return tagsService.update(tag);
+		return tagsService.updateOrCreate(tag);
 	}
 
 }

@@ -8,5 +8,5 @@ public interface ITagsService {
 
     List<Tag> getAllTags();
 
-	Tag update(Tag tag);
+	Tag updateOrCreate(Tag tag);
 }

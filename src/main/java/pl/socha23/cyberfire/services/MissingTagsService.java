@@ -9,6 +9,7 @@ import pl.socha23.cyberfire.repositories.ArtifactRepository;
 import pl.socha23.cyberfire.repositories.FireteamRepository;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
@@ -64,6 +65,9 @@ public class MissingTagsService {
 	}
 
 	private <T> Collection<String> getIds(Collection<T> items, Function<T, String> getId) {
+		if (items == null) {
+			return Collections.emptyList();
+		}
 		return items.stream()
 				.map(getId)
 				.filter(a -> a != null)
