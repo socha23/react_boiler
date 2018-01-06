@@ -10,39 +10,33 @@ import TabPanel, {STYLE_LG} from '../common/components/TabPanel'
 import {Priority} from '../artifacts/ArtifactVocs'
 import TagAreaName from '../tags/TagAreaName'
 
-const FireteamTargetChooser = ({
-        artifacts = [],
-        fireteams = [],
-        tags = [],
-        tagsById = {},
-        selected = {},
-        onSelect = () => {
-        },
-        additionalMargin = 0
-        }) => {
-    let activeTab = 0;
+function findActiveTab(selected, artifacts = [], fireteams = []) {
     if (selected && selected.id) {
         if (artifacts.find(a => a.tagId == selected.id)) {
-            activeTab = 0;
+            return 0;
         } else if (fireteams.find(f => f.tagId == selected.id)) {
-            activeTab = 1;
+            return 1;
         } else {
-            activeTab = 2;
+            return 2;
         }
+    } else {
+        return 0;
     }
+}
+
+const FireteamTargetChooser = ({artifacts, fireteams, tags, selected, onSelect, additionalMargin = 0}) => {
 
     return <TabPanel
             heightExpander={true}
             additionalMargin={additionalMargin}
             padding={0}
             tabStyle={STYLE_LG}
-            activeTab={activeTab}
+            activeTab={findActiveTab(selected, artifacts, fireteams)}
             tabs={[
         {
             label: "Muzealia",
             body: <ArtifactChooser
                     items={artifacts}
-                    tagsById={tagsById}
                     selectedTag={selected}
                     onSelectTag={onSelect}
                 />
@@ -51,7 +45,6 @@ const FireteamTargetChooser = ({
             label: "Roty",
             body: <FireteamChooser
                     items={fireteams}
-                    tagsById={tagsById}
                     selectedTag={selected}
                     onSelectTag={onSelect}
                 />
@@ -60,7 +53,6 @@ const FireteamTargetChooser = ({
             label: "Nawigacja",
             body: <NavPointChooser
                     items={navPoints(tags, artifacts, fireteams)}
-                    tagsById={tagsById}
                     selectedTag={selected}
                     onSelectTag={onSelect}
                 />
@@ -68,6 +60,18 @@ const FireteamTargetChooser = ({
 
     ]}/>
 };
+
+const mapStateToProps = (state) => ({
+    artifacts: (state.artifacts.items || []).filter(a => artifactNeedsToBeRescued(a, state.tags.itemsById)),
+    fireteams: state.fireteams.items || [],
+    tags: state.tags.items || []
+});
+
+function artifactNeedsToBeRescued(artifact, tagsById) {
+    return artifact.tagId && tagsById[artifact.tagId];
+}
+
+export default connect(mapStateToProps)(FireteamTargetChooser);
 
 const ArtifactChooser = (props) => <TargetChooser {...props} elem={ArtifactTarget}/>;
 
@@ -168,6 +172,10 @@ class TargetChooser extends React.Component {
     </table>;
 }
 
+TargetChooser = connect((state) => ({
+    tagsById: state.tags.itemsById
+}))(TargetChooser);
+
 
 const Target = ({children}) => <div style={{
     paddingTop: 5,
@@ -185,27 +193,11 @@ let CommonTargetData = ({tag, fireteams}) => <div>
     )}
 </div>;
 
-const ctdMapStateToProps = (state) => ({
+CommonTargetData = connect((state) => ({
     fireteams: state.fireteams.items
-});
-
-CommonTargetData = connect(ctdMapStateToProps)(CommonTargetData);
+}))(CommonTargetData);
 
 
 function assignedFireteams(fireteams, tagId) {
     return fireteams.filter(f => f.targetTagId == tagId)
 }
-
-
-const mapStateToProps = (state) => ({
-    artifacts: (state.artifacts.items || []).filter(a => artifactNeedsToBeRescued(a, state.tags.itemsById)),
-    fireteams: state.fireteams.items || [],
-    tags: state.tags.items || [],
-    tagsById: state.tags.itemsById || {}
-});
-
-function artifactNeedsToBeRescued(artifact, tagsById) {
-    return artifact.tagId && tagsById[artifact.tagId];
-}
-
-export default connect(mapStateToProps)(FireteamTargetChooser);

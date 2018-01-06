@@ -1,0 +1,325 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <nav>
+    <ul
+      style={
+        Object {
+          "listStyleType": "none",
+          "marginBottom": 0,
+          "paddingLeft": 15,
+        }
+      }
+    >
+      <li
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "white",
+            "border": "1px solid #ddd",
+            "borderBottom": "1px solid white",
+            "borderTopLeftRadius": 4,
+            "borderTopRightRadius": 4,
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontSize": 18,
+            "padding": "10px 16px 6px 16px",
+            "position": "relative",
+            "top": 1,
+          }
+        }
+      >
+        <a>
+          Muzealia
+        </a>
+      </li>
+      <li
+        onClick={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontSize": 18,
+            "padding": "10px 16px 6px 16px",
+            "position": "relative",
+            "top": 1,
+          }
+        }
+      >
+        <a>
+          Roty
+        </a>
+      </li>
+      <li
+        onClick={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontSize": 18,
+            "padding": "10px 16px 6px 16px",
+            "position": "relative",
+            "top": 1,
+          }
+        }
+      >
+        <a>
+          Nawigacja
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    className="panel panel-default"
+  >
+    <div
+      className="panel-body"
+      style={
+        Object {
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflowY": "auto",
+          }
+        }
+      >
+        <table
+          className="table table-hover table-pointer table-noTopPadding"
+        >
+          <tbody>
+            <tr
+              className=""
+              onClick={[Function]}
+            >
+              <td>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "paddingBottom": 5,
+                      "paddingTop": 5,
+                    }
+                  }
+                >
+                  <span
+                    className="vocIcon iconWithName"
+                    title="Niski"
+                  >
+                    
+                    <span
+                      className="badge"
+                    >
+                      1
+                    </span>
+                  </span>
+                  <div
+                    style={
+                      Object {
+                        "flex": 1,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "fontSize": 20,
+                        }
+                      }
+                    />
+                    <div>
+                      <small
+                        style={
+                          Object {
+                            "color": "#AAA",
+                            "fontSize": 16,
+                          }
+                        }
+                      >
+                        inside
+                      </small>
+                      <span
+                        className="label label-success"
+                        style={
+                          Object {
+                            "fontSize": 16,
+                            "marginLeft": 10,
+                          }
+                        }
+                      >
+                        fireteam
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              className=""
+              onClick={[Function]}
+            >
+              <td>
+                <div
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "paddingBottom": 5,
+                      "paddingTop": 5,
+                    }
+                  }
+                >
+                  <span
+                    className="vocIcon iconWithName"
+                    title="Niski"
+                  >
+                    
+                    <span
+                      className="badge"
+                    >
+                      1
+                    </span>
+                  </span>
+                  <div
+                    style={
+                      Object {
+                        "flex": 1,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "fontSize": 20,
+                        }
+                      }
+                    />
+                    <div>
+                      <small
+                        style={
+                          Object {
+                            "color": "#AAA",
+                            "fontSize": 16,
+                          }
+                        }
+                      >
+                        inside
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders correctly when state empty 1`] = `
+<div>
+  <nav>
+    <ul
+      style={
+        Object {
+          "listStyleType": "none",
+          "marginBottom": 0,
+          "paddingLeft": 15,
+        }
+      }
+    >
+      <li
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "white",
+            "border": "1px solid #ddd",
+            "borderBottom": "1px solid white",
+            "borderTopLeftRadius": 4,
+            "borderTopRightRadius": 4,
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontSize": 18,
+            "padding": "10px 16px 6px 16px",
+            "position": "relative",
+            "top": 1,
+          }
+        }
+      >
+        <a>
+          Muzealia
+        </a>
+      </li>
+      <li
+        onClick={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontSize": 18,
+            "padding": "10px 16px 6px 16px",
+            "position": "relative",
+            "top": 1,
+          }
+        }
+      >
+        <a>
+          Roty
+        </a>
+      </li>
+      <li
+        onClick={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+            "display": "inline-block",
+            "fontSize": 18,
+            "padding": "10px 16px 6px 16px",
+            "position": "relative",
+            "top": 1,
+          }
+        }
+      >
+        <a>
+          Nawigacja
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    className="panel panel-default"
+  >
+    <div
+      className="panel-body"
+      style={
+        Object {
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "height": 0,
+            "overflowY": "auto",
+          }
+        }
+      >
+        <table
+          className="table table-hover table-pointer table-noTopPadding"
+        >
+          <tbody />
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
