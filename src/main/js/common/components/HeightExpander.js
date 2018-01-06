@@ -11,6 +11,10 @@ class HeightExpander extends React.Component {
 
 
     guessHeight = () => {
+        if (!global.$) {
+            return 0;
+        }
+
         if (!this.elem) {
             return $(window).height() - EXPECTED_TOP - MARGIN - this.props.additionalMargin;
         } else {

@@ -206,9 +206,12 @@ function assignedFireteams(fireteams, tagId) {
     return fireteams.filter(f => f.targetTagId == tagId)
 }
 
-const mapStateToProps = (state, {artifacts = []}) => ({
-    artifacts: artifacts.filter(a => artifactNeedsToBeRescued(a, state.tags.itemsById)),
-    tagsById: state.tags.itemsById
+
+const mapStateToProps = (state) => ({
+    artifacts: (state.artifacts.items || []).filter(a => artifactNeedsToBeRescued(a, state.tags.itemsById)),
+    fireteams: state.fireteams.items || [],
+    tags: state.tags.items || [],
+    tagsById: state.tags.itemsById || {}
 });
 
 function artifactNeedsToBeRescued(artifact, tagsById) {

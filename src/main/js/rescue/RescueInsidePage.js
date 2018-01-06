@@ -20,9 +20,6 @@ const RescueInsidePage = ({
         <div className="row">
             <div className="col-sm-3 colWithSmallerGutter">
                 <FireteamTargetChooser
-                    tags={tags}
-                    artifacts={artifacts}
-                    fireteams={fireteams}
                     selected={selectedTargetTag}
                     onSelect={onSelectTargetTag}
                     additionalMargin={LOWER_ROW_HEIGHT}

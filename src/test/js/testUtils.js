@@ -9,6 +9,13 @@ function testSnapshot(elem) {
     }
 }
 
+function testSnapshotWithProvider(elem, state = {}) {
+    return () => {
+        expect(renderWithProvider(elem, state).toJSON()).toMatchSnapshot();
+    }
+}
+
+
 function expectElementToContainText(elem, text) {
     return () => {
         let json = renderer.create(elem).toJSON();
@@ -43,6 +50,7 @@ function renderWithProvider(elem, state = {}) {
 
 module.exports = {
     testSnapshot,
+    testSnapshotWithProvider,
     getStore,
     renderWithProvider,
     expectElementToContainText
