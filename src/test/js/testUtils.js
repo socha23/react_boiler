@@ -3,27 +3,35 @@ import renderer from 'react-test-renderer'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-function testSnapshot(elem) {
+export function testSnapshot(elem) {
     return () => {
         expect(renderer.create(elem).toJSON()).toMatchSnapshot();
     }
 }
 
-function testSnapshotWithProvider(elem, state = {}) {
+export function testSnapshotWithProvider(elem, state = {}) {
     return () => {
         expect(renderWithProvider(elem, state).toJSON()).toMatchSnapshot();
     }
 }
 
 
-function expectElementToContainText(elem, text) {
+export function expectElementToContainText(elem, text) {
     return () => {
         let json = renderer.create(elem).toJSON();
         expect(doExpectElementToContainText(json, text)).toBe(true);
     }
 }
 
-function doExpectElementToContainText(obj, text) {
+export function expectElementWithProviderToContainText(elem, state, text) {
+    return () => {
+        let json = renderWithProvider(elem, state).toJSON();
+        expect(doExpectElementToContainText(json, text)).toBe(true);
+    }
+}
+
+
+export function doExpectElementToContainText(obj, text) {
     if (typeof obj == "string") {
         return obj.indexOf(text) >= 0;
     } else if (obj.children) {
@@ -36,22 +44,14 @@ function doExpectElementToContainText(obj, text) {
     return false;
 }
 
-function getStore(initialState) {
+export function getStore(initialState) {
     return createStore((state, action) => state, initialState);
 }
 
-function renderWithProvider(elem, state = {}) {
+export function renderWithProvider(elem, state = {}) {
     return renderer.create(
         <Provider store={getStore(state)}>
             {elem}
         </Provider>
     )
 }
-
-module.exports = {
-    testSnapshot,
-    testSnapshotWithProvider,
-    getStore,
-    renderWithProvider,
-    expectElementToContainText
-};

@@ -1,5 +1,5 @@
 import React from 'react'
-import {testSnapshotWithProvider} from '../testUtils'
+import {testSnapshotWithProvider, expectElementWithProviderToContainText} from '../testUtils'
 
 import FireteamTargetChooser from 'rescue/FireteamTargetChooser'
 
@@ -33,20 +33,20 @@ const FT = {
 
 const A_1 = {
     id: "A_1",
+    name: "artifact_1",
     priority: "P1_LOW",
     tagId: T_2.id
 };
 const A_2 = {
     id: "A_2",
+    name: "artifact_2",
     priority: "P1_LOW",
     tagId: T_3.id
 };
 
 
 
-
-it('renders correctly', testSnapshotWithProvider(
-    <FireteamTargetChooser/>, {
+const STATE = {
         tags: {
             items: [T_1, T_2, T_3, T_4],
             itemsById: {T_1: T_1, T_2: T_2, T_3: T_3, T_4: T_4}
@@ -59,8 +59,10 @@ it('renders correctly', testSnapshotWithProvider(
             items: [FT],
             itemsById: {FT: FT}
         }
-    }
-));
+    };
+
+
+it('renders correctly', testSnapshotWithProvider(<FireteamTargetChooser/>, STATE));
 
 it('renders correctly when state empty', testSnapshotWithProvider(
     <FireteamTargetChooser/>, {
@@ -68,4 +70,8 @@ it('renders correctly when state empty', testSnapshotWithProvider(
         artifacts: {},
         fireteams: {}
     }
+));
+
+it('shows artifact inside', expectElementWithProviderToContainText(
+    <FireteamTargetChooser/>, STATE, "artifact_1"
 ));

@@ -1,4 +1,4 @@
-function indexById(items = []) {
+export function indexById(items = []) {
     let result = {};
     items.forEach(i => {
        result[i.id] = i;
@@ -6,6 +6,3 @@ function indexById(items = []) {
     return result;
 }
 
-module.exports = {
-    indexById
-};

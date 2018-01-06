@@ -132,7 +132,9 @@ exports[`renders correctly 1`] = `
                           "fontSize": 20,
                         }
                       }
-                    />
+                    >
+                      artifact_1
+                    </span>
                     <div>
                       <small
                         style={
@@ -199,7 +201,9 @@ exports[`renders correctly 1`] = `
                           "fontSize": 20,
                         }
                       }
-                    />
+                    >
+                      artifact_2
+                    </span>
                     <div>
                       <small
                         style={

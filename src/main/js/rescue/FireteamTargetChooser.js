@@ -8,7 +8,12 @@ import VocIcon from '../common/components/VocIcon'
 import TabPanel, {STYLE_LG} from '../common/components/TabPanel'
 
 import {Priority} from '../artifacts/ArtifactVocs'
+import {getArtifactsInside} from '../artifacts/selectors'
+import {getAllFireteams, getFireteamsAssignedTo} from '../fireteams/selectors'
+import {getTagsById} from '../tags/selectors'
 import TagAreaName from '../tags/TagAreaName'
+
+import {getNavPoints} from './selectors'
 
 function findActiveTab(selected, artifacts = [], fireteams = []) {
     if (selected && selected.id) {
@@ -24,15 +29,15 @@ function findActiveTab(selected, artifacts = [], fireteams = []) {
     }
 }
 
-const FireteamTargetChooser = ({artifacts, fireteams, tags, selected, onSelect, additionalMargin = 0}) => {
+const FireteamTargetChooser = ({artifacts, fireteams, navPoints, selected, onSelect, additionalMargin = 0}) => {
 
     return <TabPanel
-            heightExpander={true}
-            additionalMargin={additionalMargin}
-            padding={0}
-            tabStyle={STYLE_LG}
-            activeTab={findActiveTab(selected, artifacts, fireteams)}
-            tabs={[
+        heightExpander={true}
+        additionalMargin={additionalMargin}
+        padding={0}
+        tabStyle={STYLE_LG}
+        activeTab={findActiveTab(selected, artifacts, fireteams)}
+        tabs={[
         {
             label: "Muzealia",
             body: <ArtifactChooser
@@ -52,7 +57,7 @@ const FireteamTargetChooser = ({artifacts, fireteams, tags, selected, onSelect, 
         {
             label: "Nawigacja",
             body: <NavPointChooser
-                    items={navPoints(tags, artifacts, fireteams)}
+                    items={navPoints}
                     selectedTag={selected}
                     onSelectTag={onSelect}
                 />
@@ -61,17 +66,11 @@ const FireteamTargetChooser = ({artifacts, fireteams, tags, selected, onSelect, 
     ]}/>
 };
 
-const mapStateToProps = (state) => ({
-    artifacts: (state.artifacts.items || []).filter(a => artifactNeedsToBeRescued(a, state.tags.itemsById)),
-    fireteams: state.fireteams.items || [],
-    tags: state.tags.items || []
-});
-
-function artifactNeedsToBeRescued(artifact, tagsById) {
-    return artifact.tagId && tagsById[artifact.tagId];
-}
-
-export default connect(mapStateToProps)(FireteamTargetChooser);
+export default connect((state) => ({
+    artifacts: getArtifactsInside(state),
+    fireteams: getAllFireteams(state),
+    navPoints: getNavPoints(state)
+}))(FireteamTargetChooser);
 
 const ArtifactChooser = (props) => <TargetChooser {...props} elem={ArtifactTarget}/>;
 
@@ -96,31 +95,15 @@ const FireteamTarget = ({item, tag}) => <Target>
 // they are the same so far
 const NavPointChooser = FireteamChooser;
 
-function navPoints(tags, artifacts, fireteams) {
-    let result = [];
-    let nonNavTagIds = {};
-    artifacts.forEach(a => {
-        if (a.tagId) nonNavTagIds[a.tagId] = a.tagId
-    });
-    fireteams.forEach(a => {
-        if (a.tagId) nonNavTagIds[a.tagId] = a.tagId
-    });
-    tags.forEach(t => {
-        if (!nonNavTagIds[t.id]) {
-            result.push({...t, tagId: t.id});
-        }
-    });
-    return result;
-}
-
 class TargetChooser extends React.Component {
 
     static defaultProps = {
-            elem: null,
-            items: [],
-            tagsById: {},
-            selectedTag: {},
-            onSelectTag: () => {}
+        elem: null,
+        items: [],
+        tagsById: {},
+        selectedTag: {},
+        onSelectTag: () => {
+        }
     };
 
     state = {
@@ -148,8 +131,8 @@ class TargetChooser extends React.Component {
     };
 
     render = () => <table className="table table-hover table-pointer table-noTopPadding"
-            ref={e => this.rootElem = e}
-            >
+                          ref={e => this.rootElem = e}
+    >
         <tbody>
         {
             this.props.items.map(a => {
@@ -158,7 +141,7 @@ class TargetChooser extends React.Component {
                            className={this.props.selectedTag && this.props.selectedTag.id == a.tagId ? 'info' : ''}
                            onClick={() => this.onSelectTag(tag)}
                            ref={e => this.elemsByTagId[tag.id] = e}
-                        >
+                >
                     <td>
                         {this.props.elem({
                             item: a,
@@ -173,7 +156,7 @@ class TargetChooser extends React.Component {
 }
 
 TargetChooser = connect((state) => ({
-    tagsById: state.tags.itemsById
+    tagsById: getTagsById(state)
 }))(TargetChooser);
 
 
@@ -188,16 +171,12 @@ const TargetName = ({children}) => <span style={{fontSize: 20}}>{children}</span
 
 let CommonTargetData = ({tag, fireteams}) => <div>
     <TagAreaName tag={tag} style={{fontSize: 16}}/>
-    {assignedFireteams(fireteams, tag.id).map(fireteam =>
-                    <span key={fireteam.id} style={{marginLeft: 10, fontSize: 16}} className="label label-success">{fireteam.name}</span>
+    {fireteams.map(f =>
+        <span key={f.id} style={{marginLeft: 10, fontSize: 16}} className="label label-success">{f.name}</span>
     )}
 </div>;
 
-CommonTargetData = connect((state) => ({
-    fireteams: state.fireteams.items
+CommonTargetData = connect((state, ownProps) => ({
+    fireteams: getFireteamsAssignedTo(state, ownProps.tag)
 }))(CommonTargetData);
 
-
-function assignedFireteams(fireteams, tagId) {
-    return fireteams.filter(f => f.targetTagId == tagId)
-}
