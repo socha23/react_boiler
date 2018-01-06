@@ -11,22 +11,22 @@ import java.util.List;
 public class TagsService {
 
     @Autowired
-    private ITagsProvider tagsProvider;
+    private IInsideTagsProvider tagsProvider;
 
 	@Autowired
 	private MissingTagsService missingTagsService;
 
     public List<Tag> getAllTags() {
         List<Tag> result = new ArrayList<>();
-        List<Tag> realTags = tagsProvider.getAllTags();
+        List<Tag> realTags = tagsProvider.getAllTagsInside();
         result.addAll(realTags);
         result.addAll(missingTagsService.createVirtualTags(realTags));
         return result;
     }
 
 	public Tag updateOrCreate(Tag tag) {
-        if (tagsProvider instanceof MockTagsProvider) {
-            return ((MockTagsProvider)tagsProvider).updateOrCreate(tag);
+        if (tagsProvider instanceof MockInsideTagsProvider) {
+            return ((MockInsideTagsProvider)tagsProvider).updateOrCreate(tag);
         } else
             throw new RuntimeException("updateOrCreate can be called only when used TagsService is used with MockTagsProvider");
 	}

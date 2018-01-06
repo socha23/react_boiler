@@ -15,7 +15,7 @@ import java.util.Random;
 
 @Profile("dev")
 @Component
-public class MockTagsProvider implements ITagsProvider {
+public class MockInsideTagsProvider implements IInsideTagsProvider {
     private final static Random random = new Random();
 
     private final static String[] COLORS = {"red", "blue", "yellow", "green"};
@@ -81,7 +81,7 @@ public class MockTagsProvider implements ITagsProvider {
     }
 
     @Override
-    public List<Tag> getAllTags() {
+    public List<Tag> getAllTagsInside() {
 	    return tags;
     }
 

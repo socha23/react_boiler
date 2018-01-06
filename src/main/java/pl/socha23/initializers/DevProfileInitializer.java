@@ -10,7 +10,7 @@ import pl.socha23.cyberfire.model.*;
 import pl.socha23.cyberfire.repositories.ArtifactRepository;
 import pl.socha23.cyberfire.repositories.FireteamRepository;
 import pl.socha23.cyberfire.repositories.ImageRepository;
-import pl.socha23.cyberfire.services.ITagsProvider;
+import pl.socha23.cyberfire.services.IInsideTagsProvider;
 import pl.socha23.cyberfire.services.ImageService;
 
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class DevProfileInitializer implements CommandLineRunner {
     private FireteamRepository fireteamRepository;
 
     @Autowired
-    private ITagsProvider tagsService;
+    private IInsideTagsProvider tagsService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -164,7 +164,7 @@ public class DevProfileInitializer implements CommandLineRunner {
     }
 
     private void createSampleFireteams(int howMany) {
-        List<Tag> tags = new ArrayList<>(tagsService.getAllTags());
+        List<Tag> tags = new ArrayList<>(tagsService.getAllTagsInside());
         Random r = new Random();
         for (int i = 1; i <= howMany; i++) {
             Tag tag = tags.remove(r.nextInt(tags.size()));

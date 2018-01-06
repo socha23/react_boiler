@@ -12,7 +12,7 @@ class TagsServiceSpec extends Specification {
 
     def setup() {
         service = new TagsService(
-                tagsProvider: new MockTagsProvider(),
+                tagsProvider: new MockInsideTagsProvider(),
                 missingTagsService: new MissingTagsService(
                         Mock(ArtifactRepository),
                         Mock(FireteamRepository)
@@ -32,9 +32,9 @@ class TagsServiceSpec extends Specification {
 
     def "update throws an exception on non-mock tags provider"() {
         given:
-        service.tagsProvider = new ITagsProvider() {
+        service.tagsProvider = new IInsideTagsProvider() {
             @Override
-            List<Tag> getAllTags() {
+            List<Tag> getAllTagsInside() {
                 return []
             }
         }

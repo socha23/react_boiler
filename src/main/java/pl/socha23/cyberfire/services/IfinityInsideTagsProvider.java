@@ -14,7 +14,7 @@ import java.util.List;
 
 @Profile("prod")
 @Component
-public class IfinityTagsProvider extends AbstractIfinityIntegrationService<List<Tag>> implements ITagsProvider {
+public class IfinityInsideTagsProvider extends AbstractIfinityIntegrationService<List<Tag>> implements IInsideTagsProvider {
 
     @Autowired
     private IFloorPlansService floorPlansService;
@@ -30,7 +30,7 @@ public class IfinityTagsProvider extends AbstractIfinityIntegrationService<List<
     }
 
     @Override
-    public List<Tag> getAllTags() {
+    public List<Tag> getAllTagsInside() {
 		return getServiceResult();
     }
 
