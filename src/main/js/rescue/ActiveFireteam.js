@@ -18,7 +18,7 @@ const ActiveFireteam = ({
 
 
             <div style={{flex: 1}}>
-                <span style={{fontWeight: "bold", fontSize: 20, marginRight: 15}}>
+                <span style={{fontWeight: "bold", fontSize: 20, marginRight: 10}}>
                     {fireteam.name}
                 </span>
                 <TagAreaName tag={fireteamTag} style={{fontSize: 16}}/>
@@ -29,13 +29,14 @@ const ActiveFireteam = ({
         </div>
         <div style={{marginTop: 10}}>
             <FireteamTarget fireteamTag={fireteamTag} targetTag={targetTag} tagDescriptionsByTagId={tagDescriptionsByTagId}/>
+            <TagAreaName tag={targetTag}/>
         </div>
     </div>
 </div>;
 
 const FireteamTarget = ({fireteamTag, targetTag, tagDescriptionsByTagId = {}}) =>
                 targetTag ?
-                        <span style={{fontSize: 20}}>
+                        <span style={{fontSize: 20, marginRight: 10}}>
                             {tagDescriptionsByTagId[targetTag.id]}
                         </span>
 
