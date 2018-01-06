@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
+import {scrollTo} from '../common/componentHelpers'
 import {find} from '../common/vocFunctions'
 import VocIcon from '../common/components/VocIcon'
 import TabPanel, {STYLE_LG} from '../common/components/TabPanel'
@@ -132,20 +133,9 @@ class TargetChooser extends React.Component {
     };
 
     panToTag = (tag) => {
-        let elem = $(this.elemsByTagId[tag.id]);
-        if (!elem || !elem.offset()) {
-            return;
-        }
-        let elemTop = elem.offset().top;
-        let container = $(this.rootElem).parent();
-
-        if (container.scrollTop() > elemTop) {
-            container.scrollTop(elemTop);
-        }
-
-        if (container.scrollTop() + container.height() < elemTop ) {
-            container.scrollTop(elemTop);
-        }
+        const elem = $(this.elemsByTagId[tag.id]);
+        const container = $(this.rootElem).parent();
+        scrollTo(container, elem);
     };
 
     onSelectTag = (tag) => {
