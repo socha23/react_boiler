@@ -14,7 +14,7 @@ import java.util.List;
 
 @Profile("prod")
 @Component
-public class IfinityTagsService extends AbstractIfinityIntegrationService<List<Tag>> implements ITagsService {
+public class IfinityTagsProvider extends AbstractIfinityIntegrationService<List<Tag>> implements ITagsProvider {
 
     @Autowired
     private IFloorPlansService floorPlansService;

@@ -15,7 +15,7 @@ import java.util.Random;
 
 @Profile("dev")
 @Component
-public class MockTagsService implements ITagsService {
+public class MockTagsProvider implements ITagsProvider {
     private final static Random random = new Random();
 
     private final static String[] COLORS = {"red", "blue", "yellow", "green"};

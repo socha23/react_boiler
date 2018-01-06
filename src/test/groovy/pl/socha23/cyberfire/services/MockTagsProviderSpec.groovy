@@ -5,12 +5,12 @@ import pl.socha23.cyberfire.repositories.ArtifactRepository
 import pl.socha23.cyberfire.repositories.FireteamRepository
 import spock.lang.Specification
 
-class MockTagsServiceSpec extends Specification {
+class MockTagsProviderSpec extends Specification {
 
-    MockTagsService service;
+    MockTagsProvider service;
 
     def setup() {
-        service = new MockTagsService(
+        service = new MockTagsProvider(
                 missingTagsService: new MissingTagsService(
                         Mock(ArtifactRepository),
                         Mock(FireteamRepository)

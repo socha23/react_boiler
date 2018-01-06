@@ -4,7 +4,7 @@ import pl.socha23.cyberfire.model.Tag;
 
 import java.util.List;
 
-public interface ITagsService {
+public interface ITagsProvider {
 
     List<Tag> getAllTags();
 
