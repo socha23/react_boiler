@@ -66,15 +66,20 @@ export function tagTypeByTagId(tags=[], artifacts=[], fireteams=[]) {
     return result;
 }
 
-
-export const STATE_MISSING = "MISSING";
-export const STATE_INSIDE = "INSIDE";
+const TAG_STATES = {
+    INSIDE: "INSIDE",
+    MISSING: "MISSING",
+    IN_CONTAINER: "IN_CONTAINER"
+};
 
 export function isMissing(tag) {
-    return tag.state == STATE_MISSING
+    return tag.state == TAG_STATES.MISSING
 }
 
 export function isInside(tag) {
-    return tag.state == STATE_INSIDE
+    return tag.state == TAG_STATES.INSIDE
 }
 
+export function isInContainer(tag) {
+    return tag.state == TAG_STATES.IN_CONTAINER
+}
