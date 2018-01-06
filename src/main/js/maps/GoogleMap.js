@@ -1,7 +1,7 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react';
 import HeightExpander from '../common/components/HeightExpander'
-import {Marker} from './Marker'
+import {LabelMarker} from './Marker'
 
 const API_KEY = 'AIzaSyC77HrEgEXqjx73wgVDrHCuLQwmHPVUx0k';
 
@@ -19,13 +19,12 @@ const GoogleMap = ({locators, selected, onClick}) =>
             zoom={DEFAULT_ZOOM}
         >
             {locators.map(t =>
-                <Marker
+                <LabelMarker
                     key={t.id}
                     lat={t.latitude}
                     lng={t.longitude}
-                    dotCorrection={-1}
                     name={t.name}
-                    color="yellow"
+                    color="#337ab7"
                     selected={selected && t.id == selected.id}
                     onClick={() => onClick(t)}
                 />
