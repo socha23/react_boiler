@@ -1,22 +1,20 @@
 import {isMissing, isInside} from 'tags/tagHelpers'
 
+const INSIDE_TAG = {state: "INSIDE"};
+const MISSING_TAG = {state: "MISSING"};
 
 test('inside tags are inside', () => {
-    const tag = {missing: false, inside: true};
-    expect(isInside(tag)).toEqual(true)
+    expect(isInside(INSIDE_TAG)).toEqual(true)
 });
 
 test('inside tags are not missing', () => {
-    const tag = {missing: false, inside: true};
-    expect(isMissing(tag)).toEqual(false)
+    expect(isMissing(INSIDE_TAG)).toEqual(false)
 });
 
 test('missing tags are not inside', () => {
-    const tag = {missing: true, inside: false};
-    expect(isInside(tag)).toEqual(false)
+    expect(isInside(MISSING_TAG)).toEqual(false)
 });
 
 test('missing tags are missing', () => {
-    const tag = {missing: true, inside: false};
-    expect(isMissing(tag)).toEqual(true)
+    expect(isMissing(MISSING_TAG)).toEqual(true)
 });
