@@ -7,6 +7,4 @@ import java.util.List;
 public interface ITagsProvider {
 
     List<Tag> getAllTags();
-
-	Tag updateOrCreate(Tag tag);
 }

@@ -23,11 +23,7 @@ public class MockTagsProvider implements ITagsProvider {
     @Autowired
     private IFloorPlansService floorPlansService;
 
-	@Autowired
-	private MissingTagsService missingTagsService;
-
     private List<Tag> tags = new ArrayList<>();
-
 
     @PostConstruct
     protected void createSampleTags() {
@@ -86,15 +82,9 @@ public class MockTagsProvider implements ITagsProvider {
 
     @Override
     public List<Tag> getAllTags() {
-		List<Tag> result = new ArrayList<>();
-		result.addAll(tags);
-		result.addAll(missingTagsService.createVirtualTags(tags));
-        return result;
-
+	    return tags;
     }
 
-
-	@Override
 	public Tag updateOrCreate(Tag tag) {
 		for (int i = 0; i < tags.size(); i++) {
 			if (tag.getId().equals(tags.get(i).getId())) {

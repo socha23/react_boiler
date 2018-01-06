@@ -19,9 +19,6 @@ public class IfinityTagsProvider extends AbstractIfinityIntegrationService<List<
     @Autowired
     private IFloorPlansService floorPlansService;
 
-	@Autowired
-	private MissingTagsService missingTagsService;
-
     @Override
     protected String getServicePath() {
         return "/qpe/getTagPosition";
@@ -34,17 +31,8 @@ public class IfinityTagsProvider extends AbstractIfinityIntegrationService<List<
 
     @Override
     public List<Tag> getAllTags() {
-		List<Tag> realTags = getServiceResult();
-		List<Tag> result = new ArrayList<>();
-		result.addAll(realTags);
-		result.addAll(missingTagsService.createVirtualTags(realTags));
-        return result;
+		return getServiceResult();
     }
-
-	@Override
-	public Tag updateOrCreate(Tag tag) {
-		throw new RuntimeException("Can't updateOrCreate tags read from Ifinity webservice");
-	}
 
 	@Override
     protected List<Tag> decodeResult(JsonNode json) {

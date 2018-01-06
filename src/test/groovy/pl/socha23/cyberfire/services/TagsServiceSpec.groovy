@@ -1,21 +1,49 @@
 package pl.socha23.cyberfire.services
 
+import pl.socha23.cyberfire.model.Artifact
 import pl.socha23.cyberfire.model.Tag
 import pl.socha23.cyberfire.repositories.ArtifactRepository
 import pl.socha23.cyberfire.repositories.FireteamRepository
 import spock.lang.Specification
 
-class MockTagsProviderSpec extends Specification {
+class TagsServiceSpec extends Specification {
 
-    MockTagsProvider service;
+    TagsService service;
 
     def setup() {
-        service = new MockTagsProvider(
+        service = new TagsService(
+                tagsProvider: new MockTagsProvider(),
                 missingTagsService: new MissingTagsService(
                         Mock(ArtifactRepository),
                         Mock(FireteamRepository)
                 )
+
         )
+    }
+
+    def "missing tags are weaved in"() {
+        given:
+        service.missingTagsService.artifactRepository = [findAll: {-> [Artifact.builder().tagId("artifact_tag_id").build()]}] as ArtifactRepository
+
+        expect:
+        service.allTags.find {it.id == "artifact_tag_id"} != null
+    }
+
+
+    def "update throws an exception on non-mock tags provider"() {
+        given:
+        service.tagsProvider = new ITagsProvider() {
+            @Override
+            List<Tag> getAllTags() {
+                return []
+            }
+        }
+
+        when:
+        service.updateOrCreate(new Tag(id: "non_existing"))
+
+        then:
+        thrown(Exception)
     }
 
     def "update of nonexisting tag adds it to returned tags"() {
