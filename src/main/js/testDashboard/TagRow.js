@@ -99,11 +99,15 @@ export class TagRowComponent extends React.Component {
                 {this.props.description}
             </span>
             </td>
-            <td style={{maxWidth: 150}}>
-                <Slider value={this.posToSlider(this.state.x, "x")} onChange={this.onChangeX}/>
+            <td style={{width: 200}}>
+                <div>
+                    <Slider value={this.posToSlider(this.state.x, "x")} onChange={this.onChangeX}/>
+                </div>
             </td>
-            <td style={{maxWidth: 150}}>
-                <Slider value={this.posToSlider(this.state.y, "y")} onChange={this.onChangeY}/>
+            <td style={{width: 200}}>
+                <div>
+                    <Slider value={this.posToSlider(this.state.y, "y")} onChange={this.onChangeY}/>
+                </div>
             </td>
             <td>
                 <AreaChooser value={this.getAreaChooserValue()} onChange={this.onChangeArea}/>
