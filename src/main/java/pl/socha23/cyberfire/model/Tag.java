@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Tag {
 
-    public enum State {MISSING, INSIDE}
+    public enum State {MISSING, INSIDE, IN_CONTAINER}
 
     private String id;
     private String name;
