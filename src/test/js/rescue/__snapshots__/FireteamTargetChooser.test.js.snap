@@ -162,64 +162,6 @@ exports[`renders correctly 1`] = `
                 </div>
               </td>
             </tr>
-            <tr
-              className=""
-              onClick={[Function]}
-            >
-              <td>
-                <div
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "paddingBottom": 5,
-                      "paddingTop": 5,
-                    }
-                  }
-                >
-                  <span
-                    className="vocIcon iconWithName"
-                    title="Niski"
-                  >
-                    
-                    <span
-                      className="badge"
-                    >
-                      1
-                    </span>
-                  </span>
-                  <div
-                    style={
-                      Object {
-                        "flex": 1,
-                      }
-                    }
-                  >
-                    <span
-                      style={
-                        Object {
-                          "fontSize": 20,
-                        }
-                      }
-                    >
-                      artifact_2
-                    </span>
-                    <div>
-                      <small
-                        style={
-                          Object {
-                            "color": "#AAA",
-                            "fontSize": 16,
-                          }
-                        }
-                      >
-                        inside
-                      </small>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
           </tbody>
         </table>
       </div>

@@ -19,24 +19,30 @@ export function testSnapshotWithProvider(elem, state = {}) {
 export function expectElementToContainText(elem, text) {
     return () => {
         let json = renderer.create(elem).toJSON();
-        expect(doExpectElementToContainText(json, text)).toBe(true);
+        expect(elemContainsText(json, text)).toBe(true);
     }
 }
 
 export function expectElementWithProviderToContainText(elem, state, text) {
     return () => {
         let json = renderWithProvider(elem, state).toJSON();
-        expect(doExpectElementToContainText(json, text)).toBe(true);
+        expect(elemContainsText(json, text)).toBe(true);
     }
 }
 
+export function expectElementWithProviderToNotContainText(elem, state, text) {
+    return () => {
+        let json = renderWithProvider(elem, state).toJSON();
+        expect(elemContainsText(json, text)).toBe(false);
+    }
+}
 
-export function doExpectElementToContainText(obj, text) {
+export function elemContainsText(obj, text) {
     if (typeof obj == "string") {
         return obj.indexOf(text) >= 0;
     } else if (obj.children) {
         for (let i = 0; i < obj.children.length; i++) {
-            if (doExpectElementToContainText(obj.children[i], text)) {
+            if (elemContainsText(obj.children[i], text)) {
                 return true;
             }
         }

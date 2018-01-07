@@ -1,5 +1,5 @@
 import React from 'react'
-import {testSnapshotWithProvider, expectElementWithProviderToContainText} from '../testUtils'
+import {testSnapshotWithProvider, expectElementWithProviderToContainText, expectElementWithProviderToNotContainText} from '../testUtils'
 
 import FireteamTargetChooser from 'rescue/FireteamTargetChooser'
 
@@ -15,7 +15,7 @@ const T_2 = {
 };
 const T_3 = {
     id: "T_3",
-    state: "INSIDE",
+    state: "MISSING",
     areaName: "inside"
 };
 const T_4 = {
@@ -74,4 +74,8 @@ it('renders correctly when state empty', testSnapshotWithProvider(
 
 it('shows artifact inside', expectElementWithProviderToContainText(
     <FireteamTargetChooser/>, STATE, "artifact_1"
+));
+
+it('doesnt show artifact with missing tag', expectElementWithProviderToNotContainText(
+    <FireteamTargetChooser/>, STATE, "artifact_2"
 ));

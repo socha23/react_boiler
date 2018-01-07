@@ -3,6 +3,7 @@ import {createSelector} from 'reselect'
 import {getAllArtifacts} from '../artifacts/selectors'
 import {getAllFireteams} from '../fireteams/selectors'
 import {getAllTags} from '../tags/selectors'
+import {isInside} from '../tags/tagHelpers'
 
 export const getNavPoints = createSelector([getAllArtifacts, getAllFireteams, getAllTags],
     (artifacts, fireteams, tags) => {
@@ -15,7 +16,7 @@ export const getNavPoints = createSelector([getAllArtifacts, getAllFireteams, ge
             if (a.tagId) nonNavTagIds[a.tagId] = a.tagId
         });
         tags.forEach(t => {
-            if (!nonNavTagIds[t.id]) {
+            if (!nonNavTagIds[t.id] && isInside(t)) {
                 result.push({...t, tagId: t.id});
             }
         });
