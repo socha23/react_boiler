@@ -1,5 +1,5 @@
 import React from 'react'
-import {expectElementToContainText} from '../testUtils'
+import {expectElem} from '../testUtils'
 
 import DistanceBetweenTags from 'tags/DistanceBetweenTags'
 
@@ -11,15 +11,20 @@ function tagTwoWithState(state) {
     return {position: {x: 10, y: 10}, state: state}
 }
 
+it('renders distance when both tags inside', () => {
+    expectElem(
+        <DistanceBetweenTags from={tagOneWithState("INSIDE")} to={tagTwoWithState("INSIDE")}/>
+    ).toIncludeText("m")
+});
 
-it('renders distance when both tags inside', expectElementToContainText(
-    <DistanceBetweenTags from={tagOneWithState("INSIDE")} to={tagTwoWithState("INSIDE")}/>, "m"
-));
+it('renders "?" when one tag in container', () => {
+    expectElem(
+        <DistanceBetweenTags from={tagOneWithState("INSIDE")} to={tagTwoWithState("IN_CONTAINER")}/>
+    ).toIncludeText("?")
+});
 
-it('renders "?" when one tag in container', expectElementToContainText(
-    <DistanceBetweenTags from={tagOneWithState("INSIDE")} to={tagTwoWithState("IN_CONTAINER")}/>, "?"
-));
-
-it('renders "?" when one tag missing', expectElementToContainText(
-    <DistanceBetweenTags from={tagOneWithState("MISSING")} to={tagTwoWithState("INSIDE")}/>, "?"
-));
+it('renders "?" when one tag missing', () => {
+    expectElem(
+        <DistanceBetweenTags from={tagOneWithState("MISSING")} to={tagTwoWithState("INSIDE")}/>
+    ).toIncludeText("?")
+});

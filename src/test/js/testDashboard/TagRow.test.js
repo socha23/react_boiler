@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {renderWithProvider} from '../testUtils'
+import {elemWithProvider} from '../testUtils'
 
 import {TagRowComponent} from 'testDashboard/TagRow'
 import {STATE_MISSING, STATE_INSIDE} from 'tags/tagHelpers'
@@ -63,6 +63,12 @@ test('onChangeState updates state', () => {
 
 function tagRow(tag = {id: "tagId"}) {
     let component = null;
-    renderWithProvider(<TagRowComponent tag={tag} ref={(c) => {component = c}} />);
+    elemWithProvider(
+        <table>
+            <tbody>
+                <TagRowComponent tag={tag} ref={(c) => {component = c}} />
+            </tbody>
+        </table>
+    );
     return component;
 }

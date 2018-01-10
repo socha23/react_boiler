@@ -1,13 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly when inside 1`] = `
-<small
-  style={
+<TagAreaNameComponent
+  tag={
     Object {
-      "color": "#AAA",
+      "areaName": "inside",
+      "state": "INSIDE",
     }
   }
 >
-  inside
-</small>
+  <small
+    style={
+      Object {
+        "color": "#AAA",
+      }
+    }
+  >
+    inside
+  </small>
+</TagAreaNameComponent>
 `;

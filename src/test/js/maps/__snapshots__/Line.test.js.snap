@@ -1,43 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly when angled 1`] = `
-<div>
-  <div
-    className=""
-    style={
-      Object {
-        "backgroundColor": "red",
-        "borderRadius": 2,
-        "height": 5,
-        "left": 0,
-        "position": "absolute",
-        "top": 0,
-        "transform": "rotate(0.46364760900080615rad)",
-        "transformOrigin": "2px 2px",
-        "width": 111.80339887498948,
+<Line
+  fromX={0}
+  fromY={0}
+  toX={100}
+  toY={50}
+>
+  <div>
+    <div
+      className=""
+      style={
+        Object {
+          "backgroundColor": "red",
+          "borderRadius": 2,
+          "height": 5,
+          "left": 0,
+          "position": "absolute",
+          "top": 0,
+          "transform": "rotate(0.46364760900080615rad)",
+          "transformOrigin": "2px 2px",
+          "width": 111.80339887498948,
+        }
       }
-    }
-  />
-</div>
+    />
+  </div>
+</Line>
 `;
 
 exports[`renders correctly when straight 1`] = `
-<div>
-  <div
-    className=""
-    style={
-      Object {
-        "backgroundColor": "red",
-        "borderRadius": 2,
-        "height": 5,
-        "left": 0,
-        "position": "absolute",
-        "top": 0,
-        "transform": "rotate(0rad)",
-        "transformOrigin": "2px 2px",
-        "width": 100,
+<Line
+  fromX={0}
+  fromY={0}
+  toX={100}
+  toY={0}
+>
+  <div>
+    <div
+      className=""
+      style={
+        Object {
+          "backgroundColor": "red",
+          "borderRadius": 2,
+          "height": 5,
+          "left": 0,
+          "position": "absolute",
+          "top": 0,
+          "transform": "rotate(0rad)",
+          "transformOrigin": "2px 2px",
+          "width": 100,
+        }
       }
-    }
-  />
-</div>
+    />
+  </div>
+</Line>
 `;

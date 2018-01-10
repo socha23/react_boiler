@@ -1,271 +1,631 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<div>
-  <nav>
-    <ul
-      style={
-        Object {
-          "listStyleType": "none",
-          "marginBottom": 0,
-          "paddingLeft": 15,
-        }
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <Connect(FireteamTargetChooser)>
+    <FireteamTargetChooser
+      artifacts={
+        Array [
+          Object {
+            "id": "A_1",
+            "name": "artifact_1",
+            "priority": "P1_LOW",
+            "tagId": "T_2",
+          },
+        ]
+      }
+      dispatch={[Function]}
+      fireteams={
+        Array [
+          Object {
+            "id": "FT",
+            "name": "fireteam",
+            "tagId": "T_1",
+            "targetTagId": "T_2",
+          },
+        ]
+      }
+      navPoints={
+        Array [
+          Object {
+            "areaName": "inside",
+            "id": "T_4",
+            "state": "INSIDE",
+            "tagId": "T_4",
+          },
+        ]
       }
     >
-      <li
-        onClick={[Function]}
-        style={
+      <TabPanel
+        activeTab={0}
+        additionalMargin={0}
+        heightExpander={true}
+        onTabChange={[Function]}
+        padding={0}
+        tabStyle={
           Object {
-            "backgroundColor": "white",
-            "border": "1px solid #ddd",
-            "borderBottom": "1px solid white",
-            "borderTopLeftRadius": 4,
-            "borderTopRightRadius": 4,
-            "cursor": "pointer",
-            "display": "inline-block",
             "fontSize": 18,
             "padding": "10px 16px 6px 16px",
-            "position": "relative",
             "top": 1,
           }
         }
-      >
-        <a>
-          Muzealia
-        </a>
-      </li>
-      <li
-        onClick={[Function]}
-        style={
-          Object {
-            "cursor": "pointer",
-            "display": "inline-block",
-            "fontSize": 18,
-            "padding": "10px 16px 6px 16px",
-            "position": "relative",
-            "top": 1,
-          }
+        tabs={
+          Array [
+            Object {
+              "body": <ArtifactChooser
+                items={
+                  Array [
+                    Object {
+                      "id": "A_1",
+                      "name": "artifact_1",
+                      "priority": "P1_LOW",
+                      "tagId": "T_2",
+                    },
+                  ]
+                }
+                onSelectTag={undefined}
+                selectedTag={undefined}
+              />,
+              "label": "Muzealia",
+            },
+            Object {
+              "body": <FireteamChooser
+                items={
+                  Array [
+                    Object {
+                      "id": "FT",
+                      "name": "fireteam",
+                      "tagId": "T_1",
+                      "targetTagId": "T_2",
+                    },
+                  ]
+                }
+                onSelectTag={undefined}
+                selectedTag={undefined}
+              />,
+              "label": "Roty",
+            },
+            Object {
+              "body": <FireteamChooser
+                items={
+                  Array [
+                    Object {
+                      "areaName": "inside",
+                      "id": "T_4",
+                      "state": "INSIDE",
+                      "tagId": "T_4",
+                    },
+                  ]
+                }
+                onSelectTag={undefined}
+                selectedTag={undefined}
+              />,
+              "label": "Nawigacja",
+            },
+          ]
         }
       >
-        <a>
-          Roty
-        </a>
-      </li>
-      <li
-        onClick={[Function]}
-        style={
-          Object {
-            "cursor": "pointer",
-            "display": "inline-block",
-            "fontSize": 18,
-            "padding": "10px 16px 6px 16px",
-            "position": "relative",
-            "top": 1,
-          }
-        }
-      >
-        <a>
-          Nawigacja
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <div
-    className="panel panel-default"
-  >
-    <div
-      className="panel-body"
-      style={
-        Object {
-          "padding": 0,
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "height": 0,
-            "overflowY": "auto",
-          }
-        }
-      >
-        <table
-          className="table table-hover table-pointer table-noTopPadding"
-        >
-          <tbody>
-            <tr
-              className=""
-              onClick={[Function]}
+        <div>
+          <nav>
+            <ul
+              style={
+                Object {
+                  "listStyleType": "none",
+                  "marginBottom": 0,
+                  "paddingLeft": 15,
+                }
+              }
             >
-              <td>
+              <li
+                key="0"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": "white",
+                    "border": "1px solid #ddd",
+                    "borderBottom": "1px solid white",
+                    "borderTopLeftRadius": 4,
+                    "borderTopRightRadius": 4,
+                    "cursor": "pointer",
+                    "display": "inline-block",
+                    "fontSize": 18,
+                    "padding": "10px 16px 6px 16px",
+                    "position": "relative",
+                    "top": 1,
+                  }
+                }
+              >
+                <a>
+                  Muzealia
+                </a>
+              </li>
+              <li
+                key="1"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                    "display": "inline-block",
+                    "fontSize": 18,
+                    "padding": "10px 16px 6px 16px",
+                    "position": "relative",
+                    "top": 1,
+                  }
+                }
+              >
+                <a>
+                  Roty
+                </a>
+              </li>
+              <li
+                key="2"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                    "display": "inline-block",
+                    "fontSize": 18,
+                    "padding": "10px 16px 6px 16px",
+                    "position": "relative",
+                    "top": 1,
+                  }
+                }
+              >
+                <a>
+                  Nawigacja
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div
+            className="panel panel-default"
+          >
+            <div
+              className="panel-body"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <HeightExpander
+                additionalMargin={0}
+              >
                 <div
                   style={
                     Object {
-                      "alignItems": "center",
-                      "display": "flex",
-                      "paddingBottom": 5,
-                      "paddingTop": 5,
+                      "height": 0,
+                      "overflowY": "auto",
                     }
                   }
                 >
-                  <span
-                    className="vocIcon iconWithName"
-                    title="Niski"
-                  >
-                    
-                    <span
-                      className="badge"
-                    >
-                      1
-                    </span>
-                  </span>
-                  <div
-                    style={
-                      Object {
-                        "flex": 1,
-                      }
+                  <ArtifactChooser
+                    items={
+                      Array [
+                        Object {
+                          "id": "A_1",
+                          "name": "artifact_1",
+                          "priority": "P1_LOW",
+                          "tagId": "T_2",
+                        },
+                      ]
                     }
                   >
-                    <span
-                      style={
-                        Object {
-                          "fontSize": 20,
-                        }
+                    <Connect(TargetChooser)
+                      elem={[Function]}
+                      items={
+                        Array [
+                          Object {
+                            "id": "A_1",
+                            "name": "artifact_1",
+                            "priority": "P1_LOW",
+                            "tagId": "T_2",
+                          },
+                        ]
                       }
                     >
-                      artifact_1
-                    </span>
-                    <div>
-                      <small
-                        style={
+                      <TargetChooser
+                        dispatch={[Function]}
+                        elem={[Function]}
+                        items={
+                          Array [
+                            Object {
+                              "id": "A_1",
+                              "name": "artifact_1",
+                              "priority": "P1_LOW",
+                              "tagId": "T_2",
+                            },
+                          ]
+                        }
+                        onSelectTag={[Function]}
+                        selectedTag={Object {}}
+                        tagsById={
                           Object {
-                            "color": "#AAA",
-                            "fontSize": 16,
+                            "T_1": Object {
+                              "areaName": "inside",
+                              "id": "T_1",
+                              "state": "INSIDE",
+                            },
+                            "T_2": Object {
+                              "areaName": "inside",
+                              "id": "T_2",
+                              "state": "INSIDE",
+                            },
+                            "T_3": Object {
+                              "areaName": "inside",
+                              "id": "T_3",
+                              "state": "MISSING",
+                            },
+                            "T_4": Object {
+                              "areaName": "inside",
+                              "id": "T_4",
+                              "state": "INSIDE",
+                            },
                           }
                         }
                       >
-                        inside
-                      </small>
-                      <span
-                        className="label label-success"
-                        style={
-                          Object {
-                            "fontSize": 16,
-                            "marginLeft": 10,
-                          }
-                        }
-                      >
-                        fireteam
-                      </span>
-                    </div>
-                  </div>
+                        <table
+                          className="table table-hover table-pointer table-noTopPadding"
+                        >
+                          <tbody>
+                            <tr
+                              className=""
+                              key="A_1"
+                              onClick={[Function]}
+                            >
+                              <td>
+                                <Target>
+                                  <div
+                                    style={
+                                      Object {
+                                        "alignItems": "center",
+                                        "display": "flex",
+                                        "paddingBottom": 5,
+                                        "paddingTop": 5,
+                                      }
+                                    }
+                                  >
+                                    <VocIcon
+                                      className="iconWithName"
+                                      value={
+                                        Object {
+                                          "iconText": "1",
+                                          "id": "P1_LOW",
+                                          "name": "Niski",
+                                        }
+                                      }
+                                    >
+                                      <span
+                                        className="vocIcon iconWithName"
+                                        title="Niski"
+                                      >
+                                        <span
+                                          className="badge"
+                                        >
+                                          1
+                                        </span>
+                                      </span>
+                                    </VocIcon>
+                                    <div
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                        }
+                                      }
+                                    >
+                                      <TargetName>
+                                        <span
+                                          style={
+                                            Object {
+                                              "fontSize": 20,
+                                            }
+                                          }
+                                        >
+                                          artifact_1
+                                        </span>
+                                      </TargetName>
+                                      <Connect(CommonTargetData)
+                                        tag={
+                                          Object {
+                                            "areaName": "inside",
+                                            "id": "T_2",
+                                            "state": "INSIDE",
+                                          }
+                                        }
+                                      >
+                                        <CommonTargetData
+                                          dispatch={[Function]}
+                                          fireteams={
+                                            Array [
+                                              Object {
+                                                "id": "FT",
+                                                "name": "fireteam",
+                                                "tagId": "T_1",
+                                                "targetTagId": "T_2",
+                                              },
+                                            ]
+                                          }
+                                          tag={
+                                            Object {
+                                              "areaName": "inside",
+                                              "id": "T_2",
+                                              "state": "INSIDE",
+                                            }
+                                          }
+                                        >
+                                          <div>
+                                            <Connect(TagAreaNameComponent)
+                                              style={
+                                                Object {
+                                                  "fontSize": 16,
+                                                }
+                                              }
+                                              tag={
+                                                Object {
+                                                  "areaName": "inside",
+                                                  "id": "T_2",
+                                                  "state": "INSIDE",
+                                                }
+                                              }
+                                            >
+                                              <TagAreaNameComponent
+                                                dispatch={[Function]}
+                                                style={
+                                                  Object {
+                                                    "fontSize": 16,
+                                                  }
+                                                }
+                                                tag={
+                                                  Object {
+                                                    "areaName": "inside",
+                                                    "id": "T_2",
+                                                    "state": "INSIDE",
+                                                  }
+                                                }
+                                              >
+                                                <small
+                                                  style={
+                                                    Object {
+                                                      "color": "#AAA",
+                                                      "fontSize": 16,
+                                                    }
+                                                  }
+                                                >
+                                                  inside
+                                                </small>
+                                              </TagAreaNameComponent>
+                                            </Connect(TagAreaNameComponent)>
+                                            <span
+                                              className="label label-success"
+                                              key="FT"
+                                              style={
+                                                Object {
+                                                  "fontSize": 16,
+                                                  "marginLeft": 10,
+                                                }
+                                              }
+                                            >
+                                              fireteam
+                                            </span>
+                                          </div>
+                                        </CommonTargetData>
+                                      </Connect(CommonTargetData)>
+                                    </div>
+                                  </div>
+                                </Target>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </TargetChooser>
+                    </Connect(TargetChooser)>
+                  </ArtifactChooser>
                 </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+              </HeightExpander>
+            </div>
+          </div>
+        </div>
+      </TabPanel>
+    </FireteamTargetChooser>
+  </Connect(FireteamTargetChooser)>
+</Provider>
 `;
 
 exports[`renders correctly when state empty 1`] = `
-<div>
-  <nav>
-    <ul
-      style={
-        Object {
-          "listStyleType": "none",
-          "marginBottom": 0,
-          "paddingLeft": 15,
-        }
-      }
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <Connect(FireteamTargetChooser)>
+    <FireteamTargetChooser
+      artifacts={Array []}
+      dispatch={[Function]}
+      fireteams={Array []}
+      navPoints={Array []}
     >
-      <li
-        onClick={[Function]}
-        style={
+      <TabPanel
+        activeTab={0}
+        additionalMargin={0}
+        heightExpander={true}
+        onTabChange={[Function]}
+        padding={0}
+        tabStyle={
           Object {
-            "backgroundColor": "white",
-            "border": "1px solid #ddd",
-            "borderBottom": "1px solid white",
-            "borderTopLeftRadius": 4,
-            "borderTopRightRadius": 4,
-            "cursor": "pointer",
-            "display": "inline-block",
             "fontSize": 18,
             "padding": "10px 16px 6px 16px",
-            "position": "relative",
             "top": 1,
           }
         }
-      >
-        <a>
-          Muzealia
-        </a>
-      </li>
-      <li
-        onClick={[Function]}
-        style={
-          Object {
-            "cursor": "pointer",
-            "display": "inline-block",
-            "fontSize": 18,
-            "padding": "10px 16px 6px 16px",
-            "position": "relative",
-            "top": 1,
-          }
+        tabs={
+          Array [
+            Object {
+              "body": <ArtifactChooser
+                items={Array []}
+                onSelectTag={undefined}
+                selectedTag={undefined}
+              />,
+              "label": "Muzealia",
+            },
+            Object {
+              "body": <FireteamChooser
+                items={Array []}
+                onSelectTag={undefined}
+                selectedTag={undefined}
+              />,
+              "label": "Roty",
+            },
+            Object {
+              "body": <FireteamChooser
+                items={Array []}
+                onSelectTag={undefined}
+                selectedTag={undefined}
+              />,
+              "label": "Nawigacja",
+            },
+          ]
         }
       >
-        <a>
-          Roty
-        </a>
-      </li>
-      <li
-        onClick={[Function]}
-        style={
-          Object {
-            "cursor": "pointer",
-            "display": "inline-block",
-            "fontSize": 18,
-            "padding": "10px 16px 6px 16px",
-            "position": "relative",
-            "top": 1,
-          }
-        }
-      >
-        <a>
-          Nawigacja
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <div
-    className="panel panel-default"
-  >
-    <div
-      className="panel-body"
-      style={
-        Object {
-          "padding": 0,
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "height": 0,
-            "overflowY": "auto",
-          }
-        }
-      >
-        <table
-          className="table table-hover table-pointer table-noTopPadding"
-        >
-          <tbody />
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+        <div>
+          <nav>
+            <ul
+              style={
+                Object {
+                  "listStyleType": "none",
+                  "marginBottom": 0,
+                  "paddingLeft": 15,
+                }
+              }
+            >
+              <li
+                key="0"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": "white",
+                    "border": "1px solid #ddd",
+                    "borderBottom": "1px solid white",
+                    "borderTopLeftRadius": 4,
+                    "borderTopRightRadius": 4,
+                    "cursor": "pointer",
+                    "display": "inline-block",
+                    "fontSize": 18,
+                    "padding": "10px 16px 6px 16px",
+                    "position": "relative",
+                    "top": 1,
+                  }
+                }
+              >
+                <a>
+                  Muzealia
+                </a>
+              </li>
+              <li
+                key="1"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                    "display": "inline-block",
+                    "fontSize": 18,
+                    "padding": "10px 16px 6px 16px",
+                    "position": "relative",
+                    "top": 1,
+                  }
+                }
+              >
+                <a>
+                  Roty
+                </a>
+              </li>
+              <li
+                key="2"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                    "display": "inline-block",
+                    "fontSize": 18,
+                    "padding": "10px 16px 6px 16px",
+                    "position": "relative",
+                    "top": 1,
+                  }
+                }
+              >
+                <a>
+                  Nawigacja
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div
+            className="panel panel-default"
+          >
+            <div
+              className="panel-body"
+              style={
+                Object {
+                  "padding": 0,
+                }
+              }
+            >
+              <HeightExpander
+                additionalMargin={0}
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 0,
+                      "overflowY": "auto",
+                    }
+                  }
+                >
+                  <ArtifactChooser
+                    items={Array []}
+                  >
+                    <Connect(TargetChooser)
+                      elem={[Function]}
+                      items={Array []}
+                    >
+                      <TargetChooser
+                        dispatch={[Function]}
+                        elem={[Function]}
+                        items={Array []}
+                        onSelectTag={[Function]}
+                        selectedTag={Object {}}
+                        tagsById={Object {}}
+                      >
+                        <table
+                          className="table table-hover table-pointer table-noTopPadding"
+                        >
+                          <tbody />
+                        </table>
+                      </TargetChooser>
+                    </Connect(TargetChooser)>
+                  </ArtifactChooser>
+                </div>
+              </HeightExpander>
+            </div>
+          </div>
+        </div>
+      </TabPanel>
+    </FireteamTargetChooser>
+  </Connect(FireteamTargetChooser)>
+</Provider>
 `;

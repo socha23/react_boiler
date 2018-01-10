@@ -1,5 +1,5 @@
 import React from 'react'
-import {testSnapshot, expectElementToContainText} from '../testUtils'
+import {testSnapshot, expectElem} from '../testUtils'
 
 import {TagAreaNameComponent} from 'tags/TagAreaName'
 
@@ -11,14 +11,22 @@ it('renders correctly when inside', testSnapshot(
     <TagAreaNameComponent tag={TAG_INSIDE}/>
 ));
 
-it('contains area name when inside', expectElementToContainText(
-    <TagAreaNameComponent tag={TAG_INSIDE}/>, "inside"
-));
 
-it('contains "poza budynkiem" when missing', expectElementToContainText(
-    <TagAreaNameComponent tag={TAG_MISSING}/>, "poza budynkiem"
-));
+it('contains area name when inside', () => {
+    expectElem(
+        <TagAreaNameComponent tag={TAG_INSIDE}/>
+    ).toIncludeText("inside")
+});
 
-it('contains "w kontenerze" when in container', expectElementToContainText(
-    <TagAreaNameComponent tag={TAG_IN_CONTAINER}/>, "w kontenerze"
-));
+it('contains "poza budynkiem" when missing', () => {
+    expectElem(
+        <TagAreaNameComponent tag={TAG_MISSING}/>
+    ).toIncludeText("poza budynkiem")
+});
+
+
+it('contains "w kontenerze" when in container', () => {
+    expectElem(
+        <TagAreaNameComponent tag={TAG_IN_CONTAINER}/>
+    ).toIncludeText("w kontenerze")
+});

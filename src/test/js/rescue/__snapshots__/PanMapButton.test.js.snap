@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<a
-  onClick={undefined}
->
-  <i
-    className="glyphicon glyphicon-map-marker"
-  />
-</a>
+<PanMapButton>
+  <a>
+    <i
+      className="glyphicon glyphicon-map-marker"
+    />
+  </a>
+</PanMapButton>
 `;

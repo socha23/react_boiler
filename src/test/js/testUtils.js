@@ -1,63 +1,34 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import { mount } from 'enzyme';
+import { mountToJson } from 'enzyme-to-json';
 
 export function testSnapshot(elem) {
     return () => {
-        expect(renderer.create(elem).toJSON()).toMatchSnapshot();
+        expect(mountToJson(mount(elem))).toMatchSnapshot();
     }
+}
+
+export function expectElem(elem) {
+    return expect(mount(elem))
+}
+
+export function expectElemWithProvider(elem, state = {}) {
+    return expectElem(withProvider(elem, state))
+}
+
+export function elemWithProvider(elem, state = {}) {
+    return mount(withProvider(elem, state));
 }
 
 export function testSnapshotWithProvider(elem, state = {}) {
-    return () => {
-        expect(renderWithProvider(elem, state).toJSON()).toMatchSnapshot();
-    }
+    return testSnapshot(withProvider(elem, state))
 }
 
-
-export function expectElementToContainText(elem, text) {
-    return () => {
-        let json = renderer.create(elem).toJSON();
-        expect(elemContainsText(json, text)).toBe(true);
-    }
-}
-
-export function expectElementWithProviderToContainText(elem, state, text) {
-    return () => {
-        let json = renderWithProvider(elem, state).toJSON();
-        expect(elemContainsText(json, text)).toBe(true);
-    }
-}
-
-export function expectElementWithProviderToNotContainText(elem, state, text) {
-    return () => {
-        let json = renderWithProvider(elem, state).toJSON();
-        expect(elemContainsText(json, text)).toBe(false);
-    }
-}
-
-export function elemContainsText(obj, text) {
-    if (typeof obj == "string") {
-        return obj.indexOf(text) >= 0;
-    } else if (obj.children) {
-        for (let i = 0; i < obj.children.length; i++) {
-            if (elemContainsText(obj.children[i], text)) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-export function getStore(initialState) {
-    return createStore((state, action) => state, initialState);
-}
-
-export function renderWithProvider(elem, state = {}) {
-    return renderer.create(
-        <Provider store={getStore(state)}>
+function withProvider(elem, initialState = {}) {
+    const store = createStore((state, action) => state, initialState);
+    return <Provider store={store}>
             {elem}
         </Provider>
-    )
 }
