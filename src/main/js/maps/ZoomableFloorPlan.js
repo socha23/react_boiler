@@ -7,14 +7,14 @@ import HeightExpander from '../common/components/HeightExpander'
 import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
 import Line from './Line'
 
-let Tag = ({tag, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColorsByTagId, tagTypeByTagId}) =>
+let Tag = ({tag, decoration, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColorsByTagId, tagTypeByTagId}) =>
     <LabelMarker
         id={tag.id}
         color={tagColorsByTagId[tag.id]}
         name={tagDescriptionsByTagId[tag.id]}
         tag={tag}
         arrowDirection={tagTypeByTagId[tag.id] == "fireteam" ? "down" : "up"}
-        decoration={tag.decoration}
+        decoration={decoration}
         x={pxPosition.x}
         y={pxPosition.y}
         selected={selected}
@@ -38,7 +38,8 @@ class ZoomableFloorPlan extends React.Component {
         selectedTag: PropTypes.object,
         onClickTag: PropTypes.func,
         additionalMargin: PropTypes.number,
-        lines: PropTypes.array
+        lines: PropTypes.array,
+        tagDecorations: PropTypes.object
     };
 
     static defaultProps = {
@@ -46,7 +47,8 @@ class ZoomableFloorPlan extends React.Component {
         },
         tags: [],
         lines: [],
-        additionalMargin: 0
+        additionalMargin: 0,
+        tagDecorations: {}
     };
 
     state = {
@@ -188,6 +190,7 @@ class ZoomableFloorPlan extends React.Component {
                     key={t.id}
                     selected={this.props.selectedTag && t.id == this.props.selectedTag.id}
                     onClick={() => this.props.onClickTag(t)}
+                    decoration={this.props.tagDecorations[t.id]}
                 />)
             }
             {this.props.lines

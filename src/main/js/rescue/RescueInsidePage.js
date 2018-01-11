@@ -28,18 +28,11 @@ const RescueInsidePage = ({
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
                 <RescueFloorPlans
-                        floorPlans={floorPlans}
-                        fireteams={fireteams}
-                        tags={tags.map(t => ({
-                            ...t,
-                            decoration:
-                                selectedTargetTag && selectedTargetTag.id == t.id ? "pulseGlowBlue" :
-                                 selectedFireteam && selectedFireteam.tagId == t.id ? "pulseGlowRed" :
-                                 null
-                        }))}
                         additionalMargin={LOWER_ROW_HEIGHT}
                         markedTag={tagMarkedOnMap}
                         onSelect={onMarkTagOnMap}
+                        selectedTarget={selectedTargetTag}
+                        selectedFireteam={selectedFireteam}
                         />
                 <FireteamChooser fireteams={fireteams} selected={selectedFireteam} onSelect={onSelectFireteam}/>
             </div>

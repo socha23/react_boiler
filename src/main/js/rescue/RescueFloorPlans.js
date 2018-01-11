@@ -2,20 +2,62 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
+import {getTagsInside, getTagsInsideByCoordinateSystemId} from '../tags/selectors'
+import {getFloorPlans} from '../maps/selectors'
+import {getFireteamAndTargetTags} from '../fireteams/selectors'
+
 import TabPanel, {STYLE_LG} from '../common/components/TabPanel'
 
 import ZoomableFloorPlan from '../maps/ZoomableFloorPlan'
 import {STYLE_ANIMATED_YELLOW, STYLE_ANIMATED_RED, STYLE_ANIMATED_GREEN} from '../maps/Line'
 
+
+let RescueFloorPlan = ({floorPlan, tags, markedTag, onSelect, additionalMargin, targetLines, tagDecorations}) => <ZoomableFloorPlan
+                        map={floorPlan}
+                        tags={tags}
+                        tagDecorations={tagDecorations}
+                        selectedTag={markedTag}
+                        onClickTag={onSelect}
+                        additionalMargin={additionalMargin}
+                        lines={targetLines}
+                        />;
+
+
+RescueFloorPlan = connect((state, ownProps) => ({
+    tags: getTagsInsideByCoordinateSystemId(state)[ownProps.floorPlan.id],
+    tagDecorations: tagDecorations(ownProps.selectedTarget, ownProps.selectedFireteam),
+    targetLines: getFireteamAndTargetTags(state, ownProps.floorPlan.id).map(t => line(t.fireteamTag, t.targetTag, STYLE_ANIMATED_GREEN))
+}))(RescueFloorPlan);
+
+
+function tagDecorations(selectedTargetTag, selectedFireteam) {
+    const result = {};
+    if (selectedTargetTag) {
+        result[selectedTargetTag.id] = "pulseGlowBlue"
+    }
+    if (selectedFireteam) {
+        result[selectedFireteam.tagId] = "pulseGlowRed"
+    }
+    return result
+}
+
+function line(fromTag, toTag, style) {
+    return {
+        fromX: fromTag.position.x,
+        fromY: fromTag.position.y,
+        toX: toTag.position.x,
+        toY: toTag.position.y,
+        style: style
+    }
+}
+
 class RescueFloorPlans extends React.Component {
     static defaultProps = {
+        selectedTarget: null,
+        selectedFireteam: null,
         floorPlans: [],
-        fireteams: [],
-        tags: [],
         markedTag: null,
-        onSelect: () => {
-        },
-        tagsById: {},
+        onSelect: () => {},
         additionalMargin: 0
     };
 
@@ -49,53 +91,18 @@ class RescueFloorPlans extends React.Component {
                     tabs={
                this.props.floorPlans.map(fp => ({
                     label: fp.name,
-                    body: <ZoomableFloorPlan
-                        map={fp}
-                        tags={this.props.tags.filter(t => t.coordinateSystemId == fp.id)}
-                        selectedTag={this.props.markedTag}
-                        onClickTag={this.props.onSelect}
+                    body: <RescueFloorPlan
+                        floorPlan={fp}
+                        markedTag={this.props.markedTag}
+                        selectedTarget={this.props.selectedTarget}
+                        selectedFireteam={this.props.selectedFireteam}
+                        onSelect={this.props.onSelect}
                         additionalMargin={this.props.additionalMargin}
-                        lines={getTargetLines(fp.id, this.props.fireteams, this.props.tagsById)}
                         />
                }))
             }/>
 }
 
-function getTargetLines(coordinateSystemId, fireteams, tagsById = {}) {
-    return fireteams
-            .filter(f => teamAndTargetOnMyFloor(f, tagsById, coordinateSystemId))
-            .map(f => targetLine(f, tagsById, STYLE_ANIMATED_GREEN));
-}
-
-function teamAndTargetOnMyFloor(fireteam, tagsById, coordinateSystemId) {
-    return allTagsInCoordinateSystem(coordinateSystemId, tagsById[fireteam.tagId], tagsById[fireteam.targetTagId])
-}
-
-function allTagsInCoordinateSystem(coordinateSystemId, ...tags) {
-    for (let i = 0; i < tags.length; i++) {
-        if (!tags[i] || tags[i].coordinateSystemId != coordinateSystemId) {
-            return false;
-        }
-    }
-    return true;
-}
-
-function targetLine(fireteam, tagsById, style) {
-    return line(tagsById[fireteam.tagId], tagsById[fireteam.targetTagId], style);
-}
-
-function line(fromTag, toTag, style) {
-    return {
-        fromX: fromTag.position.x,
-        fromY: fromTag.position.y,
-        toX: toTag.position.x,
-        toY: toTag.position.y,
-        style: style
-    }
-}
-
-const mapStateToProps = (state) => ({
-    tagsById: state.tags.itemsById
-});
-
-export default connect(mapStateToProps)(RescueFloorPlans)
+export default connect((state) => ({
+    floorPlans: getFloorPlans(state)
+}))(RescueFloorPlans)

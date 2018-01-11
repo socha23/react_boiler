@@ -4,7 +4,7 @@ import Slider from 'react-rangeslider'
 
 import contextPath from '../common/contextPath'
 import {crudActions} from '../common/crud/crudContainers'
-import {tagDescriptionsByTagId, tagColorsByTagId, STATE_MISSING, STATE_INSIDE} from '../tags/tagHelpers'
+import {tagDescriptionsByTagId, tagColorsByTagId, TAG_STATES} from '../tags/tagHelpers'
 
 import AreaChooser from './AreaChooser'
 
@@ -116,8 +116,8 @@ export class TagRowComponent extends React.Component {
                 <div className="radio">
                     <label>
                         <input type="radio"
-                               value={STATE_MISSING}
-                               checked={this.state.tagState == STATE_MISSING}
+                               value={TAG_STATES.MISSING}
+                               checked={this.state.tagState == TAG_STATES.MISSING}
                                onChange={e => this.onChangeTagState(e.target.value)}/>
                         Missing
                     </label>
@@ -125,8 +125,8 @@ export class TagRowComponent extends React.Component {
                 <div className="radio">
                     <label>
                         <input type="radio"
-                               value={STATE_INSIDE}
-                               checked={this.state.tagState == STATE_INSIDE}
+                               value={TAG_STATES.INSIDE}
+                               checked={this.state.tagState == TAG_STATES.INSIDE}
                                onChange={e => this.onChangeTagState(e.target.value)}/>
                         Inside
                     </label>
