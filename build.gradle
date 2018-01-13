@@ -11,12 +11,12 @@ def profile = (hasProperty("profile") ? profile  : "prod")
 apply plugin: "war"
 
 war {
-    baseName = "cyberfire"
+    baseName = "ozab"
     version = "0.0.1"
 }
 
 jar {
-    baseName = 'cyberfire'
+    baseName = 'ozab'
     version = "0.0.1"
 }
 
