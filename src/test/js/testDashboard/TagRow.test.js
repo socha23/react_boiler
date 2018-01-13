@@ -3,7 +3,7 @@ import React from 'react'
 import {elemWithProvider} from '../testUtils'
 
 import {TagRowComponent} from 'testDashboard/TagRow'
-import {STATE_MISSING, STATE_INSIDE} from 'tags/tagHelpers'
+import {TAG_STATES} from 'tags/tagHelpers'
 
 
 test('renders correctly for a tag without position', () => {
@@ -39,24 +39,24 @@ test('onChangeArea updates areaName, areaId, coordinateSystemId and coordinateSy
 
 
 test('state attribute "state" taken from tag', () => {
-    let component = tagRow({id: "id", state: STATE_INSIDE});
+    let component = tagRow({id: "id", state: TAG_STATES.INSIDE});
 
-    expect(component.state.tagState).toEqual(STATE_INSIDE)
+    expect(component.state.tagState).toEqual(TAG_STATES.INSIDE)
 });
 
 test('state attribute "state" missing by default', () => {
     let component = tagRow({id: "id"});
 
-    expect(component.state.tagState).toEqual(STATE_MISSING)
+    expect(component.state.tagState).toEqual(TAG_STATES.MISSING)
 });
 
 test('onChangeState updates state', () => {
     let component = tagRow({id: "id"});
     component.sendUpdate = jest.fn();
 
-    component.onChangeTagState(STATE_INSIDE);
+    component.onChangeTagState(TAG_STATES.INSIDE);
 
-    expect(component.sendUpdate.mock.calls[0][0]).toEqual({state: STATE_INSIDE});
+    expect(component.sendUpdate.mock.calls[0][0]).toEqual({state: TAG_STATES.INSIDE});
 });
 
 

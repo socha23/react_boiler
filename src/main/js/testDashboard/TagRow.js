@@ -21,7 +21,7 @@ export class TagRowComponent extends React.Component {
     state = {
         x: this.props.tag.position ? this.props.tag.position.x : 0,
         y: this.props.tag.position ? this.props.tag.position.y : 0,
-        tagState: this.props.tag.state || STATE_MISSING,
+        tagState: this.props.tag.state || TAG_STATES.MISSING,
         areaName: this.props.tag.areaName
     };
 
