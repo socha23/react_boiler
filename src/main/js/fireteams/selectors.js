@@ -1,12 +1,21 @@
 import {createSelector} from 'reselect'
 
+import {indexById} from '../common/resourceFunctions'
+
 import {getTagsById} from '../tags/selectors'
 import {isInside, isInCoordinateSystem} from '../tags/tagHelpers'
 
 
 export const getAllFireteams = state => state.fireteams.items || [];
+export const getFireteamsById = state => state.fireteams.itemsById || {};
 
 export const getFireteamsAssignedTo = (state, targetTag) => getAllFireteams(state).filter(ft => ft.targetTagId == targetTag.id);
+
+
+export function getFireteamById(state, id) {
+    console.log("ghbi called");
+    return getFireteamsById(state)[id]
+}
 
 export function getFireteamTag(state, fireteam) {
     const tagsById = getTagsById(state);
