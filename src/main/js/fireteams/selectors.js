@@ -13,7 +13,6 @@ export const getFireteamsAssignedTo = (state, targetTag) => getAllFireteams(stat
 
 
 export function getFireteamById(state, id) {
-    console.log("ghbi called");
     return getFireteamsById(state)[id]
 }
 
