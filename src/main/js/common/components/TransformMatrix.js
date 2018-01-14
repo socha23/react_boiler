@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import * as math from 'mathjs'
+import * as transform from '../transformMatrixHelpers'
 
 class TransformMatrix extends React.Component {
     static propTypes = {
@@ -21,48 +21,23 @@ class TransformMatrix extends React.Component {
         scale: 1
     };
 
-    translateMatrix = (x, y) => {
-        return [
-            [1, 0, x],
-            [0, 1, y],
-            [0, 0, 1]
-        ];
-    };
-
-    scaleMatrix = (scale) => {
-        return [
-            [scale, 0, 0],
-            [0, scale, 0],
-            [0, 0, 1]
-        ];
-    };
-
-    rotateMatrix = (theta) => {
-            return [
-                [math.cos(theta), -math.sin(theta), 0],
-                [math.sin(theta), math.cos(theta), 0],
-                [0, 0, 1]
-            ];
-        };
-
 
     transformMatrix = () => {
-        return math.multiply(
-            this.translateMatrix(this.props.originX, this.props.originY),
-            this.scaleMatrix(this.props.scale),
-            this.translateMatrix(this.props.translateX, this.props.translateY),
-            this.rotateMatrix(this.props.rotation),
-            this.translateMatrix(-this.props.originX, -this.props.originY)
+        return transform.multiply(
+            transform.translateMatrix(-this.props.originX, -this.props.originY),
+            transform.scaleMatrix(this.props.scale),
+            transform.translateMatrix(this.props.translateX, this.props.translateY),
+            transform.rotateMatrix(this.props.rotation),
+            transform.translateMatrix(this.props.originX, this.props.originY)
         )
     };
 
     transformFunction = (array) => {
-        return math.flatten(math.multiply(this.transformMatrix(), [array[0], array[1], 1]));
+        return transform.transformPoint(this.transformMatrix(), array);
     };
 
     cssTransformMatrix = () => {
-        let m = math.flatten(this.transformMatrix());
-        return `matrix(${m[0]},${m[3]},${m[1]},${m[4]},${m[2]},${m[5]})`;
+        return transform.cssMatrix(this.transformMatrix());
     };
 
 
