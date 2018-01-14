@@ -63,3 +63,5 @@ export function transformPoint(m, point) {
     ]
 }
 
+// jakby była potrzeba dorobienia invert() to tu algorytm: http://www.senocular.com/flash/tutorials/transformmatrix/
+
