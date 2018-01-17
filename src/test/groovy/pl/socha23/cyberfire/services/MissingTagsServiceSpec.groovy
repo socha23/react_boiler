@@ -83,6 +83,14 @@ class MissingTagsServiceSpec extends Specification {
         sampleVirtualTag.name != ""
     }
 
+    def "virtual tag has a position"() {
+        expect:
+        sampleVirtualTag.position != null
+        sampleVirtualTag.position.x != null
+        sampleVirtualTag.position.y != null
+    }
+
+
     def "virtual tag is virtual and not inside"() {
         expect:
         sampleVirtualTag.state == Tag.State.MISSING

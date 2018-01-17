@@ -7,6 +7,9 @@ import TagAreaName from './TagAreaName'
 import MissingTag from './MissingTag'
 
 const TagValue = ({tag, history, link = false, inline = false}) => {
+    if (!tag) {
+        return <span/>
+    }
     if (isMissing(tag)) {
         return <MissingTag tag={tag}/>
     }

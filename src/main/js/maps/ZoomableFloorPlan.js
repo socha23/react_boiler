@@ -8,6 +8,7 @@ import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
 import Line from './Line'
 
 let Tag = ({tag, decoration, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColorsByTagId, tagTypeByTagId}) =>
+pxPosition ?
     <LabelMarker
         id={tag.id}
         color={tagColorsByTagId[tag.id]}
@@ -19,7 +20,7 @@ let Tag = ({tag, decoration, pxPosition, selected, onClick, tagDescriptionsByTag
         y={pxPosition.y}
         selected={selected}
         onClick={onClick}
-    />;
+    /> : <span/>;
 
 const mapStateToProps = (state, ownProps) => ({
     tagDescriptionsByTagId: state.tagDescriptionsById,

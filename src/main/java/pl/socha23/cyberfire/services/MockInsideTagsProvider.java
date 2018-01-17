@@ -1,33 +1,39 @@
 package pl.socha23.cyberfire.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
 import pl.socha23.cyberfire.model.FloorPlanArea;
 import pl.socha23.cyberfire.model.Position;
 import pl.socha23.cyberfire.model.Tag;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Profile("dev")
+@Primary
 @Component
 public class MockInsideTagsProvider implements IInsideTagsProvider {
+
+    @Value("${mockTagsCount}")
+    private int mockTagsCount = 0;
+
     private final static Random random = new Random();
 
     private final static String[] COLORS = {"red", "blue", "yellow", "green"};
 
     @Autowired
+    private IfinityInsideTagsProvider ifinityTagsProvider;
+
+    @Autowired
     private IFloorPlansService floorPlansService;
 
-    private List<Tag> tags = new ArrayList<>();
+    private List<Tag> tags;
 
-    @PostConstruct
     protected void createSampleTags() {
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= mockTagsCount; i++) {
 
             FloorPlan floor = randomFloor();
             FloorPlanArea area = randomArea(floor);
@@ -82,10 +88,25 @@ public class MockInsideTagsProvider implements IInsideTagsProvider {
 
     @Override
     public List<Tag> getAllTagsInside() {
-	    return tags;
+        initTagsIfNeeded();
+        List<Tag> result = new ArrayList<>();
+        result.addAll(tags);
+        if (ifinityTagsProvider != null) {
+            result.addAll(ifinityTagsProvider.getAllTagsInside());
+        }
+
+        return result;
+    }
+
+    private void initTagsIfNeeded() {
+        if (tags == null) {
+               tags = new ArrayList<>();
+               createSampleTags();
+           }
     }
 
 	public Tag updateOrCreate(Tag tag) {
+        initTagsIfNeeded();
 		for (int i = 0; i < tags.size(); i++) {
 			if (tag.getId().equals(tags.get(i).getId())) {
 				tags.set(i, tag);

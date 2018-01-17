@@ -164,12 +164,10 @@ public class DevProfileInitializer implements CommandLineRunner {
     }
 
     private void createSampleFireteams(int howMany) {
-        List<Tag> tags = new ArrayList<>(tagsService.getAllTagsInside());
         Random r = new Random();
         for (int i = 1; i <= howMany; i++) {
-            Tag tag = tags.remove(r.nextInt(tags.size()));
-
-            Fireteam team = new Fireteam("f" + i, "Rota " + i, tag.getId(), null);
+            String tagId = "missing_fireteam_tag_" + i;
+            Fireteam team = new Fireteam("f" + i, "Rota " + i, tagId, null);
             fireteamRepository.save(team);
         }
     }

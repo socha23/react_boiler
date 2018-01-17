@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.Artifact;
 import pl.socha23.cyberfire.model.Fireteam;
+import pl.socha23.cyberfire.model.Position;
 import pl.socha23.cyberfire.model.Tag;
 import pl.socha23.cyberfire.repositories.ArtifactRepository;
 import pl.socha23.cyberfire.repositories.FireteamRepository;
@@ -87,6 +88,7 @@ public class MissingTagsService {
 				.id(id)
 				.name(id)
 				.state(Tag.State.MISSING)
+				.position(new Position(0, 0, 0))
 				.build();
 	}
 

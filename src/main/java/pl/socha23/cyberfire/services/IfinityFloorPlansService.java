@@ -2,7 +2,6 @@ package pl.socha23.cyberfire.services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
 import pl.socha23.cyberfire.model.FloorPlanArea;
@@ -11,7 +10,6 @@ import pl.socha23.cyberfire.model.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-@Profile("prod")
 @Component
 public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<List<FloorPlan>> implements IFloorPlansService {
 
@@ -35,13 +33,16 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
         List<FloorPlan> floorPlans = new ArrayList<>();
         ArrayNode coordinateSystemNodes = (ArrayNode)json.get("coordinateSystems");
         for (JsonNode systemNode : coordinateSystemNodes) {
+
+            String name = nullSafeGet(systemNode, "name", systemNode.get("id").asText());
+
             JsonNode imageNode = ((ArrayNode)systemNode.get("backgroundImages")).get(0);
 
             if (imageNode == null) {
                 continue;
             }
 
-            List<FloorPlanArea> areas = decodeAreas(systemNode);
+            List<FloorPlanArea> areas = decodeAreas(systemNode, name);
 
             double bottomLeftX = imageNode.get("xMeter").asDouble();
             double bottomLeftY = imageNode.get("yMeter").asDouble();
@@ -50,7 +51,7 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
 
             FloorPlan plan = FloorPlan.builder()
                     .id(systemNode.get("id").asText())
-                    .name(nullSafeGet(systemNode, "name", systemNode.get("id").asText()))
+                    .name(name)
                     .topLeft(new Position(
                             bottomLeftX,
                             bottomLeftY + imageHeight,
@@ -67,11 +68,16 @@ public class IfinityFloorPlansService extends AbstractIfinityIntegrationService<
         return floorPlans;
     }
 
-    private List<FloorPlanArea> decodeAreas(JsonNode systemNode) {
+    private List<FloorPlanArea> decodeAreas(JsonNode systemNode, String name) {
         List<FloorPlanArea> result = new ArrayList<>();
         for (JsonNode polygon : (ArrayNode)systemNode.get("polygons")) {
             for (JsonNode area : (ArrayNode)polygon.get("trackingAreas")) {
-                result.add(new FloorPlanArea(area.get("id").asText(), nullSafeGet(area, "name", "Unknown Area")));
+                result.add(new FloorPlanArea(
+                        area.get("id").asText(),
+                        // TODO czekamy aż ustawią sensowne nazwy obszarów
+                        name // nullSafeGet(area, "name", "Unknown Area")
+                        )
+                );
             }
         }
         return result;

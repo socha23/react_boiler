@@ -33,7 +33,7 @@ public class MockLocatorsService implements ILocatorsService {
     private void createSampleLocators() {
         List<Artifact> artifacts = artifactRepository.findAll();
 
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 2; i++) {
             staticLocators.add(
                     Locator.builder()
                             .id("crate_" + i)
@@ -45,7 +45,7 @@ public class MockLocatorsService implements ILocatorsService {
                             .build()
             );
         }
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 2; i++) {
             Locator container = Locator.builder()
                     .id("container_" + i)
                     .name("Kontener #" + i)
@@ -55,7 +55,7 @@ public class MockLocatorsService implements ILocatorsService {
                     .nearbyDevices(new ArrayList<>())
                     .build();
 
-            if (random.nextInt(3) == 0) {
+            if (i == 1) {
                 int numOfArtifactsInContainer = random.nextInt(Math.min(3, artifacts.size()) + 1);
                 for (int j = 0; j < numOfArtifactsInContainer; j++) {
                     Artifact a = artifacts.remove(random.nextInt(artifacts.size()));

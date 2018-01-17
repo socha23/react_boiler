@@ -1,10 +1,8 @@
 package pl.socha23.cyberfire.services;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
 import pl.socha23.cyberfire.model.FloorPlanArea;
 import pl.socha23.cyberfire.model.Position;
@@ -16,8 +14,6 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
-@Profile("dev")
-@Component
 public class MockFloorPlansService implements IFloorPlansService {
 
     private final static Resource BASEMENT_PNG = new ClassPathResource("examples/maps/basement.png");
