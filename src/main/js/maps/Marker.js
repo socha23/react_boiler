@@ -2,7 +2,7 @@ import React from 'react';
 
 import TagMapIcon from '../tags/TagMapIcon'
 
-const DOT_SIZE = 8;
+const DOT_SIZE = 30;
 
 const DotMarker = (props) => <Marker {...props}>
     <div style={{

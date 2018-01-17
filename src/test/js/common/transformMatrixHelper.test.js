@@ -49,6 +49,6 @@ test('css matrix looks allright', () => {
 test('point transform', () => {
     const matrix = transform.translateMatrix(3, 4);
 
-    expect(transform.transformPoint(matrix, [1, 2])).toEqual([4, 6])
+    expect(transform.transformPoint(matrix, {x: 1, y: 2})).toEqual({x: 4, y: 6})
 });
 

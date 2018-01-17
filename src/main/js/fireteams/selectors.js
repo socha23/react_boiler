@@ -2,6 +2,7 @@ import {createSelector} from 'reselect'
 
 import {indexById} from '../common/resourceFunctions'
 
+import {getFloorPlanById} from '../maps/selectors'
 import {getTagsById} from '../tags/selectors'
 import {isInside, isInCoordinateSystem} from '../tags/tagHelpers'
 
@@ -24,6 +25,16 @@ export function getFireteamTag(state, fireteam) {
         return null;
     }
 }
+
+export function getFireteamFloorPlan(state, fireteam) {
+    const tag = getFireteamTag(state, fireteam);
+    if (tag) {
+        return getFloorPlanById(state, tag.coordinateSystemId)
+    } else {
+        return null
+    }
+}
+
 
 export function getTargetTag(state, fireteam) {
     const tagsById = getTagsById(state);

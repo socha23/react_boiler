@@ -57,10 +57,10 @@ export function multiply(...args) {
 }
 
 export function transformPoint(m, point) {
-    return [
-        m[0][0] * point[0] + m[0][1] * point[1] + m[0][2],
-        m[1][0] * point[0] + m[1][1] * point[1] + m[1][2]
-    ]
+    return {
+        x: m[0][0] * point.x + m[0][1] * point.y + m[0][2],
+        y: m[1][0] * point.x + m[1][1] * point.y + m[1][2]
+    }
 }
 
 // jakby była potrzeba dorobienia invert() to tu algorytm: http://www.senocular.com/flash/tutorials/transformmatrix/

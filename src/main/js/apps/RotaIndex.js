@@ -6,6 +6,7 @@ import {NavLink} from 'react-router-dom'
 import {ResourceLoader} from '../common/crud/crudContainers'
 
 import {getAllFireteams} from '../fireteams/selectors'
+import FireteamApp from '../fireteams/FireteamApp'
 
 const ChooseFireteam = ({fireteams}) => <div>
     {fireteams.map(ft => <div key={ft.id}>
@@ -14,11 +15,6 @@ const ChooseFireteam = ({fireteams}) => <div>
                  style={{margin: 5}}
         >{ft.name}</NavLink>
     </div>)}
-</div>;
-
-const FireteamApp = ({fireteam}) => <div>
-    <h1>Fireteam app</h1>
-    <h3>{fireteam.name}</h3>
 </div>;
 
 let RotaContent = ({fireteams}) => <Switch>
