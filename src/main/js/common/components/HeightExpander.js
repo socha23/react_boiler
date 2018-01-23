@@ -1,4 +1,5 @@
 import React from 'react'
+import $ from 'jquery'
 
 const MARGIN = 15;
 const EXPECTED_TOP = 80;
@@ -11,10 +12,6 @@ class HeightExpander extends React.Component {
 
 
     guessHeight = () => {
-        if (!global.$) {
-            return 0;
-        }
-
         if (!this.elem) {
             return $(window).height() - EXPECTED_TOP - MARGIN - this.props.additionalMargin;
         } else {

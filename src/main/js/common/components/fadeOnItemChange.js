@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import $ from 'jquery'
 
 function nonEmpty(obj) {
     return obj
