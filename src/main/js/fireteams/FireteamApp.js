@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 
 
 import {getFireteamTag, getTargetTag, getFireteamFloorPlan} from './selectors'
+import Fullscreen from '../common/components/Fullscreen'
 import {DotMarker} from '../maps/Marker'
 
 import TransformMatrix from '../common/components/TransformMatrix'
@@ -27,67 +28,116 @@ class FireteamApp extends React.Component {
         imgBounds: null
     };
 
-    setImgBounds = () => {
+    setImgBounds = (e) => {
         this.setState({
             imgBounds: {
                 topLeft: {x: 0, y: 0},
-                bottomRight: {x: this.imgElem.width(), y: this.imgElem.height()}
+                // clientWidth i clientHeight podają wymiary przed transformacją, a o to nam tu chodzi
+                bottomRight: {x: e.target.clientWidth, y: e.target.clientHeight}
             }
         });
     };
 
-    render = () => {
-
-        let fireteamPositionOrig = {x: 0, y: 0};
-        let fireteamPositionTransformed = fireteamPositionOrig;
-        let focalPoint = {x: 0, y: 0};
-
-
+    translateToImgCoords = (point) => {
         if (this.state.imgBounds) {
-            fireteamPositionOrig = translatePoint(
+            return translatePoint(
                 this.props.floorPlan,
                 this.state.imgBounds,
-                this.props.fireteamTag.position
+                point
             );
+        } else {
+            return point;
         }
+    };
 
+    transformPoint = (point) => {
         if (this.transformMatrix) {
-            fireteamPositionTransformed = this.transformMatrix.transformFunction(fireteamPositionOrig);
+            return this.transformMatrix.transformFunction(point)}
+        else {
+            return point;
+        }
+    };
+
+    getFocalPoint = () => {
+        return this.containerElem ?
+        {
+            x: this.containerElem.clientWidth / 2,
+            y: this.containerElem.clientHeight - 100
+        } : {
+            x: 0, y: 0
+        };
+    };
+
+    getRotation = () => {
+        if (this.props.fireteamTag && this.props.targetTag) {
+            const fireteamPos = this.translateToImgCoords(this.props.fireteamTag.position);
+            const targetPos = this.translateToImgCoords(this.props.targetTag.position);
+
+            return Math.atan2(fireteamPos.x - targetPos.x, fireteamPos.y - targetPos.y);
+        } else {
+            return 0;
         }
 
-        if (this.containerElem) {
-            focalPoint = {
-                x: -fireteamPositionOrig.x + this.containerElem.width() / 2,
-                y: -400// + this.containerElem.height()  - 100
-            };
+    };
 
+
+    render = () => {
+        let fireteamTranslation = this.translateToImgCoords(this.props.fireteamTag.position);
+
+        let fireteamPosition = this.transformPoint(fireteamTranslation);
+
+        let targetMarker = <span/>;
+        if (this.props.targetTag) {
+            let targetPosition = this.transformPoint(this.translateToImgCoords(this.props.targetTag.position));
+            targetMarker = <DotMarker x={targetPosition.x - fireteamPosition.x} y={targetPosition.y - fireteamPosition.y} color="blue"/>
         }
 
-        return <div>
-            <h1>Fireteam</h1>
-            <h3>{this.props.fireteam.name}</h3>
+        /*
+             najbardziej wewnętrzna matryca przesuwa obrazek tak żeby drużyna była w (0, 0) i
+             go skaluje
+
+             środkowa matryca obraca. Obrót nie może być w wewnętrznej bo wewnętrzną wykorzystujemy
+             do wyliczenia właściwej pozycji target markera. Obrót nie zmienia tego że drużyna jest w (0, 0)
+
+              zewnętrza przesuwa żeby drużyna (punkt 0,0) była w focal point, nie może być w tej samej
+              co środkowa bo TransformMatrix translację wykonuje po obrocie. Zagnieżdżenie matryc uniezależnia nas od
+              kolejności w jakiej operacje są wykonywane w ramach jednej matrycy.
+         */
+        return <Fullscreen>
             <div
-                ref={e => {this.containerElem = $(e)}}
-                style={{position: "relative", width: "100%", height: 500, overflow: "hidden", border: "1px solid black"}}
+                ref={e => {this.containerElem = e}}
+                style={{
+                    height: "100%",
+                    position: "relative",
+                    overflow: "hidden",
+                    backgroundColor: "white"
+                }}
             >
                 <TransformMatrix
-                    ref={e => {this.transformMatrix = e}}
-                    originX={fireteamPositionOrig.x}
-                    originY={fireteamPositionOrig.y}
-                    translateX={focalPoint.x}
-                    translateY={focalPoint.y}
-
+                    translateX={this.getFocalPoint().x}
+                    translateY={this.getFocalPoint().y}
                 >
-                    <img
-                        ref={e => {this.imgElem = $(e)}}
-                        onLoad={this.setImgBounds}
-                        src={this.props.floorPlan.base64content}/>
+                    <TransformMatrix
+                        rotation={this.getRotation()}
+                    >
+                        <TransformMatrix
+                            ref={e => {this.transformMatrix = e}}
+                            scale={1}
+                            translateX = {-fireteamTranslation.x}
+                            translateY = {-fireteamTranslation.y}
+                        >
+                            <img
+                                onLoad={this.setImgBounds}
+                                src={this.props.floorPlan.base64content}/>
+                        </TransformMatrix>
+                        <DotMarker x={0} y={0} color="red"/>
+                        {targetMarker}
+                    </TransformMatrix>
                 </TransformMatrix>
-                <DotMarker x={fireteamPositionTransformed.x} y={fireteamPositionTransformed.y} color="red"/>
 
             </div>
 
-        </div>
+        </Fullscreen>
     }
 }
 

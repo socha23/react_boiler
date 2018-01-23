@@ -25,9 +25,9 @@ class TransformMatrix extends React.Component {
     transformMatrix = () => {
         return transform.multiply(
             transform.translateMatrix(-this.props.originX, -this.props.originY),
+            transform.translateMatrix(this.props.translateX, this.props.translateY),
             transform.scaleMatrix(this.props.scale),
             transform.rotateMatrix(this.props.rotation),
-            transform.translateMatrix(this.props.translateX, this.props.translateY),
             transform.translateMatrix(this.props.originX, this.props.originY)
         )
     };
