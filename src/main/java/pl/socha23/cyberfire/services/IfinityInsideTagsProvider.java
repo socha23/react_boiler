@@ -3,6 +3,7 @@ package pl.socha23.cyberfire.services;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
 import pl.socha23.cyberfire.model.Position;
@@ -11,6 +12,7 @@ import pl.socha23.cyberfire.model.Tag;
 import java.util.ArrayList;
 import java.util.List;
 
+@Profile("prod")
 @Component
 public class IfinityInsideTagsProvider extends AbstractIfinityIntegrationService<List<Tag>> implements IInsideTagsProvider {
 

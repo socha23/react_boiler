@@ -2,7 +2,7 @@ package pl.socha23.cyberfire.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
 import pl.socha23.cyberfire.model.FloorPlanArea;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Primary
+@Profile("dev")
 @Component
 public class MockInsideTagsProvider implements IInsideTagsProvider {
 
@@ -23,9 +23,6 @@ public class MockInsideTagsProvider implements IInsideTagsProvider {
     private final static Random random = new Random();
 
     private final static String[] COLORS = {"red", "blue", "yellow", "green"};
-
-    @Autowired
-    private IfinityInsideTagsProvider ifinityTagsProvider;
 
     @Autowired
     private IFloorPlansService floorPlansService;
@@ -89,13 +86,7 @@ public class MockInsideTagsProvider implements IInsideTagsProvider {
     @Override
     public List<Tag> getAllTagsInside() {
         initTagsIfNeeded();
-        List<Tag> result = new ArrayList<>();
-        result.addAll(tags);
-        if (ifinityTagsProvider != null) {
-            result.addAll(ifinityTagsProvider.getAllTagsInside());
-        }
-
-        return result;
+        return tags;
     }
 
     private void initTagsIfNeeded() {
