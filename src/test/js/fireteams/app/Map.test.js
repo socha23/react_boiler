@@ -1,10 +1,10 @@
 import React from 'react'
-import {testSnapshot} from '../testUtils'
+import {testSnapshot} from '../../testUtils'
 
-import {FireteamAppComponent} from 'fireteams/FireteamApp'
+import {MapComponent} from 'fireteams/app/Map'
 
 it('renders correctly', testSnapshot(
-            <FireteamAppComponent
+            <MapComponent
                 fireteam={{id: "ft1", name: "Team Alpha", tagId: "tA", targetTagId: "tB"}}
                 fireteamTag={{id: "tA", position: {x: 100, y: 100}, coordinateSystemId: "coordId"}}
                 targetTag={{id: "tB", position: {x: 200, y: 200}, coordinateSystemId: "coordId"}}

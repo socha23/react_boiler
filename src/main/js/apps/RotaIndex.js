@@ -6,7 +6,7 @@ import {NavLink} from 'react-router-dom'
 import {ResourceLoader} from '../common/crud/crudContainers'
 
 import {getAllFireteams} from '../fireteams/selectors'
-import FireteamApp from '../fireteams/FireteamApp'
+import FireteamApp from '../fireteams/app/FireteamApp'
 
 const ChooseFireteam = ({fireteams}) => <div>
     {fireteams.map(ft => <div key={ft.id}>

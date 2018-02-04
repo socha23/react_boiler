@@ -1,14 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 
 import $ from 'jquery'
 
-import {DotMarker} from '../maps/Marker'
+import {getFireteamTag, getTargetTag, getFireteamFloorPlan} from '../selectors'
 
-import TransformMatrix from '../common/components/TransformMatrix'
-import translatePoint from '../common/translatePoint'
+import {DotMarker} from '../../maps/Marker'
+import TransformMatrix from '../../common/components/TransformMatrix'
+import translatePoint from '../../common/translatePoint'
 
-export default class FireteamMap extends React.Component {
+
+export class MapComponent extends React.Component {
 
     static propTypes = {
         fireteamTag: PropTypes.object.isRequired,
@@ -106,7 +109,9 @@ export default class FireteamMap extends React.Component {
                     height: "100%",
                     position: "relative",
                     overflow: "hidden",
-                    backgroundColor: "white"
+                    backgroundColor: "white",
+                    ...this.props.style
+
                 }}
             >
                 <TransformMatrix
@@ -135,3 +140,8 @@ export default class FireteamMap extends React.Component {
     }
 }
 
+export default connect((state, {fireteam}) => ({
+    fireteamTag: getFireteamTag(state, fireteam),
+    targetTag: getTargetTag(state, fireteam),
+    floorPlan: getFireteamFloorPlan(state, fireteam)
+}))(MapComponent)
