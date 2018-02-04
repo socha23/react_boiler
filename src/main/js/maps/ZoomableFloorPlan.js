@@ -1,10 +1,13 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
+
 // panzoom nie jest wczytywany jako moduł npm i wymaga nie-npmowego jquery
 //import $ from 'jquery'
 
 import HeightExpander from '../common/components/HeightExpander'
+
+import {getTagDescriptions} from '../tags/selectors-additional'
 
 import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
 import Line from './Line'
@@ -25,7 +28,7 @@ pxPosition ?
     /> : <span/>;
 
 const mapStateToProps = (state, ownProps) => ({
-    tagDescriptionsByTagId: state.tagDescriptionsById,
+    tagDescriptionsByTagId: getTagDescriptions(state),
     tagColorsByTagId: state.tagColorsById,
     tagTypeByTagId: state.tagTypeById
 });

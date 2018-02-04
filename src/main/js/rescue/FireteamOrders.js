@@ -3,15 +3,17 @@ import {connect} from 'react-redux'
 
 import Panel from '../common/components/Panel'
 
-import {tagDescriptionsByTagId} from '../tags/tagHelpers'
+import TagDescription from '../tags/TagDescription'
 import DistanceBetweenTags from '../tags/DistanceBetweenTags'
+
+import {getFireteamTag} from '../fireteams/selectors'
+
 import * as fireteamActions from '../fireteams/fireteamActions'
 
 const FireteamOrders = ({
         fireteam = {},
         fireteamTag = {},
         targetTag = {},
-        tagDescriptionsByTagId = {},
         onSetTargetTag = () => {
         }
         }) => <div>
@@ -21,13 +23,12 @@ const FireteamOrders = ({
                         <SetTargetButton fireteam={fireteam} fireteamTag={fireteamTag}
                                          targetTag={targetTag}
                                          disabled={fireteam.tagId == targetTag.id || fireteam.targetTagId == targetTag.id}
-                                         tagDescriptionsByTagId={tagDescriptionsByTagId}
                                          onSetTargetTag={onSetTargetTag}/>
                         : <span/>}
         </div>;
 
 
-const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTagId, onSetTargetTag, disabled}) =>
+const SetTargetButton = ({fireteam, fireteamTag, targetTag, onSetTargetTag, disabled}) =>
         <button
                 className={"btn btn-block btn-lg " + (disabled ? "" : "pulseGlowGreen")}
                 style={{backgroundColor: "#006600", color: "white"}}
@@ -38,7 +39,7 @@ const SetTargetButton = ({fireteam, fireteamTag, targetTag, tagDescriptionsByTag
                     <i className="glyphicon glyphicon-screenshot"/>
                 </div>
                 <div style={{flex: 1}}>
-                    Ustaw cel {fireteam.name}:<br/> {tagDescriptionsByTagId[targetTag.id]}
+                    Ustaw cel {fireteam.name}:<br/> <TagDescription tag={targetTag}/>
                 </div>
                 <div>
                     <DistanceBetweenTags from={fireteamTag} to={targetTag} wrongFloorLabel=""/>
@@ -54,9 +55,7 @@ const ClearTargetButton = ({fireteam, onSetTargetTag}) =>
         </a>;
 
 const mapStateToProps = (state, ownProps) => ({
-    tagDescriptionsByTagId: tagDescriptionsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items),
-    fireteamTag: ownProps.fireteam && ownProps.fireteam.id ? state.tags.itemsById[ownProps.fireteam.tagId] : null
-
+    fireteamTag: getFireteamTag(state, ownProps.fireteam)
 });
 
 const mapDispatchToProps = (dispatch) => ({

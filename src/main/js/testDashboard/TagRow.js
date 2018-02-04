@@ -4,7 +4,10 @@ import Slider from 'react-rangeslider'
 
 import contextPath from '../common/contextPath'
 import {crudActions} from '../common/crud/crudContainers'
-import {tagDescriptionsByTagId, tagColorsByTagId, TAG_STATES} from '../tags/tagHelpers'
+
+import {getTagDescription} from '../tags/selectors-additional'
+
+import {tagColorsByTagId, TAG_STATES} from '../tags/tagHelpers'
 
 import AreaChooser from './AreaChooser'
 
@@ -137,7 +140,7 @@ export class TagRowComponent extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    description: tagDescriptionsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items)[ownProps.tag.id],
+    description: getTagDescription(state, ownProps.tag),
     color: tagColorsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items)[ownProps.tag.id],
     floorPlan: state.floorPlans.items.find(fp => fp.id == ownProps.tag.coordinateSystemId)
 });

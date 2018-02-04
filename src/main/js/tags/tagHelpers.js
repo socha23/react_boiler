@@ -42,14 +42,6 @@ export function artifactTag(tags, artifact) {
     return getTagById(tags, artifact.tagId);
 }
 
-export function tagDescriptionsByTagId(tags=[], artifacts=[], fireteams=[]) {
-    let result = {};
-    tags.forEach(t => {result[t.id] = t.name});
-    artifacts.forEach(a => {result[a.tagId] = a.name});
-    fireteams.forEach(f => {result[f.tagId] = f.name});
-    return result;
-}
-
 export function tagColorsByTagId(tags=[], artifacts=[], fireteams=[]) {
     let result = {};
     tags.forEach(t => {result[t.id] = "#5bc0de"});

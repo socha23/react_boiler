@@ -1,11 +1,10 @@
 import restActionNames from '../common/crud/crudActionNames'
 
-import {tagDescriptionsByTagId, tagColorsByTagId, tagTypeByTagId} from './tagHelpers'
+import {tagColorsByTagId, tagTypeByTagId} from './tagHelpers'
 
 const ActionNames = restActionNames("tags");
 
 export default function reduce(state = {
-    tagDescriptionsById: {},
     tagColorsById: {}
     }
     , action = null) {
@@ -15,7 +14,6 @@ export default function reduce(state = {
                 let fireteams = state.fireteams.items || [];
                 return {
                     ...state,
-                    tagDescriptionsById: tagDescriptionsByTagId(action.items, artifacts, fireteams),
                     tagColorsById: tagColorsByTagId(action.items, artifacts, fireteams),
                     tagTypeById: tagTypeByTagId(action.items, artifacts, fireteams)
                 };

@@ -3,15 +3,16 @@ import {connect} from 'react-redux'
 
 import Panel from '../common/components/Panel'
 
-import {tagDescriptionsByTagId} from '../tags/tagHelpers'
 import TagAreaName from '../tags/TagAreaName'
+import TagDescription from '../tags/TagDescription'
 import DistanceBetweenTags from '../tags/DistanceBetweenTags'
+
+import {getFireteamTag, getTargetTag} from '../fireteams/selectors'
 
 const ActiveFireteam = ({
         fireteam,
         fireteamTag,
-        targetTag,
-        tagDescriptionsByTagId = {},
+        targetTag
         }) => <div style={{display: "flex", alignItems: "center", minHeight: 84}}>
     <div style={{flex: 1}}>
         <div style={{display: "flex"}}>
@@ -28,16 +29,16 @@ const ActiveFireteam = ({
             </div>
         </div>
         <div style={{marginTop: 10}}>
-            <FireteamTarget fireteamTag={fireteamTag} targetTag={targetTag} tagDescriptionsByTagId={tagDescriptionsByTagId}/>
+            <FireteamTarget fireteamTag={fireteamTag} targetTag={targetTag}/>
             <TagAreaName tag={targetTag}/>
         </div>
     </div>
 </div>;
 
-const FireteamTarget = ({fireteamTag, targetTag, tagDescriptionsByTagId = {}}) =>
+const FireteamTarget = ({fireteamTag, targetTag}) =>
                 targetTag ?
                         <span style={{fontSize: 20, marginRight: 10}}>
-                            {tagDescriptionsByTagId[targetTag.id]}
+                            <TagDescription tag={targetTag}/>
                         </span>
 
                         :
@@ -45,9 +46,8 @@ const FireteamTarget = ({fireteamTag, targetTag, tagDescriptionsByTagId = {}}) =
         ;
 
 const mapStateToProps = (state, ownProps) => ({
-    tagDescriptionsByTagId: tagDescriptionsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items),
-    fireteamTag: state.tags.itemsById[ownProps.fireteam.tagId],
-    targetTag: ownProps.fireteam.targetTagId ? state.tags.itemsById[ownProps.fireteam.targetTagId] : null
+    fireteamTag: getFireteamTag(state, ownProps.fireteam),
+    targetTag: getTargetTag(state, ownProps.fireteam)
 });
 
 export default connect(mapStateToProps)(ActiveFireteam);

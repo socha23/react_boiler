@@ -18,9 +18,8 @@ export function getFireteamById(state, id) {
 }
 
 export function getFireteamTag(state, fireteam) {
-    const tagsById = getTagsById(state);
-    if (fireteam.tagId) {
-        return tagsById[fireteam.tagId];
+    if (fireteam && fireteam.tagId) {
+        return getTagsById(state)[fireteam.tagId];
     } else {
         return null;
     }
@@ -37,9 +36,8 @@ export function getFireteamFloorPlan(state, fireteam) {
 
 
 export function getTargetTag(state, fireteam) {
-    const tagsById = getTagsById(state);
-    if (fireteam.targetTagId) {
-        return tagsById[fireteam.targetTagId];
+    if (fireteam && fireteam.targetTagId) {
+        return getTagsById(state)[fireteam.targetTagId];
     } else {
         return null;
     }
