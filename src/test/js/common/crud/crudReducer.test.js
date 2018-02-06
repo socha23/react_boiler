@@ -92,8 +92,35 @@ test('receive items doesnt change unmodified items in itemsById', () => {
     expect(ONE_A).toBe(ONE_B);
 });
 
-function TestCrud() {
-    const reducer = crudReducer("test");
+test('mapReceived param maps received objects', () => {
+    const crud = new TestCrud({
+        mapReceived: o => ({...o, valueTwice: o.value + o.value})
+    });
+
+    crud.receive(LIST_2);
+    const ONE_A = crud.itemsById()["1"];
+
+    expect(crud.items()[0].valueTwice).toEqual("oneone");
+    expect(crud.items()[1].valueTwice).toEqual("twotwo");
+});
+
+test('mapReceived isnt run if underlying item isnt changed', () => {
+    const crud = new TestCrud({
+        mapReceived: o => ({...o, valueTwice: o.value + o.value})
+    });
+
+    crud.receive(LIST_2);
+    const FIRST_A = crud.items()[0];
+
+    crud.receive(LIST_2_CHANGED);
+    const FIRST_B = crud.items()[0];
+
+    expect(FIRST_A).toBe(FIRST_B);
+});
+
+
+function TestCrud(reducerParams) {
+    const reducer = crudReducer("test", reducerParams);
     const actions = crudActions("test");
 
     this.receive = (items) => {
