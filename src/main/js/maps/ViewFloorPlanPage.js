@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 import restActions from '../common/crud/crudActions'
 
+import {getTagsOnFloor} from '../tags/selectors'
+
 import {isInside} from '../tags/tagHelpers'
 import TaggedObjectsList from '../tags/TaggedObjectsList'
 import FloorPlan from './ZoomableFloorPlan'
@@ -34,7 +36,7 @@ const mapStateToProps = (state, ownProps) => {
     const myTagId = ownProps.tagId;
     return {
         map: state.floorPlans.items.find((m) => m.id == myMapId),
-        tags: state.tags.items.filter((t) => isInside(t) && t.coordinateSystemId == myMapId),
+        tags: getTagsOnFloor(state, myMapId),
         selectedTag: myTagId ? state.tags.items.find((m) => m.id == myTagId) : null,
         onSelectTag: (tag) => {
             ownProps.history.push("/maps/" + myMapId + "/" + tag.id)

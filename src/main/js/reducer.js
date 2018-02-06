@@ -1,6 +1,5 @@
 import {routerReducer} from 'react-router-redux'
 import crudReducer from './common/crud/crudReducer'
-import tagsReducer from './tags/tagReducer'
 
 exports.INITIAL_STATE = {
     routing: {},

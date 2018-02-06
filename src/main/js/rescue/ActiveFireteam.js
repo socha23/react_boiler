@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import Panel from '../common/components/Panel'
 
 import TagAreaName from '../tags/TagAreaName'
-import TagDescription from '../tags/TagDescription'
 import DistanceBetweenTags from '../tags/DistanceBetweenTags'
 
 import {getFireteamTag, getTargetTag} from '../fireteams/selectors'
@@ -38,7 +37,7 @@ const ActiveFireteam = ({
 const FireteamTarget = ({fireteamTag, targetTag}) =>
                 targetTag ?
                         <span style={{fontSize: 20, marginRight: 10}}>
-                            <TagDescription tag={targetTag}/>
+                            {targetTag.label}
                         </span>
 
                         :

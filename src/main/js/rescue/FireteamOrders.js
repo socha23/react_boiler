@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 
 import Panel from '../common/components/Panel'
 
-import TagDescription from '../tags/TagDescription'
 import DistanceBetweenTags from '../tags/DistanceBetweenTags'
 
 import {getFireteamTag} from '../fireteams/selectors'
@@ -39,7 +38,7 @@ const SetTargetButton = ({fireteam, fireteamTag, targetTag, onSetTargetTag, disa
                     <i className="glyphicon glyphicon-screenshot"/>
                 </div>
                 <div style={{flex: 1}}>
-                    Ustaw cel {fireteam.name}:<br/> <TagDescription tag={targetTag}/>
+                    Ustaw cel {fireteam.name}:<br/> {targetTag.label}
                 </div>
                 <div>
                     <DistanceBetweenTags from={fireteamTag} to={targetTag} wrongFloorLabel=""/>

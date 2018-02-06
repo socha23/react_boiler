@@ -5,17 +5,13 @@ import Slider from 'react-rangeslider'
 import contextPath from '../common/contextPath'
 import {crudActions} from '../common/crud/crudContainers'
 
-import {getTagDescription} from '../tags/selectors-additional'
-
-import {tagColorsByTagId, TAG_STATES} from '../tags/tagHelpers'
+import {TAG_STATES} from '../tags/tagHelpers'
 
 import AreaChooser from './AreaChooser'
 
 export class TagRowComponent extends React.Component {
     static defaultProps = {
         tag: {},
-        color: "",
-        description: "",
         floorPlan: {topLeft: {x: 0, y: 0}, bottomRight: {x: 1, y: 1}},
         onUpdate: () => {
         }
@@ -98,8 +94,8 @@ export class TagRowComponent extends React.Component {
     render = () => {
         return <tr>
             <td>
-            <span className="badge" style={{backgroundColor: this.props.color}}>
-                {this.props.description}
+            <span className="badge" style={{backgroundColor: this.props.tag.color}}>
+                {this.props.tag.label}
             </span>
             </td>
             <td style={{width: 200}}>
@@ -140,8 +136,6 @@ export class TagRowComponent extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    description: getTagDescription(state, ownProps.tag),
-    color: tagColorsByTagId(state.tags.items, state.artifacts.items, state.fireteams.items)[ownProps.tag.id],
     floorPlan: state.floorPlans.items.find(fp => fp.id == ownProps.tag.coordinateSystemId)
 });
 

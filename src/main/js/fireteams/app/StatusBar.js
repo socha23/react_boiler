@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
 import Fullscreen from '../../common/components/Fullscreen'
-import TagDescription from '../../tags/TagDescription'
 
 import {getFireteamTag, getTargetTag} from '../selectors'
 
@@ -47,6 +46,6 @@ const NoTarget = () => <div>
 </div>;
 
 const Target = ({fireteamTag, targetTag}) => <div>
-    <TagDescription tag={targetTag}/>
+    {targetTag.label}
 </div>;
 

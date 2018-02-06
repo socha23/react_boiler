@@ -7,34 +7,23 @@ import {connect} from 'react-redux'
 
 import HeightExpander from '../common/components/HeightExpander'
 
-import {getTagDescriptions} from '../tags/selectors-additional'
-
 import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
 import Line from './Line'
 
-let Tag = ({tag, decoration, pxPosition, selected, onClick, tagDescriptionsByTagId, tagColorsByTagId, tagTypeByTagId}) =>
+const Tag = ({tag, decoration, pxPosition, selected, onClick}) =>
 pxPosition ?
     <LabelMarker
         id={tag.id}
-        color={tagColorsByTagId[tag.id]}
-        name={tagDescriptionsByTagId[tag.id]}
+        color={tag.color}
+        name={tag.label}
         tag={tag}
-        arrowDirection={tagTypeByTagId[tag.id] == "fireteam" ? "down" : "up"}
+        arrowDirection={tag.type == "fireteam" ? "down" : "up"}
         decoration={decoration}
         x={pxPosition.x}
         y={pxPosition.y}
         selected={selected}
         onClick={onClick}
     /> : <span/>;
-
-const mapStateToProps = (state, ownProps) => ({
-    tagDescriptionsByTagId: getTagDescriptions(state),
-    tagColorsByTagId: state.tagColorsById,
-    tagTypeByTagId: state.tagTypeById
-});
-
-Tag = connect(mapStateToProps)(Tag);
-
 
 class ZoomableFloorPlan extends React.Component {
 

@@ -42,22 +42,6 @@ export function artifactTag(tags, artifact) {
     return getTagById(tags, artifact.tagId);
 }
 
-export function tagColorsByTagId(tags=[], artifacts=[], fireteams=[]) {
-    let result = {};
-    tags.forEach(t => {result[t.id] = "#5bc0de"});
-    artifacts.forEach(a => {result[a.tagId] = "#337ab7"});
-    fireteams.forEach(f => {result[f.tagId] = "#d9534f"});
-    return result;
-}
-
-export function tagTypeByTagId(tags=[], artifacts=[], fireteams=[]) {
-    let result = {};
-    tags.forEach(t => {result[t.id] = "navigation"});
-    artifacts.forEach(a => {result[a.tagId] = "artifact"});
-    fireteams.forEach(f => {result[f.tagId] = "fireteam"});
-    return result;
-}
-
 export const TAG_STATES = {
     INSIDE: "INSIDE",
     MISSING: "MISSING",
