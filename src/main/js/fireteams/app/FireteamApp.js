@@ -1,15 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import Fullscreen from '../../common/components/Fullscreen'
 
 import Map from './Map'
-import StatusBar from './StatusBar'
+import TargetBar from './TargetBar'
+import TargetDistance from './TargetDistance'
 
-const FireteamApp = ({fireteam}) =>
-    <Fullscreen style={{display: "flex", flexDirection: "column"}}>
-    <Map fireteam={fireteam}/>
-    <StatusBar fireteam={fireteam}/>
+const FireteamApp = ({fireteam}) => <Fullscreen style={{display: "flex", flexDirection: "column"}}>
+    <div style={{height: "100%", position: "relative"}}>
+        <TargetDistance fireteam={fireteam}/>
+        <Map fireteam={fireteam}/>
+    </div>
+    <TargetBar fireteam={fireteam}/>
+
 </Fullscreen>;
 
 export default FireteamApp;

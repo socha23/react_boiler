@@ -50,8 +50,11 @@ exports[`renders correctly 1`] = `
       Object {
         "backgroundColor": "white",
         "height": "100%",
+        "left": 0,
         "overflow": "hidden",
-        "position": "relative",
+        "position": "absolute",
+        "top": 0,
+        "zIndex": 0,
       }
     }
   >

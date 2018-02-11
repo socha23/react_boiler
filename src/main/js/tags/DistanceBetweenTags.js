@@ -8,13 +8,11 @@ function distance(from, to) {
     return Math.ceil(Math.sqrt(dx * dx + dy * dy));
 }
 
-const DistanceBetweenTags = ({from, to, wrongFloorLabel = "inne piętro"}) => {
+const DistanceBetweenTags = ({from, to}) => {
     if (!from || !to) {
         return <span/>
     } else if (!isInside(from) || !isInside(to)) {
         return <span>?</span>
-    } else if (from.coordinateSystemId != to.coordinateSystemId) {
-        return <span>{wrongFloorLabel}</span>
     } else {
         return <span>{distance(from, to)}m</span>
     }

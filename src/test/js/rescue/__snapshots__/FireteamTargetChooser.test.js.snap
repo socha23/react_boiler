@@ -259,7 +259,7 @@ exports[`renders correctly 1`] = `
                           Object {
                             "T_1": Object {
                               "areaName": "inside",
-                              "color": "#337ab7",
+                              "color": "#d9534f",
                               "id": "T_1",
                               "label": "fireteam",
                               "state": "INSIDE",
@@ -267,7 +267,7 @@ exports[`renders correctly 1`] = `
                             },
                             "T_2": Object {
                               "areaName": "inside",
-                              "color": "#d9534f",
+                              "color": "#337ab7",
                               "id": "T_2",
                               "label": "artifact_1",
                               "state": "INSIDE",
@@ -275,7 +275,7 @@ exports[`renders correctly 1`] = `
                             },
                             "T_3": Object {
                               "areaName": "inside",
-                              "color": "#d9534f",
+                              "color": "#337ab7",
                               "id": "T_3",
                               "label": "artifact_2",
                               "state": "MISSING",
@@ -356,7 +356,7 @@ exports[`renders correctly 1`] = `
                                         tag={
                                           Object {
                                             "areaName": "inside",
-                                            "color": "#d9534f",
+                                            "color": "#337ab7",
                                             "id": "T_2",
                                             "label": "artifact_1",
                                             "state": "INSIDE",
@@ -379,7 +379,7 @@ exports[`renders correctly 1`] = `
                                           tag={
                                             Object {
                                               "areaName": "inside",
-                                              "color": "#d9534f",
+                                              "color": "#337ab7",
                                               "id": "T_2",
                                               "label": "artifact_1",
                                               "state": "INSIDE",
@@ -397,7 +397,7 @@ exports[`renders correctly 1`] = `
                                               tag={
                                                 Object {
                                                   "areaName": "inside",
-                                                  "color": "#d9534f",
+                                                  "color": "#337ab7",
                                                   "id": "T_2",
                                                   "label": "artifact_1",
                                                   "state": "INSIDE",
@@ -415,7 +415,7 @@ exports[`renders correctly 1`] = `
                                                 tag={
                                                   Object {
                                                     "areaName": "inside",
-                                                    "color": "#d9534f",
+                                                    "color": "#337ab7",
                                                     "id": "T_2",
                                                     "label": "artifact_1",
                                                     "state": "INSIDE",

@@ -15,7 +15,7 @@ const locatorsReducer = crudReducer("locators");
 const floorPlansReducer = crudReducer("floorPlans");
 
 exports.reducer = (oldState = INITIAL_STATE, action = null) => {
-    return tagsReducer({
+    return {
         ...oldState,
         routing: routerReducer(oldState.routing, action),
         artifacts: artifactsCrudReducer(oldState.artifacts, action),
@@ -23,5 +23,5 @@ exports.reducer = (oldState = INITIAL_STATE, action = null) => {
         locators: locatorsReducer(oldState.locators, action),
         floorPlans: floorPlansReducer(oldState.floorPlans, action),
         fireteams: fireteamsReducer(oldState.fireteams, action)
-    }, action);
+    };
 };

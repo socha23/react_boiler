@@ -2,9 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
-import $ from 'jquery'
-
-import {getFireteamTag, getTargetTag, getFireteamFloorPlan} from '../selectors'
+import {getFireteamFloorPlan, getFireteamTag, getTargetTag} from '../selectors'
 
 import {DotMarker} from '../../maps/Marker'
 import TransformMatrix from '../../common/components/TransformMatrix'
@@ -107,7 +105,10 @@ export class MapComponent extends React.Component {
                 ref={e => {this.containerElem = e}}
                 style={{
                     height: "100%",
-                    position: "relative",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: 0,
                     overflow: "hidden",
                     backgroundColor: "white",
                     ...this.props.style
