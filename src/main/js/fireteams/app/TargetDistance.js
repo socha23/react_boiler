@@ -23,26 +23,34 @@ export default connect((state, {fireteam}) => ({
 
 const SameFloorDistance = ({fireteamTag, targetTag}) => <span style={{
     backgroundColor: "black",
-    padding: 10,
     color: "white",
-    fontSize: 50,
     position: "absolute",
     top: 0,
     left: 0,
-    zIndex: 1
+    zIndex: 1,
+    padding: "5px 20px 20px 5px",
+    fontSize: 90,
+    lineHeight: 1,
+    borderBottomRightRadius: 15
 }}>
     <DistanceBetweenTags from={fireteamTag} to={targetTag}/>
 </span>;
 
 const DifferentFloorDistance = ({fireteamTag, targetTag}) => <div style={{
+    width: "100%",
     backgroundColor: "black",
-    padding: 10,
     color: "white",
-    fontSize: 30
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 1,
+    fontSize: 46,
+    lineHeight: 1,
+    paddingBottom: 10
 
 }}>
     <DistanceBetweenTags from={fireteamTag} to={targetTag}/>
-    <span style={{marginLeft: 10}}>
-        ({targetTag.areaName})
+    <span style={{marginLeft: 10}}>  
+        - {targetTag.areaName}
     </span>
 </div>;

@@ -59,14 +59,12 @@ function updateStateAfterReceive(state, receivedItems, params) {
         itemsTimestamp: new Date()
     };
     if (!deepEqual(state.receivedItems, receivedItems)) {
-    console.log("UPDATING STATE");
         newState.receivedItems = receivedItems;
         newState.items = [];
         for (let i = 0; i < receivedItems.length; i++) {
             if (state.receivedItems && i < state.receivedItems.length && deepEqual(state.receivedItems[i], receivedItems[i])) {
                 newState.items[i] = state.items[i]
             } else {
-                console.log("UPDATING ITEM");
                 newState.items[i] = mapReceived(receivedItems[i], state, params)
             }
         }
