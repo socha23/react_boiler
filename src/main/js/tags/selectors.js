@@ -1,6 +1,6 @@
 import {createSelector} from 'reselect'
 
-import {indexById, groupBy, indexBy} from '../common/resourceFunctions'
+import {groupBy, indexById} from '../common/resourceFunctions'
 
 import {isInside} from './tagHelpers'
 
@@ -29,13 +29,13 @@ export const getTagsInsideByCoordinateSystemId = createSelector([getTagsInside],
 
 export const getTagsOnFloor = (state, floorId) => getTagsInsideByCoordinateSystemId(state)[floorId];
 
-function getAdditionalTagData(tags, artifacts, fireteams) {
+function getAdditionalTagData(tags, fireteams, artifacts) {
     const result = {};
     fillAdditionalData(result, tags, "id", "name", "navigation", "#5bc0de");
-    fillAdditionalData(result, artifacts, "tagId", "name", "artifact", "#d9534f");
-    fillAdditionalData(result, fireteams, "tagId", "name", "fireteam", "#337ab7");
+    fillAdditionalData(result, fireteams, "tagId", "name", "fireteam", "#d9534f");
+    fillAdditionalData(result, artifacts, "tagId", "name", "artifact", "#337ab7");
     return result;
-};
+}
 
 function fillAdditionalData(result, items, idField, labelField, type, color) {
     items.forEach(i => {

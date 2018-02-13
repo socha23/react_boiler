@@ -5,7 +5,7 @@ import {getTargetTag} from '../selectors'
 
 export const TargetBarComponent = ({targetTag}) => <div style={{
     backgroundColor: "black",
-    paddingTop: 10,
+    padding: 10,
     color: "white",
     fontSize: 30
 
