@@ -42,8 +42,6 @@ export const getAllTags = createSelector([getRawTags, getRawFireteams, getRawArt
     });
 
 
-export const getAllTagsSortedByType = createSelector([getAllTags], tags => [...tags].sort((a, b) => a.type.localeCompare(b.type)));
-
 export const getTagsById = createSelector([getAllTags], tags => indexById(tags));
 
 export const getTagsInside = createSelector([getAllTags], tags => tags.filter(isInside));

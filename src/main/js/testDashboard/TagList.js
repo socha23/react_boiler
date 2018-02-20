@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {getAllTagsSortedByType} from '../tags/selectors'
+import {getAllTags} from '../tags/selectors'
 
 import TagRow from './TagRow'
 
@@ -14,6 +14,6 @@ const TagList = ({tags}) =>
         </tbody>
     </table>;
 
-const mapStateToProps = (state) => ({tags: getAllTagsSortedByType(state)});
+const mapStateToProps = (state) => ({tags: getAllTags(state)});
 
 export default connect(mapStateToProps)(TagList);
