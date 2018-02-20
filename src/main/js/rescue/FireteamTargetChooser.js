@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import $ from 'jquery'
 
@@ -31,7 +30,7 @@ function findActiveTab(selected, artifacts = [], fireteams = []) {
 }
 
 const FireteamTargetChooser = ({artifacts, fireteams, navPoints, selected, onSelect, additionalMargin = 0}) => {
-
+    console.log(artifacts);
     return <TabPanel
         heightExpander={true}
         additionalMargin={additionalMargin}

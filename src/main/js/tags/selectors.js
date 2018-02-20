@@ -8,12 +8,37 @@ const getRawTags = state => state.tags.items || [];
 const getRawFireteams = state => state.fireteams.items || [];
 const getRawArtifacts = state => state.artifacts.items || [];
 
+
+const tagCompare = (t1, t2) => {
+
+    function priority(type) {
+        switch (type) {
+            case "fireteam":
+                return 0;
+            case "artifact":
+                return 1;
+            case "navigation":
+                return 2;
+            default:
+                return 3;
+        }
+    }
+    if (priority(t1.type) != priority(t2.type)) {
+        return priority(t1.type) - priority(t2.type)
+    } else {
+        return t1.label.localeCompare(t2.label);
+    }
+};
+
 export const getAllTags = createSelector([getRawTags, getRawFireteams, getRawArtifacts],
     (tags, fireteams, artifacts) => {
         const additionalData = getAdditionalTagData(tags, fireteams, artifacts);
-        return tags.map(t =>
+        let result = tags.map(t =>
             ({...t, ...(additionalData[t.id])})
-        )
+        );
+        result.sort(tagCompare);
+        return result;
+
     });
 
 
@@ -39,7 +64,7 @@ function getAdditionalTagData(tags, fireteams, artifacts) {
 
 function fillAdditionalData(result, items, idField, labelField, type, color) {
     items.forEach(i => {
-        result[i[idField]] = {type: type, color: color, label: i[labelField] }
+        result[i[idField]] = {type: type, color: color, label: i[labelField]}
     });
 }
 
