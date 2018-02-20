@@ -7,15 +7,13 @@ class DescriptionField extends React.Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
         onChange: PropTypes.func,
-        value: PropTypes.string,
-        readOnly: PropTypes.bool
+        value: PropTypes.string
     };
 
     static defaultProps = {
         onChange: () => {
         },
-        value: "",
-        readOnly: false
+        value: ""
     };
 
     state = {
@@ -58,13 +56,11 @@ class DescriptionField extends React.Component {
                 {this.props.value}
             </pre>
         </div>
-        {this.props.readOnly ? <div/> :
-            <div>
-                <a onClick={this.onEdit} style={{cursor: "pointer"}}>
-                    zmień
-                </a>
-            </div>
-        }
+        <div>
+            <a onClick={this.onEdit} style={{cursor: "pointer"}}>
+                zmień
+            </a>
+        </div>
     </div>;
 
     onEdit = () => {

@@ -1,11 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
-import ActiveFireteam from './ActiveFireteam'
 import FireteamTargetChooser from './FireteamTargetChooser'
 import FireteamChooser from './FireteamChooser'
 import RescueFloorPlans from './RescueFloorPlans'
 import FireteamOrders from './FireteamOrders'
+import ShowDescriptionInPopup from '../museumDescription/ShowDescriptionInPopup'
+
+import {getMuseumDescription} from "../museumDescription/selectors"
 
 const LOWER_ROW_HEIGHT = 118;
 
@@ -13,7 +14,8 @@ const RescueInsidePage = ({
         tags, artifacts, fireteams, floorPlans,
         selectedTargetTag, onSelectTargetTag,
         selectedFireteam, onSelectFireteam,
-        onMarkTagOnMap, tagMarkedOnMap
+        onMarkTagOnMap, tagMarkedOnMap,
+        museumDescription
 
         }) =>
     <div className="container-fluid">
@@ -27,6 +29,9 @@ const RescueInsidePage = ({
                 <FireteamOrders fireteam={selectedFireteam} targetTag={selectedTargetTag}/>
             </div>
             <div className="col-sm-9 colWithSmallerGutter">
+                <div style={{position: "absolute", right: 30, top: 10}}>
+                    <ShowDescriptionInPopup value={museumDescription}/>
+                </div>
                 <RescueFloorPlans
                         additionalMargin={LOWER_ROW_HEIGHT}
                         markedTag={tagMarkedOnMap}
@@ -91,7 +96,8 @@ const mapStateToProps = (state) => ({
     tags: state.tags.items,
     tagsById: state.tags.itemsById,
     artifacts: state.artifacts.items,
-    floorPlans: state.floorPlans.items
+    floorPlans: state.floorPlans.items,
+    museumDescription: getMuseumDescription(state)
 });
 
 export default connect(mapStateToProps)(RescuePageContainer)

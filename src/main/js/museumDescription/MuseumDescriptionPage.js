@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {crudActions} from '../common/crud/crudContainers'
 
 import {getMuseumDescription} from './selectors'
-import MuseumDescription from './MuseumDescription'
+import MuseumDescription from './EditableMuseumDescription'
 
 
 const MuseumDescriptionPage = ({value, onUpdate}) => <div className="container-fluid">
