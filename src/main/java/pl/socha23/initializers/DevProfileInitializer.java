@@ -10,7 +10,6 @@ import pl.socha23.cyberfire.model.*;
 import pl.socha23.cyberfire.repositories.ArtifactRepository;
 import pl.socha23.cyberfire.repositories.FireteamRepository;
 import pl.socha23.cyberfire.repositories.ImageRepository;
-import pl.socha23.cyberfire.services.IInsideTagsProvider;
 import pl.socha23.cyberfire.services.ImageService;
 
 import java.io.IOException;
@@ -34,9 +33,6 @@ public class DevProfileInitializer implements CommandLineRunner {
 
     @Autowired
     private FireteamRepository fireteamRepository;
-
-    @Autowired
-    private IInsideTagsProvider tagsService;
 
     @Override
     public void run(String... args) throws Exception {
