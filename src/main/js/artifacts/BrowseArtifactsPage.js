@@ -1,15 +1,23 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
+import {connect} from 'react-redux'
 
-import {crudList, crudActions} from '../common/crud/crudContainers'
+import {crudActions} from '../common/crud/crudContainers'
 import Panel from '../common/components/Panel'
 import {SearchFilter} from '../common/components/filters'
 import * as Responsive from '../common/components/responsive'
 
-import {ArtifactsList, ArtifactTypeFilter, ArtifactPriorityFilter, PopupArtifactTypeFilter, PopupArtifactPriorityFilter} from './ArtifactsList'
+import {
+    ArtifactPriorityFilter,
+    ArtifactsList,
+    ArtifactTypeFilter,
+    PopupArtifactPriorityFilter,
+    PopupArtifactTypeFilter
+} from './ArtifactsList'
 import {ArtifactLocationFilter, PopupArtifactLocationFilter} from './ArtifactLocationFilter'
 import ArtifactCard from './ArtifactCard'
 
+import {getSortedArtifacts} from './selectors'
 
 const NewArtifactButton = ({onClick}) => <a className="btn btn-large btn-primary btn-block iconWithName" onClick={onClick}>
     <i className="glyphicon glyphicon-plus"/>
@@ -179,4 +187,6 @@ ArtifactsPageContainer.contextTypes = {
     })
 };
 
-export default crudActions("artifacts", crudList("artifacts", ArtifactsPageContainer))
+export default crudActions("artifacts", connect((state) => ({
+    items: getSortedArtifacts(state)
+}))(ArtifactsPageContainer))
