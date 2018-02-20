@@ -36,7 +36,7 @@ export default function restActions(resource) {
         }
     }
 
-    function shouldFetch(state, options = {
+    function shouldFetch(state = {}, options = {
         onlyOnce: false,
         maxAge: 0
     }) {

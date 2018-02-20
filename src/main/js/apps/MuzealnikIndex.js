@@ -1,12 +1,10 @@
 import React from 'react'
-import {withRouter, Switch, Route, Redirect} from 'react-router'
+import {Redirect, Route, Switch, withRouter} from 'react-router'
 import LiNavLink from '../common/components/LiNavLink'
-import {NavLink} from 'react-router-dom'
-import {crudList} from '../common/crud/crudContainers'
+import {crudList, ResourceLoader} from '../common/crud/crudContainers'
 
 import PageTemplate from '../templates/PageTemplate'
 import PageNavTitleLi from '../templates/PageNavTitleLi'
-import {ResourceLoader} from '../common/crud/crudContainers'
 
 
 import BrowseArtifactsPage from '../artifacts/BrowseArtifactsPage'
@@ -14,6 +12,8 @@ import CreateArtifactPage from '../artifacts/CreateArtifactPage'
 
 import ViewFloorPlanPage from '../maps/ViewFloorPlanPage'
 import ViewOutsidePage from '../maps/ViewOutsidePage'
+
+import MuseumDescriptionPage from '../museumDescription/MuseumDescriptionPage'
 
 
 let MuzealnikTabs = ({maps}) => <div>
@@ -26,6 +26,7 @@ let MuzealnikTabs = ({maps}) => <div>
             )
         }
         <LiNavLink to={"/maps/outside"}>Na zewnątrz</LiNavLink>
+        <LiNavLink to={"/museumDescription"}>Opis obiektu</LiNavLink>
     </ul>
 </div>;
 
@@ -44,6 +45,7 @@ const MuzealnikContent = ({maps}) => <Switch>
     <Route path="/maps/:id/:tagId?" render={({match}) =>
         <ViewFloorPlanPage map={maps.find(i => i.id == match.params.id)} tagId={match.params.tagId}/>
     }/>
+    <Route path="/museumDescription" component={MuseumDescriptionPage}/>
 </Switch>;
 
 let MyPage = ({items}) => <PageTemplate
@@ -56,7 +58,7 @@ MyPage = withRouter(crudList({
     onlyOnce: true
 }, MyPage));
 
-export default () => <ResourceLoader resources={["artifacts", "floorPlans"]}>
+export default () => <ResourceLoader resources={["artifacts", "floorPlans", "museumDescriptions"]}>
     <ResourceLoader resources={["tags", "locators", "fireteams"]} interval={500}>
         <MyPage/>
     </ResourceLoader>

@@ -12,6 +12,7 @@ const artifactsCrudReducer = crudReducer("artifacts");
 const tagsCrudReducer = crudReducer("tags");
 const fireteamsReducer = crudReducer("fireteams");
 const locatorsReducer = crudReducer("locators");
+const museumDescriptionsReducer = crudReducer("museumDescriptions");
 const floorPlansReducer = crudReducer("floorPlans");
 
 exports.reducer = (oldState = INITIAL_STATE, action = null) => {
@@ -22,6 +23,7 @@ exports.reducer = (oldState = INITIAL_STATE, action = null) => {
         tags: tagsCrudReducer(oldState.tags, action),
         locators: locatorsReducer(oldState.locators, action),
         floorPlans: floorPlansReducer(oldState.floorPlans, action),
-        fireteams: fireteamsReducer(oldState.fireteams, action)
+        fireteams: fireteamsReducer(oldState.fireteams, action),
+        museumDescriptions: museumDescriptionsReducer(oldState.museumDescriptions, action)
     };
 };
