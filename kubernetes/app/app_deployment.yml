@@ -1,0 +1,18 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ozab-app
+spec:  
+  selector:
+    matchLabels:
+      run: ozab-app
+  template:
+    metadata:
+      labels:
+        run: ozab-app
+    spec:
+      containers:
+      - name: ozab-app
+        image: eu.gcr.io/ozab-195119/ozap-app
+        ports:
+        - containerPort: 8080

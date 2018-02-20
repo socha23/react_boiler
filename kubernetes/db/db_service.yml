@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ozab-mongodb
+spec:  
+  selector:
+    run: ozab-mongodb
+  type: LoadBalancer
+  sessionAffinity: ClientIP
+  ports:
+  - protocol: TCP
+    port: 27017
+    targetPort: 27017

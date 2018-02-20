@@ -1,0 +1,18 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ozab-mongodb
+spec:  
+  selector:
+    matchLabels:
+      run: ozab-mongodb
+  template:
+    metadata:
+      labels:
+        run: ozab-mongodb
+    spec:
+      containers:
+      - name: ozab-mongodb
+        image: mongo
+        ports:
+        - containerPort: 27017
