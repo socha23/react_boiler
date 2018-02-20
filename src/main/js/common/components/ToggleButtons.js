@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import VocIcon from './VocIcon'
+
 class ToggleButtons extends React.Component {
 
     state =  {
@@ -34,8 +36,7 @@ class ToggleButtons extends React.Component {
             {this.props.items.map(item =>
                 <a key={item.id} className={"iconWithName btn btn-default " + ((this.state.selected[item.id]) ? "active" : "")} onClick={() => this.onToggle(item)}>
                     <span className="pull-left">
-                        {item.iconClass ? <i className={item.iconClass}/> : ""}
-                        {item.iconText ? <span className="badge">{item.iconText}</span> : ""}
+                        <VocIcon value={item}/>
                         {item.name}
                     </span>
                     {item.number ? <span className="pull-right">{item.number}</span> : ""}

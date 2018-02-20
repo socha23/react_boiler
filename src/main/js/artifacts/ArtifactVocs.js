@@ -4,17 +4,20 @@ export const Priority = [
     {
         id: "P3_HIGH",
         name: "Wysoki",
-        iconText: "3"
+        iconText: "3",
+        color: "#d9534f"
     },
     {
         id: "P2_MEDIUM",
         name: "Średni",
-        iconText: "2"
+        iconText: "2",
+        color: "#f0ad4e"
     },
     {
         id: "P1_LOW",
         name: "Niski",
-        iconText: "1"
+        iconText: "1",
+        color: "#5cb85c"
     }
 ];
 
