@@ -12,7 +12,7 @@ const ArtifactTagLocation = ({tag, history}) => <span>
                     style={{cursor: "pointer"}}
                     onClick={e => {e.stopPropagation(); history.push("/maps/" + tag.coordinateSystemId + "/" + tag.id)}}
                     >
-                {tag.coordinateSystemName} - {tag.areaName}
+                {tag.areaName}
             </a>
     }
 </span>;

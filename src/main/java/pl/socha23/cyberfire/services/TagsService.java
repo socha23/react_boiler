@@ -25,9 +25,9 @@ public class TagsService {
     }
 
 	public Tag updateOrCreate(Tag tag) {
-        if (tagsProvider instanceof MockInsideTagsProvider) {
-            return ((MockInsideTagsProvider)tagsProvider).updateOrCreate(tag);
+        if (tagsProvider instanceof IInsideUpdatingTagsProvider) {
+            return ((IInsideUpdatingTagsProvider)tagsProvider).updateOrCreate(tag);
         } else
-            throw new RuntimeException("updateOrCreate can be called only when used TagsService is used with MockTagsProvider");
+            throw new RuntimeException("updateOrCreate can be called only when used TagsService is used with IInsideUpdatingTagsProvider");
 	}
 }

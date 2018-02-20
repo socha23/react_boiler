@@ -2,7 +2,6 @@ package pl.socha23.cyberfire.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.FloorPlan;
 import pl.socha23.cyberfire.model.FloorPlanArea;
@@ -13,9 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@Profile("dev")
 @Component
-public class MockInsideTagsProvider implements IInsideTagsProvider {
+public class MockInsideTagsProvider implements IInsideUpdatingTagsProvider {
 
     @Value("${mockTagsCount}")
     private int mockTagsCount = 0;
@@ -35,7 +33,7 @@ public class MockInsideTagsProvider implements IInsideTagsProvider {
             FloorPlan floor = randomFloor();
             FloorPlanArea area = randomArea(floor);
 
-            tags.add(Tag.builder().id("tag_" + i).name("Znacznik #" + i).color(randomColor()).coordinateSystemId(floor.getId())
+            tags.add(Tag.builder().id("tag_" + i).name("Wirtualny #" + i).color(randomColor()).coordinateSystemId(floor.getId())
 							.coordinateSystemName(floor.getName()).areaId(area.getId()).areaName(area.getName())
 							.position(randomPositionOnTopLeftQuadrant(floor)).state(Tag.State.INSIDE).build());
         }
@@ -96,6 +94,7 @@ public class MockInsideTagsProvider implements IInsideTagsProvider {
            }
     }
 
+    @Override
 	public Tag updateOrCreate(Tag tag) {
         initTagsIfNeeded();
 		for (int i = 0; i < tags.size(); i++) {
