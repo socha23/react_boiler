@@ -8,7 +8,7 @@ import {getMuseumDescription} from './selectors'
 import MuseumDescription from './MuseumDescription'
 
 
-const MuseumDescriptionPage = ({value, onUpdate}) => <div>
+const MuseumDescriptionPage = ({value, onUpdate}) => <div className="container-fluid">
     <MuseumDescription value={value} onChange={onUpdate}/>
 </div>;
 
