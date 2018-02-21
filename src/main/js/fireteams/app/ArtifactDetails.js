@@ -1,14 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
 
-import {findArtifactByTagId} from '../../artifacts/selectors'
-
-const ArtifactDetails = ({artifact}) => <div>
-    {artifact.name}
+const ArtifactDetails = ({artifact}) => <div style={{marginTop: 5, fontSize: 20, color: "white"}}>
+    <div>{artifact.identificationNotes}</div>
+    <div>{artifact.evacuationNotes}</div>
 </div>;
 
-
-export default connect((state, {fireteam}) => ({
-    artifact: findArtifactByTagId(state, fireteam.targetTagId)
-}))(ArtifactDetails);
+export default ArtifactDetails
 

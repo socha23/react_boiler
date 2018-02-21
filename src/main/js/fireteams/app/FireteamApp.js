@@ -8,9 +8,11 @@ import Map from './Map'
 import TargetBar from './TargetBar'
 import TargetDistance from './TargetDistance'
 import ArtifactDetails from './ArtifactDetails'
+import ArtifactImage from './ArtifactImage'
 import {distance} from '../../tags/DistanceBetweenTags'
 
 import {getFireteamTag, getTargetTag} from '../selectors'
+import {findArtifactByTagId} from "../../artifacts/selectors";
 
 
 const MapMode = ({fireteam}) => {
@@ -21,14 +23,18 @@ const MapMode = ({fireteam}) => {
     </Fullscreen>
 };
 
-const ArtifactMode = ({fireteam}) => {
-    return <Fullscreen style={{display: "flex", flexDirection: "column"}}>
+let ArtifactMode = ({fireteam, artifact}) => {
+    return <Fullscreen style={{backgroundColor: "black", display: "flex", flexDirection: "column", alignItems: "center"}}>
         <TargetBar fireteam={fireteam}/>
-        <div style={{flexGrow: 1}}>
-            <ArtifactDetails fireteam={fireteam}/>
-        </div>
+        <ArtifactImage artifact={artifact}/>
+        <ArtifactDetails artifact={artifact}/>
     </Fullscreen>
 };
+
+ArtifactMode = connect((state, {fireteam}) => ({
+    artifact: findArtifactByTagId(state, fireteam.targetTagId)
+}))(ArtifactMode);
+
 
 
 
