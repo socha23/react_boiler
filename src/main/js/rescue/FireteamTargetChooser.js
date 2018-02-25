@@ -14,6 +14,7 @@ import {getTagsById} from '../tags/selectors'
 import TagAreaName from '../tags/TagAreaName'
 
 import {getNavPoints} from './selectors'
+import ShowArtifactViewInPopup from "../artifacts/ShowArtifactViewInPopup";
 
 function findActiveTab(selected, artifacts = [], fireteams = []) {
     if (selected && selected.id) {
@@ -80,6 +81,8 @@ const ArtifactTarget = ({item, tag}) => <Target>
         <TargetName>{item.name}</TargetName>
         <CommonTargetData tag={tag}/>
     </div>
+    <ShowArtifactViewInPopup artifact={item}/>
+    
 </Target>;
 
 const FireteamChooser = (props) => <TargetChooser {...props} elem={FireteamTarget}/>;

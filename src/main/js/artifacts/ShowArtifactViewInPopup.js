@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ArtifactView from './ArtifactView'
+import {ArtifactDetailsAndImage, ArtifactIconAndName} from "./ArtifactView";
+import Popup from '../common/components/Popup'
 
 class ShowArtifactViewInPopup extends React.Component {
 
@@ -10,16 +11,16 @@ class ShowArtifactViewInPopup extends React.Component {
 
     render = () => <div>
         <Popup
-            labelPopupTitle={artifact.name}
+            labelPopupTitle={<ArtifactIconAndName item={this.props.artifact}/>}
             ref={r => {this.popup = r}}>
             <div>
-                <ArtifactView value={this.props.artifact}/>
+                <ArtifactDetailsAndImage item={this.props.artifact}/>
             </div>
         </Popup>
 
-        <a  style={{fontSize: 18}}
+        <a  style={{fontSize: 24, color:"#aaa"}}
             onClick={e => {this.popup.openModal()}}>
-            Opis obiektu
+            <i className={"glyphicon glyphicon-eye-open"}/>
         </a>
     </div>;
 }

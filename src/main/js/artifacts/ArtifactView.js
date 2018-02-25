@@ -110,7 +110,7 @@ const ArtifactDetails = ({item}) => <div>
 ;
 
 
-const ArtifactDetailsAndImage = ({item}) => <div className="row">
+export const ArtifactDetailsAndImage = ({item}) => <div className="row">
     <div className="col-sm-6">
         <ArtifactDetails item={item}/>
     </div>
@@ -119,20 +119,24 @@ const ArtifactDetailsAndImage = ({item}) => <div className="row">
     </div>
 </div>;
 
-const ArtifactOperationsBar = ({item, onEdit, onDelete}) =>         <h2>
-            <VocIcon value={vocFunctions.find(Type, item.type)} className="iconWithName"/>
-            {item.name}
-            <div className="pull-right buttonRow">
-                <a className="btn btn-primary" onClick={onEdit}
-                   title="Zmień">
-                    <i className="glyphicon glyphicon-edit"/>
-                </a>
-                <ConfirmableLink className="btn btn-danger" onClick={onDelete}
-                                 title="Usuń"
-                                 message={"Czy na pewno usunąć " + item.name + "?"}>
-                    <i className="glyphicon glyphicon-remove"/>
-                </ConfirmableLink>
-            </div>
+export const ArtifactIconAndName = ({item}) => <span>
+    <VocIcon value={vocFunctions.find(Type, item.type)} className="iconWithName"/>
+    {item.name}
+</span>;
+
+const ArtifactOperationsBar = ({item, onEdit, onDelete}) => <h2>
+        <ArtifactIconAndName item={item}/>
+        <div className="pull-right buttonRow">
+            <a className="btn btn-primary" onClick={onEdit}
+               title="Zmień">
+                <i className="glyphicon glyphicon-edit"/>
+            </a>
+            <ConfirmableLink className="btn btn-danger" onClick={onDelete}
+                             title="Usuń"
+                             message={"Czy na pewno usunąć " + item.name + "?"}>
+                <i className="glyphicon glyphicon-remove"/>
+            </ConfirmableLink>
+        </div>
         </h2>
 ;
 

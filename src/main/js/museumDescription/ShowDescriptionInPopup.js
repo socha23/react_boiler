@@ -18,7 +18,7 @@ class ShowDescriptionInPopup extends React.Component {
             </div>
         </Popup>
 
-        <a  style={{fontSize: 18}}
+        <a  style={{fontSize: 18, cursor: "pointer"}}
             onClick={e => {this.popup.openModal()}}>
             Opis obiektu
         </a>
