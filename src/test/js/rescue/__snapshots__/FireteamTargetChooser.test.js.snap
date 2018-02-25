@@ -317,6 +317,7 @@ exports[`renders correctly 1`] = `
                                       className="iconWithName"
                                       value={
                                         Object {
+                                          "color": "#5cb85c",
                                           "iconText": "1",
                                           "id": "P1_LOW",
                                           "name": "Niski",
@@ -329,6 +330,11 @@ exports[`renders correctly 1`] = `
                                       >
                                         <span
                                           className="badge"
+                                          style={
+                                            Object {
+                                              "backgroundColor": "#5cb85c",
+                                            }
+                                          }
                                         >
                                           1
                                         </span>

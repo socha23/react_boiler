@@ -1,8 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import ConfirmableLink from '../common/components/ConfirmableLink'
 import VocIcon from '../common/components/VocIcon'
-import {priorityName, priority, Type, Priority} from './ArtifactVocs'
+import {priority, priorityName, Type} from './ArtifactVocs'
 import * as vocFunctions from '../common/vocFunctions'
 import {ImageListWithView} from './ArtifactImageList'
 import TagValue from '../tags/TagValue'
@@ -108,39 +107,43 @@ const ArtifactDetails = ({item}) => <div>
         </WhenNonEmpty>
 
     </div>
-    ;
+;
+
+
+const ArtifactDetailsAndImage = ({item}) => <div className="row">
+    <div className="col-sm-6">
+        <ArtifactDetails item={item}/>
+    </div>
+    <div className="col-sm-6">
+        <ImageListWithView items={item.images}/>
+    </div>
+</div>;
+
+const ArtifactOperationsBar = ({item, onEdit, onDelete}) =>         <h2>
+            <VocIcon value={vocFunctions.find(Type, item.type)} className="iconWithName"/>
+            {item.name}
+            <div className="pull-right buttonRow">
+                <a className="btn btn-primary" onClick={onEdit}
+                   title="Zmień">
+                    <i className="glyphicon glyphicon-edit"/>
+                </a>
+                <ConfirmableLink className="btn btn-danger" onClick={onDelete}
+                                 title="Usuń"
+                                 message={"Czy na pewno usunąć " + item.name + "?"}>
+                    <i className="glyphicon glyphicon-remove"/>
+                </ConfirmableLink>
+            </div>
+        </h2>
+;
+
 
 
 const ArtifactView = ({item, onEdit, onDelete}) =>
-        <div>
-            <h2>
-                <VocIcon value={vocFunctions.find(Type, item.type)} className="iconWithName"/>
-
-                {item.name}
-                <div className="pull-right buttonRow">
-                    <a className="btn btn-primary" onClick={onEdit}
-                       title="Zmień">
-                        <i className="glyphicon glyphicon-edit"/>
-                    </a>
-                    <ConfirmableLink className="btn btn-danger" onClick={onDelete}
-                                     title="Usuń"
-                                     message={"Czy na pewno usunąć " + item.name + "?"}>
-                        <i className="glyphicon glyphicon-remove"/>
-                    </ConfirmableLink>
-                </div>
-            </h2>
-            <hr/>
-            <div className="row">
-                <div className="col-sm-6">
-                    <ArtifactDetails item={item}/>
-                </div>
-                <div className="col-sm-6">
-                    <ImageListWithView items={item.images}/>
-                </div>
-            </div>
-
-
-        </div>
-    ;
+    <div>
+        <ArtifactOperationsBar item={item} onEdit={onEdit} onDelete={onDelete}/>
+        <hr/>
+        <ArtifactDetailsAndImage item={item}/>
+    </div>
+;
 
 export default ArtifactView;
