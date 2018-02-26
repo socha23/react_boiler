@@ -457,6 +457,102 @@ exports[`renders correctly 1`] = `
                                         </CommonTargetData>
                                       </Connect(CommonTargetData)>
                                     </div>
+                                    <ShowArtifactViewInPopup
+                                      artifact={
+                                        Object {
+                                          "id": "A_1",
+                                          "name": "artifact_1",
+                                          "priority": "P1_LOW",
+                                          "tagId": "T_2",
+                                        }
+                                      }
+                                    >
+                                      <div>
+                                        <Popup
+                                          labelPopupTitle={
+                                            <ArtifactIconAndName
+                                              item={
+                                                Object {
+                                                  "id": "A_1",
+                                                  "name": "artifact_1",
+                                                  "priority": "P1_LOW",
+                                                  "tagId": "T_2",
+                                                }
+                                              }
+                                            />
+                                          }
+                                        >
+                                          <div>
+                                            <Modal
+                                              animate={true}
+                                              attentionClass="shake"
+                                              backdrop={true}
+                                              container={<body />}
+                                              keyboard={true}
+                                              manager={
+                                                ModalManager {
+                                                  "add": [Function],
+                                                  "containers": Array [],
+                                                  "data": Array [],
+                                                  "handleContainerOverflow": true,
+                                                  "hideSiblingNodes": true,
+                                                  "isTopModal": [Function],
+                                                  "modals": Array [],
+                                                  "remove": [Function],
+                                                }
+                                              }
+                                              onHide={[Function]}
+                                              show={false}
+                                              transition={true}
+                                            >
+                                              <Modal
+                                                autoFocus={true}
+                                                backdrop={true}
+                                                backdropClassName="modal-backdrop"
+                                                backdropTransitionTimeout={150}
+                                                container={<body />}
+                                                containerClassName="modal-open"
+                                                dialogTransitionTimeout={300}
+                                                enforceFocus={true}
+                                                keyboard={true}
+                                                manager={
+                                                  ModalManager {
+                                                    "add": [Function],
+                                                    "containers": Array [],
+                                                    "data": Array [],
+                                                    "handleContainerOverflow": true,
+                                                    "hideSiblingNodes": true,
+                                                    "isTopModal": [Function],
+                                                    "modals": Array [],
+                                                    "remove": [Function],
+                                                  }
+                                                }
+                                                onEntering={[Function]}
+                                                onExiting={[Function]}
+                                                onHide={[Function]}
+                                                renderBackdrop={[Function]}
+                                                restoreFocus={true}
+                                                show={false}
+                                                transition={[Function]}
+                                              />
+                                            </Modal>
+                                          </div>
+                                        </Popup>
+                                        <a
+                                          onClick={[Function]}
+                                          style={
+                                            Object {
+                                              "color": "#aaa",
+                                              "fontSize": 24,
+                                            }
+                                          }
+                                        >
+                                          <i
+                                            className="glyphicon glyphicon-eye-open"
+                                          />
+                                        </a>
+                                      </div>
+                                    </ShowArtifactViewInPopup>
                                   </div>
                                 </Target>
                               </td>

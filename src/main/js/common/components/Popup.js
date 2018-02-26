@@ -5,7 +5,10 @@ import Modal from 'react-bootstrap-modal'
 class Popup extends React.Component {
 
     static propTypes = {
-        labelPopupTitle: PropTypes.string,
+        labelPopupTitle: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.element
+        ])
     };
 
     static defaultProps = {
