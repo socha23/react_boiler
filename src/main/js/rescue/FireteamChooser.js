@@ -5,7 +5,7 @@ import Panel from '../common/components/Panel'
 
 import ActiveFireteam from './ActiveFireteam.js'
 
-const FireteamChooser = ({
+export const FireteamChooser = ({
         fireteams = [],
         selected = null,
         onSelect = () => {},

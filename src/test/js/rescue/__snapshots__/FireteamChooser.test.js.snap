@@ -1,0 +1,390 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <Connect(FireteamChooser)
+    fireteams={
+      Array [
+        Object {
+          "id": "FT_1",
+          "name": "fireteam 1",
+        },
+        Object {
+          "id": "FT_2",
+          "name": "fireteam 2",
+        },
+      ]
+    }
+  >
+    <FireteamChooser
+      dispatch={[Function]}
+      fireteams={
+        Array [
+          Object {
+            "id": "FT_1",
+            "name": "fireteam 1",
+          },
+          Object {
+            "id": "FT_2",
+            "name": "fireteam 2",
+          },
+        ]
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "margin": "-5px -5px 0 -5px",
+          }
+        }
+      >
+        <div
+          key="FT_1"
+          style={
+            Object {
+              "flex": 1,
+              "margin": 5,
+            }
+          }
+        >
+          <Panel
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#fff",
+                "cursor": "pointer",
+              }
+            }
+          >
+            <div
+              className="panel panel-default"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "#fff",
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <div
+                className="panel-body"
+                style={
+                  Object {
+                    "padding": 10,
+                  }
+                }
+              >
+                <Connect(ActiveFireteam)
+                  fireteam={
+                    Object {
+                      "id": "FT_1",
+                      "name": "fireteam 1",
+                    }
+                  }
+                >
+                  <ActiveFireteam
+                    dispatch={[Function]}
+                    fireteam={
+                      Object {
+                        "id": "FT_1",
+                        "name": "fireteam 1",
+                      }
+                    }
+                    fireteamTag={null}
+                    targetTag={null}
+                  >
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "display": "flex",
+                          "minHeight": 84,
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "flex": 1,
+                          }
+                        }
+                      >
+                        <div
+                          style={
+                            Object {
+                              "display": "flex",
+                            }
+                          }
+                        >
+                          <div
+                            style={
+                              Object {
+                                "flex": 1,
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "fontSize": 20,
+                                  "fontWeight": "bold",
+                                  "marginRight": 10,
+                                }
+                              }
+                            >
+                              fireteam 1
+                            </span>
+                            <Connect(TagAreaNameComponent)
+                              style={
+                                Object {
+                                  "fontSize": 16,
+                                }
+                              }
+                              tag={null}
+                            >
+                              <TagAreaNameComponent
+                                dispatch={[Function]}
+                                style={
+                                  Object {
+                                    "fontSize": 16,
+                                  }
+                                }
+                                tag={null}
+                              >
+                                <span />
+                              </TagAreaNameComponent>
+                            </Connect(TagAreaNameComponent)>
+                          </div>
+                          <div
+                            style={
+                              Object {
+                                "fontSize": 20,
+                              }
+                            }
+                          >
+                            <DistanceBetweenTags
+                              from={null}
+                              to={null}
+                            >
+                              <span />
+                            </DistanceBetweenTags>
+                          </div>
+                        </div>
+                        <div
+                          style={
+                            Object {
+                              "marginTop": 10,
+                            }
+                          }
+                        >
+                          <FireteamTarget
+                            fireteamTag={null}
+                            targetTag={null}
+                          >
+                            <span>
+                              Nie ustawiono celu
+                            </span>
+                          </FireteamTarget>
+                          <Connect(TagAreaNameComponent)
+                            tag={null}
+                          >
+                            <TagAreaNameComponent
+                              dispatch={[Function]}
+                              tag={null}
+                            >
+                              <span />
+                            </TagAreaNameComponent>
+                          </Connect(TagAreaNameComponent)>
+                        </div>
+                      </div>
+                    </div>
+                  </ActiveFireteam>
+                </Connect(ActiveFireteam)>
+              </div>
+            </div>
+          </Panel>
+        </div>
+        <div
+          key="FT_2"
+          style={
+            Object {
+              "flex": 1,
+              "margin": 5,
+            }
+          }
+        >
+          <Panel
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#fff",
+                "cursor": "pointer",
+              }
+            }
+          >
+            <div
+              className="panel panel-default"
+              onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "#fff",
+                  "cursor": "pointer",
+                }
+              }
+            >
+              <div
+                className="panel-body"
+                style={
+                  Object {
+                    "padding": 10,
+                  }
+                }
+              >
+                <Connect(ActiveFireteam)
+                  fireteam={
+                    Object {
+                      "id": "FT_2",
+                      "name": "fireteam 2",
+                    }
+                  }
+                >
+                  <ActiveFireteam
+                    dispatch={[Function]}
+                    fireteam={
+                      Object {
+                        "id": "FT_2",
+                        "name": "fireteam 2",
+                      }
+                    }
+                    fireteamTag={null}
+                    targetTag={null}
+                  >
+                    <div
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "display": "flex",
+                          "minHeight": 84,
+                        }
+                      }
+                    >
+                      <div
+                        style={
+                          Object {
+                            "flex": 1,
+                          }
+                        }
+                      >
+                        <div
+                          style={
+                            Object {
+                              "display": "flex",
+                            }
+                          }
+                        >
+                          <div
+                            style={
+                              Object {
+                                "flex": 1,
+                              }
+                            }
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "fontSize": 20,
+                                  "fontWeight": "bold",
+                                  "marginRight": 10,
+                                }
+                              }
+                            >
+                              fireteam 2
+                            </span>
+                            <Connect(TagAreaNameComponent)
+                              style={
+                                Object {
+                                  "fontSize": 16,
+                                }
+                              }
+                              tag={null}
+                            >
+                              <TagAreaNameComponent
+                                dispatch={[Function]}
+                                style={
+                                  Object {
+                                    "fontSize": 16,
+                                  }
+                                }
+                                tag={null}
+                              >
+                                <span />
+                              </TagAreaNameComponent>
+                            </Connect(TagAreaNameComponent)>
+                          </div>
+                          <div
+                            style={
+                              Object {
+                                "fontSize": 20,
+                              }
+                            }
+                          >
+                            <DistanceBetweenTags
+                              from={null}
+                              to={null}
+                            >
+                              <span />
+                            </DistanceBetweenTags>
+                          </div>
+                        </div>
+                        <div
+                          style={
+                            Object {
+                              "marginTop": 10,
+                            }
+                          }
+                        >
+                          <FireteamTarget
+                            fireteamTag={null}
+                            targetTag={null}
+                          >
+                            <span>
+                              Nie ustawiono celu
+                            </span>
+                          </FireteamTarget>
+                          <Connect(TagAreaNameComponent)
+                            tag={null}
+                          >
+                            <TagAreaNameComponent
+                              dispatch={[Function]}
+                              tag={null}
+                            >
+                              <span />
+                            </TagAreaNameComponent>
+                          </Connect(TagAreaNameComponent)>
+                        </div>
+                      </div>
+                    </div>
+                  </ActiveFireteam>
+                </Connect(ActiveFireteam)>
+              </div>
+            </div>
+          </Panel>
+        </div>
+      </div>
+    </FireteamChooser>
+  </Connect(FireteamChooser)>
+</Provider>
+`;
