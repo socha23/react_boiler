@@ -1,5 +1,6 @@
 import React from 'react'
-import {expectElemWithProvider} from '../testUtils'
+
+import {elemWithProvider} from '../testUtils'
 
 import {FireteamChooserComponent} from 'rescue/FireteamChooser'
 import FireteamChooser from "../../../main/js/rescue/FireteamChooser";
@@ -33,7 +34,20 @@ function stateWithFireteams(fireteams) {
 
 
 it('renders correctly', () => {
-    expectElemWithProvider(
+    expect(elemWithProvider(
+        <FireteamChooser fireteams={[FT_1, FT_2]}/>, stateWithFireteams([FT_1, FT_2]
+        )
+    )).toMatchSnapshot()
+});
+
+it('doesnt contain scroll for two fireteams', () => {
+    expect(elemWithProvider(
         <FireteamChooser fireteams={[FT_1, FT_2]}/>, stateWithFireteams([FT_1, FT_2])
-    ).toMatchSnapshot()
+    ).find(".scrollPanel")).toBeEmpty()
+});
+
+it('contains scroll for three fireteams', () => {
+    expect(elemWithProvider(
+        <FireteamChooser fireteams={[FT_1, FT_2, FT_3]}/>, stateWithFireteams([FT_1, FT_2, FT_3])
+    ).find(".scrollPanel")).toBePresent()
 });
