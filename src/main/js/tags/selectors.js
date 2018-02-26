@@ -4,6 +4,8 @@ import {groupBy, indexById} from '../common/resourceFunctions'
 
 import {isInside} from './tagHelpers'
 
+import {TypeArtifact, TypeFireteam, TypeNavigation} from "./TagType";
+
 const getRawTags = state => state.tags.items || [];
 const getRawFireteams = state => state.fireteams.items || [];
 const getRawArtifacts = state => state.artifacts.items || [];
@@ -13,11 +15,11 @@ const tagCompare = (t1, t2) => {
 
     function priority(type) {
         switch (type) {
-            case "fireteam":
+            case TypeFireteam.id:
                 return 0;
-            case "artifact":
+            case TypeArtifact.id:
                 return 1;
-            case "navigation":
+            case TypeNavigation.id:
                 return 2;
             default:
                 return 3;
@@ -54,15 +56,15 @@ export const getTagsOnFloor = (state, floorId) => getTagsInsideByCoordinateSyste
 
 function getAdditionalTagData(tags, fireteams, artifacts) {
     const result = {};
-    fillAdditionalData(result, tags, "id", "name", "navigation", "#5bc0de");
-    fillAdditionalData(result, fireteams, "tagId", "name", "fireteam", "#d9534f");
-    fillAdditionalData(result, artifacts, "tagId", "name", "artifact", "#337ab7");
+    fillAdditionalData(result, tags, "id", "name", TypeNavigation);
+    fillAdditionalData(result, fireteams, "tagId", "name", TypeFireteam);
+    fillAdditionalData(result, artifacts, "tagId", "name", TypeArtifact);
     return result;
 }
 
-function fillAdditionalData(result, items, idField, labelField, type, color) {
+function fillAdditionalData(result, items, idField, labelField, type) {
     items.forEach(i => {
-        result[i[idField]] = {type: type, color: color, label: i[labelField]}
+        result[i[idField]] = {type: type.id, color: type.color, label: i[labelField]}
     });
 }
 

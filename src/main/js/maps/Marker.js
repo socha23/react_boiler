@@ -4,19 +4,35 @@ import TagMapIcon from '../tags/TagMapIcon'
 
 const DOT_SIZE = 30;
 
-const DotMarker = (props) => <Marker {...props}>
-    <div style={{
-        width: DOT_SIZE,
-        height: DOT_SIZE,
-        borderRadius: DOT_SIZE / 2,
-        border: "1px solid black",
-        backgroundColor: props.color,
-        position: 'relative',
-        cursor: 'pointer',
-        left: - DOT_SIZE / 2,
-        top: - DOT_SIZE / 2
-    }} onClick={props.onClick}></div>
-</Marker>;
+const DotMarker = (props) => {
+    const dotSize = props.dotSize || DOT_SIZE;
+
+    return <Marker {...props}>
+        <div title={props.name} style={{
+            width: dotSize,
+            height: dotSize,
+            borderRadius: dotSize / 2,
+            border: "1px solid #444",
+            backgroundColor: props.color,
+            boxShadow: "2px 4px 10px #888",
+            position: 'relative',
+            cursor: 'pointer',
+            left: -(dotSize / 2),
+            top: -(dotSize / 2)
+        }} onClick={props.onClick}>
+            <div style={{
+                position: 'relative',
+                left: -1,
+                top: -1,
+                background: "linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 15%, rgba(255,255,255,0) 50%)",
+                borderRadius: dotSize / 2,
+                width: dotSize,
+                height: dotSize
+            }}/>
+        </div>
+
+    </Marker>
+};
 
 
 const TagMapIconMarker = (props) => <Marker {...props}>
@@ -51,43 +67,45 @@ const LabelMarker = (props) => {
     return <Marker {...props}>
         <div className="triangleContainer"
              style={{
-             position: "absolute",
-             zIndex: 2,
-             textShadow: "2px 4px 10px #888",
-             ...(dirStyle.arrowStyle)}}>
+                 position: "absolute",
+                 zIndex: 2,
+                 textShadow: "2px 4px 10px #888",
+                 ...(dirStyle.arrowStyle)
+             }}>
             <i style={{fontSize: 16, color: props.color}} className={"glyphicon " + dirStyle.arrowClass}/>
         </div>
         <div style={{position: "absolute", zIndex: 1, cursor: "pointer", ...(dirStyle.labelStyle)}}
-            onClick={props.onClick}>
-            <span className={"label " + decorationClass }
+             onClick={props.onClick}>
+            <span className={"label " + decorationClass}
                   style={style}>{props.name}</span>
         </div>
     </Marker>
 };
 
 
-const Marker = ({id, style, x, y, name = "", selected = false, onClick = () => {
-}, children
+const Marker = ({
+                    id, style, x, y, name = "", selected = false, onClick = () => {
+    }, children
 
-    }) =>
+                }) =>
     <div style={{
-            left: x || 0,
-            top: y || 0,
-            position: "absolute",
-            zIndex: 1,
-            fontSize: 14,
-            lineHeight: 1.4
+        left: x || 0,
+        top: y || 0,
+        position: "absolute",
+        zIndex: 1,
+        fontSize: 14,
+        lineHeight: 1.4
     }}>
         {children}
         {selected ?
             <img
                 src={CONTEXT_PATH + "/mapMarker-yellow.png"}
                 style={{
-                position: 'absolute',
-                zIndex: 2000,
-                left: -32,
-                top: -61
-            }}
+                    position: 'absolute',
+                    zIndex: 2000,
+                    left: -32,
+                    top: -61
+                }}
 
             />
             : <span/>}

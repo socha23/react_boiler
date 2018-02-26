@@ -1,29 +1,48 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
-import {connect} from 'react-redux'
+import HeightExpander from '../common/components/HeightExpander'
+import ToggleButtons from '../common/components/ToggleButtons'
+
+import {DotMarker, LabelMarker} from './Marker'
+import Line from './Line'
+import {TagTypes} from "../tags/TagType";
 
 // panzoom nie jest wczytywany jako moduł npm i wymaga nie-npmowego jquery
 //import $ from 'jquery'
 
-import HeightExpander from '../common/components/HeightExpander'
+const Tag = ({tag, decoration, pxPosition, selected, onClick, dot}) => {
+    if (!pxPosition) {
+        return <span/>;
+    }
 
-import {LabelMarker, DotMarker, Marker, TagMapIconMarker} from './Marker'
-import Line from './Line'
-
-const Tag = ({tag, decoration, pxPosition, selected, onClick}) =>
-pxPosition ?
-    <LabelMarker
-        id={tag.id}
-        color={tag.color}
-        name={tag.label}
-        tag={tag}
-        arrowDirection={tag.type == "fireteam" ? "down" : "up"}
-        decoration={decoration}
-        x={pxPosition.x}
-        y={pxPosition.y}
-        selected={selected}
-        onClick={onClick}
-    /> : <span/>;
+    if (dot) {
+        return <DotMarker
+            id={tag.id}
+            color={tag.color}
+            name={tag.label}
+            tag={tag}
+            decoration={decoration}
+            x={pxPosition.x}
+            y={pxPosition.y}
+            selected={selected}
+            onClick={onClick}
+            dotSize={15}
+        />
+    } else {
+        return <LabelMarker
+            id={tag.id}
+            color={tag.color}
+            name={tag.label}
+            tag={tag}
+            arrowDirection={tag.type == "fireteam" ? "down" : "up"}
+            decoration={decoration}
+            x={pxPosition.x}
+            y={pxPosition.y}
+            selected={selected}
+            onClick={onClick}
+        />
+    }
+};
 
 class ZoomableFloorPlan extends React.Component {
 
@@ -34,6 +53,7 @@ class ZoomableFloorPlan extends React.Component {
         onClickTag: PropTypes.func,
         additionalMargin: PropTypes.number,
         lines: PropTypes.array,
+        filterButtons: PropTypes.bool,
         tagDecorations: PropTypes.object
     };
 
@@ -43,11 +63,13 @@ class ZoomableFloorPlan extends React.Component {
         tags: [],
         lines: [],
         additionalMargin: 0,
+        filterButtons: true,
         tagDecorations: {}
     };
 
     state = {
-        matrix: [1, 0, 0, 1, 0, 0]
+        matrix: [1, 0, 0, 1, 0, 0],
+        typeFilter: {}
     };
 
     componentDidMount = () => {
@@ -162,25 +184,40 @@ class ZoomableFloorPlan extends React.Component {
         }
     };
 
+    onTypeFilterChanged = (typeFilter) => {
+        this.setState({typeFilter: typeFilter})
+    };
+
 
     render() {
         return <div style={{position: "relative", overflow: "hidden"}}>
             <HeightExpander additionalMargin={this.props.additionalMargin}>
-                <div style={{position: "absolute"}} ref={elem => this.elem = $(elem)}>
+                <div style={{position: "absolute", zIndex: 0}} ref={elem => this.elem = $(elem)}>
                     <img src={this.props.map.base64content}/>
                 </div>
-                <div style={{position: "absolute", right: 15, bottom: 15}}>
-                    <a className="mapZoomButton" ref={zoomIn => this.zoomIn = zoomIn}>
-                        <i className="glyphicon glyphicon-plus"/>
-                    </a>
-                    <a className="mapZoomButton" ref={zoomOut => this.zoomOut = zoomOut}>
-                        <i className="glyphicon glyphicon-minus"/>
-                    </a>
+                <div style={{position: "absolute", zIndex: 2, right: 15, bottom: 15}}>
+                    {
+                        this.props.filterButtons ?
+                            <div style={{marginBottom: 10}}>
+                                <ToggleButtons items={TagTypes} type="mapButton" selected={this.state.typeFilter} onSelectionChange={this.onTypeFilterChanged}/>
+                            </div>
+                            : <div/>
+                    }
+
+                    <div className="btn-group-vertical">
+                        <a className="vocIcon btn btn-default btn-lg" ref={zoomIn => this.zoomIn = zoomIn}>
+                            <i className="glyphicon glyphicon-plus"/>
+                        </a>
+                        <a className="vocIcon btn btn-default btn-lg" ref={zoomOut => this.zoomOut = zoomOut}>
+                            <i className="glyphicon glyphicon-minus"/>
+                        </a>
+                    </div>
                 </div>
             </HeightExpander>
             {this.props.tags
                 .map(t => ({...t, pxPosition: this.posToContainerPx(t.position)}))
                 .map(t => <Tag {...t}
+                    dot={this.state.typeFilter[t.type]}
                     tag={t}
                     key={t.id}
                     selected={this.props.selectedTag && t.id == this.props.selectedTag.id}

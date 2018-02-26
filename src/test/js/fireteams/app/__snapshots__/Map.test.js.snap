@@ -138,8 +138,9 @@ exports[`renders correctly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "red",
-                        "border": "1px solid black",
+                        "border": "1px solid #444",
                         "borderRadius": 15,
+                        "boxShadow": "2px 4px 10px #888",
                         "cursor": "pointer",
                         "height": 30,
                         "left": -15,
@@ -148,7 +149,21 @@ exports[`renders correctly 1`] = `
                         "width": 30,
                       }
                     }
-                  />
+                  >
+                    <div
+                      style={
+                        Object {
+                          "background": "linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 15%, rgba(255,255,255,0) 50%)",
+                          "borderRadius": 15,
+                          "height": 30,
+                          "left": -1,
+                          "position": "relative",
+                          "top": -1,
+                          "width": 30,
+                        }
+                      }
+                    />
+                  </div>
                   <span />
                 </div>
               </Marker>
@@ -179,8 +194,9 @@ exports[`renders correctly 1`] = `
                     style={
                       Object {
                         "backgroundColor": "blue",
-                        "border": "1px solid black",
+                        "border": "1px solid #444",
                         "borderRadius": 15,
+                        "boxShadow": "2px 4px 10px #888",
                         "cursor": "pointer",
                         "height": 30,
                         "left": -15,
@@ -189,7 +205,21 @@ exports[`renders correctly 1`] = `
                         "width": 30,
                       }
                     }
-                  />
+                  >
+                    <div
+                      style={
+                        Object {
+                          "background": "linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 15%, rgba(255,255,255,0) 50%)",
+                          "borderRadius": 15,
+                          "height": 30,
+                          "left": -1,
+                          "position": "relative",
+                          "top": -1,
+                          "width": 30,
+                        }
+                      }
+                    />
+                  </div>
                   <span />
                 </div>
               </Marker>
