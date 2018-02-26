@@ -1,7 +1,13 @@
 import React from 'react'
-import {crudList, crudActions} from '../common/crud/crudContainers'
+import {crudActions} from '../common/crud/crudContainers'
 import FireteamsBrowser from './FireteamsBrowser'
 
+import {connect} from 'react-redux'
+import {getSortedFireteams} from "../fireteams/selectors";
+
+const mapStateToProps = (state) => ({
+    items: getSortedFireteams(state)
+});
+
 export default crudActions("fireteams",
-    crudList("fireteams", FireteamsBrowser)
-);
+    connect(mapStateToProps)(FireteamsBrowser));

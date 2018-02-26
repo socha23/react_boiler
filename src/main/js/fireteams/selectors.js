@@ -1,10 +1,8 @@
 import {createSelector} from 'reselect'
 
-import {indexById} from '../common/resourceFunctions'
-
 import {getFloorPlanById} from '../maps/selectors'
 import {getTagsById} from '../tags/selectors'
-import {isInside, isInCoordinateSystem} from '../tags/tagHelpers'
+import {isInCoordinateSystem} from '../tags/tagHelpers'
 
 
 export const getAllFireteams = state => state.fireteams.items || [];
@@ -12,6 +10,7 @@ export const getFireteamsById = state => state.fireteams.itemsById || {};
 
 export const getFireteamsAssignedTo = (state, targetTag) => getAllFireteams(state).filter(ft => ft.targetTagId == targetTag.id);
 
+export const getSortedFireteams = createSelector([getAllFireteams], (fireteams) => [...fireteams].sort((a, b) => a.name.localeCompare(b.name)));
 
 export function getFireteamById(state, id) {
     return getFireteamsById(state)[id]

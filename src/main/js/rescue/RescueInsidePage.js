@@ -7,6 +7,7 @@ import FireteamOrders from './FireteamOrders'
 import ShowDescriptionInPopup from '../museumDescription/ShowDescriptionInPopup'
 
 import {getMuseumDescription} from "../museumDescription/selectors"
+import {getSortedFireteams} from "../fireteams/selectors"
 
 const LOWER_ROW_HEIGHT = 118;
 
@@ -92,7 +93,7 @@ class RescuePageContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    fireteams: state.fireteams.items,
+    fireteams: getSortedFireteams(state),
     tags: state.tags.items,
     tagsById: state.tags.itemsById,
     artifacts: state.artifacts.items,

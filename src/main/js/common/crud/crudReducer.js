@@ -2,12 +2,8 @@ import restActionNames from './crudActionNames'
 import deepEqual from 'deep-equal'
 import {indexById} from '../resourceFunctions'
 
-export default function restReducer(resource, params = {}) {
+export default function restReducer(resource, aParams = {}) {
 
-    params = {
-        mapReceived: i => i,
-        ...params
-    };
 
     const ActionNames = restActionNames(resource);
 
@@ -19,6 +15,10 @@ export default function restReducer(resource, params = {}) {
         itemsById: {},
         itemsTimestamp: null
     }, action = null) {
+        const params = {
+            mapReceived: i => i,
+            ...aParams
+        };
         switch (action.type) {
             case ActionNames.REQUEST_ITEMS:
                 return {
@@ -36,7 +36,7 @@ export default function restReducer(resource, params = {}) {
                 return {
                     ...state,
                     isCreating: false,
-                    items: [mapReceived(action.item, params), ...state.items],
+                    items: [mapReceived(action.item, state, params), ...state.items],
                     itemsById: {...state.itemsById, [action.item.id]: mapReceived(action.item, state, params)}
                 };
             case ActionNames.CREATE_ERROR:
