@@ -54,7 +54,7 @@ ModeSwitcher = connect((state, {fireteam}) => ({
     fireteamTag: getFireteamTag(state, fireteam)
 }))(ModeSwitcher);
 
-const FireteamApp = ({fireteam}) => <ModeSwitcher fireteam={fireteam} distanceForArtifactMode={5}/>;
+const FireteamApp = ({fireteam}) => <ModeSwitcher fireteam={fireteam} distanceForArtifactMode={0.75}/>;
 
 
 export default FireteamApp;

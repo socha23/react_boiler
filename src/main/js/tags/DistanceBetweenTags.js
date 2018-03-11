@@ -5,7 +5,7 @@ import {isInside} from './tagHelpers'
 export function distance(from, to) {
     let dx = from.position.x - to.position.x;
     let dy = from.position.y - to.position.y;
-    return Math.ceil(Math.sqrt(dx * dx + dy * dy));
+    return Math.sqrt(dx * dx + dy * dy);
 }
 
 const DistanceBetweenTags = ({from, to}) => {
@@ -14,7 +14,7 @@ const DistanceBetweenTags = ({from, to}) => {
     } else if (!isInside(from) || !isInside(to)) {
         return <span>?</span>
     } else {
-        return <span>{distance(from, to)}m</span>
+        return <span>{Math.ceil(distance(from, to))}m</span>
     }
 };
 

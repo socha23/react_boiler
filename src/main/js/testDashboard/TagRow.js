@@ -61,7 +61,7 @@ export class TagRowComponent extends React.Component {
         let from = fp.topLeft[field];
         let to = fp.bottomRight[field];
 
-        return (from + (val / 100) * (to - from));
+        return (from + (val / 1000) * (to - from));
     };
 
     posToSlider = (val, field) => {
@@ -69,7 +69,7 @@ export class TagRowComponent extends React.Component {
         let from = fp.topLeft[field];
         let to = fp.bottomRight[field];
 
-        return (val - from) / (to - from) * 100;
+        return (val - from) / (to - from) * 1000;
 
     };
 
@@ -98,14 +98,14 @@ export class TagRowComponent extends React.Component {
                 {this.props.tag.label}
             </span>
             </td>
-            <td style={{width: 200}}>
+            <td style={{width: 400}}>
                 <div>
-                    <Slider value={this.posToSlider(this.state.x, "x")} onChange={this.onChangeX}/>
+                    <Slider max={1000} value={this.posToSlider(this.state.x, "x")} onChange={this.onChangeX}/>
                 </div>
             </td>
-            <td style={{width: 200}}>
+            <td style={{width: 400}}>
                 <div>
-                    <Slider value={this.posToSlider(this.state.y, "y")} onChange={this.onChangeY}/>
+                    <Slider max={1000} value={this.posToSlider(this.state.y, "y")} onChange={this.onChangeY}/>
                 </div>
             </td>
             <td>

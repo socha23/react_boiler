@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.Artifact;
 import pl.socha23.cyberfire.model.Locator;
-import pl.socha23.cyberfire.model.NearbyDevice;
 import pl.socha23.cyberfire.repositories.ArtifactRepository;
 
 import javax.annotation.PostConstruct;
@@ -54,7 +53,7 @@ public class MockLocatorsService implements ILocatorsService {
                     .longitude(WARSAW_LNG + gaussianScatter())
                     .nearbyDevices(new ArrayList<>())
                     .build();
-
+            /*
             if (i == 1) {
                 int numOfArtifactsInContainer = random.nextInt(Math.min(3, artifacts.size()) + 1);
                 for (int j = 0; j < numOfArtifactsInContainer; j++) {
@@ -62,6 +61,7 @@ public class MockLocatorsService implements ILocatorsService {
                     container.getNearbyDevices().add(new NearbyDevice(a.getId(), (int)(-60 + random.nextGaussian() * 30)));
                 }
             }
+            */ 
 
             staticLocators.add(container);
         }
