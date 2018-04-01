@@ -6,6 +6,7 @@ import {getFireteamFloorPlan, getFireteamTag, getTargetTag} from '../selectors'
 
 import {DotMarker} from '../../maps/Marker'
 import TransformMatrix from '../../common/components/TransformMatrix'
+
 import translatePoint from '../../common/translatePoint'
 
 
@@ -14,16 +15,27 @@ export class MapComponent extends React.Component {
     static propTypes = {
         fireteamTag: PropTypes.object.isRequired,
         targetTag: PropTypes.object,
-        floorPlan: PropTypes.object
+        floorPlan: PropTypes.object,
+        zoom: PropTypes.number
     };
 
     static defaultProps = {
         floorPlan: {},
-        targetTag: {}
+        targetTag: {},
+        zoom: 1
+
     };
 
     state = {
         imgBounds: null
+    };
+
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.zoom != this.props.zoom) {
+            // konieczny będzie rerender po uaktualnieniu komponentów
+            // (obejście na buga związanego z tym że target marker wylicza się na podstawie leżącego głębiej komponentu)
+            setTimeout(() => {this.setState({zoom: nextProps.zoom})})
+        }
     };
 
     setImgBounds = (e) => {
@@ -86,8 +98,8 @@ export class MapComponent extends React.Component {
 
         let targetMarker = <span/>;
         if (this.props.targetTag) {
-            let targetPosition = this.transformPoint(this.translateToImgCoords(this.props.targetTag.position));
-            targetMarker = <DotMarker x={targetPosition.x - fireteamPosition.x} y={targetPosition.y - fireteamPosition.y} color="blue"/>
+            let targetPosition = this.transformPoint(this.translateToImgCoords(this.props.targetTag.position), fireteamTranslation);
+            targetMarker = <DotMarker x={targetPosition.x - fireteamPosition.x} y={targetPosition.y - fireteamPosition.y} color="blue"/>;
         }
 
         /*
@@ -124,7 +136,7 @@ export class MapComponent extends React.Component {
                     >
                         <TransformMatrix
                             ref={e => {this.transformMatrix = e}}
-                            scale={1}
+                            scale={this.props.zoom}
                             translateX = {-fireteamTranslation.x}
                             translateY = {-fireteamTranslation.y}
                         >

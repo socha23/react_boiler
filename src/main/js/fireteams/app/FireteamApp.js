@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 
 
 import Fullscreen from '../../common/components/Fullscreen'
@@ -15,13 +16,35 @@ import {getFireteamTag, getTargetTag} from '../selectors'
 import {findArtifactByTagId} from "../../artifacts/selectors";
 
 
-const MapMode = ({fireteam}) => {
-    return <Fullscreen style={{display: "flex", flexDirection: "column"}}>
-        <Map fireteam={fireteam}/>
-        <TargetDistance fireteam={fireteam}/>
-        <TargetBar fireteam={fireteam}/>
-    </Fullscreen>
-};
+class MapMode extends React.Component {
+
+    static props = {
+        fireteam: PropTypes.object.isRequired,
+        zoomLevels: PropTypes.array
+    };
+
+    static defaultProps = {
+        zoomLevels: [1, 0.33]
+    };
+
+    state = {
+        zoomIdx: 0
+    };
+
+    render = () => {
+        return <Fullscreen style={{display: "flex", flexDirection: "column"}} onClick={this.toggleZoomLevel}>
+            <Map fireteam={this.props.fireteam} zoom={this.zoom()}/>
+                <TargetDistance fireteam={this.props.fireteam}/>
+                <TargetBar fireteam={this.props.fireteam}/>
+        </Fullscreen>
+    };
+
+    toggleZoomLevel = () => {
+        this.setState({zoomIdx: (this.state.zoomIdx + 1) % this.props.zoomLevels.length})
+    };
+
+    zoom = () => (this.props.zoomLevels[this.state.zoomIdx]);
+}
 
 let ArtifactMode = ({fireteam, artifact}) => {
     return <Fullscreen style={{backgroundColor: "black", display: "flex", flexDirection: "column", alignItems: "center"}}>
