@@ -23,10 +23,10 @@ export const FireteamChooser = ({
                                     tagsById = {}
                                 }) =>
     <OptionalScroll fireteams={fireteams}>
-        <div style={{display: "flex", flexDirection: "row", margin: "-5px -5px 0 -5px"}}>
+        <div style={{display: "flex", flexDirection: "row"}}>
             {fireteams.map(f => {
                     let isSelected = selected && selected.id == f.id;
-                    return <div style={{flex: 1, margin: 5}} key={f.id}>
+                    return <div style={{flex: 1}} key={f.id}>
                         <Panel
                             style={{
                                 minWidth: 250,

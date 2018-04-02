@@ -1,15 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
-import {getTagsInside, getTagsInsideByCoordinateSystemId} from '../tags/selectors'
+import {getTagsInsideByCoordinateSystemId} from '../tags/selectors'
 import {getFloorPlans} from '../maps/selectors'
 import {getFireteamAndTargetTags} from '../fireteams/selectors'
 
 import TabPanel, {STYLE_LG} from '../common/components/TabPanel'
 
 import ZoomableFloorPlan from '../maps/ZoomableFloorPlan'
-import {STYLE_ANIMATED_YELLOW, STYLE_ANIMATED_RED, STYLE_ANIMATED_GREEN} from '../maps/Line'
+import {STYLE_ANIMATED_GREEN} from '../maps/Line'
 
 
 let RescueFloorPlan = ({floorPlan, tags, markedTag, onSelect, additionalMargin, targetLines, tagDecorations}) => <ZoomableFloorPlan
@@ -84,6 +83,7 @@ class RescueFloorPlans extends React.Component {
 
     render = () =>
             <TabPanel
+                    {...this.props}
                     tabStyle={STYLE_LG}
                     padding={0}
                     activeTab={this.state.activeTab}

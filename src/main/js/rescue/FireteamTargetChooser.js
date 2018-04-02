@@ -30,40 +30,39 @@ function findActiveTab(selected, artifacts = [], fireteams = []) {
     }
 }
 
-const FireteamTargetChooser = ({artifacts, fireteams, navPoints, selected, onSelect, additionalMargin = 0}) => {
+const FireteamTargetChooser = ({artifacts, fireteams, navPoints, selected, onSelect, ...props}) => {
     return <TabPanel
-        heightExpander={true}
-        additionalMargin={additionalMargin}
+        {...props}
         padding={0}
         tabStyle={STYLE_LG}
         activeTab={findActiveTab(selected, artifacts, fireteams)}
         tabs={[
-        {
-            label: "Muzealia",
-            body: <ArtifactChooser
+            {
+                label: "Muzealia",
+                body: <ArtifactChooser
                     items={artifacts}
                     selectedTag={selected}
                     onSelectTag={onSelect}
                 />
-        },
-        {
-            label: "Roty",
-            body: <FireteamChooser
+            },
+            {
+                label: "Roty",
+                body: <FireteamChooser
                     items={fireteams}
                     selectedTag={selected}
                     onSelectTag={onSelect}
                 />
-        },
-        {
-            label: "Nawigacja",
-            body: <NavPointChooser
+            },
+            {
+                label: "Nawigacja",
+                body: <NavPointChooser
                     items={navPoints}
                     selectedTag={selected}
                     onSelectTag={onSelect}
                 />
-        }
+            }
 
-    ]}/>
+        ]}/>
 };
 
 export default connect((state) => ({
@@ -82,7 +81,7 @@ const ArtifactTarget = ({item, tag}) => <Target>
         <CommonTargetData tag={tag}/>
     </div>
     <ShowArtifactViewInPopup artifact={item}/>
-    
+
 </Target>;
 
 const FireteamChooser = (props) => <TargetChooser {...props} elem={FireteamTarget}/>;
@@ -132,29 +131,33 @@ class TargetChooser extends React.Component {
         this.props.onSelectTag(tag);
     };
 
-    render = () => <table className="table table-hover table-pointer table-noTopPadding"
-                          ref={e => this.rootElem = e}
-    >
-        <tbody>
-        {
-            this.props.items.map(a => {
-                let tag = this.props.tagsById[a.tagId];
-                return <tr key={a.id}
-                           className={this.props.selectedTag && this.props.selectedTag.id == a.tagId ? 'info' : ''}
-                           onClick={() => this.onSelectTag(tag)}
-                           ref={e => this.elemsByTagId[tag.id] = e}
-                >
-                    <td>
-                        {this.props.elem({
-                            item: a,
-                            tag: tag
-                        })}
-                    </td>
-                </tr>
-            })
-        }
-        </tbody>
-    </table>;
+    render = () =>
+        <div style={{scrollY: "auto", overflow: "hidden", height: "100%"}}>
+            <table className="table table-hover table-pointer table-noTopPadding"
+                   ref={e => this.rootElem = e}
+            >
+                <tbody>
+                {
+                    this.props.items.map(a => {
+                        let tag = this.props.tagsById[a.tagId];
+                        return <tr key={a.id}
+                                   className={this.props.selectedTag && this.props.selectedTag.id == a.tagId ? 'info' : ''}
+                                   onClick={() => this.onSelectTag(tag)}
+                                   ref={e => this.elemsByTagId[tag.id] = e}
+                        >
+                            <td>
+                                {this.props.elem({
+                                    item: a,
+                                    tag: tag
+                                })}
+                            </td>
+                        </tr>
+                    })
+                }
+                </tbody>
+            </table>
+        </div>;
+
 }
 
 TargetChooser = connect((state) => ({

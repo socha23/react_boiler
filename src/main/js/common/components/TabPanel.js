@@ -82,7 +82,10 @@ class TabPanel extends React.Component {
                                 : <span/>;
         let tabStyle = this.props.tabStyle;
 
-        return <div>
+        let mainDivStyle = this.props.style || {};
+        mainDivStyle = {...mainDivStyle, display: "flex", flexDirection: "column"};
+
+        return <div style={mainDivStyle}>
             <nav>
                 <ul style={{listStyleType: "none", marginBottom: 0, paddingLeft: 15}}>
                     {
@@ -99,7 +102,7 @@ class TabPanel extends React.Component {
                     }
                 </ul>
             </nav>
-            <div className="panel panel-default">
+            <div className="panel panel-default" style={{overflowY: "auto", flexGrow: "1", marginBottom: 0}}>
                 <div className="panel-body" style={{padding: this.props.padding}}>
                     {
                         this.props.heightExpander ?

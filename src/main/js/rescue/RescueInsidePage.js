@@ -8,42 +8,44 @@ import ShowDescriptionInPopup from '../museumDescription/ShowDescriptionInPopup'
 
 import {getMuseumDescription} from "../museumDescription/selectors"
 import {getSortedFireteams} from "../fireteams/selectors"
+import Fullscreen from "../common/components/Fullscreen";
 
 const LOWER_ROW_HEIGHT = 118;
 
 const RescueInsidePage = ({
-        tags, artifacts, fireteams, floorPlans,
-        selectedTargetTag, onSelectTargetTag,
-        selectedFireteam, onSelectFireteam,
-        onMarkTagOnMap, tagMarkedOnMap,
-        museumDescription
+                              tags, artifacts, fireteams, floorPlans,
+                              selectedTargetTag, onSelectTargetTag,
+                              selectedFireteam, onSelectFireteam,
+                              onMarkTagOnMap, tagMarkedOnMap,
+                              museumDescription
 
-        }) =>
-    <div className="container-fluid">
-        <div className="row">
-            <div className="col-sm-3 colWithSmallerGutter">
+                          }) =>
+    <Fullscreen>
+        <div style={{height: "100%", backgroudColor: "yellow", display: "flex"}}>
+            <div style={{width: "30%", display: "flex", flexDirection: "column"}}>
                 <FireteamTargetChooser
+                    style={{flexGrow: 1}}
                     selected={selectedTargetTag}
                     onSelect={onSelectTargetTag}
-                    additionalMargin={LOWER_ROW_HEIGHT}
                 />
                 <FireteamOrders fireteam={selectedFireteam} targetTag={selectedTargetTag}/>
             </div>
-            <div className="col-sm-9 colWithSmallerGutter">
+            <div style={{width: "70%", display: "flex", flexDirection: "column"}}>
                 <div style={{position: "absolute", right: 30, top: 10}}>
                     <ShowDescriptionInPopup value={museumDescription}/>
                 </div>
                 <RescueFloorPlans
-                        additionalMargin={LOWER_ROW_HEIGHT}
-                        markedTag={tagMarkedOnMap}
-                        onSelect={onMarkTagOnMap}
-                        selectedTarget={selectedTargetTag}
-                        selectedFireteam={selectedFireteam}
-                        />
+                    style={{flexGrow: 1}}
+                    additionalMargin={LOWER_ROW_HEIGHT}
+                    markedTag={tagMarkedOnMap}
+                    onSelect={onMarkTagOnMap}
+                    selectedTarget={selectedTargetTag}
+                    selectedFireteam={selectedFireteam}
+                />
                 <FireteamChooser fireteams={fireteams} selected={selectedFireteam} onSelect={onSelectFireteam}/>
             </div>
         </div>
-    </div>;
+    </Fullscreen>;
 
 
 class RescuePageContainer extends React.Component {
