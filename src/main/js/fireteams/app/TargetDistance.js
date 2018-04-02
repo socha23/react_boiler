@@ -6,6 +6,10 @@ import {getFireteamTag, getTargetTag} from '../selectors'
 import DistanceBetweenTags from '../../tags/DistanceBetweenTags'
 
 export const DistanceComponent = ({fireteamTag, targetTag}) => {
+    if (!targetTag) {
+        return <span/>
+    }
+
     if (targetTag.areaName == fireteamTag.areaName) {
         return <SameFloorDistance fireteamTag={fireteamTag} targetTag={targetTag}/>
 

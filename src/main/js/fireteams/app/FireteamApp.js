@@ -34,8 +34,8 @@ class MapMode extends React.Component {
     render = () => {
         return <Fullscreen style={{display: "flex", flexDirection: "column"}} onClick={this.toggleZoomLevel}>
             <Map fireteam={this.props.fireteam} zoom={this.zoom()}/>
-                <TargetDistance fireteam={this.props.fireteam}/>
-                <TargetBar fireteam={this.props.fireteam}/>
+            <TargetDistance fireteam={this.props.fireteam}/>
+            <TargetBar fireteam={this.props.fireteam}/>
         </Fullscreen>
     };
 
@@ -61,7 +61,10 @@ ArtifactMode = connect((state, {fireteam}) => ({
 
 
 
-function switchToArtifactMode(fireteamTag, targetTag, maxDistance) {
+export function switchToArtifactMode(fireteamTag, targetTag, maxDistance) {
+    if (!targetTag) {
+        return false;
+    }
     return targetTag.type == "artifact"
         && fireteamTag.areaName == targetTag.areaName
         && distance(fireteamTag, targetTag) <= maxDistance
