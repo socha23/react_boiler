@@ -22,27 +22,34 @@ const RescueInsidePage = ({
                           }) =>
     <Fullscreen>
         <div style={{height: "100%", backgroudColor: "yellow", display: "flex"}}>
-            <div style={{width: "30%", display: "flex", flexDirection: "column"}}>
+            <div style={{width: "30%", display: "flex", flexDirection: "column", marginRight: 5}}>
                 <FireteamTargetChooser
-                    style={{flexGrow: 1}}
+                    style={{flexGrow: 1, marginLeft: 5, marginBottom: 5}}
                     selected={selectedTargetTag}
                     onSelect={onSelectTargetTag}
                 />
-                <FireteamOrders fireteam={selectedFireteam} targetTag={selectedTargetTag}/>
+                <FireteamOrders
+                    style={{marginLeft: 5, marginBottom: 5}}
+                    fireteam={selectedFireteam}
+                    targetTag={selectedTargetTag}/>
             </div>
-            <div style={{width: "70%", display: "flex", flexDirection: "column"}}>
+            <div style={{width: "70%", display: "flex", flexDirection: "column", marginRight: 5}}>
+                
                 <div style={{position: "absolute", right: 30, top: 10}}>
                     <ShowDescriptionInPopup value={museumDescription}/>
                 </div>
+
                 <RescueFloorPlans
-                    style={{flexGrow: 1}}
+                    style={{flexGrow: 1, marginBottom: 5}}
                     additionalMargin={LOWER_ROW_HEIGHT}
                     markedTag={tagMarkedOnMap}
                     onSelect={onMarkTagOnMap}
                     selectedTarget={selectedTargetTag}
                     selectedFireteam={selectedFireteam}
                 />
-                <FireteamChooser fireteams={fireteams} selected={selectedFireteam} onSelect={onSelectFireteam}/>
+                <FireteamChooser
+                    style={{marginBottom: 5}}
+                    fireteams={fireteams} selected={selectedFireteam} onSelect={onSelectFireteam}/>
             </div>
         </div>
     </Fullscreen>;

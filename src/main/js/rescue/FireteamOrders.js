@@ -8,12 +8,13 @@ import {getFireteamTag} from '../fireteams/selectors'
 import * as fireteamActions from '../fireteams/fireteamActions'
 
 const FireteamOrders = ({
+                            style={},
                             fireteam = {},
                             fireteamTag = {},
                             targetTag = {},
                             onSetTargetTag = () => {
                             }
-                        }) => <div>
+                        }) => <div style={fireteam ? style : {}}>
     {
         fireteam ?
             <ClearTargetButton fireteam={fireteam} onSetTargetTag={onSetTargetTag}/>
