@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 import crudActions from './crudActions'
@@ -107,7 +107,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => ({
     loadResources: () => {
         ownProps.resources.forEach(resource => {
-            dispatch(crudActions(resource).loadItems());
+            dispatch(crudActions(resource, ownProps).loadItems());
         });
     }
 });

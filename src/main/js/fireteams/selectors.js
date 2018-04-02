@@ -1,4 +1,5 @@
 import {createSelector} from 'reselect'
+import moment from 'moment'
 
 import {getFloorPlanById} from '../maps/selectors'
 import {getTagsById} from '../tags/selectors'
@@ -11,6 +12,12 @@ export const getFireteamsById = state => state.fireteams.itemsById || {};
 export const getFireteamsAssignedTo = (state, targetTag) => getAllFireteams(state).filter(ft => ft.targetTagId == targetTag.id);
 
 export const getSortedFireteams = createSelector([getAllFireteams], (fireteams) => [...fireteams].sort((a, b) => a.name.localeCompare(b.name)));
+
+export const getActiveFireteams = (state, lastHeartbeatSeconds) =>
+    getSortedFireteams(state)
+        .filter(ft => ft.lastActive != null)
+        .filter(ft => moment().subtract(lastHeartbeatSeconds, "seconds").isBefore(moment(ft.lastActive)))
+;
 
 export function getFireteamById(state, id) {
     return getFireteamsById(state)[id]

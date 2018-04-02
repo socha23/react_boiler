@@ -5,7 +5,12 @@ import contextPath from '../contextPath'
 
 const API_PATH = contextPath() + "/api/";
 
-export default function restActions(resource) {
+export default function restActions(resource, options = {}) {
+
+    options = {
+        headers: {},
+        ...options
+    };
 
     const ActionNames = restActionNames(resource);
 
@@ -55,7 +60,7 @@ export default function restActions(resource) {
     function fetchItems() {
         return function (dispatch) {
             dispatch(request());
-            return fetch(API_PATH + resource + "?sort=id,desc&size=1000") // spring data rest
+            return fetch(API_PATH + resource + "?sort=id,desc&size=1000", {headers: options.headers}) // spring data rest
                 .then(checkStatus).catch(error => {
                     console.error(error);
                     error.json()

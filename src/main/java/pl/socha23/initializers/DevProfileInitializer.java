@@ -163,7 +163,7 @@ public class DevProfileInitializer implements CommandLineRunner {
         Random r = new Random();
         for (int i = 1; i <= howMany; i++) {
             String tagId = "missing_fireteam_tag_" + i;
-            Fireteam team = new Fireteam("f" + i, "Rota " + i, tagId, null);
+            Fireteam team = new Fireteam("f" + i, "Rota " + i, tagId, null, null);
             fireteamRepository.save(team);
         }
     }

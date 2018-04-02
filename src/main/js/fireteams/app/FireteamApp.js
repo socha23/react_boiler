@@ -71,9 +71,10 @@ export function switchToArtifactMode(fireteamTag, targetTag, maxDistance) {
 }
 
 let ModeSwitcher = ({fireteam, fireteamTag, targetTag, distanceForArtifactMode}) =>
+    fireteamTag ? (
     switchToArtifactMode(fireteamTag, targetTag, distanceForArtifactMode)
         ? <ArtifactMode fireteam={fireteam}/>
-        : <MapMode fireteam={fireteam}/>;
+        : <MapMode fireteam={fireteam}/>) : <span/>;
 
 ModeSwitcher = connect((state, {fireteam}) => ({
     targetTag: getTargetTag(state, fireteam),

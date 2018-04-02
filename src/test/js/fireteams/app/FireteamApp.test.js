@@ -34,3 +34,9 @@ it('renders when no target', () => {
         , state)
 });
 
+it('renders when tags not loaded', () => {
+    elemWithProvider(
+        <FireteamApp fireteam={FIRETEAM_NO_TARGET}/>
+        , {...state, tags: {items: []}})
+});
+

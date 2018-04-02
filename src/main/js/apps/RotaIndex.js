@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Switch, Route} from 'react-router'
+import {Route, Switch, withRouter} from 'react-router'
 import {NavLink} from 'react-router-dom'
 
 import {ResourceLoader} from '../common/crud/crudContainers'
@@ -23,7 +23,9 @@ let RotaContent = ({fireteams}) => <Switch>
     </Route>
     {fireteams.map(ft =>
         <Route key={ft.id} path={"/" + ft.id}>
-            <FireteamApp fireteam={ft}/>
+            <ResourceLoader resources={["tags"]} interval={500} headers={{"OZAB-Fireteam": ft.id}}>
+                <FireteamApp fireteam={ft}/>
+            </ResourceLoader>
         </Route>
     )}
 </Switch>;
@@ -33,8 +35,10 @@ RotaContent = withRouter(connect((state) => ({
 }))(RotaContent));
 
 export default () => <ResourceLoader resources={["artifacts", "floorPlans"]}>
-    <ResourceLoader resources={["tags", "locators", "fireteams"]} interval={500}>
-        <RotaContent/>
+    <ResourceLoader resources={["locators"]} interval={5000}>
+        <ResourceLoader resources={["fireteams"]} interval={1000}>
+            <RotaContent/>
+    </ResourceLoader>
     </ResourceLoader>
 </ResourceLoader>;
 
