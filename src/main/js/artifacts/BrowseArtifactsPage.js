@@ -79,17 +79,17 @@ const WideBrowseArtifactsPage = ({items, filter, onFilterChange, selected, onSel
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-2 colWithSmallerGutter">
-                <Panel>
+                <Panel style={{marginBottom: 10}}>
                     <NewArtifactButton onClick={onNewItem}/>
                 </Panel>
-                <Panel>
+                <Panel style={{marginBottom: 10}}>
                     <SearchFilter placeholder="Szukaj" filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
-                <Panel>
+                <Panel style={{marginBottom: 10}}>
                     <p><b>Położenie</b></p>
                     <ArtifactLocationFilter filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
-                <Panel>
+                <Panel style={{marginBottom: 10}}>
                     <p><b>Typ muzealiów</b></p>
                     <ArtifactTypeFilter filter={filter} onFilterChange={onFilterChange}/>
                 </Panel>
