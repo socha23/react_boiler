@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import HeightExpander from './HeightExpander'
-
 const COMMON_TAB_STYLE = {
     display: "inline-block",
     position: "relative",
@@ -102,15 +100,9 @@ class TabPanel extends React.Component {
                     }
                 </ul>
             </nav>
-            <div className="panel panel-default" style={{overflowY: "auto", flexGrow: "1", marginBottom: 0}}>
-                <div className="panel-body" style={{padding: this.props.padding}}>
-                    {
-                        this.props.heightExpander ?
-                            <HeightExpander additionalMargin={this.props.additionalMargin}>
-                                {body}
-                            </HeightExpander>
-                            : body
-                    }
+            <div className="panel panel-default" style={{overflowY: "auto", flexGrow: "1", marginBottom: 0, display: "flex"}}>
+                <div className="panel-body" style={{padding: this.props.padding, flexGrow: 1}}>
+                    {body}
                 </div>
             </div>
         </div>

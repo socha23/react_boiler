@@ -1,6 +1,5 @@
 import React from 'react'
 import {PropTypes} from 'prop-types'
-import HeightExpander from '../common/components/HeightExpander'
 import ToggleButtons from '../common/components/ToggleButtons'
 
 import {DotMarker, LabelMarker} from './Marker'
@@ -51,10 +50,11 @@ class ZoomableFloorPlan extends React.Component {
         tags: PropTypes.array,
         selectedTag: PropTypes.object,
         onClickTag: PropTypes.func,
-        additionalMargin: PropTypes.number,
+
         lines: PropTypes.array,
         filterButtons: PropTypes.bool,
-        tagDecorations: PropTypes.object
+        tagDecorations: PropTypes.object,
+        style: PropTypes.object
     };
 
     static defaultProps = {
@@ -62,9 +62,9 @@ class ZoomableFloorPlan extends React.Component {
         },
         tags: [],
         lines: [],
-        additionalMargin: 0,
         filterButtons: true,
-        tagDecorations: {}
+        tagDecorations: {},
+        style: {}
     };
 
     state = {
@@ -115,7 +115,7 @@ class ZoomableFloorPlan extends React.Component {
     onZoom = (zoomOut) => {
         let parent = this.elem.parent();
         this.elem.panzoom('zoom', zoomOut, {
-            increment: 0.1,
+            increment: 0.7,
             animate: false,
             focal: {
                 clientX: parent.offset().left + parent.width() / 2,
@@ -123,7 +123,7 @@ class ZoomableFloorPlan extends React.Component {
             }
         });
     };
-    
+
     panZoomChanged = () => {
         this.setState({matrix: this.panzoom.getMatrix().map(i => parseFloat(i))});
     };
@@ -200,8 +200,9 @@ class ZoomableFloorPlan extends React.Component {
 
 
     render() {
-        return <div style={{position: "relative", overflow: "hidden"}}>
-            <HeightExpander additionalMargin={this.props.additionalMargin}>
+
+
+        return <div style={{...this.props.style, position: "relative", overflow: "hidden", height: "100%"}}>
                 <div style={{position: "absolute", zIndex: 0}} ref={elem => this.elem = $(elem)}>
                     <img src={this.props.map.base64content}/>
                 </div>
@@ -214,39 +215,39 @@ class ZoomableFloorPlan extends React.Component {
                             : <div/>
                     }
 
-                    <div className="btn-group-vertical">
-                        <a className="vocIcon btn btn-default btn-lg" onClick={e => this.onZoom(false)}>
-                            <i className="glyphicon glyphicon-plus"/>
-                        </a>
-                        <a className="vocIcon btn btn-default btn-lg" onClick={e => this.onZoom(true)}>
-                            <i className="glyphicon glyphicon-minus"/>
-                        </a>
-                    </div>
+                <div className="btn-group-vertical">
+                    <a className="vocIcon btn btn-default btn-lg" onClick={e => this.onZoom(false)}>
+                        <i className="glyphicon glyphicon-plus"/>
+                    </a>
+                    <a className="vocIcon btn btn-default btn-lg" onClick={e => this.onZoom(true)}>
+                        <i className="glyphicon glyphicon-minus"/>
+                    </a>
                 </div>
-            </HeightExpander>
+            </div>
+            
             {this.props.tags
                 .map(t => ({...t, pxPosition: this.posToContainerPx(t.position)}))
                 .map(t => <Tag {...t}
-                    dot={this.state.typeFilter[t.type]}
-                    tag={t}
-                    key={t.id}
-                    selected={this.props.selectedTag && t.id == this.props.selectedTag.id}
-                    onClick={() => this.props.onClickTag(t)}
-                    decoration={this.props.tagDecorations[t.id]}
+                               dot={this.state.typeFilter[t.type]}
+                               tag={t}
+                               key={t.id}
+                               selected={this.props.selectedTag && t.id == this.props.selectedTag.id}
+                               onClick={() => this.props.onClickTag(t)}
+                               decoration={this.props.tagDecorations[t.id]}
                 />)
             }
             {this.props.lines
                 .map(line => {
-                        let from = this.posToContainerPx({x: line.fromX, y: line.fromY});
-                        let to = this.posToContainerPx({x: line.toX, y: line.toY});
-                        return {
-                            ...line,
-                            fromX: from.x,
-                            fromY: from.y,
-                            toX: to.x,
-                            toY: to.y
-                        };
-                    })
+                    let from = this.posToContainerPx({x: line.fromX, y: line.fromY});
+                    let to = this.posToContainerPx({x: line.toX, y: line.toY});
+                    return {
+                        ...line,
+                        fromX: from.x,
+                        fromY: from.y,
+                        toX: to.x,
+                        toY: to.y
+                    };
+                })
                 .map((t, idx) => <Line key={idx} {...t}/>)
             }
 

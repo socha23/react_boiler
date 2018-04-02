@@ -11,14 +11,14 @@ import ZoomableFloorPlan from '../maps/ZoomableFloorPlan'
 import {STYLE_ANIMATED_GREEN} from '../maps/Line'
 
 
-let RescueFloorPlan = ({floorPlan, tags, markedTag, onSelect, additionalMargin, targetLines, tagDecorations}) => <ZoomableFloorPlan
+let RescueFloorPlan = ({floorPlan, tags, markedTag, onSelect, targetLines, tagDecorations, style={}}) => <ZoomableFloorPlan
                         map={floorPlan}
                         tags={tags}
                         tagDecorations={tagDecorations}
                         selectedTag={markedTag}
                         onClickTag={onSelect}
-                        additionalMargin={additionalMargin}
                         lines={targetLines}
+                        style={style}
                         />;
 
 
@@ -56,8 +56,7 @@ class RescueFloorPlans extends React.Component {
         selectedFireteam: null,
         floorPlans: [],
         markedTag: null,
-        onSelect: () => {},
-        additionalMargin: 0
+        onSelect: () => {}
     };
 
     state = {
@@ -97,7 +96,6 @@ class RescueFloorPlans extends React.Component {
                         selectedTarget={this.props.selectedTarget}
                         selectedFireteam={this.props.selectedFireteam}
                         onSelect={this.props.onSelect}
-                        additionalMargin={this.props.additionalMargin}
                         />
                }))
             }/>

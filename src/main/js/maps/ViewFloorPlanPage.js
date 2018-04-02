@@ -2,14 +2,13 @@ import React from 'react'
 import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
-import restActions from '../common/crud/crudActions'
 
 import {getTagsOnFloor} from '../tags/selectors'
 
-import {isInside} from '../tags/tagHelpers'
 import TaggedObjectsList from '../tags/TaggedObjectsList'
 import FloorPlan from './ZoomableFloorPlan'
 import Panel from '../common/components/Panel'
+import HeightExpander from "../common/components/HeightExpander";
 
 const ViewFloorPlan  = ({map, tags, selectedTag, onSelectTag, onArtifactClick}) =>
     <div className="container-fluid">
@@ -22,7 +21,9 @@ const ViewFloorPlan  = ({map, tags, selectedTag, onSelectTag, onArtifactClick}) 
             <div className="col-sm-8 colWithSmallerGutter">
                 { map ?
                     <Panel padding="0">
-                        <FloorPlan map={map} tags={tags} selectedTag={selectedTag} onClickTag={onSelectTag}/>
+                        <HeightExpander>
+                            <FloorPlan map={map} tags={tags} selectedTag={selectedTag} onClickTag={onSelectTag}/>
+                        </HeightExpander>
                     </Panel>
                     : <span/>
                 }
