@@ -60,7 +60,7 @@ exports[`renders correctly 1`] = `
             Object {
               "display": "flex",
               "flexDirection": "row",
-              "margin": "-5px -5px 0 -5px",
+              "marginRight": -5,
             }
           }
         >
@@ -69,7 +69,7 @@ exports[`renders correctly 1`] = `
             style={
               Object {
                 "flex": 1,
-                "margin": 5,
+                "marginRight": 5,
               }
             }
           >
@@ -90,6 +90,7 @@ exports[`renders correctly 1`] = `
                   Object {
                     "backgroundColor": "#fff",
                     "cursor": "pointer",
+                    "marginBottom": 0,
                     "minWidth": 250,
                   }
                 }
@@ -237,7 +238,7 @@ exports[`renders correctly 1`] = `
             style={
               Object {
                 "flex": 1,
-                "margin": 5,
+                "marginRight": 5,
               }
             }
           >
@@ -258,6 +259,7 @@ exports[`renders correctly 1`] = `
                   Object {
                     "backgroundColor": "#fff",
                     "cursor": "pointer",
+                    "marginBottom": 0,
                     "minWidth": 250,
                   }
                 }

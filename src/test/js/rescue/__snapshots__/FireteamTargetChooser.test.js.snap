@@ -52,7 +52,8 @@ exports[`renders correctly 1`] = `
       <TabPanel
         activeTab={0}
         additionalMargin={0}
-        heightExpander={true}
+        dispatch={[Function]}
+        heightExpander={false}
         onTabChange={[Function]}
         padding={0}
         tabStyle={
@@ -121,7 +122,14 @@ exports[`renders correctly 1`] = `
           ]
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
           <nav>
             <ul
               style={
@@ -195,6 +203,13 @@ exports[`renders correctly 1`] = `
           </nav>
           <div
             className="panel panel-default"
+            style={
+              Object {
+                "flexGrow": "1",
+                "marginBottom": 0,
+                "overflowY": "auto",
+              }
+            }
           >
             <div
               className="panel-body"
@@ -204,18 +219,34 @@ exports[`renders correctly 1`] = `
                 }
               }
             >
-              <HeightExpander
-                additionalMargin={0}
-              >
-                <div
-                  style={
+              <ArtifactChooser
+                items={
+                  Array [
                     Object {
-                      "height": -95,
-                      "overflowY": "auto",
-                    }
+                      "id": "A_1",
+                      "name": "artifact_1",
+                      "priority": "P1_LOW",
+                      "tagId": "T_2",
+                    },
+                  ]
+                }
+              >
+                <Connect(TargetChooser)
+                  elem={[Function]}
+                  items={
+                    Array [
+                      Object {
+                        "id": "A_1",
+                        "name": "artifact_1",
+                        "priority": "P1_LOW",
+                        "tagId": "T_2",
+                      },
+                    ]
                   }
                 >
-                  <ArtifactChooser
+                  <TargetChooser
+                    dispatch={[Function]}
+                    elem={[Function]}
                     items={
                       Array [
                         Object {
@@ -226,139 +257,144 @@ exports[`renders correctly 1`] = `
                         },
                       ]
                     }
+                    onSelectTag={[Function]}
+                    selectedTag={Object {}}
+                    tagsById={
+                      Object {
+                        "T_1": Object {
+                          "areaName": "inside",
+                          "color": "#d9534f",
+                          "id": "T_1",
+                          "label": "fireteam",
+                          "state": "INSIDE",
+                          "type": "fireteam",
+                        },
+                        "T_2": Object {
+                          "areaName": "inside",
+                          "color": "#337ab7",
+                          "id": "T_2",
+                          "label": "artifact_1",
+                          "state": "INSIDE",
+                          "type": "artifact",
+                        },
+                        "T_3": Object {
+                          "areaName": "inside",
+                          "color": "#337ab7",
+                          "id": "T_3",
+                          "label": "artifact_2",
+                          "state": "MISSING",
+                          "type": "artifact",
+                        },
+                        "T_4": Object {
+                          "areaName": "inside",
+                          "color": "#5bc0de",
+                          "id": "T_4",
+                          "label": undefined,
+                          "state": "INSIDE",
+                          "type": "navigation",
+                        },
+                      }
+                    }
                   >
-                    <Connect(TargetChooser)
-                      elem={[Function]}
-                      items={
-                        Array [
-                          Object {
-                            "id": "A_1",
-                            "name": "artifact_1",
-                            "priority": "P1_LOW",
-                            "tagId": "T_2",
-                          },
-                        ]
+                    <div
+                      style={
+                        Object {
+                          "height": "100%",
+                          "overflow": "hidden",
+                          "scrollY": "auto",
+                        }
                       }
                     >
-                      <TargetChooser
-                        dispatch={[Function]}
-                        elem={[Function]}
-                        items={
-                          Array [
-                            Object {
-                              "id": "A_1",
-                              "name": "artifact_1",
-                              "priority": "P1_LOW",
-                              "tagId": "T_2",
-                            },
-                          ]
-                        }
-                        onSelectTag={[Function]}
-                        selectedTag={Object {}}
-                        tagsById={
-                          Object {
-                            "T_1": Object {
-                              "areaName": "inside",
-                              "color": "#d9534f",
-                              "id": "T_1",
-                              "label": "fireteam",
-                              "state": "INSIDE",
-                              "type": "fireteam",
-                            },
-                            "T_2": Object {
-                              "areaName": "inside",
-                              "color": "#337ab7",
-                              "id": "T_2",
-                              "label": "artifact_1",
-                              "state": "INSIDE",
-                              "type": "artifact",
-                            },
-                            "T_3": Object {
-                              "areaName": "inside",
-                              "color": "#337ab7",
-                              "id": "T_3",
-                              "label": "artifact_2",
-                              "state": "MISSING",
-                              "type": "artifact",
-                            },
-                            "T_4": Object {
-                              "areaName": "inside",
-                              "color": "#5bc0de",
-                              "id": "T_4",
-                              "label": undefined,
-                              "state": "INSIDE",
-                              "type": "navigation",
-                            },
-                          }
-                        }
+                      <table
+                        className="table table-hover table-pointer table-noTopPadding"
                       >
-                        <table
-                          className="table table-hover table-pointer table-noTopPadding"
-                        >
-                          <tbody>
-                            <tr
-                              className=""
-                              key="A_1"
-                              onClick={[Function]}
-                            >
-                              <td>
-                                <Target>
-                                  <div
-                                    style={
+                        <tbody>
+                          <tr
+                            className=""
+                            key="A_1"
+                            onClick={[Function]}
+                          >
+                            <td>
+                              <Target>
+                                <div
+                                  style={
+                                    Object {
+                                      "alignItems": "center",
+                                      "display": "flex",
+                                      "paddingBottom": 5,
+                                      "paddingTop": 5,
+                                    }
+                                  }
+                                >
+                                  <VocIcon
+                                    className="iconWithName"
+                                    value={
                                       Object {
-                                        "alignItems": "center",
-                                        "display": "flex",
-                                        "paddingBottom": 5,
-                                        "paddingTop": 5,
+                                        "color": "#5cb85c",
+                                        "iconText": "1",
+                                        "id": "P1_LOW",
+                                        "name": "Niski",
                                       }
                                     }
                                   >
-                                    <VocIcon
-                                      className="iconWithName"
-                                      value={
-                                        Object {
-                                          "color": "#5cb85c",
-                                          "iconText": "1",
-                                          "id": "P1_LOW",
-                                          "name": "Niski",
-                                        }
-                                      }
+                                    <span
+                                      className="vocIcon iconWithName"
+                                      title="Niski"
                                     >
                                       <span
-                                        className="vocIcon iconWithName"
-                                        title="Niski"
-                                      >
-                                        <span
-                                          className="badge"
-                                          style={
-                                            Object {
-                                              "backgroundColor": "#5cb85c",
-                                            }
+                                        className="badge"
+                                        style={
+                                          Object {
+                                            "backgroundColor": "#5cb85c",
                                           }
-                                        >
-                                          1
-                                        </span>
+                                        }
+                                      >
+                                        1
                                       </span>
-                                    </VocIcon>
-                                    <div
-                                      style={
+                                    </span>
+                                  </VocIcon>
+                                  <div
+                                    style={
+                                      Object {
+                                        "flex": 1,
+                                      }
+                                    }
+                                  >
+                                    <TargetName>
+                                      <span
+                                        style={
+                                          Object {
+                                            "fontSize": 20,
+                                          }
+                                        }
+                                      >
+                                        artifact_1
+                                      </span>
+                                    </TargetName>
+                                    <Connect(CommonTargetData)
+                                      tag={
                                         Object {
-                                          "flex": 1,
+                                          "areaName": "inside",
+                                          "color": "#337ab7",
+                                          "id": "T_2",
+                                          "label": "artifact_1",
+                                          "state": "INSIDE",
+                                          "type": "artifact",
                                         }
                                       }
                                     >
-                                      <TargetName>
-                                        <span
-                                          style={
+                                      <CommonTargetData
+                                        dispatch={[Function]}
+                                        fireteams={
+                                          Array [
                                             Object {
-                                              "fontSize": 20,
-                                            }
-                                          }
-                                        >
-                                          artifact_1
-                                        </span>
-                                      </TargetName>
-                                      <Connect(CommonTargetData)
+                                              "id": "FT",
+                                              "name": "fireteam",
+                                              "tagId": "T_1",
+                                              "targetTagId": "T_2",
+                                            },
+                                          ]
+                                        }
                                         tag={
                                           Object {
                                             "areaName": "inside",
@@ -370,31 +406,26 @@ exports[`renders correctly 1`] = `
                                           }
                                         }
                                       >
-                                        <CommonTargetData
-                                          dispatch={[Function]}
-                                          fireteams={
-                                            Array [
+                                        <div>
+                                          <Connect(TagAreaNameComponent)
+                                            style={
                                               Object {
-                                                "id": "FT",
-                                                "name": "fireteam",
-                                                "tagId": "T_1",
-                                                "targetTagId": "T_2",
-                                              },
-                                            ]
-                                          }
-                                          tag={
-                                            Object {
-                                              "areaName": "inside",
-                                              "color": "#337ab7",
-                                              "id": "T_2",
-                                              "label": "artifact_1",
-                                              "state": "INSIDE",
-                                              "type": "artifact",
+                                                "fontSize": 16,
+                                              }
                                             }
-                                          }
-                                        >
-                                          <div>
-                                            <Connect(TagAreaNameComponent)
+                                            tag={
+                                              Object {
+                                                "areaName": "inside",
+                                                "color": "#337ab7",
+                                                "id": "T_2",
+                                                "label": "artifact_1",
+                                                "state": "INSIDE",
+                                                "type": "artifact",
+                                              }
+                                            }
+                                          >
+                                            <TagAreaNameComponent
+                                              dispatch={[Function]}
                                               style={
                                                 Object {
                                                   "fontSize": 16,
@@ -411,83 +442,91 @@ exports[`renders correctly 1`] = `
                                                 }
                                               }
                                             >
-                                              <TagAreaNameComponent
-                                                dispatch={[Function]}
+                                              <small
                                                 style={
                                                   Object {
+                                                    "color": "#AAA",
                                                     "fontSize": 16,
                                                   }
                                                 }
-                                                tag={
-                                                  Object {
-                                                    "areaName": "inside",
-                                                    "color": "#337ab7",
-                                                    "id": "T_2",
-                                                    "label": "artifact_1",
-                                                    "state": "INSIDE",
-                                                    "type": "artifact",
-                                                  }
-                                                }
                                               >
-                                                <small
-                                                  style={
-                                                    Object {
-                                                      "color": "#AAA",
-                                                      "fontSize": 16,
-                                                    }
-                                                  }
-                                                >
-                                                  inside
-                                                </small>
-                                              </TagAreaNameComponent>
-                                            </Connect(TagAreaNameComponent)>
-                                            <span
-                                              className="label label-success"
-                                              key="FT"
-                                              style={
-                                                Object {
-                                                  "fontSize": 16,
-                                                  "marginLeft": 10,
-                                                }
+                                                inside
+                                              </small>
+                                            </TagAreaNameComponent>
+                                          </Connect(TagAreaNameComponent)>
+                                          <span
+                                            className="label label-success"
+                                            key="FT"
+                                            style={
+                                              Object {
+                                                "fontSize": 16,
+                                                "marginLeft": 10,
                                               }
-                                            >
-                                              fireteam
-                                            </span>
-                                          </div>
-                                        </CommonTargetData>
-                                      </Connect(CommonTargetData)>
-                                    </div>
-                                    <ShowArtifactViewInPopup
-                                      artifact={
-                                        Object {
-                                          "id": "A_1",
-                                          "name": "artifact_1",
-                                          "priority": "P1_LOW",
-                                          "tagId": "T_2",
-                                        }
+                                            }
+                                          >
+                                            fireteam
+                                          </span>
+                                        </div>
+                                      </CommonTargetData>
+                                    </Connect(CommonTargetData)>
+                                  </div>
+                                  <ShowArtifactViewInPopup
+                                    artifact={
+                                      Object {
+                                        "id": "A_1",
+                                        "name": "artifact_1",
+                                        "priority": "P1_LOW",
+                                        "tagId": "T_2",
                                       }
-                                    >
-                                      <div>
-                                        <Popup
-                                          labelPopupTitle={
-                                            <ArtifactIconAndName
-                                              item={
-                                                Object {
-                                                  "id": "A_1",
-                                                  "name": "artifact_1",
-                                                  "priority": "P1_LOW",
-                                                  "tagId": "T_2",
-                                                }
+                                    }
+                                  >
+                                    <div>
+                                      <Popup
+                                        labelPopupTitle={
+                                          <ArtifactIconAndName
+                                            item={
+                                              Object {
+                                                "id": "A_1",
+                                                "name": "artifact_1",
+                                                "priority": "P1_LOW",
+                                                "tagId": "T_2",
                                               }
-                                            />
-                                          }
-                                        >
-                                          <div>
+                                            }
+                                          />
+                                        }
+                                      >
+                                        <div>
+                                          <Modal
+                                            animate={true}
+                                            attentionClass="shake"
+                                            backdrop={true}
+                                            container={<body />}
+                                            keyboard={true}
+                                            manager={
+                                              ModalManager {
+                                                "add": [Function],
+                                                "containers": Array [],
+                                                "data": Array [],
+                                                "handleContainerOverflow": true,
+                                                "hideSiblingNodes": true,
+                                                "isTopModal": [Function],
+                                                "modals": Array [],
+                                                "remove": [Function],
+                                              }
+                                            }
+                                            onHide={[Function]}
+                                            show={false}
+                                            transition={true}
+                                          >
                                             <Modal
-                                              animate={true}
-                                              attentionClass="shake"
+                                              autoFocus={true}
                                               backdrop={true}
+                                              backdropClassName="modal-backdrop"
+                                              backdropTransitionTimeout={150}
                                               container={<body />}
+                                              containerClassName="modal-open"
+                                              dialogTransitionTimeout={300}
+                                              enforceFocus={true}
                                               keyboard={true}
                                               manager={
                                                 ModalManager {
@@ -501,69 +540,42 @@ exports[`renders correctly 1`] = `
                                                   "remove": [Function],
                                                 }
                                               }
+                                              onEntering={[Function]}
+                                              onExiting={[Function]}
                                               onHide={[Function]}
+                                              renderBackdrop={[Function]}
+                                              restoreFocus={true}
                                               show={false}
-                                              transition={true}
-                                            >
-                                              <Modal
-                                                autoFocus={true}
-                                                backdrop={true}
-                                                backdropClassName="modal-backdrop"
-                                                backdropTransitionTimeout={150}
-                                                container={<body />}
-                                                containerClassName="modal-open"
-                                                dialogTransitionTimeout={300}
-                                                enforceFocus={true}
-                                                keyboard={true}
-                                                manager={
-                                                  ModalManager {
-                                                    "add": [Function],
-                                                    "containers": Array [],
-                                                    "data": Array [],
-                                                    "handleContainerOverflow": true,
-                                                    "hideSiblingNodes": true,
-                                                    "isTopModal": [Function],
-                                                    "modals": Array [],
-                                                    "remove": [Function],
-                                                  }
-                                                }
-                                                onEntering={[Function]}
-                                                onExiting={[Function]}
-                                                onHide={[Function]}
-                                                renderBackdrop={[Function]}
-                                                restoreFocus={true}
-                                                show={false}
-                                                transition={[Function]}
-                                              />
-                                            </Modal>
-                                          </div>
-                                        </Popup>
-                                        <a
-                                          onClick={[Function]}
-                                          style={
-                                            Object {
-                                              "color": "#aaa",
-                                              "fontSize": 24,
-                                            }
+                                              transition={[Function]}
+                                            />
+                                          </Modal>
+                                        </div>
+                                      </Popup>
+                                      <a
+                                        onClick={[Function]}
+                                        style={
+                                          Object {
+                                            "color": "#aaa",
+                                            "fontSize": 24,
                                           }
-                                        >
-                                          <i
-                                            className="glyphicon glyphicon-eye-open"
-                                          />
-                                        </a>
-                                      </div>
-                                    </ShowArtifactViewInPopup>
-                                  </div>
-                                </Target>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </TargetChooser>
-                    </Connect(TargetChooser)>
-                  </ArtifactChooser>
-                </div>
-              </HeightExpander>
+                                        }
+                                      >
+                                        <i
+                                          className="glyphicon glyphicon-eye-open"
+                                        />
+                                      </a>
+                                    </div>
+                                  </ShowArtifactViewInPopup>
+                                </div>
+                              </Target>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </TargetChooser>
+                </Connect(TargetChooser)>
+              </ArtifactChooser>
             </div>
           </div>
         </div>
@@ -595,7 +607,8 @@ exports[`renders correctly when state empty 1`] = `
       <TabPanel
         activeTab={0}
         additionalMargin={0}
-        heightExpander={true}
+        dispatch={[Function]}
+        heightExpander={false}
         onTabChange={[Function]}
         padding={0}
         tabStyle={
@@ -634,7 +647,14 @@ exports[`renders correctly when state empty 1`] = `
           ]
         }
       >
-        <div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "column",
+            }
+          }
+        >
           <nav>
             <ul
               style={
@@ -708,6 +728,13 @@ exports[`renders correctly when state empty 1`] = `
           </nav>
           <div
             className="panel panel-default"
+            style={
+              Object {
+                "flexGrow": "1",
+                "marginBottom": 0,
+                "overflowY": "auto",
+              }
+            }
           >
             <div
               className="panel-body"
@@ -717,42 +744,39 @@ exports[`renders correctly when state empty 1`] = `
                 }
               }
             >
-              <HeightExpander
-                additionalMargin={0}
+              <ArtifactChooser
+                items={Array []}
               >
-                <div
-                  style={
-                    Object {
-                      "height": -95,
-                      "overflowY": "auto",
-                    }
-                  }
+                <Connect(TargetChooser)
+                  elem={[Function]}
+                  items={Array []}
                 >
-                  <ArtifactChooser
+                  <TargetChooser
+                    dispatch={[Function]}
+                    elem={[Function]}
                     items={Array []}
+                    onSelectTag={[Function]}
+                    selectedTag={Object {}}
+                    tagsById={Object {}}
                   >
-                    <Connect(TargetChooser)
-                      elem={[Function]}
-                      items={Array []}
+                    <div
+                      style={
+                        Object {
+                          "height": "100%",
+                          "overflow": "hidden",
+                          "scrollY": "auto",
+                        }
+                      }
                     >
-                      <TargetChooser
-                        dispatch={[Function]}
-                        elem={[Function]}
-                        items={Array []}
-                        onSelectTag={[Function]}
-                        selectedTag={Object {}}
-                        tagsById={Object {}}
+                      <table
+                        className="table table-hover table-pointer table-noTopPadding"
                       >
-                        <table
-                          className="table table-hover table-pointer table-noTopPadding"
-                        >
-                          <tbody />
-                        </table>
-                      </TargetChooser>
-                    </Connect(TargetChooser)>
-                  </ArtifactChooser>
-                </div>
-              </HeightExpander>
+                        <tbody />
+                      </table>
+                    </div>
+                  </TargetChooser>
+                </Connect(TargetChooser)>
+              </ArtifactChooser>
             </div>
           </div>
         </div>
