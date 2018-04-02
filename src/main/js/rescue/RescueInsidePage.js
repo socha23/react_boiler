@@ -10,7 +10,7 @@ import {getMuseumDescription} from "../museumDescription/selectors"
 import {getSortedFireteams} from "../fireteams/selectors"
 import Fullscreen from "../common/components/Fullscreen";
 
-const LOWER_ROW_HEIGHT = 118;
+const LOWER_ROW_HEIGHT = 102;
 
 const RescueInsidePage = ({
                               tags, artifacts, fireteams, floorPlans,
