@@ -76,8 +76,6 @@ class ZoomableFloorPlan extends React.Component {
         this.elem.panzoom({
             contain: 'socha',
             animate: 'skip',
-            $zoomIn: $(this.zoomIn),
-            $zoomOut: $(this.zoomOut),
             onChange: this.panZoomChanged
         });
         this.panzoom = this.elem.data("__pz__");
@@ -114,6 +112,18 @@ class ZoomableFloorPlan extends React.Component {
         });
     };
 
+    onZoom = (zoomOut) => {
+        let parent = this.elem.parent();
+        this.elem.panzoom('zoom', zoomOut, {
+            increment: 0.1,
+            animate: false,
+            focal: {
+                clientX: parent.offset().left + parent.width() / 2,
+                clientY: parent.offset().top + parent.height() / 2
+            }
+        });
+    };
+    
     panZoomChanged = () => {
         this.setState({matrix: this.panzoom.getMatrix().map(i => parseFloat(i))});
     };
@@ -205,10 +215,10 @@ class ZoomableFloorPlan extends React.Component {
                     }
 
                     <div className="btn-group-vertical">
-                        <a className="vocIcon btn btn-default btn-lg" ref={zoomIn => this.zoomIn = zoomIn}>
+                        <a className="vocIcon btn btn-default btn-lg" onClick={e => this.onZoom(false)}>
                             <i className="glyphicon glyphicon-plus"/>
                         </a>
-                        <a className="vocIcon btn btn-default btn-lg" ref={zoomOut => this.zoomOut = zoomOut}>
+                        <a className="vocIcon btn btn-default btn-lg" onClick={e => this.onZoom(true)}>
                             <i className="glyphicon glyphicon-minus"/>
                         </a>
                     </div>
