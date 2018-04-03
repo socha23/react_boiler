@@ -8,13 +8,16 @@ export function distance(from, to) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-const DistanceBetweenTags = ({from, to}) => {
+const DistanceBetweenTags = ({from, to, showUnit=true}) => {
     if (!from || !to) {
         return <span/>
     } else if (!isInside(from) || !isInside(to)) {
         return <span>?</span>
     } else {
-        return <span>{Math.ceil(distance(from, to))}m</span>
+        return <span>
+            {Math.ceil(distance(from, to))}
+            {showUnit ? "m" : <span/>}
+        </span>
     }
 };
 

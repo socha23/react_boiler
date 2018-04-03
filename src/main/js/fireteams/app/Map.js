@@ -6,6 +6,8 @@ import {getFireteamFloorPlan, getFireteamTag, getTargetTag} from '../selectors'
 
 import {DotMarker} from '../../maps/Marker'
 import TransformMatrix from '../../common/components/TransformMatrix'
+import * as transform from '../../common/transformMatrixHelpers'
+import {TypeArtifact, TypeFireteam} from "../../tags/TagType";
 
 import translatePoint from '../../common/translatePoint'
 
@@ -16,18 +18,21 @@ export class MapComponent extends React.Component {
         fireteamTag: PropTypes.object.isRequired,
         targetTag: PropTypes.object,
         floorPlan: PropTypes.object,
-        zoom: PropTypes.number
+        zoom: PropTypes.number,
+        onTargetShown: PropTypes.func,
     };
 
     static defaultProps = {
         floorPlan: {},
         targetTag: {},
-        zoom: 1
+        zoom: 1,
+        onTargetShown: () => {}
 
     };
 
     state = {
-        imgBounds: null
+        imgBounds: null,
+        targetPos: {x: 0, y: 0}
     };
 
     componentWillReceiveProps = (nextProps) => {
@@ -36,6 +41,18 @@ export class MapComponent extends React.Component {
             // (obejście na buga związanego z tym że target marker wylicza się na podstawie leżącego głębiej komponentu)
             setTimeout(() => {this.setState({zoom: nextProps.zoom})})
         }
+
+        let fireteamTranslation = this.translateToImgCoords(nextProps.fireteamTag.position);
+        let fireteamPosition = this.transformPoint(fireteamTranslation);
+        if (nextProps.targetTag) {
+            let targetPosition = this.transformPoint(this.translateToImgCoords(nextProps.targetTag.position), fireteamTranslation);
+            let markerPos = {x: targetPosition.x - fireteamPosition.x, y: targetPosition.y - fireteamPosition.y};
+            let screenPos = this.mapPosToScreenPos(markerPos);
+            //console.log(screenPos);
+            nextProps.onTargetShown(screenPos.y > 0);
+            this.setState({targetPos: markerPos});
+        }
+
     };
 
     setImgBounds = (e) => {
@@ -47,6 +64,11 @@ export class MapComponent extends React.Component {
             }
         });
     };
+
+    posToScreen = (point) => {
+
+    };
+
 
     translateToImgCoords = (point) => {
         if (this.state.imgBounds) {
@@ -90,17 +112,18 @@ export class MapComponent extends React.Component {
 
     };
 
+    mapPosToScreenPos = (point) => {
+        const matrix = transform.multiply(
+            transform.translateMatrix(-this.getFocalPoint().x, -this.getFocalPoint().y),
+            transform.rotateMatrix(-this.getRotation()),
+        );
+        return transform.transformPoint(matrix, point);
+    };
+
 
     render = () => {
         let fireteamTranslation = this.translateToImgCoords(this.props.fireteamTag.position);
-
-        let fireteamPosition = this.transformPoint(fireteamTranslation);
-
-        let targetMarker = <span/>;
-        if (this.props.targetTag) {
-            let targetPosition = this.transformPoint(this.translateToImgCoords(this.props.targetTag.position), fireteamTranslation);
-            targetMarker = <DotMarker x={targetPosition.x - fireteamPosition.x} y={targetPosition.y - fireteamPosition.y} color="blue"/>;
-        }
+        let targetMarker = this.props.targetTag ? <DotMarker x={this.state.targetPos.x} y={this.state.targetPos.y} color={TypeArtifact.color}/> : <span/>;
 
         /*
              najbardziej wewnętrzna matryca przesuwa obrazek tak żeby drużyna była w (0, 0) i
@@ -144,7 +167,7 @@ export class MapComponent extends React.Component {
                                 onLoad={this.setImgBounds}
                                 src={this.props.floorPlan.base64content}/>
                         </TransformMatrix>
-                        <DotMarker x={0} y={0} color="red"/>
+                        <DotMarker x={0} y={0} color={TypeFireteam.color}/>
                         {targetMarker}
                     </TransformMatrix>
                 </TransformMatrix>

@@ -6,8 +6,9 @@ import PropTypes from 'prop-types'
 import Fullscreen from '../../common/components/Fullscreen'
 
 import Map from './Map'
+import TargetArrow from './TargetArrow'
+import WrongFloorWarning from './WrongFloorWarning'
 import TargetBar from './TargetBar'
-import TargetDistance from './TargetDistance'
 import ArtifactDetails from './ArtifactDetails'
 import ArtifactImage from './ArtifactImage'
 import {distance} from '../../tags/DistanceBetweenTags'
@@ -28,13 +29,19 @@ class MapMode extends React.Component {
     };
 
     state = {
+        targetShown: true,
         zoomIdx: 0
     };
 
+    onTargetShown = (shown) => {
+        this.setState({targetShown: shown});
+    };
+
     render = () => {
-        return <Fullscreen style={{display: "flex", flexDirection: "column"}} onClick={this.toggleZoomLevel}>
-            <Map fireteam={this.props.fireteam} zoom={this.zoom()}/>
-            <TargetDistance fireteam={this.props.fireteam}/>
+        return <Fullscreen style={{position: "relative", display: "flex", flexDirection: "column"}} onClick={this.toggleZoomLevel}>
+            <Map fireteam={this.props.fireteam} zoom={this.zoom()} onTargetShown={this.onTargetShown}/>
+            {this.state.targetShown ? <span/> : <TargetArrow fireteam={this.props.fireteam} style={{top: 20}}/>}
+            <WrongFloorWarning fireteam={this.props.fireteam} style={{top: 140}}/>
             <TargetBar fireteam={this.props.fireteam}/>
         </Fullscreen>
     };
