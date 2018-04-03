@@ -24,7 +24,7 @@ public class IfinityInsideTagsProvider extends AbstractIfinityIntegrationService
 
     @Override
     protected int getRefreshIntervalMillis() {
-        return 500;
+        return 100;
     }
 
     @Override
