@@ -9,6 +9,7 @@ import ShowDescriptionInPopup from '../museumDescription/ShowDescriptionInPopup'
 import {getMuseumDescription} from "../museumDescription/selectors"
 import {getActiveFireteams} from "../fireteams/selectors"
 import Fullscreen from "../common/components/Fullscreen";
+import {IfNothingReceived} from "../common/crud/nothingReceived";
 
 const LOWER_ROW_HEIGHT = 102;
 
@@ -21,7 +22,19 @@ const RescueInsidePage = ({
 
                           }) =>
     <Fullscreen>
-        <div style={{height: "100%", backgroudColor: "yellow", display: "flex"}}>
+        <IfNothingReceived secondsWithoutReceive={5}>
+            <div style={{
+                color: "white",
+                backgroundColor: "#d9534f",
+                textAlign: "center",
+                fontSize: 32,
+                padding: 20
+            }}>
+                BRAK POŁĄCZENIA Z SERWEREM
+            </div>
+        </IfNothingReceived>
+
+        <div style={{height: "100%", backgroudColor: "yellow", display: "flex", zIndex: 1}}>
             <div style={{width: "30%", display: "flex", flexDirection: "column", marginRight: 5}}>
                 <FireteamTargetChooser
                     style={{flexGrow: 1, marginLeft: 5, marginBottom: 5}}
@@ -33,7 +46,7 @@ const RescueInsidePage = ({
                     fireteam={selectedFireteam}
                     targetTag={selectedTargetTag}/>
             </div>
-            <div style={{width: "70%", display: "flex", flexDirection: "column", marginRight: 5}}>
+            <div style={{width: "70%", position: "relative", display: "flex", flexDirection: "column", marginRight: 5}}>
                 
                 <div style={{position: "absolute", right: 30, top: 10}}>
                     <ShowDescriptionInPopup value={museumDescription}/>

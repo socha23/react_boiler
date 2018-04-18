@@ -61,18 +61,13 @@ export default function restActions(resource, options = {}) {
         return function (dispatch) {
             dispatch(request());
             return fetch(API_PATH + resource + "?sort=id,desc&size=1000", {headers: options.headers}) // spring data rest
-                .then(checkStatus).catch(error => {
-                    console.error(error);
-                    error.json()
-                        .then(json => {
-                            console.error(json);
-                            window.alert(json.message);
-                        })
-                })
-                .then(parseJSON)
-                .then(json => {
-                    dispatch(receive(json._embedded[resource]));
-                });
+                .then(resp => {
+                    if (resp.status < 300) {
+                        resp.json().then(json => dispatch(receive(json._embedded[resource])))
+                    } else {
+                        {console.error(resp.text())}
+                    }
+                }, err => {console.error(err)});
         }
     }
 

@@ -1,10 +1,12 @@
 import {routerReducer} from 'react-router-redux'
 import crudReducer from './common/crud/crudReducer'
+import {nothingReceivedReducer} from './common/crud/nothingReceived'
 
 exports.INITIAL_STATE = {
     routing: {},
     isFetching: false,
-    artifacts: {}
+    artifacts: {},
+    lastReceivedTimestamp: new Date()
 };
 
 
@@ -16,14 +18,15 @@ const museumDescriptionsReducer = crudReducer("museumDescriptions");
 const floorPlansReducer = crudReducer("floorPlans");
 
 exports.reducer = (oldState = INITIAL_STATE, action = null) => {
+    let state = nothingReceivedReducer(oldState, action);
     return {
-        ...oldState,
-        routing: routerReducer(oldState.routing, action),
-        artifacts: artifactsCrudReducer(oldState.artifacts, action),
-        tags: tagsCrudReducer(oldState.tags, action),
-        locators: locatorsReducer(oldState.locators, action),
-        floorPlans: floorPlansReducer(oldState.floorPlans, action),
-        fireteams: fireteamsReducer(oldState.fireteams, action),
-        museumDescriptions: museumDescriptionsReducer(oldState.museumDescriptions, action)
+        ...state,
+        routing: routerReducer(state.routing, action),
+        artifacts: artifactsCrudReducer(state.artifacts, action),
+        tags: tagsCrudReducer(state.tags, action),
+        locators: locatorsReducer(state.locators, action),
+        floorPlans: floorPlansReducer(state.floorPlans, action),
+        fireteams: fireteamsReducer(state.fireteams, action),
+        museumDescriptions: museumDescriptionsReducer(state.museumDescriptions, action)
     };
 };
