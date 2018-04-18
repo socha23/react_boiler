@@ -132,7 +132,7 @@ class TargetChooser extends React.Component {
     };
 
     render = () =>
-        <div style={{scrollY: "auto", overflow: "hidden", height: "100%"}}>
+        <div style={{overflowY: "auto", height: "100%"}}>
             <table className="table table-hover table-pointer table-noTopPadding"
                    ref={e => this.rootElem = e}
             >
