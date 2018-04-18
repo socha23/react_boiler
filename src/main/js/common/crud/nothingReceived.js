@@ -19,11 +19,15 @@ class IfNothingReceivedComponent extends React.Component {
     state = {visible: false};
 
     componentDidMount = () => {
-        setInterval(() => {
+        this.refreshTimer = setInterval(() => {
             const secondsSinceLast = (new Date() - this.props.lastReceivedTimestamp) / 1000;
 
             this.setState({visible: secondsSinceLast > this.props.secondsWithoutReceive})
         }, 1)
+    };
+
+    componentWillUnmount = () => {
+        clearInterval(this.refreshTimer);
     };
 
     render = () => this.state.visible ? this.props.children : <span/>

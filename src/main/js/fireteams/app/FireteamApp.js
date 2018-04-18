@@ -83,27 +83,46 @@ ArtifactMode = connect((state, {fireteam}) => ({
 }))(ArtifactMode);
 
 
-export function switchToArtifactMode(fireteamTag, targetTag, maxDistance) {
-    if (!targetTag) {
-        return false;
-    }
-    return targetTag.type == "artifact"
-        && fireteamTag.areaName == targetTag.areaName
-        && distance(fireteamTag, targetTag) <= maxDistance
-}
+class ModeSwitcher extends React.Component {
+    static defaultProps = {
+        distanceForArtifactMode: 1,
+        distanceForMapMode: 2
+    };
 
-let ModeSwitcher = ({fireteam, fireteamTag, targetTag, distanceForArtifactMode}) =>
-    fireteamTag ? (
-        switchToArtifactMode(fireteamTag, targetTag, distanceForArtifactMode)
-            ? <ArtifactMode fireteam={fireteam}/>
-            : <MapMode fireteam={fireteam}/>) : <span/>;
+    state = {artifactMode: false};
+
+    componentWillReceiveProps = (props) => {
+        if (!props.targetTag || props.targetTag.type != "artifact" || props.fireteamTag.areaName != props.targetTag.areaName) {
+            console.log("EARLY EXIT");
+            this.setState({artifactMode: false})
+        }
+        const myDistance = distance(props.fireteamTag, props.targetTag);
+        if (this.state.artifactMode && myDistance > props.distanceForMapMode) {
+            this.setState({artifactMode: false})
+        }
+        if (!this.state.artifactMode && myDistance < props.distanceForArtifactMode) {
+            this.setState({artifactMode: true})
+        }
+    };
+
+    render = () => {
+        if (!this.props.fireteamTag) {
+            return <span/>
+        }
+        if (this.state.artifactMode) {
+            return <ArtifactMode fireteam={this.props.fireteam}/>
+        } else {
+            return <MapMode fireteam={this.props.fireteam}/>
+        }
+    }
+}
 
 ModeSwitcher = connect((state, {fireteam}) => ({
     targetTag: getTargetTag(state, fireteam),
     fireteamTag: getFireteamTag(state, fireteam)
 }))(ModeSwitcher);
 
-const FireteamApp = ({fireteam}) => <ModeSwitcher fireteam={fireteam} distanceForArtifactMode={0.75}/>;
+const FireteamApp = ({fireteam}) => <ModeSwitcher fireteam={fireteam} distanceForArtifactMode={0.75} distanceForMapMode={2}/>;
 
 
 export default FireteamApp;
