@@ -2,27 +2,28 @@ import React from 'react'
 import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
-import restActions from '../common/crud/crudActions'
 import LocatorObjectsList from '../tags/LocatorObjectsList'
+import HeightExpander from "../common/components/HeightExpander";
 
 import Panel from '../common/components/Panel'
 import GoogleMap from './GoogleMap'
 
 const ViewOutside  = ({locators, selectedLocator, onSelectLocator}) =>
-    <div className="container-fluid">
-        <div className="row">
-            <div className="col-sm-4 colWithSmallerGutter">
-                <Panel>
-                    <LocatorObjectsList locators={locators} selected={selectedLocator} onSelect={onSelectLocator}/>
+    <HeightExpander>
+        <div style={{height: "100%", display: "flex"}}>
+            <div style={{width: "30%", marginLeft: 5, marginRight: 5, height: "100%", overflowY: "auto"}}>
+                <Panel style={{display: "flex", flexDirection: "column"}}>
+                    <div style={{flexGrow: 1}}>
+                        <LocatorObjectsList locators={locators} selected={selectedLocator} onSelect={onSelectLocator}/>
+                    </div>
                 </Panel>
             </div>
-            <div className="col-sm-8 colWithSmallerGutter">
-                <Panel>
-                    <GoogleMap locators={locators} selected={selectedLocator} onClick={onSelectLocator}/>
-                </Panel>
+            <div style={{flexGrow: 1, height: "100%", border: "1px solid #ddd", borderRadius: 4, marginLeft: 5, marginRight: 5}}>
+                <GoogleMap locators={locators} selected={selectedLocator} onClick={onSelectLocator}/>
             </div>
         </div>
-    </div>;
+
+    </HeightExpander>;
 
 const mapStateToProps = (state, ownProps) => {
     const myLocatorId = ownProps.locatorId;

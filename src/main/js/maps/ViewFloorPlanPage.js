@@ -10,26 +10,27 @@ import FloorPlan from './ZoomableFloorPlan'
 import Panel from '../common/components/Panel'
 import HeightExpander from "../common/components/HeightExpander";
 
-const ViewFloorPlan  = ({map, tags, selectedTag, onSelectTag, onArtifactClick}) =>
-    <div className="container-fluid">
-        <div className="row">
-            <div className="col-sm-4 colWithSmallerGutter">
-                <Panel>
-                    <TaggedObjectsList tags={tags} selected={selectedTag} onSelect={onSelectTag} onArtifactClick={onArtifactClick}/>
+const ViewFloorPlan = ({map, tags, selectedTag, onSelectTag, onArtifactClick}) =>
+    <HeightExpander>
+        <div style={{height: "100%", display: "flex"}}>
+            <div style={{width: "30%", marginLeft: 5, marginRight: 5, height: "100%", overflowY: "auto"}}>
+                <Panel style={{display: "flex", flexDirection: "column"}}>
+                    <div style={{flexGrow: 1}}>
+                        <TaggedObjectsList tags={tags} selected={selectedTag} onSelect={onSelectTag}
+                                           onArtifactClick={onArtifactClick}/>
+                    </div>
                 </Panel>
             </div>
-            <div className="col-sm-8 colWithSmallerGutter">
-                { map ?
-                    <Panel padding="0">
-                        <HeightExpander>
+            <div style={{flexGrow: 1, height: "100%", border: "1px solid #ddd", borderRadius: 4, marginLeft: 5, marginRight: 5}}>
+                {map ?
                             <FloorPlan map={map} tags={tags} selectedTag={selectedTag} onClickTag={onSelectTag}/>
-                        </HeightExpander>
-                    </Panel>
                     : <span/>
                 }
+
             </div>
         </div>
-    </div>;
+
+    </HeightExpander>;
 
 
 const mapStateToProps = (state, ownProps) => {
