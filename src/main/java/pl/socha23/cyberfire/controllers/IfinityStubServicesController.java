@@ -17,6 +17,7 @@ public class IfinityStubServicesController {
 
     private Resource tagPositionResource = new ClassPathResource("ifinityStub/getTagPosition.json");
     private Resource projectInfoResource = new ClassPathResource("ifinityStub/getProjectInfo.json");
+    private Resource tagInfoResource = new ClassPathResource("ifinityStub/getTagInfo.json");
 
     @RequestMapping(value="/api/ifinityStub/qpe/getTagPosition",  produces={"application/json"})
     @ResponseBody
@@ -28,5 +29,11 @@ public class IfinityStubServicesController {
     @ResponseBody
     public String getProjectInfo() throws Exception {
         return IOUtils.toString(projectInfoResource.getInputStream());
+    }
+
+    @RequestMapping(value="/api/ifinityStub/qpe/getTagInfo",  produces={"application/json"})
+    @ResponseBody
+    public String getTagInfo() throws Exception {
+        return IOUtils.toString(tagInfoResource.getInputStream());
     }
 }

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IInsideTagsProvider {
 
-    List<Tag> getAllTagsInside();
+    List<Tag> getTagsToUpdate();
 }

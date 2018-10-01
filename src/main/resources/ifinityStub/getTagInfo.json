@@ -1,0 +1,131 @@
+{
+  "code": 0,
+  "command": "http://localhost:8080/qpe/getTagInfo?version=2&humanReadable=true&maxAge=5000",
+  "message": "TagInfo",
+  "responseTS": 1430141165288,
+  "status": "Ok",
+  "tags": [
+    {
+      "acceleration": [
+        -66,
+        -1,
+        -2
+      ],
+      "accelerationTS": 1430141165261,
+      "batteryAlarm": "ok",
+      "batteryAlarmTS": 1430141145241,
+      "batteryVoltage": "2.82",
+      "batteryVoltageTS": 1430141155251,
+      "buttonState": "notPushed",
+      "buttonStateTS": 1430141145241,
+      "color": "#0000CC",
+      "configStatus": "NotStarted",
+      "configStatusTS": null,
+      "deviceType": "General",
+      "group": "Basket",
+      "id": "tag_one",
+      "ioStates": [
+        "low",
+        "low",
+        "low",
+        "low"
+      ],
+      "ioStatesTS": 1430141145241,
+      "lastAreaId": "TrackingArea1",
+      "lastAreaName": "KCM",
+      "lastAreaTS": 1430141141667,
+      "lastButtonPressTS": 1430141165261,
+      "lastButton2PressTS": 1430141165261,
+      "lastPacketTS": 1430141165261,
+      "name": "Basket_0082",
+      "rssi": 37,
+      "rssiCoordinateSystemId": "CoordinateSystem1",
+      "rssiCoordinateSystemName": "FirstFloor",
+      "rssiLocator": "78c5e56f414d",
+      "rssiLocatorCoords": [
+        6.72,
+        23.31,
+        4.38
+      ],
+      "rssiTS": 1430141155899,
+      "tagState": "default",
+      "tagStateTS": 1430141145241,
+      "tagStateTransitionStatus": "normal",
+      "tagStateTransitionStatusTS": 1430141145241,
+      "triggerCount": 16594,
+      "triggerCountTS": 1430140995522,
+      "txPower": 0,
+      "txPowerTS": 1430141145241,
+      "txRate": 0.1,
+      "txRateTS": 1430141145241,
+      "zones": [
+        {
+          "id": "Zone005",
+          "name": "cashier"
+        }
+      ]
+    },
+    {
+      "acceleration": [
+        0,
+        0,
+        0
+      ],
+      "accelerationTS": 1430141165261,
+      "batteryAlarm": "ok",
+      "batteryAlarmTS": 1430141145241,
+      "batteryVoltage": "2.82",
+      "batteryVoltageTS": 1430141155251,
+      "buttonState": "notPushed",
+      "buttonStateTS": 1430141145241,
+      "color": "#0000CC",
+      "configStatus": "NotStarted",
+      "configStatusTS": null,
+      "deviceType": "General",
+      "group": "Basket",
+      "id": "tag_two",
+      "ioStates": [
+        "low",
+        "low",
+        "low",
+        "low"
+      ],
+      "ioStatesTS": 1430141145241,
+      "lastAreaId": "TrackingArea1",
+      "lastAreaName": "KCM",
+      "lastAreaTS": 1430141141667,
+      "lastButtonPressTS": 1430141165261,
+      "lastButton2PressTS": 1430141165261,
+      "lastPacketTS": 1430141165261,
+      "name": "Basket_0082",
+      "rssi": 37,
+      "rssiCoordinateSystemId": "CoordinateSystem1",
+      "rssiCoordinateSystemName": "FirstFloor",
+      "rssiLocator": "78c5e56f414d",
+      "rssiLocatorCoords": [
+        6.72,
+        23.31,
+        4.38
+      ],
+      "rssiTS": 1430141155899,
+      "tagState": "default",
+      "tagStateTS": 1430141145241,
+      "tagStateTransitionStatus": "normal",
+      "tagStateTransitionStatusTS": 1430141145241,
+      "triggerCount": 16594,
+      "triggerCountTS": 1430140995522,
+      "txPower": 0,
+      "txPowerTS": 1430141145241,
+      "txRate": 0.1,
+      "txRateTS": 1430141145241,
+      "zones": [
+        {
+          "id": "Zone005",
+          "name": "cashier"
+        }
+      ]
+    }
+
+  ],
+  "version": "2.1"
+}

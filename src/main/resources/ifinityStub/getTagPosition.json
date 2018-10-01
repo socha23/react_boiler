@@ -13,8 +13,29 @@
   "positionZ": 1.2000000476837158,
   "areaId": "Tracking001_2D",
   "areaName": "OZAB_FLOOR0",
-  "id": "884aea99714f",
+  "id": "tag_one",
   "smoothedPositionZ": 1.2000000476837158,
   "smoothedPositionY": 30.87695562397325,
   "smoothedPositionX": 28.881423871206355
-}]
+},
+  {
+    "responseTimestampEpoch": 1515849419531,
+    "color": "#FF0000",
+    "covariance01": 6.408069672812207,
+    "covariance00": 6.990045122943494,
+    "covariance11": 6.212829578470229,
+    "positionAccuracy": 1.0825503004341954,
+    "positionTimestamp": "Fri Jan 12 13:04:39 CET 2018",
+    "version": "1.1",
+    "positionTimestampEpoch": 1515758679553,
+    "positionX": 28.881423871206355,
+    "positionY": 30.87695562397325,
+    "positionZ": 1.2000000476837158,
+    "areaId": "Tracking001_2D",
+    "areaName": "OZAB_FLOOR0",
+    "id": "tag_two",
+    "smoothedPositionZ": 1.2000000476837158,
+    "smoothedPositionY": 30.87695562397325,
+    "smoothedPositionX": 28.881423871206355
+  }
+]

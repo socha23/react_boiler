@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class IfinityInsideTagsProvider extends AbstractIfinityIntegrationService<List<Tag>> implements IInsideTagsProvider {
+public class IfinityTagPositionWS extends AbstractIfinityIntegrationService<List<Tag>> {
 
     @Autowired
     private IFloorPlansService floorPlansService;
@@ -27,8 +27,7 @@ public class IfinityInsideTagsProvider extends AbstractIfinityIntegrationService
         return 100;
     }
 
-    @Override
-    public List<Tag> getAllTagsInside() {
+    public List<Tag> getTags() {
 		return getServiceResult();
     }
 
@@ -37,9 +36,7 @@ public class IfinityInsideTagsProvider extends AbstractIfinityIntegrationService
         List<Tag> tags = new ArrayList<>();
         ArrayNode tagNodes = (ArrayNode)json;
         for (JsonNode node : tagNodes) {
-
             FloorPlan floor = floorPlansService.getFloorPlanByAreaId(node.get("areaId").asText());
-
             Tag t = Tag.builder()
                     .id(node.get("id").asText())
                     .name(node.get("id").asText())
@@ -54,9 +51,11 @@ public class IfinityInsideTagsProvider extends AbstractIfinityIntegrationService
                             node.get("smoothedPositionZ").asDouble()
                             ))
                     .state(Tag.State.INSIDE)
-					.build();
+                    .build();
             tags.add(t);
         }
         return tags;
     }
+
+
 }

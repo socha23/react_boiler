@@ -1,10 +1,13 @@
 import * as vocFunctions from '../common/vocFunctions'
 
+// user request żeby na wysokim priorytecie była jedynka, a na niskim trójka.
+// Zostawiam jednak po staremu IDki żeby nie trzeba było robić migracji bazy danych.
+
 export const Priority = [
     {
         id: "P3_HIGH",
         name: "Wysoki",
-        iconText: "3",
+        iconText: "1",
         color: "#d9534f"
     },
     {
@@ -16,7 +19,7 @@ export const Priority = [
     {
         id: "P1_LOW",
         name: "Niski",
-        iconText: "1",
+        iconText: "3",
         color: "#5cb85c"
     }
 ];

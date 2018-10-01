@@ -3,6 +3,7 @@ plugins {
     id 'java'
 	id "com.moowork.node" version "1.0.1"
     id 'groovy'
+    id 'net.ltgt.apt' version '0.10'
 }
 
 def profile = (hasProperty("profile") ? profile  : "prod")
@@ -50,6 +51,7 @@ dependencies {
     testCompile("org.spockframework:spock-spring:1.0-groovy-2.4")
 
     compileOnly "org.projectlombok:lombok:1.16.12"
+    apt 'org.projectlombok:lombok:1.18.2'
 
     compile('io.springfox:springfox-swagger2:2.7.1-SNAPSHOT')
     compile('io.springfox:springfox-data-rest:2.7.1-SNAPSHOT')

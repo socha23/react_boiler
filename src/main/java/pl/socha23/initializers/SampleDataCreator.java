@@ -3,7 +3,6 @@ package pl.socha23.initializers;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.*;
@@ -18,9 +17,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
-@Profile("dev")
 @Component
-public class DevProfileInitializer implements CommandLineRunner {
+public class SampleDataCreator implements CommandLineRunner {
 
     @Autowired
     private ArtifactRepository artifactRepository;

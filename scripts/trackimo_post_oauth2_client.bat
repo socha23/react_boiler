@@ -1,0 +1,1 @@
+curl -X POST https://app.trackimo.com/v2/oauth2/client

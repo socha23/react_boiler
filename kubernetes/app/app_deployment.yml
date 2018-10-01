@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
       - name: ozab-app
-        image: eu.gcr.io/ozab-195119/ozap-app:v3
+        image: eu.gcr.io/ozab-195119/ozap-app:v4
         ports:
         - containerPort: 8080
