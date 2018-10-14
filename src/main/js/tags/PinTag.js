@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 import {crudActions} from "../common/crud/crudContainers"
 
-var SetPinned = ({tag, value, children, onUpdate}) => <span>
+var SetPinned = ({tag, value, children, onUpdate, style}) => <span>
     <a
-        style={{cursor: "pointer"}}
+        style={{...style, cursor: "pointer"}}
         onClick={e => {onUpdate({...tag, pinned: value})}}
     >
         {children}
@@ -14,11 +14,11 @@ var SetPinned = ({tag, value, children, onUpdate}) => <span>
 
 SetPinned = crudActions("tags", SetPinned);
 
-const PinTag = ({tag}) => {
+const PinTag = ({tag, style={}}) => {
     if (tag.pinned) {
-        return <SetPinned tag={tag} value={null}>Odepnij</SetPinned>
+        return <SetPinned style={style} tag={tag} value={null}>Odepnij</SetPinned>
     } else {
-        return <SetPinned tag={tag}value={tag.position}>Przypnij</SetPinned>
+        return <SetPinned style={style} tag={tag}value={tag.position}>Przypnij</SetPinned>
 
     }
 };
