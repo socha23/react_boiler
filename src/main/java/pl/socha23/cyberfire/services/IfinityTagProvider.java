@@ -12,16 +12,10 @@ import java.util.stream.Collectors;
 public class IfinityTagProvider implements IInsideTagsProvider {
 
     @Autowired
-    private IfinityTagInfoWS tagInfoWS;
-
-    @Autowired
     private IfinityTagPositionWS tagPositionWS;
 
     @Override
     public List<Tag> getTagsToUpdate() {
-        Set<String> tagsNotToUpdate = tagInfoWS.getWhichTagsNotToUpdate();
-        return tagPositionWS.getTags().stream()
-                .filter(t -> !tagsNotToUpdate.contains(t.getId()))
-                .collect(Collectors.toList());
+        return tagPositionWS.getTags();
     }
 }
