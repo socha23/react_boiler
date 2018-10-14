@@ -138,7 +138,9 @@ class TargetChooser extends React.Component {
             >
                 <tbody>
                 {
-                    this.props.items.map(a => {
+                    this.props.items
+                        .filter(team => this.props.tagsById[team.tagId])
+                        .map(a => {
                         let tag = this.props.tagsById[a.tagId];
                         return <tr key={a.id}
                                    className={this.props.selectedTag && this.props.selectedTag.id == a.tagId ? 'info' : ''}
