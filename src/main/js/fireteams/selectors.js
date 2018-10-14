@@ -9,7 +9,13 @@ import {isInCoordinateSystem} from '../tags/tagHelpers'
 export const getAllFireteams = state => state.fireteams.items || [];
 export const getFireteamsById = state => state.fireteams.itemsById || {};
 
-export const getFireteamsAssignedTo = (state, targetTag) => getAllFireteams(state).filter(ft => ft.targetTagId == targetTag.id);
+export const getFireteamsAssignedTo = (state, targetTag) => {
+    if (targetTag) {
+        return getAllFireteams(state).filter(ft => ft.targetTagId == targetTag.id);
+    } else {
+        return []
+    }
+};
 
 export const getSortedFireteams = createSelector([getAllFireteams], (fireteams) => [...fireteams].sort((a, b) => a.name.localeCompare(b.name)));
 
