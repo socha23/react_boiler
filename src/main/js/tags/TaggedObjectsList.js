@@ -4,6 +4,7 @@ import {artifactsByTagId} from './tagHelpers'
 import {Type, Priority} from '../artifacts/ArtifactVocs'
 import {find} from '../common/vocFunctions'
 import VocIcon from '../common/components/VocIcon'
+import PinTag from "./PinTag";
 
 const itemDivStyle = {
     paddingTop: 5,
@@ -21,6 +22,7 @@ let TaggedArtifact = ({tag, artifact, history, onClick}) => <div style={itemDivS
     <small style={{marginLeft: 10, color: "#AAA"}}>
         {tag.areaName}
     </small>
+    <PinTag tag={tag} style={{marginLeft: 10}}/>
     <VocIcon value={find(Priority, artifact.priority)} className="pull-right"/>
 </div>;
 
