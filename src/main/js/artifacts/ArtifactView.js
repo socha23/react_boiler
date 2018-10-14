@@ -5,6 +5,7 @@ import {priority, priorityName, Type} from './ArtifactVocs'
 import * as vocFunctions from '../common/vocFunctions'
 import {ImageListWithView} from './ArtifactImageList'
 import TagValue from '../tags/TagValue'
+import PinTag from '../tags/PinTag'
 import LocatorValue from '../tags/LocatorValue'
 
 const ValueOrQuestion = ({value}) => {
@@ -25,7 +26,7 @@ const Dimensions = ({value = {}}) => <span>
     <ValueOrQuestion value={value.depth}/>
 </span>;
 
-const WhenNonEmpty = ({value, children}) => value ? <div>{children}</div> : <div></div>
+const WhenNonEmpty = ({value, children}) => value ? <div>{children}</div> : <div></div>;
 
 const ArtifactDetails = ({item}) => <div>
         <div className="row">
@@ -53,9 +54,15 @@ const ArtifactDetails = ({item}) => <div>
                 <label>
                     Znacznik:
                 </label>
-                <p className="form-control-static">
-                    <TagValue tagId={item.tagId} link={true}/>
-                </p>
+                {item.tagId ?
+                    <p className="form-control-static">
+                        <TagValue tagId={item.tagId} link={true}/>
+                        <br/>
+                        <PinTag tagId={item.tagId}/>
+                    </p>
+                    :
+                    <span/>
+                }
             </div>
             <div className="col-sm-6 form-group">
                 <label>

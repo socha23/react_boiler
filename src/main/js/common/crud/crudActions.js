@@ -196,7 +196,7 @@ export default function restActions(resource, options = {}) {
     }) {
         return (dispatch) => {
             dispatch(updateItemRequest());
-            return fetch(item._links.self.href, {
+            return fetch(API_PATH + resource + "/" + item.id, {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(item)
