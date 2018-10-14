@@ -24,6 +24,7 @@ public class Tag {
     private String coordinateSystemName;
 
     private Position position;
+    private Position pinned;
 
 	private State state = State.INSIDE;
 }
