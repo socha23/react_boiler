@@ -4,14 +4,13 @@ import {artifactsByTagId} from './tagHelpers'
 import {Priority, Type} from '../artifacts/ArtifactVocs'
 import {find} from '../common/vocFunctions'
 import VocIcon from '../common/components/VocIcon'
-import PinTag from "./PinTag";
 
 const itemDivStyle = {
     paddingTop: 5,
     paddingBottom: 5
 };
 
-let TaggedArtifact = ({tag, artifact, history, onClick, onEnterPinMode}) => <div style={itemDivStyle}>
+let TaggedArtifact = ({tag, artifact, history, onClick, onEnterPinMode, onUnpinArtifact}) => <div style={itemDivStyle}>
     <VocIcon value={find(Type, artifact.type)} className="iconWithName"/>
     {onClick ?
         <a onClick={(e) => {e.stopPropagation(); onClick(artifact)}}>{artifact.name}</a>
@@ -22,7 +21,15 @@ let TaggedArtifact = ({tag, artifact, history, onClick, onEnterPinMode}) => <div
     <small style={{marginLeft: 10, color: "#AAA"}}>
         {tag.areaName}
     </small>
-    <PinTag tag={tag} style={{marginLeft: 10}} onEnterPinMode={() => {onEnterPinMode(artifact)}}/>
+
+
+    <span style={{marginLeft: 10}}>
+    {tag.pinned ?
+        <a style={{cursor: "pointer"}} onClick={(e) => {e.stopPropagation(); onUnpinArtifact(artifact)}}>Odepnij</a>
+        :
+        <a style={{cursor: "pointer"}} onClick={(e) => {e.stopPropagation(); onEnterPinMode(artifact)}}>Przypnij</a>
+    }
+    </span>
     <VocIcon value={find(Priority, artifact.priority)} className="pull-right"/>
 </div>;
 
@@ -39,7 +46,8 @@ const TaggedObjectsList = ({
     onSelect = () => {},
     artifactsByTagId = {},
     onArtifactClick,
-    onEnterPinMode
+    onEnterPinMode,
+    onUnpinArtifact
     }) => <div>
     <table className="table table-hover table-pointer">
         <tbody>
@@ -47,7 +55,7 @@ const TaggedObjectsList = ({
             <td>
                 {
                     artifactsByTagId[t.id] ?
-                        <TaggedArtifact tag={t} artifact={artifactsByTagId[t.id]} onClick={onArtifactClick} onEnterPinMode={onEnterPinMode}/>
+                        <TaggedArtifact tag={t} artifact={artifactsByTagId[t.id]} onClick={onArtifactClick} onEnterPinMode={onEnterPinMode} onUnpinArtifact={onUnpinArtifact}/>
                         : <Tag tag={t}/>
                 }
             </td>

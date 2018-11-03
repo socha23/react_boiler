@@ -55,7 +55,8 @@ class ZoomableFloorPlan extends React.Component {
 
         lines: PropTypes.array,
         filterButtons: PropTypes.bool,
-        pinMode: PropTypes.bool,
+        clickMapMode: PropTypes.bool,
+        onClickMap: PropTypes.func,
         tagDecorations: PropTypes.object,
         style: PropTypes.object
     };
@@ -63,10 +64,12 @@ class ZoomableFloorPlan extends React.Component {
     static defaultProps = {
         onClickTag: () => {
         },
+        onClickMap: () => {
+        },
         tags: [],
         lines: [],
         filterButtons: true,
-        pinMode: false,
+        clickMapMode: false,
         tagDecorations: {},
         style: {}
     };
@@ -213,10 +216,10 @@ class ZoomableFloorPlan extends React.Component {
     };
 
     onMapClick = (e) => {
-        if (this.props.pinMode) {
+        if (this.props.clickMapMode) {
             const pos = {x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY};
             const clickPos = this.imagePxToPos(pos);
-            console.log("pin", pos, clickPos);
+            this.props.onClickMap(clickPos);
         }
     };
 
@@ -224,7 +227,7 @@ class ZoomableFloorPlan extends React.Component {
     render() {
 
         if (this.elem) {
-            this.elem.panzoom("option", {cursor: this.props.pinMode ? "crosshair" : "move"});
+            this.elem.panzoom("option", {cursor: this.props.clickMapMode ? "crosshair" : "move"});
         }
 
         return <div style={{...this.props.style, position: "relative", overflow: "hidden", height: "100%"}}>
