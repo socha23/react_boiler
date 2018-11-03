@@ -64,6 +64,13 @@ class ViewFloorPlanWithPinning extends React.Component {
         </ViewFloorPlan>
     };
 
+    componentWillReceiveProps = (nextProps) => {
+        if (this.props.map && this.props.map.id != nextProps.map.id) {
+            this.onCancelPinMode();
+        }
+    };
+
+
     onCancelPinMode = () => {
         this.setState({
             pinMode: false,
