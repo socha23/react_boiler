@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {artifactsByTagId} from './tagHelpers'
-import {Type, Priority} from '../artifacts/ArtifactVocs'
+import {Priority, Type} from '../artifacts/ArtifactVocs'
 import {find} from '../common/vocFunctions'
 import VocIcon from '../common/components/VocIcon'
 import PinTag from "./PinTag";
@@ -11,7 +11,7 @@ const itemDivStyle = {
     paddingBottom: 5
 };
 
-let TaggedArtifact = ({tag, artifact, history, onClick}) => <div style={itemDivStyle}>
+let TaggedArtifact = ({tag, artifact, history, onClick, onEnterPinMode}) => <div style={itemDivStyle}>
     <VocIcon value={find(Type, artifact.type)} className="iconWithName"/>
     {onClick ?
         <a onClick={(e) => {e.stopPropagation(); onClick(artifact)}}>{artifact.name}</a>
@@ -22,7 +22,7 @@ let TaggedArtifact = ({tag, artifact, history, onClick}) => <div style={itemDivS
     <small style={{marginLeft: 10, color: "#AAA"}}>
         {tag.areaName}
     </small>
-    <PinTag tag={tag} style={{marginLeft: 10}}/>
+    <PinTag tag={tag} style={{marginLeft: 10}} onEnterPinMode={() => {onEnterPinMode(artifact)}}/>
     <VocIcon value={find(Priority, artifact.priority)} className="pull-right"/>
 </div>;
 
@@ -38,7 +38,8 @@ const TaggedObjectsList = ({
     tags = [],
     onSelect = () => {},
     artifactsByTagId = {},
-    onArtifactClick
+    onArtifactClick,
+    onEnterPinMode
     }) => <div>
     <table className="table table-hover table-pointer">
         <tbody>
@@ -46,7 +47,7 @@ const TaggedObjectsList = ({
             <td>
                 {
                     artifactsByTagId[t.id] ?
-                        <TaggedArtifact tag={t} artifact={artifactsByTagId[t.id]} onClick={onArtifactClick}/>
+                        <TaggedArtifact tag={t} artifact={artifactsByTagId[t.id]} onClick={onArtifactClick} onEnterPinMode={onEnterPinMode}/>
                         : <Tag tag={t}/>
                 }
             </td>

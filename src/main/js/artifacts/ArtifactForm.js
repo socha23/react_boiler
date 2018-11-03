@@ -1,16 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import FormHelper from '../common/components/FormHelper'
 import {crudCreate} from '../common/crud/crudContainers'
 import {floatToString, stringToFloat} from '../common/conversionHelpers'
 import {Priority, Type} from './ArtifactVocs'
-import Uploader from '../common/components/Uploader'
 import ErrorList from '../common/components/ErrorList'
 import VocDropDown from '../common/components/VocDropDown'
 import {EditableImageList} from './ArtifactImageList'
 import AvailableTagsDropDown from '../tags/AvailableTagsDropDown'
 import AvailableCratesDropDown from '../tags/AvailableCratesDropDown'
-import AllLocatorsDropDown from '../tags/AllLocatorsDropDown'
 
 class ArtifactForm extends FormHelper {
 

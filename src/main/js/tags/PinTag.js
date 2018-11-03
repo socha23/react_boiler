@@ -14,12 +14,15 @@ var SetPinned = ({tag, value, children, onUpdate, style}) => <span>
 
 SetPinned = crudActions("tags", SetPinned);
 
-const PinTag = ({tag, style={}}) => {
+const PinTag = ({tag, style={}, onEnterPinMode = null}) => {
     if (tag.pinned) {
         return <SetPinned style={style} tag={tag} value={null}>Odepnij</SetPinned>
     } else {
-        return <SetPinned style={style} tag={tag}value={tag.position}>Przypnij</SetPinned>
-
+        if (!onEnterPinMode) {
+            return <SetPinned style={style} tag={tag}value={tag.position}>Przypnij</SetPinned>
+        } else {
+            return <a style={{...style, cursor: "pointer"}} onClick={(e) => {e.stopPropagation(); onEnterPinMode()}}>Przypnij</a>
+        }
     }
 };
 

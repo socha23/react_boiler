@@ -5,7 +5,6 @@ import {priority, priorityName, Type} from './ArtifactVocs'
 import * as vocFunctions from '../common/vocFunctions'
 import {ImageListWithView} from './ArtifactImageList'
 import TagValue from '../tags/TagValue'
-import PinTag from '../tags/PinTag'
 import LocatorValue from '../tags/LocatorValue'
 
 const ValueOrQuestion = ({value}) => {
@@ -57,8 +56,6 @@ const ArtifactDetails = ({item}) => <div>
                 {item.tagId ?
                     <p className="form-control-static">
                         <TagValue tagId={item.tagId} link={true}/>
-                        <br/>
-                        <PinTag tagId={item.tagId}/>
                     </p>
                     :
                     <span/>

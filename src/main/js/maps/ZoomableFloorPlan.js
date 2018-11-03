@@ -55,6 +55,7 @@ class ZoomableFloorPlan extends React.Component {
 
         lines: PropTypes.array,
         filterButtons: PropTypes.bool,
+        pinMode: PropTypes.bool,
         tagDecorations: PropTypes.object,
         style: PropTypes.object
     };
@@ -65,6 +66,7 @@ class ZoomableFloorPlan extends React.Component {
         tags: [],
         lines: [],
         filterButtons: true,
+        pinMode: false,
         tagDecorations: {},
         style: {}
     };
@@ -211,12 +213,10 @@ class ZoomableFloorPlan extends React.Component {
     };
 
     onMapClick = (e) => {
-        if (this.state.mapIsClickable) {
+        if (this.props.pinMode) {
             const pos = {x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY};
-
             const clickPos = this.imagePxToPos(pos);
-            
-            console.log("click", pos, clickPos);
+            console.log("pin", pos, clickPos);
         }
     };
 
@@ -224,12 +224,15 @@ class ZoomableFloorPlan extends React.Component {
     render() {
 
         if (this.elem) {
-            this.elem.panzoom("option", {cursor: "crosshair"});
+            this.elem.panzoom("option", {cursor: this.props.pinMode ? "crosshair" : "move"});
         }
 
         return <div style={{...this.props.style, position: "relative", overflow: "hidden", height: "100%"}}>
             <div style={{position: "absolute", zIndex: 0}} ref={elem => this.elem = $(elem)}>
                 <img src={this.props.map.base64content} onClick={this.onMapClick}/>
+            </div>
+            <div style={{position: "absolute", zIndex: 2, width: "100%"}}>
+                {this.props.children}
             </div>
             <div style={{position: "absolute", zIndex: 2, right: 15, bottom: 15}}>
                 {
