@@ -6,6 +6,8 @@ import {DotMarker, LabelMarker} from './Marker'
 import Line from './Line'
 import {TagTypes} from "../tags/TagType";
 
+import translatePoint from '../common/translatePoint'
+
 // panzoom nie jest wczytywany jako moduł npm i wymaga nie-npmowego jquery
 //import $ from 'jquery'
 
@@ -69,7 +71,8 @@ class ZoomableFloorPlan extends React.Component {
 
     state = {
         matrix: [1, 0, 0, 1, 0, 0],
-        typeFilter: {}
+        typeFilter: {},
+        mapIsClickable: true,
     };
 
     componentDidMount = () => {
@@ -129,34 +132,43 @@ class ZoomableFloorPlan extends React.Component {
     };
 
     posToImagePx = (pos) => {
-        const map = this.props.map;
-        // left top to (0, 0)
-        pos = {
-            x: pos.x - map.topLeft.x,
-            y: pos.y - map.topLeft.y
-        };
-        // scale to image natural size
-        pos = {
-            x: pos.x / (map.bottomRight.x - map.topLeft.x) * this.elem.find("img")[0].naturalWidth,
-            y: pos.y / (map.bottomRight.y - map.topLeft.y) * this.elem.find("img")[0].naturalHeight
-        };
-        return pos;
+        return translatePoint(
+            this.props.map, this.mapImageRect(), pos
+        );
     };
+
+    imagePxToPos = (pos) => {
+        return translatePoint(
+            this.mapImageRect(), this.props.map, pos
+        );
+    };
+
+    mapImageRect = () => ({
+        topLeft: {x: 0, y: 0},
+        bottomRight: {x: this.elem.find("img")[0].naturalWidth, y: this.elem.find("img")[0].naturalHeight}
+    });
 
     posToContainerPx = (pos) => {
         if (!this.elem) {
             return pos;
         }
+
         pos = this.posToImagePx(pos);
+        pos = this.imagePxToContainerPx(pos);
+        return pos;
+    };
+
+    imagePxToContainerPx = (pos) => {
         // image px to screen px (pan and zoom)
         const zoom = this.state.matrix[0];
+        pos = {x: pos.x * zoom, y: pos.y * zoom};
+
         const innerRecPx = this.elem[0].getBoundingClientRect();
         const outerRecPx = this.elem.parent()[0].getBoundingClientRect();
         return {
-            x: pos.x * zoom + innerRecPx.x - outerRecPx.x,
-            y: pos.y * zoom + innerRecPx.y - outerRecPx.y
-        };
-
+            x: pos.x + innerRecPx.x - outerRecPx.x,
+            y: pos.y + innerRecPx.y - outerRecPx.y
+        }
     };
 
     fitsInViewport = (pos) => {
@@ -198,22 +210,36 @@ class ZoomableFloorPlan extends React.Component {
         this.setState({typeFilter: typeFilter})
     };
 
+    onMapClick = (e) => {
+        if (this.state.mapIsClickable) {
+            const pos = {x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY};
+
+            const clickPos = this.imagePxToPos(pos);
+            
+            console.log("click", pos, clickPos);
+        }
+    };
+
 
     render() {
 
+        if (this.elem) {
+            this.elem.panzoom("option", {cursor: "crosshair"});
+        }
 
         return <div style={{...this.props.style, position: "relative", overflow: "hidden", height: "100%"}}>
-                <div style={{position: "absolute", zIndex: 0}} ref={elem => this.elem = $(elem)}>
-                    <img src={this.props.map.base64content}/>
-                </div>
-                <div style={{position: "absolute", zIndex: 2, right: 15, bottom: 15}}>
-                    {
-                        this.props.filterButtons ?
-                            <div style={{marginBottom: 10}}>
-                                <ToggleButtons items={TagTypes} type="mapButton" selected={this.state.typeFilter} onSelectionChange={this.onTypeFilterChanged}/>
-                            </div>
-                            : <div/>
-                    }
+            <div style={{position: "absolute", zIndex: 0}} ref={elem => this.elem = $(elem)}>
+                <img src={this.props.map.base64content} onClick={this.onMapClick}/>
+            </div>
+            <div style={{position: "absolute", zIndex: 2, right: 15, bottom: 15}}>
+                {
+                    this.props.filterButtons ?
+                        <div style={{marginBottom: 10}}>
+                            <ToggleButtons items={TagTypes} type="mapButton" selected={this.state.typeFilter}
+                                           onSelectionChange={this.onTypeFilterChanged}/>
+                        </div>
+                        : <div/>
+                }
 
                 <div className="btn-group-vertical">
                     <a className="vocIcon btn btn-default btn-lg" onClick={e => this.onZoom(false)}>
@@ -224,7 +250,7 @@ class ZoomableFloorPlan extends React.Component {
                     </a>
                 </div>
             </div>
-            
+
             {this.props.tags
                 .map(t => ({...t, pxPosition: this.posToContainerPx(t.position)}))
                 .map(t => <Tag {...t}
