@@ -24,7 +24,7 @@ public class IfinityTagPositionWS extends AbstractIfinityIntegrationService<List
 
     @Override
     protected int getRefreshIntervalMillis() {
-        return 100;
+        return 50;
     }
 
     public List<Tag> getTags() {
