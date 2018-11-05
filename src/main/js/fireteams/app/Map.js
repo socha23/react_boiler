@@ -38,7 +38,8 @@ export class MapComponent extends React.Component {
             nextProps.onTargetShown(false);
         } else {
             const targetScreenPos = this.posToScreen(nextProps.targetTag.position);
-            nextProps.onTargetShown(targetScreenPos.y > 0);
+            // -50 a nie 0 bo takie było ich życzenie żeby dać więcej tolerancji
+            nextProps.onTargetShown(targetScreenPos.y > 50);
         }
     };
 
