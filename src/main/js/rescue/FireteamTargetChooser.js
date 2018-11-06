@@ -10,7 +10,7 @@ import TabPanel, {STYLE_LG} from '../common/components/TabPanel'
 import {Priority} from '../artifacts/ArtifactVocs'
 import {getArtifactsInside} from '../artifacts/selectors'
 import {getAllFireteams, getFireteamsAssignedTo} from '../fireteams/selectors'
-import {getTagsById} from '../tags/selectors'
+import {getLocatorsByTagId, getTagsById} from '../tags/selectors'
 import TagAreaName from '../tags/TagAreaName'
 
 import {getNavPoints} from './selectors'
@@ -80,6 +80,7 @@ const ArtifactTarget = ({item, tag}) => <Target>
         <TargetName>{item.name}</TargetName>
         <CommonTargetData tag={tag}/>
     </div>
+    <ContainerIcon tag={tag}/>
     <ShowArtifactViewInPopup artifact={item}/>
 
 </Target>;
@@ -141,20 +142,20 @@ class TargetChooser extends React.Component {
                     this.props.items
                         .filter(team => this.props.tagsById[team.tagId])
                         .map(a => {
-                        let tag = this.props.tagsById[a.tagId];
-                        return <tr key={a.id}
-                                   className={this.props.selectedTag && this.props.selectedTag.id == a.tagId ? 'info' : ''}
-                                   onClick={() => this.onSelectTag(tag)}
-                                   ref={e => this.elemsByTagId[tag.id] = e}
-                        >
-                            <td>
-                                {this.props.elem({
-                                    item: a,
-                                    tag: tag
-                                })}
-                            </td>
-                        </tr>
-                    })
+                            let tag = this.props.tagsById[a.tagId];
+                            return <tr key={a.id}
+                                       className={this.props.selectedTag && this.props.selectedTag.id == a.tagId ? 'info' : ''}
+                                       onClick={() => this.onSelectTag(tag)}
+                                       ref={e => this.elemsByTagId[tag.id] = e}
+                            >
+                                <td>
+                                    {this.props.elem({
+                                        item: a,
+                                        tag: tag
+                                    })}
+                                </td>
+                            </tr>
+                        })
                 }
                 </tbody>
             </table>
@@ -184,6 +185,18 @@ let CommonTargetData = ({tag, fireteams}) => <div>
 </div>;
 
 CommonTargetData = connect((state, ownProps) => ({
-    fireteams: getFireteamsAssignedTo(state, ownProps.tag)
+    fireteams: getFireteamsAssignedTo(state, ownProps.tag),
 }))(CommonTargetData);
+
+let ContainerIcon = ({tag, locatorsByTagId}) => {
+    let inside = locatorsByTagId[tag.id]
+    let color =  inside ? "green" : "#ccc";
+    return inside ? <span style={{fontSize: 24, color: color, marginRight: 10}}>
+                <i className={"glyphicon glyphicon-ok"}/></span> : <span/>
+
+};
+
+ContainerIcon = connect((state, ownProps) => ({
+    locatorsByTagId: getLocatorsByTagId(state),
+}))(ContainerIcon);
 

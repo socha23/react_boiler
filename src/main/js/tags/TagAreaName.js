@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {isMissing, isInContainer} from './tagHelpers'
+import {isMissing} from './tagHelpers'
+import {getLocatorsByTagId} from './selectors'
 
-export const TagAreaNameComponent = ({tag, style}) => {
+export const TagAreaNameComponent = ({tag, style, locatorsByTagId}) => {
     if (!tag) {
         return <span/>
     }
@@ -12,9 +13,9 @@ export const TagAreaNameComponent = ({tag, style}) => {
     if (isMissing(tag)) {
         color = "#a94442"; // dark red from bootstrap
         text = "poza budynkiem";
-    } else if (isInContainer(tag)) {
+    } else if (locatorsByTagId[tag.id]) {
         color = "#a94442"; // dark red from bootstrap
-        text = "w kontenerze";
+        text = locatorsByTagId[tag.id].name;
     }
     return <small style={{color: color, ...style}}>
         {text}
@@ -22,12 +23,16 @@ export const TagAreaNameComponent = ({tag, style}) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
+    let tag = null;
+
     if (ownProps.tag) {
-        return {tag: ownProps.tag}
+        tag = ownProps.tag
     } else if (ownProps.tagId) {
-        return {tag: (state.tags.itemsById[ownProps.tagId])}
-    } else {
-        return {tag: null};
+        tag = (state.tags.itemsById[ownProps.tagId])
+    }
+    return {
+        tag: tag,
+        locatorsByTagId: getLocatorsByTagId(state)
     }
 };
 

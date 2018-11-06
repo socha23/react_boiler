@@ -45,7 +45,6 @@ export function artifactTag(tags, artifact) {
 export const TAG_STATES = {
     INSIDE: "INSIDE",
     MISSING: "MISSING",
-    IN_CONTAINER: "IN_CONTAINER"
 };
 
 export function isMissing(tag) {
