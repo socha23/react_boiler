@@ -41,7 +41,7 @@ function getLocatorById(locators, id) {
 
 function artifactLocator(locators, artifact) {
     return locators.find(loc =>
-        (loc.nearbyDevices || []).find(dev => dev.id == artifact.id)
+        (loc.nearbyDevices || []).find(dev => dev.id == artifact.tagId)
     );
 }
 

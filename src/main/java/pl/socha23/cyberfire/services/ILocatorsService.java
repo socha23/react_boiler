@@ -2,11 +2,11 @@ package pl.socha23.cyberfire.services;
 
 import pl.socha23.cyberfire.model.Locator;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface ILocatorsService {
 
-    List<Locator> getAllLocators();
+    Collection<Locator> getAllLocators();
 
     void update(Locator locator);
 }

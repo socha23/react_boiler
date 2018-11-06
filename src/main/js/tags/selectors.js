@@ -7,6 +7,7 @@ import {isInside} from './tagHelpers'
 import {TypeArtifact, TypeFireteam, TypeNavigation} from "./TagType";
 
 const getRawTags = state => state.tags.items || [];
+const getRawLocators = state => state.locators.items || [];
 const getRawFireteams = state => state.fireteams.items || [];
 const getRawArtifacts = state => state.artifacts.items || [];
 
@@ -46,7 +47,17 @@ export const getAllTags = createSelector([getRawTags, getRawFireteams, getRawArt
 
 export const getTagsById = createSelector([getAllTags], tags => indexById(tags));
 
-export const getTagsInside = createSelector([getAllTags], tags => tags.filter(isInside));
+export const getLocatorsByTagId = createSelector([getRawLocators], locators => {
+    const result = {};
+    locators.forEach(loc => {
+        loc.nearbyDevices.forEach(dev => {
+            result[dev.id] = loc
+        })
+    });
+    return result
+});
+
+export const getTagsInside = createSelector([getAllTags, getLocatorsByTagId], (tags, tagsInLocators) => tags.filter(t => isInside(t) && !tagsInLocators[t.id]));
 
 export const getTagsInsideById = createSelector([getAllTags], tags => indexById(tags.filter(isInside)));
 
