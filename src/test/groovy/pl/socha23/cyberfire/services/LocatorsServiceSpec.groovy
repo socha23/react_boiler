@@ -12,8 +12,7 @@ class LocatorsServiceSpec extends Specification {
             .id("loc_a")
             .name("Locator a")
             .type(Locator.Type.CONTAINER)
-            .latitude(52)
-            .longitude(21)
+            .location(MapCoords.of(52, 21))
             .build()
 
     def setup() {
@@ -42,10 +41,10 @@ class LocatorsServiceSpec extends Specification {
 
         then:
         result.isPresent()
-        result.get().longitude == 20
-        result.get().latitude == 30
-        locatorById(LOCATOR_A.id).longitude == 20
-        locatorById(LOCATOR_A.id).latitude == 30
+        result.get().location.longitude == 20
+        result.get().location.latitude == 30
+        locatorById(LOCATOR_A.id).location.longitude == 20
+        locatorById(LOCATOR_A.id).location.latitude == 30
 
 
     }

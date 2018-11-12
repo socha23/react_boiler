@@ -21,8 +21,8 @@ const GoogleMap = ({locators, selected, onClick}) =>
             {locators.map(t =>
                 <LabelMarker
                     key={t.id}
-                    lat={t.latitude}
-                    lng={t.longitude}
+                    lat={t.location.latitude}
+                    lng={t.location.longitude}
                     name={t.name}
                     color="#337ab7"
                     selected={selected && t.id == selected.id}

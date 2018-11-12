@@ -32,9 +32,9 @@ public class LocatorsService implements ILocatorsService {
     }
 
     @Override
-    public Optional<Locator> updateLocation(String id, MapCoords coords) {
+    public Optional<Locator> updateLocation(String id, MapCoords location) {
         return datasource.findById(id).map(loc -> {
-            loc.setCoordinates(coords);
+            loc.setLocation(location);
             return datasource.save(loc);
         });
     }

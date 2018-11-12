@@ -11,7 +11,7 @@ export const LocatorsList = ({selected = {}, items = [], onSelect = (() => {})})
         <tbody>
         {items.map(t => <tr key={t.id} className={selected == t ? 'success' : ''} onClick={() => {onSelect(t)}}>
             <td>{t.name}</td>
-            <td>{t.latitude}, {t.longitude}</td>
+            <td>{t.location.latitude}, {t.location.longitude}</td>
         </tr>)
         }
         </tbody>
