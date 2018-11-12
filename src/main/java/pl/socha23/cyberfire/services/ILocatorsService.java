@@ -8,5 +8,7 @@ public interface ILocatorsService {
 
     Collection<Locator> getAllLocators();
 
-    void update(Locator locator);
+    Locator updateOrCreate(Locator locator);
+
+    void deleteById(String id);
 }

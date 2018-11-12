@@ -2,24 +2,32 @@ package pl.socha23.cyberfire.services;
 
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.Locator;
+import pl.socha23.cyberfire.repositories.LocatorRepository;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class LocatorsService implements ILocatorsService {
 
-    private Map<String, Locator> staticLocators = new HashMap<>();
+    private LocatorRepository repository;
 
-    @Override
-    public Collection<Locator> getAllLocators() {
-        return staticLocators.values();
+    public LocatorsService(LocatorRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public void update(Locator locator) {
-        staticLocators.put(locator.getId(), locator);
+    public Collection<Locator> getAllLocators() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Locator updateOrCreate(Locator locator) {
+        return repository.save(locator);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        repository.delete(id);
     }
 
 

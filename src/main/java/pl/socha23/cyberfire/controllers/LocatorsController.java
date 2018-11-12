@@ -1,10 +1,7 @@
 package pl.socha23.cyberfire.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.socha23.cyberfire.model.Locator;
 import pl.socha23.cyberfire.services.ILocatorsService;
 
@@ -18,17 +15,32 @@ public class LocatorsController {
     @Autowired
     private ILocatorsService locatorsService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/" + RESOURCE_NAME)
+    @GetMapping(value = "/api/" + RESOURCE_NAME)
     public Map list() {
         return RestControllerUtils.wrapInDataRestFormat(RESOURCE_NAME,
                 locatorsService.getAllLocators()
         );
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/api/" + RESOURCE_NAME )
-    public boolean post(@RequestBody Locator locator) {
-        locatorsService.update(locator);
-        return true;
+    @PostMapping(value = "/api/" + RESOURCE_NAME )
+    public Locator post(@RequestBody Locator locator) {
+        return locatorsService.updateOrCreate(locator);
     }
+
+    @PutMapping("/api/" + RESOURCE_NAME + "/{id}")
+   	public Locator update(@PathVariable("id") String id, @RequestBody Locator tag) {
+   		return locatorsService.updateOrCreate(tag);
+   	}
+
+    @DeleteMapping("/api/" + RESOURCE_NAME + "/{id}")
+   	public boolean delete(@PathVariable("id") String id) {
+   		locatorsService.deleteById(id);
+   		return true;
+   	}
+
+    @GetMapping("/api/" + RESOURCE_NAME + "/delete/{id}")
+    public boolean deleteByGet(@PathVariable("id") String id) {
+   		return delete(id);
+   	}
 
 }
