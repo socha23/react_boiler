@@ -17,6 +17,9 @@ public class Locator {
     private String id;
     private Type type;
     private String name;
+    
     private MapCoords location;
+    private MapCoords pinned;
+
     private List<NearbyDevice> nearbyDevices = new ArrayList<>();
 }
