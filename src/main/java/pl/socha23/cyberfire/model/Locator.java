@@ -21,4 +21,14 @@ public class Locator {
     private double latitude;
     private double longitude;
     private List<NearbyDevice> nearbyDevices = new ArrayList<>();
+
+    public void setCoordinates(MapCoords coords) {
+        this.setLongitude(coords.getLongitude());
+        this.setLatitude(coords.getLatitude());
+    }
+
+    public MapCoords getCoordinates() {
+        return MapCoords.of(latitude, longitude);
+    }
+
 }

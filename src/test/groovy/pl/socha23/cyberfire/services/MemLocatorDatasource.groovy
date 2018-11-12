@@ -20,4 +20,9 @@ class MemLocatorDatasource implements LocatorDatasource {
     void deleteById(String id) {
         locators.remove(id)
     }
+
+    @Override
+    Optional<Locator> findById(String id) {
+        return Optional.ofNullable(locators.get(id))
+    }
 }

@@ -2,8 +2,10 @@ package pl.socha23.cyberfire.services;
 
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.Locator;
+import pl.socha23.cyberfire.model.MapCoords;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Component
 public class LocatorsService implements ILocatorsService {
@@ -29,5 +31,11 @@ public class LocatorsService implements ILocatorsService {
         datasource.deleteById(id);
     }
 
-
+    @Override
+    public Optional<Locator> updateLocation(String id, MapCoords coords) {
+        return datasource.findById(id).map(loc -> {
+            loc.setCoordinates(coords);
+            return datasource.save(loc);
+        });
+    }
 }

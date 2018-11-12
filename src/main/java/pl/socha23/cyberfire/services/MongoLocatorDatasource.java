@@ -5,6 +5,7 @@ import pl.socha23.cyberfire.model.Locator;
 import pl.socha23.cyberfire.repositories.LocatorRepository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Component
 public class MongoLocatorDatasource implements LocatorDatasource {
@@ -28,5 +29,10 @@ public class MongoLocatorDatasource implements LocatorDatasource {
     @Override
     public void deleteById(String id) {
         repository.delete(id);
+    }
+
+    @Override
+    public Optional<Locator> findById(String id) {
+        return Optional.ofNullable(repository.findOne(id));
     }
 }
