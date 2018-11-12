@@ -3,9 +3,9 @@ import {PropTypes} from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 import {crudActions} from "../common/crud/crudContainers"
-
 import {getTagsById, getTagsOnFloor} from '../tags/selectors'
 
+import PinModeWarning from '../common/components/PinModeWarning'
 import TaggedObjectsList from '../tags/TaggedObjectsList'
 import FloorPlan from './ZoomableFloorPlan'
 import Panel from '../common/components/Panel'
@@ -72,19 +72,7 @@ class ViewFloorPlanWithPinning extends React.Component {
         return <ViewFloorPlan {...this.props} pinMode={this.state.pinMode} onEnterPinMode={this.onEnterPinMode} onUnpinArtifact={this.onUnpinArtifact} onPinModeClickMap={this.onPinArtifact}>
             {
                 this.state.pinMode ?
-                <div style={{display: "flex", flexDirection: "column", alignItems: "center", padding: 20}}>
-                    <div className={"panel panel-info"}>
-                        <div className={"panel-heading"}>
-                            <span style={{fontSize: 30}}>
-                                <span>Przypnij <b>{this.state.artifactBeingPinned.name}</b> kliknięciem</span>
-                                <span onClick={this.onCancelPinMode} style={{marginLeft: 20}}>
-                                    <i style={{cursor: "pointer"}} className={"pull-right glyphicon glyphicon-remove"}/>
-                                </span>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
+                    <PinModeWarning name={this.state.artifactBeingPinned.name} onCancel={this.onCancelPinMode}/>
                     : <span/>
             }
 

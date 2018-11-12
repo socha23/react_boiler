@@ -11,12 +11,13 @@ const WARSAW = {
 };
 const DEFAULT_ZOOM = 12;
 
-const GoogleMap = ({locators, selected, onClick}) =>
+const GoogleMap = ({locators, selected, onClick, onClickMap = () => {}}) =>
     <HeightExpander style={{border: "1px solid #BBB"}}>
         <GoogleMapReact
             bootstrapURLKeys={{key: API_KEY}}
             center={WARSAW}
             zoom={DEFAULT_ZOOM}
+            onClick={onClickMap}
         >
             {locators.map(t =>
                 <LabelMarker

@@ -21,14 +21,23 @@ const LocatorObjectsList = ({
                                 selected = {},
                                 locators = [],
                                 onSelect = () => {},
-                                artifactsByTagId = {}
+                                artifactsByTagId = {},
+                                onUnpinLocator = () => {},
+                                onEnterPinMode = () => {},
                             }) => <div>
     <table className="table table-hover table-pointer">
         <tbody>
         {locators.map(t => <tr key={t.id} className={selected == t ? 'success' : ''} onClick={() => {onSelect(t)}}>
-            <td>{t.name}</td>
             <td>
-                {console.log(t)}
+                {t.name}
+                <br/>
+                {t.pinned ?
+                    <a style={{cursor: "pointer"}} onClick={(e) => {e.stopPropagation(); onUnpinLocator(t)}}>Odepnij</a>
+                    :
+                    <a style={{cursor: "pointer"}} onClick={(e) => {e.stopPropagation(); onEnterPinMode(t)}}>Przypnij</a>
+                }
+            </td>
+            <td>
                 {t.nearbyDevices
                     .map(d => artifactsByTagId[d.id])
                     .filter(a => a != null)
