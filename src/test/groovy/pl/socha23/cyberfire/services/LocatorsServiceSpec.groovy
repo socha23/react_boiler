@@ -9,12 +9,13 @@ class LocatorsServiceSpec extends Specification {
 
     LocatorsService service
 
-    Locator LOCATOR_A = Locator.builder()
-            .id("loc_a")
-            .name("Locator a")
-            .type(Locator.Type.CONTAINER)
-            .location(MapCoords.of(0, 0))
-            .build()
+    Locator.LocatorBuilder LOCATOR_A_BUILDER = Locator.builder()
+                .id("loc_a")
+                .name("Locator a")
+                .type(Locator.Type.CONTAINER)
+                .location(MapCoords.of(0, 0))
+
+    Locator LOCATOR_A = LOCATOR_A_BUILDER.build()
 
     def setup() {
         service = new LocatorsService(new MemLocatorDatasource())
@@ -76,6 +77,30 @@ class LocatorsServiceSpec extends Specification {
         0.01   | 0    |  10  | 0
         5      | 0    |  10  | 5
     }
+
+    @Unroll
+    def "updateButCopyPin locator to #target when pin=#pin and snap=#snap results in #result"() {
+        given:
+        LOCATOR_A.pinned = (pin != null ? MapCoords.of(pin, pin) : null)
+        service.updateOrCreate(LOCATOR_A)
+        service.setSnapToPin(snap)
+
+        when:
+        Locator updated = LOCATOR_A_BUILDER.build()
+        updated.location = MapCoords.of(target, target)
+        service.updateButCopyPinFromPrevious(updated)
+
+        then:
+        locatorById(LOCATOR_A.id).location == MapCoords.of(result, result)
+
+        where:
+        target | pin  | snap | result
+        0.01   | null |  10  | 0.01
+        1      | null |  10  | 1
+        0.01   | 0    |  10  | 0
+        5      | 0    |  10  | 5
+    }
+
 
     def "haversine distance"() {
         expect:

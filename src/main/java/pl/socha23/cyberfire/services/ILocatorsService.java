@@ -16,4 +16,6 @@ public interface ILocatorsService {
 
     Optional<Locator> updateLocation(String id, MapCoords coords);
 
+    Locator updateButCopyPinFromPrevious(Locator locator);
+
 }

@@ -33,6 +33,15 @@ public class LocatorsService implements ILocatorsService {
     }
 
     @Override
+    public Locator updateButCopyPinFromPrevious(Locator locator) {
+        datasource
+                .findById(locator.getId())
+                .ifPresent(prev -> locator.setPinned(prev.getPinned()));
+        updateLocationOrSnapToPin(locator, locator.getLocation());
+        return datasource.save(locator);
+    }
+
+    @Override
     public void deleteById(String id) {
         datasource.deleteById(id);
     }

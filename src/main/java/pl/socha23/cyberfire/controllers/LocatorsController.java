@@ -22,9 +22,10 @@ public class LocatorsController {
         );
     }
 
+    // used by locator app
     @PostMapping(value = "/api/" + RESOURCE_NAME )
     public Locator post(@RequestBody Locator locator) {
-        return locatorsService.updateOrCreate(locator);
+        return locatorsService.updateButCopyPinFromPrevious(locator);
     }
 
     @PutMapping("/api/" + RESOURCE_NAME + "/{id}")
