@@ -9,7 +9,7 @@ import pl.socha23.cyberfire.model.Tag;
 import java.util.List;
 
 @Component
-public class CurrentTagPositionUpdater {
+public class TagPositionUpdater {
 
     @Value("${snapToPin:3}")
     private double snapToPin = 3;
