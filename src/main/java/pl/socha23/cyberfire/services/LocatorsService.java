@@ -13,8 +13,8 @@ import java.util.Optional;
 public class LocatorsService implements ILocatorsService {
 
     @Setter
-    @Value("${locatorSnapToPin:0}")
-    private double snapToPin = 0;
+    @Value("${locatorSnapToPin:0.5}")
+    private double snapToPin = 0.5;
 
     private LocatorDatasource datasource;
 
@@ -30,6 +30,11 @@ public class LocatorsService implements ILocatorsService {
     @Override
     public Locator updateOrCreate(Locator locator) {
         return datasource.save(locator);
+    }
+
+    @Override
+    public Optional<Locator> findById(String id) {
+        return datasource.findById(id);
     }
 
     @Override

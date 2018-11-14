@@ -12,6 +12,8 @@ public interface ILocatorsService {
 
     Locator updateOrCreate(Locator locator);
 
+    Optional<Locator> findById(String id);
+
     void deleteById(String id);
 
     Optional<Locator> updateLocation(String id, MapCoords coords);

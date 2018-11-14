@@ -1,5 +1,7 @@
 package pl.socha23.cyberfire.services;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -7,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.socha23.cyberfire.model.Locator;
+import pl.socha23.cyberfire.model.MapCoords;
 
 import java.net.URI;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class TrackimoLocatorProvider {
@@ -22,15 +25,15 @@ public class TrackimoLocatorProvider {
     private final static String LOGIN = "trackimozab@gmail.com";
     private final static String PASSWORD = "OZAB2018";
     private final static String ACCOUNT_ID = "96513";
-    private final static String CLIENT_ID = "47bc7d1f-3af9-4884-8dce-3dc44d8ba708";
-    private final static String CLIENT_SECRET = "29ac14a77e120570aa200085aac6ce9b";
+    private final static String CLIENT_ID = "9480494b-81b9-4f2d-9aed-acdca2667a9d";
+    private final static String CLIENT_SECRET = "bd3a89fec64f2d916b17145c24c1fc6e";
     private final static String JSESSIONID = "JSESSIONID=";
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    public Collection<Locator> listLocators() {
+    public Collection<TrackimoLocator> listLocators() {
         String authToken = oauth2login();
-        Collection<Locator> result = fetchLocators(authToken);
+        Collection<TrackimoLocator> result = fetchLocators(authToken);
         return result;
     }
 
@@ -58,7 +61,7 @@ public class TrackimoLocatorProvider {
         ResponseEntity<?> response = restTemplate.exchange(TRACKIMO_URL + "/v3/oauth2/auth"
                         + "?client_id=" + CLIENT_ID
                         + "&redirect_uri=http://localhost"
-                        + "&scope=locations"
+                        + "&scope=locations,devices"
                         + "&response_type=code"
                         + "&state=test",
                 HttpMethod.GET,
@@ -86,9 +89,21 @@ public class TrackimoLocatorProvider {
         return setCookieHeader.substring(jSessionIdIdx + JSESSIONID.length(), setCookieHeader.indexOf(";", jSessionIdIdx));
     }
 
-    private Collection<Locator> fetchLocators(String authToken) {
-        List<Map<String, Object>> locations = jsonCall(TRACKIMO_URL + "/v3/accounts/" + ACCOUNT_ID + "/locations", authToken, List.class);
-        return null;
+
+    @SuppressWarnings("unchecked")
+    private Collection<TrackimoLocator> fetchLocators(String authToken) {
+        List<Map<String, Object>> locationsResult = jsonCall(TRACKIMO_URL + "/v3/accounts/" + ACCOUNT_ID + "/locations", authToken, List.class);
+        Map<String, MapCoords> locations = locationsResult.stream()
+                .collect(Collectors.toMap(
+                        loc -> loc.get("device_id").toString(),
+                        loc -> MapCoords.of((Double) loc.get("lng"), (Double) loc.get("lat"))
+                ));
+        List<Map<String, Object>> devicesResult = jsonCall(TRACKIMO_URL + "/v3/accounts/" + ACCOUNT_ID + "/devices", authToken, List.class);
+        Collection<TrackimoLocator> result = devicesResult.stream()
+                .filter(m -> locations.containsKey(m.get("deviceId").toString()))
+                .map(m -> new TrackimoLocator(m.get("deviceId").toString(), m.get("deviceName").toString(), locations.get(m.get("deviceId").toString())))
+                .collect(Collectors.toList());
+        return result;
     }
 
     private <T> T jsonCall(String url, String authToken, Class<T> resultClass) {
@@ -103,13 +118,6 @@ public class TrackimoLocatorProvider {
 
     }
 
-
-
-    public static void main(String[] args) {
-        System.out.println(new TrackimoLocatorProvider().listLocators());
-    }
-
-
     static class MapBuilder {
         private Map<String, Object> map = new HashMap<>();
 
@@ -122,5 +130,13 @@ public class TrackimoLocatorProvider {
             return map;
         }
 
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class TrackimoLocator {
+        private String id;
+        private String name;
+        private MapCoords location;
     }
 }
