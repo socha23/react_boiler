@@ -12,6 +12,9 @@ import pl.socha23.cyberfire.model.NearbyDevice;
 
 import java.time.Instant;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.HashMap;
+
 import java.util.stream.Stream;
 
 @Component
@@ -29,12 +32,12 @@ public class InodeClient {
     @Value("${inode.address:192.168.72.101}")
     private String address = "192.168.72.101";
 
-    private ForgettingStore<NearbyDevice> devicesSeen = new ForgettingStore<>(dropDeviceIfNoSignalForMs);
+    private Map<String, NearbyDevice> devicesSeen = new HashMap<>();
     private WebSocketConnectionManager ws;
     private Instant lastMessage;
 
     public Stream<NearbyDevice> getDevicesSeen() {
-        return devicesSeen.list().stream()
+        return devicesSeen.values().stream()
                 .sorted(Comparator.comparing(NearbyDevice::getId));
     }
 
@@ -72,7 +75,10 @@ public class InodeClient {
     private void processMessage(InodeMessage message) {
         lastMessage = Instant.now();
         if (message.isDeviceInfo() && message.getRssi() > minRssi) {
-            devicesSeen.put(message.getDeviceId(), new NearbyDevice(message.getDeviceId(), message.getRssi()));
+            if (!message.getDeviceId().toLowerCase().equals("884aea99714f") && !message.getDeviceId().toLowerCase().equals("884aea996b31")) {
+                devicesSeen.put(message.getDeviceId(), new NearbyDevice(message.getDeviceId(), message.getRssi()));
+            }
+
         }
     }
 

@@ -25,7 +25,7 @@ let MyPage = () => <KdrContent/>;
 
 export default () => <ResourceLoader resources={["artifacts", "floorPlans"]}>
     <ResourceLoader resources={["museumDescriptions"]} interval={3000}>
-        <ResourceLoader resources={["tags", "locators", "fireteams"]} interval={100}>
+        <ResourceLoader resources={["tags", "locators", "fireteams"]} interval={20}>
             <MyPage/>
         </ResourceLoader>
     </ResourceLoader>

@@ -10,12 +10,22 @@ import pl.socha23.cyberfire.model.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @Component
 public class IfinityTagPositionWS extends AbstractIfinityIntegrationService<List<Tag>> {
 
     @Autowired
     private IFloorPlansService floorPlansService;
+
+    private Set<String> beaconsToIgnore = new HashSet<>();
+
+    public IfinityTagPositionWS() {
+        beaconsToIgnore.add("OZAB13");        
+        beaconsToIgnore.add("OZAB14");        
+        beaconsToIgnore.add("OZAB15");        
+    }
 
     @Override
     protected String getServicePath() {
@@ -24,7 +34,7 @@ public class IfinityTagPositionWS extends AbstractIfinityIntegrationService<List
 
     @Override
     protected int getRefreshIntervalMillis() {
-        return 50;
+        return 20;
     }
 
     public List<Tag> getTags() {
@@ -39,20 +49,30 @@ public class IfinityTagPositionWS extends AbstractIfinityIntegrationService<List
             FloorPlan floor = floorPlansService.getFloorPlanByAreaId(node.get("areaId").asText());
             Tag t = Tag.builder()
                     .id(node.get("id").asText())
-                    .name(node.get("id").asText())
+                    .name(node.get("name") == null ? node.get("id").asText() : node.get("name").asText())
                     .color(node.get("color").asText("red"))
                     .areaId(node.get("areaId").asText())
                     .areaName(floor.getName())
                     .coordinateSystemId(floor.getId())
                     .coordinateSystemName(floor.getName())
                     .position(new Position(
-                            node.get("smoothedPositionX").asDouble(),
-                            node.get("smoothedPositionY").asDouble(),
-                            node.get("smoothedPositionZ").asDouble()
+                            node.get("positionX").asDouble(),
+                            node.get("positionY").asDouble(),
+                            node.get("positionZ").asDouble()
                             ))
                     .state(Tag.State.INSIDE)
                     .build();
-            tags.add(t);
+            if (t.getName().equals("OZAB12")) {
+                t.setName("Wyjście 1");
+            }
+            if (t.getName().equals("OZAB03")) {
+                t.setName("Wyjście 2");
+            }
+
+            if (!beaconsToIgnore.contains(t.getName())) {
+                tags.add(t);
+            }
+
         }
         return tags;
     }
