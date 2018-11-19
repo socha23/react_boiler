@@ -21,7 +21,7 @@ public class TagPositionUpdater {
     @Autowired
 	private TagsService tagsService;
 
-    @Scheduled(fixedRate = 100)
+    @Scheduled(fixedRate = 20)
 	public void updateTags() {
         List<Tag> tags = insideTagsProvider.getTagsToUpdate();
         for (Tag t : tags) {

@@ -23,7 +23,7 @@ let RotaContent = ({fireteams}) => <Switch>
     </Route>
     {fireteams.map(ft =>
         <Route key={ft.id} path={"/" + ft.id}>
-            <ResourceLoader resources={["tags"]} interval={100} headers={{"OZAB-Fireteam": ft.id}}>
+            <ResourceLoader resources={["tags"]} interval={20} headers={{"OZAB-Fireteam": ft.id}}>
                 <FireteamApp fireteam={ft}/>
             </ResourceLoader>
         </Route>

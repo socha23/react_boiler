@@ -10,14 +10,20 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 @Configuration
 public class TaskExecutionConfiguration {
 
+    private final static int NUM_OF_THREADS = 4;
+
     @Bean
     TaskExecutor taskExecutor() {
-        return new ThreadPoolTaskExecutor();
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(NUM_OF_THREADS);
+        return executor;
     }
 
     @Bean
     TaskScheduler taskScheduler() {
-        return new ThreadPoolTaskScheduler();
+        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setPoolSize(NUM_OF_THREADS);
+        return scheduler;
     }
 
 }

@@ -23,10 +23,12 @@ const KdrContent = ({maps}) => <Switch>
 
 let MyPage = () => <KdrContent/>;
 
-export default () => <ResourceLoader resources={["artifacts", "floorPlans"]}>
-    <ResourceLoader resources={["museumDescriptions"]} interval={3000}>
-        <ResourceLoader resources={["tags", "locators", "fireteams"]} interval={20}>
-            <MyPage/>
+export default () => <ResourceLoader resources={["floorPlans"]}>
+    <ResourceLoader resources={["museumDescriptions", "artifacts"]} interval={5000}>
+        <ResourceLoader resources={["locators", "fireteams"]} interval={1000}>
+            <ResourceLoader resources={["tags"]} interval={20}>
+                <MyPage/>
+            </ResourceLoader>
         </ResourceLoader>
     </ResourceLoader>
 </ResourceLoader>;
