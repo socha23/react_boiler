@@ -6,39 +6,35 @@ import {withRouter} from 'react-router'
 import {crudActions} from '../common/crud/crudContainers'
 import Panel from '../common/components/Panel'
 import {getSortedExercises} from "./selectors";
+import ExercisesList from "./ExercisesList";
+import ExerciseDetails from "./ExerciseView";
 
-const BrowseExercisesPage = ({items, selected}) =>
+const BrowseExercisesPage = ({items, selected, onSelectItem, onDelete}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-6 colWithSmallerGutter">
                 <Panel>
-                    <h1>Lista wykonanych ćwiczeń</h1>
+                    <ExercisesList items={items} selected={selected} onSelectItem={onSelectItem}/>
                 </Panel>
             </div>
             <div className="col-sm-6 colWithSmallerGutter">
-                <Panel>
-                    <h1>Szczegóły wybranego ćwiczenia</h1>
-                </Panel>
+                {selected ? <Panel>
+                    <ExerciseDetails item={selected} onDelete={onDelete}/>
+                </Panel> : <span/>
+                }
+
             </div>
         </div>
     </div>;
-
-class BrowseExercisesPageContainer extends React.Component {
-    render = () => {
-        console.log(this.props.items);
-        console.log("selected", this.props.selected);
-        return <BrowseExercisesPage items={this.props.items} selected={this.props.selected}/>
-    }
-}
-
 
 const mapStateToProps = (state, ownProps) => {
     const items = getSortedExercises(state);
     return {
         items: items,
-        selected: items.find(i => i.id == ownProps.match.params.id)
+        selected: items.find(i => i.id == ownProps.match.params.id),
+        onSelectItem: (i) => {ownProps.history.push("/exercises/" + i.id)}
     }
 };
 
 
-export default withRouter(crudActions("pocExercises", connect(mapStateToProps)(BrowseExercisesPageContainer)));
+export default withRouter(crudActions("pocExercises", connect(mapStateToProps)(BrowseExercisesPage)));

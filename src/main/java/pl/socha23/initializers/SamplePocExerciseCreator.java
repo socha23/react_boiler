@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pl.socha23.cyberfire.model.PocExercise;
+import pl.socha23.cyberfire.model.PocStage;
 import pl.socha23.cyberfire.services.IPocService;
 import pl.socha23.generatory.LosoweImieINazwisko;
 
@@ -58,7 +59,20 @@ public class SamplePocExerciseCreator implements CommandLineRunner {
             exercise.setUser(LosoweImieINazwisko.imieINazwiskoKobiece());
         }
 
+        for (int i = 0; i < random.nextInt(10) + 3; i++) {
+            exercise.getStages().add(createMockStage(i + 1));
+        }
+
         return exercise;
+    }
+
+    private PocStage createMockStage(int num) {
+        return PocStage.builder()
+                .name("Etap #" + num)
+                .briefing("Opis etapu " + num)
+                .timeTaken(6d * random.nextDouble())
+                .correctAnswer(random.nextBoolean())
+                .build();
     }
 
     private Instant randomInstantInLastDays(int maxDays) {
