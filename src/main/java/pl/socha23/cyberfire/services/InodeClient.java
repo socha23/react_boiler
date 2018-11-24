@@ -1,6 +1,7 @@
 package pl.socha23.cyberfire.services;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
@@ -12,11 +13,11 @@ import pl.socha23.cyberfire.model.NearbyDevice;
 
 import java.time.Instant;
 import java.util.Comparator;
-import java.util.Map;
 import java.util.HashMap;
-
+import java.util.Map;
 import java.util.stream.Stream;
 
+@Profile("prod")
 @Component
 public class InodeClient {
 

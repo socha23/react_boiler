@@ -47,6 +47,7 @@ dependencies {
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.1")
     compile("org.hibernate:hibernate-validator:4.2.0.Final")
     compile("org.apache.commons:commons-imaging:1.0-SNAPSHOT")
+    compile("org.codehaus.groovy:groovy-all")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.spockframework:spock-spring:1.0-groovy-2.4")
