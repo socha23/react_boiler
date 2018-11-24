@@ -9,9 +9,9 @@ import pl.socha23.cyberfire.model.Position;
 import pl.socha23.cyberfire.model.Tag;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
 
 @Component
 public class IfinityTagPositionWS extends AbstractIfinityIntegrationService<List<Tag>> {
@@ -56,9 +56,9 @@ public class IfinityTagPositionWS extends AbstractIfinityIntegrationService<List
                     .coordinateSystemId(floor.getId())
                     .coordinateSystemName(floor.getName())
                     .position(new Position(
-                            node.get("positionX").asDouble(),
-                            node.get("positionY").asDouble(),
-                            node.get("positionZ").asDouble()
+                            node.get("smoothedPositionX").asDouble(),
+                            node.get("smoothedPositionY").asDouble(),
+                            node.get("smoothedPositionZ").asDouble()
                             ))
                     .state(Tag.State.INSIDE)
                     .build();
