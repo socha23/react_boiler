@@ -12,6 +12,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import pl.socha23.cyberfire.model.Artifact;
 import pl.socha23.cyberfire.model.Fireteam;
 import pl.socha23.cyberfire.model.ImageRef;
+import pl.socha23.cyberfire.model.PocExercise;
 import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
 
 @Configuration
@@ -20,11 +21,12 @@ public class DataRestConfiguration extends RepositoryRestConfigurerAdapter {
 
     // żeby mieć IDki w obiektach
     @Override
-     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-         config.exposeIdsFor(Artifact.class);
-         config.exposeIdsFor(ImageRef.class);
+    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+        config.exposeIdsFor(Artifact.class);
+        config.exposeIdsFor(ImageRef.class);
         config.exposeIdsFor(Fireteam.class);
-     }
+        config.exposeIdsFor(PocExercise.class);
+    }
 
 
     // żeby JSR-303 działało

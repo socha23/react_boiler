@@ -16,6 +16,7 @@ const fireteamsReducer = crudReducer("fireteams");
 const locatorsReducer = crudReducer("locators");
 const museumDescriptionsReducer = crudReducer("museumDescriptions");
 const floorPlansReducer = crudReducer("floorPlans");
+const exercisesReducer = crudReducer("pocExercises");
 
 exports.reducer = (oldState = INITIAL_STATE, action = null) => {
     let state = nothingReceivedReducer(oldState, action);
@@ -27,6 +28,8 @@ exports.reducer = (oldState = INITIAL_STATE, action = null) => {
         locators: locatorsReducer(state.locators, action),
         floorPlans: floorPlansReducer(state.floorPlans, action),
         fireteams: fireteamsReducer(state.fireteams, action),
-        museumDescriptions: museumDescriptionsReducer(state.museumDescriptions, action)
+        museumDescriptions: museumDescriptionsReducer(state.museumDescriptions, action),
+        pocExercises: exercisesReducer(state.pocExercises, action),
+
     };
 };

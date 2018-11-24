@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
 
-import {Switch, Route, Redirect} from 'react-router'
+import {Route, Switch} from 'react-router'
 import {BrowserRouter} from 'react-router-dom'
 
 import contextPath from '../common/contextPath'
@@ -8,6 +8,7 @@ import contextPath from '../common/contextPath'
 import MuzealnikIndex from './MuzealnikIndex'
 import KdrIndex from './KdrIndex'
 import RotaIndex from './RotaIndex'
+import PocIndex from './PocIndex'
 import TestDashboardIndex from './TestDashboardIndex'
 
 
@@ -22,6 +23,9 @@ const AppChooser = () => <div className="well center-block" style={{marginTop: 1
     </a>
     <a href={contextPath() + "/rota"} className="btn btn-lg btn-primary btn-block">
         Rota
+    </a>
+    <a href={contextPath() + "/poc"} className="btn btn-lg btn-primary btn-block">
+        Podsystem Oceny Ćwiczących
     </a>
     <a href={contextPath() + "/test"} className="btn btn-lg btn-default btn-block">
         Panel testów
@@ -46,6 +50,11 @@ const AppSelect = () => <Switch>
     <Route path="/rota">
         <BrowserRouter basename={contextPath() + "/rota"}>
             <RotaIndex/>
+        </BrowserRouter>
+    </Route>
+    <Route path="/poc">
+        <BrowserRouter basename={contextPath() + "/poc"}>
+            <PocIndex/>
         </BrowserRouter>
     </Route>
     <Route path="/test">
