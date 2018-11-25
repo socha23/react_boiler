@@ -8,12 +8,18 @@ import Panel from '../common/components/Panel'
 import {getSortedExercises} from "./selectors";
 import ExercisesList from "./ExercisesList";
 import ExerciseDetails from "./ExerciseView";
+import ImportExerciseButton from "./ImportExerciseButton";
 
 const BrowseExercisesPage = ({items, selected, onSelectItem, onDelete}) =>
     <div className="container-fluid">
         <div className="row">
             <div className="col-sm-6 colWithSmallerGutter">
                 <Panel>
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                        <h1>Wykonane ćwiczenia</h1>
+                        <ImportExerciseButton/>
+                    </div>
+
                     <ExercisesList items={items} selected={selected} onSelectItem={onSelectItem}/>
                 </Panel>
             </div>
