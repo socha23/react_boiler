@@ -223,6 +223,7 @@ export default function restActions(resource, options = {}) {
         receive,
         loadItems,
         createItem,
+        createItemSuccess,
         deleteItem,
         updateItem
     }

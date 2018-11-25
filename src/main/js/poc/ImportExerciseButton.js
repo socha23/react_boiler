@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router'
 import fetch from 'isomorphic-fetch'
 
-import {growl} from '../common/growl'
+import growl from '../common/growl'
+import restActions from '../common/crud/crudActions'
 import contextPath from '../common/contextPath'
 
 
@@ -21,15 +23,16 @@ class ImportExerciseButton extends React.Component {
 
     onSave = () => {
         const textToImport = this.state.textToImport;
-        console.log("Saving", textToImport);
         this.props.onSave(textToImport, this.afterSave);
     };
 
     afterSave = (result) => {
-        console.log("after save", result);
         if (result.success) {
             this.popup.closeModal();
             this.setState({textToImport: "", errors: []});
+            this.props.history.push("/exercises/" + result.item.id);
+            growl("Zaimportowano ćwiczenie");
+
         } else {
             this.setState({errors: result.errors})
         }
@@ -71,8 +74,9 @@ class ImportExerciseButton extends React.Component {
         </div>
 }
 
-const mapStateToProps = (state) => ({});
+const pocExerciseActions = restActions("pocExercise");
 
+const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => ({
     onSave: (jsonText, onSuccess = () => {}, onError = () => {}) => {
         fetch(contextPath() + "/api/importExercise", {
@@ -81,10 +85,14 @@ const mapDispatchToProps = (dispatch) => ({
             body: jsonText
         })
             .then(resp => resp.status < 300
-                ? resp.json().then(item => onSuccess(item))
+                ? resp.json().then(item => {
+                    dispatch(pocExerciseActions.createItemSuccess(item));
+                    onSuccess(item);
+
+                })
                 : onError(resp)
             )
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImportExerciseButton);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ImportExerciseButton));
