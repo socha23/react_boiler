@@ -17,6 +17,11 @@ public class PocExercise {
 
     private String user = "";
     private Sex sex = Sex.M;
-    private List<PocStage> stages = new ArrayList<PocStage>();
+    private List<PocStage> stages = new ArrayList<>();
+
+    private long totalTime = 0;
+    public enum App {MUZEALNIK, KDR, ROTA}
+    private App app;
+    private String region = "";
 
 }

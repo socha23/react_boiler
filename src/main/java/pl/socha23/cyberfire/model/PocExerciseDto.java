@@ -15,4 +15,8 @@ public class PocExerciseDto {
     private String date = "";
     private String hour = "";
     private List<PocStageDto> progressStagesList = new ArrayList<>();
+
+    private long totalTime = 0;
+    private String app = "";
+    private String region = "";
 }

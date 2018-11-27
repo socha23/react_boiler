@@ -47,21 +47,26 @@ public class ImportExerciseController {
     private PocExercise convert(PocExerciseDto dto) throws ImportException {
         PocExercise result = new PocExercise();
         List<String> errors = new ArrayList<>();
-        convertUser(dto, result);
+        result.setUser(dto.getPlayerName());
         convertSex(dto, result, errors);
         convertWhen(dto, result, errors);
         for (PocStageDto stageDto : dto.getProgressStagesList()) {
             result.getStages().add(convertStage(stageDto));
         }
+        result.setTotalTime(dto.getTotalTime());
+        result.setRegion(dto.getRegion());
+        try {
+            result.setApp(PocExercise.App.valueOf(dto.getApp()));
+        } catch (IllegalArgumentException iae) {
+            errors.add("Nieprawidłowa wartość 'app': " + dto.getApp());
+        }
+
         if (errors.isEmpty()) {
             return result;
         } else {
             throw new ImportException(errors);
         }
-    }
 
-    private void convertUser(PocExerciseDto dto, PocExercise result) {
-        result.setUser(dto.getPlayerName());
     }
 
     private void convertSex(PocExerciseDto dto, PocExercise result, List<String> errors) {
@@ -91,7 +96,6 @@ public class ImportExerciseController {
         } catch (DateTimeParseException dtpe) {
             errors.add("Nieprawidłowa wartość pola 'date': " + dto.getDate());
         }
-
         if (date != null && time != null) {
             ZonedDateTime when = ZonedDateTime.now().with(date).with(time);
             result.setWhen(when.toInstant());
