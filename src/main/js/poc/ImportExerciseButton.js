@@ -28,7 +28,14 @@ class ImportExerciseButton extends React.Component {
     };
 
     onSave = () => {
-        const obj = JSON.parse(this.state.textToImport);
+        let obj = {};
+        try {
+            obj = JSON.parse(this.state.textToImport);
+        } catch (e) {
+            this.setState({errors: ["Nieprawidłowy JSON"]});
+            return
+        }
+        
         obj.app = this.state.app;
         obj.region = this.state.region;
         obj.totalTime = this.state.totalTime;

@@ -75,7 +75,7 @@ public class SamplePocExerciseCreator implements CommandLineRunner {
         exercise.setRegion(REGIONS[random.nextInt(REGIONS.length)]);
         exercise.setApp(PocExercise.App.values()[random.nextInt(PocExercise.App.values().length)]);
 
-        for (int i = 0; i < random.nextInt(10) + 3; i++) {
+        for (int i = 0; i < 12; i++) {
             exercise.getStages().add(createMockStage(i + 1));
         }
 
