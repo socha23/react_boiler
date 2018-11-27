@@ -10,26 +10,35 @@ import contextPath from '../common/contextPath'
 
 import Popup from "../common/components/Popup";
 
+const REGIONS = ["DOLNOŚLĄSKIE", "KUJAWSKO-POMORSKIE", "LUBELSKIE", "LUBUSKIE", "ŁÓDZKIE",
+                "MAŁOPOLSKIE", "MAZOWIECKIE", "OPOLSKIE", "PODKARPACKIE", "PODLASKIE", "POMORSKIE",
+                "ŚLĄSKIE", "ŚWIĘTOKRZYSKIE", "WARMINSKO-MAZURSKIE", "WIELKOPOLSKIE", "ZACHODNIOPOMORSKIE"];
+const APPS = ["MUZEALNIK", "KDR", "ROTA"];
+
+
 class ImportExerciseButton extends React.Component {
+
 
     state = {
         textToImport: "",
+        app: APPS[0],
+        region: REGIONS[0],
+        totalTime: 0,
         errors: []
     };
 
-    onChangeTextToImport = (e) => {
-        this.setState({textToImport: e.target.value});
-    };
-
     onSave = () => {
-        const textToImport = this.state.textToImport;
-        this.props.onSave(textToImport, this.afterSave);
+        const obj = JSON.parse(this.state.textToImport);
+        obj.app = this.state.app;
+        obj.region = this.state.region;
+        obj.totalTime = this.state.totalTime;
+        this.props.onSave(obj, this.afterSave);
     };
 
     afterSave = (result) => {
         if (result.success) {
             this.popup.closeModal();
-            this.setState({textToImport: "", errors: []});
+            this.setState({textToImport: "", app: APPS[0], region: REGIONS[0], totalTime: 0, errors: []});
             this.props.history.push("/exercises/" + result.item.id);
             growl("Zaimportowano ćwiczenie");
 
@@ -56,12 +65,34 @@ class ImportExerciseButton extends React.Component {
                             {e}
                         </div>)}
                 </div>
+                <div className={"form-group"}>
+                    <label>
+                        Czas wykonania ćwiczenia (w sekundach)
+                    </label>
+                    <input type="number" className="form-control"  value={this.state.totalTime} onChange={e => {this.setState({totalTime: e.target.value})}}/>
+                </div>
+                <div className={"form-group"}>
+                    <label>
+                        Aplikacja
+                    </label>
+                    <select className="form-control"  value={this.state.app} onChange={e => {this.setState({app: e.target.value})}}>
+                        {APPS.map(a => <option key={a} value={a}>{a}</option>)}
+                    </select>
+                </div>
+                <div className={"form-group"}>
+                    <label>
+                        Województwo
+                    </label>
+                    <select className="form-control" value={this.state.region} onChange={e => {this.setState({region: e.target.value})}}>
+                        {REGIONS.map(a => <option key={a} value={a}>{a}</option>)}
+                    </select>
+                </div>
 
                 <div className={"form-group"}>
                     <label>
-                        Proszę wkleić JSON do zaimportowania:
+                        JSON z treścią ćwiczenia
                     </label>
-                    <textarea rows={10} className="form-control" value={this.state.textToImport} onChange={this.onChangeTextToImport}/>
+                    <textarea rows={10} className="form-control" value={this.state.textToImport} onChange={e => {this.setState({textToImport: e.target.value})}}/>
                 </div>
                 <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <button className="btn btn-success" onClick={this.onSave}>
@@ -78,11 +109,11 @@ const pocExerciseActions = restActions("pocExercise");
 
 const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => ({
-    onSave: (jsonText, onSuccess = () => {}, onError = () => {}) => {
+    onSave: (obj, onSuccess = () => {}, onError = () => {}) => {
         fetch(contextPath() + "/api/importExercise", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: jsonText
+            body: JSON.stringify(obj)
         })
             .then(resp => resp.status < 300
                 ? resp.json().then(item => {
