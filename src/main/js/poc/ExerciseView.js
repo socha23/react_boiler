@@ -32,6 +32,40 @@ const ExerciseDetails = ({item, onDelete}) => <div>
                 </p>
             </div>
         </div>
+
+        <div className="row">
+            <div className="col-sm-12 form-group">
+                <label>
+                    Czas wykonania ćwiczenia:
+                </label>
+                <p className="form-control-static">
+                    {item.totalTime} s
+                </p>
+            </div>
+        </div>
+
+        <div className="row">
+            <div className="col-sm-12 form-group">
+                <label>
+                    Aplikacja:
+                </label>
+                <p className="form-control-static">
+                    {item.app}
+                </p>
+            </div>
+        </div>
+
+    <div className="row">
+        <div className="col-sm-12 form-group">
+            <label>
+                Województwo:
+            </label>
+            <p className="form-control-static">
+                {item.region}
+            </p>
+        </div>
+    </div>
+
         <div className="row">
             <div className="col-sm-12">
                 <table className="table table-hover table-pointer">
